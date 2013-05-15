@@ -1,0 +1,11 @@
+language: ruby
+
+notifications:
+    email:
+    recipients:
+      - nkishore@megam.co.in
+
+rvm:
+  - 2.0.0
+  
+script: bundle exec rake
