@@ -9,7 +9,7 @@ unless $LOAD_PATH.include?(__LIB_DIR__)
   $LOAD_PATH.unshift(__LIB_DIR__)
 end
 
-require "megam/api/json"
+require "megam/api/json/okjson"
 require "megam/api/errors"
 require "megam/api/version"
 require "megam/api/nodes"
@@ -19,6 +19,7 @@ require "megam/api/predefs"
 require "megam/api/accounts"
 
 srand
+
 
 module Megam
   class API
@@ -36,28 +37,43 @@ module Megam
       :headers  => {},
       :host     => 'api.megam.co',
       :nonblock => false,
-      :scheme   => 'http'
+      :scheme   => 'http'	
     }
 
     def initialize(options={})
+      puts "api started to work"  
       options = OPTIONS.merge(options)
-
+     
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
+      
+      puts "#{options}"
+      puts "#{@api_key}"
       if !@api_key && options.has_key?(:email) && options.has_key?(:password)
         @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options.merge(:headers => HEADERS))
         @api_key = self.post_login(options[:email], options[:password]).body["api_key"]
+    puts "self working"
       end
 
       user_pass = ":#{@api_key}"
       options[:headers] = HEADERS.merge({
         'Authorization' => "Basic #{Base64.encode64(user_pass).gsub("\n", '')}",
       }).merge(options[:headers])
-
+       puts "user pass #{user_pass}"
       @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options)
-    end
+	puts "connection #{@connection.inspect}"    
 
-    def request(params, &block)
-      begin
+end
+	
+    
+    
+
+
+
+      def request(params, &block)
+     
+     puts "get param values:#{params}"
+
+     begin
         response = @connection.request(params, &block)
       rescue Excon::Errors::HTTPStatusError => error
         klass = case error.response.status
@@ -74,8 +90,8 @@ module Megam
         reerror = klass.new(error.message, error.response)
         reerror.set_backtrace(error.backtrace)
         raise(reerror)
-      end
-
+      
+end
       if response.body && !response.body.empty?
         if response.headers['Content-Encoding'] == 'gzip'
           response.body = Zlib::GzipReader.new(StringIO.new(response.body)).read
@@ -93,6 +109,10 @@ module Megam
       response
     end
 
+     puts "ended"
+
+
+
     private
 
     def node_params(params)
@@ -102,7 +122,5 @@ module Megam
       end
       app_params
     end
-
-    
   end
 end
