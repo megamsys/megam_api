@@ -48,6 +48,7 @@ For additional details about any of the commands, see the [API docs](http://docs
 ### Accounts
 
     megam.get_accounts(email)                     # list accounts associated with email
+    megam.post_accounts(email, api_key)           # onboard an account
 
 
 We are glad to help if you have questions, or request for new features.
@@ -63,6 +64,8 @@ We are glad to help if you have questions, or request for new features.
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
 | **Author:**          | Kishorekumar Neelamegam (<nkishore@megam.co.in>)
+|                      | Subash Sethurajan (<subash.avc@gmail.com>)
+|                      | Thomas Alrin (<alrin@megam.co.in>)
 | **Copyright:**       | Copyright (c) 2012-2013 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
