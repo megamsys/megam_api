@@ -5,14 +5,13 @@ gem 'minitest' # ensure we are using the gem version
 require 'minitest/autorun'
 require 'time'
 
-MOCK="mock"
+
 
 def megam
   puts "working"
   # ENV['MEGAM_API_KEY'] used for :api_key
-  mg=Megam::API.new(:mock => MOCK)
-  puts "ended successfully"
-  mg
+  mg=Megam::API.new()
+  
 end
 
 def random_domain

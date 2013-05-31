@@ -39,28 +39,27 @@ module Megam
     }
 
     # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person
+
     # really the same guy on who he claims.
     # 3 levels of options exits
     # 1. The global OPTIONS as available inside the API
     # 2. The options as passed via the instantiation of API. This will have the :email and :api_key and will
-    # be merged into a class variable @options   
-    # 3. Upon merge of the options, 
+    # be merged into a class variable @options
+    # 3. Upon merge of the options,
     def initialize(options={})
       @options = OPTIONS.merge(options)
 
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
-      # print it to verify what @options contains.
-
+    # print it to verify what @options contains.
     end
 
     def request(params, &block)
-puts params
-puts params[:body].class
 
       begin
         response = connection.request(params, &block)
       rescue Excon::Errors::HTTPStatusError => error
         klass = case error.response.status
+
         when 401 then Megam::API::Errors::Unauthorized
         when 403 then Megam::API::Errors::Forbidden
         when 404 then Megam::API::Errors::NotFound
@@ -70,11 +69,10 @@ puts params[:body].class
         when /50./ then Megam::API::Errors::RequestFailed
         else Megam::API::Errors::ErrorWithResponse
         end
-
         reerror = klass.new(error.message, error.response)
         reerror.set_backtrace(error.backtrace)
         raise(reerror)
-
+        puts @connection
       end
       if response.body && !response.body.empty?
         if response.headers['Content-Encoding'] == 'gzip'
@@ -96,13 +94,14 @@ puts params[:body].class
 
     #Make a lazy connection.
     def connection
-      encoded_api_header = encode_header(options)
+      encoded_api_header = encode_header(@options)
 
-      options[:headers] = HEADERS.merge({
+      @options[:headers] = HEADERS.merge({
+
         # Now only use the ones needed from encoded_api_header, eg: :hmac, :date
-        'Authorization' => "Basic #{Base64.encode64(user_pass).gsub("\n", '')}",
-      }).merge(options[:headers])
-      @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options)
+        'Authorization' => "Basic #{Base64.encode64("#{encoded_api_header}").gsub("\n", '')}",
+      }).merge(@options[:headers])
+      @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}", @options)
     end
 
     ## encode header as per rules.
@@ -111,9 +110,12 @@ puts params[:body].class
     # The output will have
     # :hmac
     # :date
-    # The :date => format needs to be "yyy-MM-dd HH:mm"
+    # The  :date => format needs to be "yyy-MM-dd HH:mm"
+    #time= Time.new
+    #date = time.now.strftime(%Y/%m/%d %H%M)
     def encode_header(cmd_parms)
-      header_params = {}
+      header_params ={}
+
       #encode the body (refer calculateMD5) :body_md5
       #build the string to sign (:date + "\n" + :path + "\n" + :body_md5 )
       #build hmac (refer calculateHMAC)

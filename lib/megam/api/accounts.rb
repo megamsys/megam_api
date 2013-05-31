@@ -2,16 +2,15 @@ require_relative "json/okjson"
 
 module Megam
   class API
-
     # GET /accounts
     def get_accounts(email)
-	tempHash = {
-	    "email" => "#{email}"
-        }
-	options = {:path => '/accounts', :body => OkJson.encode(tempHash)}
-puts OkJson.encode(tempHash).class
-puts "OPTIONS	"
-puts options
+      tempHash = {
+        "email" => "#{email}"
+      }
+      options = {:path => '/accounts', :body => OkJson.encode(tempHash)}
+      puts OkJson.encode(tempHash).class
+      puts "OPTIONS	"
+      puts options
       request(
         :expects  => 200,
         :method   => :get,
@@ -19,19 +18,19 @@ puts options
         :body     => options[:body]
       )
     end
-    
+
     def post_accounts(id, email, api_key, user_type)
 
-	tempHash = {
-	    "id" => "#{id}",
-	    "email" => "#{email}",
-	    "sharedprivatekey" => "#{api_key}",
-	    "authority" => "#{user_type}"
-	}
-	options = {:path => '/accounts', :body => OkJson.encode(tempHash)}
-puts OkJson.encode(tempHash).class
-puts "OPTIONS	"
-puts options
+      tempHash = {
+        "id" => "#{id}",
+        "email" => "#{email}",
+        "sharedprivatekey" => "#{api_key}",
+        "authority" => "#{user_type}"
+      }
+      options = {:path => '/accounts', :body => OkJson.encode(tempHash)}
+      puts OkJson.encode(tempHash).class
+      puts "OPTIONS	"
+      puts options
       request(
         :expects  => 200,
         :method   => :post,
