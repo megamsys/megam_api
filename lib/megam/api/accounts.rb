@@ -1,3 +1,6 @@
+#require 'json'
+require 'httparty'
+
 module Megam
   class API
 
