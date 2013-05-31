@@ -46,20 +46,22 @@ module Megam
     #
     def initialize(options={})
       options = OPTIONS.merge(options)
-
+puts "INIT OPTIONS	"
+puts options
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
     
-      encoded_api_header = encoded_header(options)
-      
-      options[:headers] = HEADERS.merge({
+      encoded_api_header = encode_header(options)
+      #options[:headers] = HEADERS.merge({
         # Now only use the ones needed from encoded_api_header, eg: :hmac, :date
-        'Authorization' => "Basic #{Base64.encode64(user_pass).gsub("\n", '')}",
-      }).merge(options[:headers])
+        #'Authorization' => "Basic Base64.encode64(#{encoded_api_header}).gsub("\n", '')"}).merge(options[:headers])
       @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options)
     end
 
     def request(params, &block)
-
+puts "REQUEST CONNECTIONS	"
+puts @connection.inspect
+puts "REQUEST PARAMS	"
+puts params
 
       begin
         response = @connection.request(params, &block)
