@@ -6,8 +6,8 @@ module Megam
     # The OkJson takes a hash of strings so use your symbols and build the json that is needed to be sent.
     
     def post_auth(email, api_key)
-      options = {:api_key => api_key, :email => email, :path => '/auth',
-        :body => Megam.OkJson.encode({:nothing => "body contains nothing"})}.merge(options)
+      @options = {:api_key => api_key, :email => email, :path => '/auth',
+        :body => Megam.OkJson.encode({:nothing => "body contains nothing"})}.merge(@options)
 
       request(
         :expects  => 200,

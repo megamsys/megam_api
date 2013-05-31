@@ -40,12 +40,16 @@ module Megam
 
     # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person
     # really the same guy on who he claims.
-    #
-    #
+    # 3 levels of options exits
+    # 1. The global OPTIONS as available inside the API
+    # 2. The options as passed via the instantiation of API. This will have the :email and :api_key and will
+    # be merged into a class variable @options   
+    # 3. Upon merge of the options, 
     def initialize(options={})
-      options = OPTIONS.merge(options)
+      @options = OPTIONS.merge(options)
 
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
+      # print it to verify what @options contains.
 
     end
 
