@@ -16,7 +16,7 @@ module Megam
         :path     => options[:path],
         :body     => options[:body],
         :query =>{:email    => options[:email],
-                  :api_key    => options[:api_key],
+                  :api_key  => options[:api_key],
                 }                   
         )
     end

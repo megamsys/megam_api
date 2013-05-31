@@ -84,9 +84,6 @@ module Megam
     @path= "#{params[:path]}"  
     @body= "#{params[:body]}"
     
-      puts @query
-      puts @path
-      puts @body
   
 
     begin

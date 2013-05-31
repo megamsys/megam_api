@@ -11,6 +11,8 @@ def megam
   puts "working"
   # ENV['MEGAM_API_KEY'] used for :api_key
   mg=Megam::API.new()
+  puts "ended successfully"
+  mg
   
 end
 
