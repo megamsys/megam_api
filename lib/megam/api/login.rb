@@ -7,6 +7,8 @@ module Megam
         :method   => :post, 
         :path     => '/auth',
         :query    => { 'email' => username, 'password' => password }
+       # :email   => "#{username}",
+       # :password => "#{password}"
         )
     end
     end

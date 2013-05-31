@@ -39,20 +39,29 @@ module Megam
       :nonblock => false,
       :scheme   => 'http'	
     }
-
+      
     def initialize(options={})
-      puts "api started to work"  
+      puts "api started to work"
       options = OPTIONS.merge(options)
      
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
-      
-      puts "#{options}"
-      puts "#{@api_key}"
+
+	time =Time.new
+        current_date=  Time.now.strftime("%Y/%m/%d %H:%M")
+        puts current_date
+      @api_key = "45546554dljkhdjhjkdfk"
+      puts "options #{options}"
+      puts "api_key is:#{@api_key}"
       if !@api_key && options.has_key?(:email) && options.has_key?(:password)
         @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options.merge(:headers => HEADERS))
         @api_key = self.post_login(options[:email], options[:password]).body["api_key"]
-    puts "self working"
       end
+      #@username=":#{param.email}"
+      #@password=":#{param.password}"
+      
+      #puts ":#{@username}"
+
+      #puts ":#{@password}"
 
       user_pass = ":#{@api_key}"
       options[:headers] = HEADERS.merge({
@@ -60,22 +69,30 @@ module Megam
       }).merge(options[:headers])
        puts "user pass #{user_pass}"
       @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options)
-	puts "connection #{@connection.inspect}"    
+	#puts "connection #{@connection.inspect}"   
+       
 
 end
 	
-    
-    
-
-
-
-      def request(params, &block)
+       def request(params, &block)
      
      puts "get param values:#{params}"
+      query="#{params[:query]}"
 
+      email= query.split(',', 2).first
+      pass = query.split(',',2).last      
+      puts "#{email}"
+      
+      puts pass 
+      # puts "#{query}"
+     #puts "email :#{param["email"]}"
+      #	puts "password :#{param[:password]}"
+    # puts "print block :#{block}"
+          
      begin
         response = @connection.request(params, &block)
-      rescue Excon::Errors::HTTPStatusError => error
+     
+     rescue Excon::Errors::HTTPStatusError => error
         klass = case error.response.status
           when 401 then Megam::API::Errors::Unauthorized
           when 403 then Megam::API::Errors::Forbidden
