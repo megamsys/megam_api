@@ -38,12 +38,11 @@ module Megam
       :scheme   => 'http'
     }
 
-   
-    
-      
-    # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person      
+
+    # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person
+
     # really the same guy on who he claims.
-    # 
+    #
     #
     def initialize(options={})
     
@@ -52,28 +51,10 @@ module Megam
        puts options
       
 
-       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
- 
-       puts "api key: #{@api_key}"
-      
-       encoded_api_header = encode_header(options)
-      
-         puts "encode:#{encoded_api_header}"
 
-      options[:headers] = HEADERS.merge({
-        # Now only use the ones needed from encoded_api_header, eg: :hmac, :date
-        'Authorization' => "Basic #{Base64.encode64("#{encoded_api_header}").gsub("\n", '')}",
-      }).merge(options[:headers])
-         
-         puts options
+      @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
 
-        puts options[:headers]
 
-           @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options)
-           #Excon.post('http://',
-             #         :headers => {"Content-Type" => "application/json", })
-
-            puts "connection: #{@connection}"
     end
 
     def request(params, &block)
@@ -89,12 +70,12 @@ module Megam
       puts @body
   
 
-    begin
 
-        response = @connection.request(params, &block)
-     
-       rescue Excon::Errors::HTTPStatusError => error
-        klass = case error.response.status 
+      begin
+        response = connection.request(params, &block)
+      rescue Excon::Errors::HTTPStatusError => error
+        klass = case error.response.status
+
         when 401 then Megam::API::Errors::Unauthorized
         when 403 then Megam::API::Errors::Forbidden
         when 404 then Megam::API::Errors::NotFound
@@ -125,10 +106,22 @@ module Megam
       response
     end
 
-    private 
-    
-    
-    ## encode header as per rules.    
+
+    private
+
+    #Make a lazy connection.
+    def connection
+      encoded_api_header = encoded_header(options)
+
+      options[:headers] = HEADERS.merge({
+        # Now only use the ones needed from encoded_api_header, eg: :hmac, :date
+        'Authorization' => "Basic #{Base64.encode64(user_pass).gsub("\n", '')}",
+      }).merge(options[:headers])
+      @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options)
+    end
+
+    ## encode header as per rules.
+
     # The input hash will have
     # :api_key, :email, :body, :path
       api_key= "#{@query}"
@@ -140,10 +133,14 @@ module Megam
     # The output will have
     # :hmac
     # :date
+
     # The  :date => format needs to be "yyy-MM-dd HH:mm"  
        #time= Time.new
        #date = time.now.strftime(%Y/%m/%d %H%M) 
       
+
+
+    
 
     def encode_header(cmd_parms)
     
