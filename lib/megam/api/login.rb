@@ -1,13 +1,20 @@
 module Megam
   class API
-  
-   def post_auth(username, password)
-   request(
+    
+    # The :api_key, :email, :path are needed to get it encoded in the header (encoded_header)
+    # The body content needs to be a json.
+    # The OkJson takes a hash of strings so use your symbols and build the json that is needed to be sent.
+    
+    def post_auth(email, api_key)
+      options = {:api_key => api_key, :email => email, :path => '/auth',
+        :body => Megam.OkJson.encode({:nothing => "body contains nothing"})}.merge(options)
+
+      request(
         :expects  => 200,
-        :method   => :post, 
-        :path     => '/auth',
-        :query    => { 'email' => username, 'password' => password }
+        :method   => :post,
+        :path     => options[:path],
+        :body     => options[:body]
         )
     end
-    end
+  end
 end
