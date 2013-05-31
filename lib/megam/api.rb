@@ -24,18 +24,18 @@ module Megam
   class API
 
     HEADERS = {
-      'Accept'                => 'application/json',
-      'Accept-Encoding'       => 'gzip',
-      'User-Agent'            => "megam-api/#{Megam::API::VERSION}",
-      'X-Ruby-Version'        => RUBY_VERSION,
-      'X-Ruby-Platform'       => RUBY_PLATFORM
+      'Accept' => 'application/json',
+      'Accept-Encoding' => 'gzip',
+      'User-Agent' => "megam-api/#{Megam::API::VERSION}",
+      'X-Ruby-Version' => RUBY_VERSION,
+      'X-Ruby-Platform' => RUBY_PLATFORM
     }
 
     OPTIONS = {
-      :headers  => {},
-      :host     => 'api.megam.co',
+      :headers => {},
+      :host => 'api.megam.co',
       :nonblock => false,
-      :scheme   => 'http'
+      :scheme => 'http'
     }
 
     # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person
@@ -54,6 +54,8 @@ module Megam
     end
 
     def request(params, &block)
+puts params
+puts params[:body].class
 
       begin
         response = connection.request(params, &block)
@@ -94,7 +96,7 @@ module Megam
 
     #Make a lazy connection.
     def connection
-      encoded_api_header = encoded_header(options)
+      encoded_api_header = encode_header(options)
 
       options[:headers] = HEADERS.merge({
         # Now only use the ones needed from encoded_api_header, eg: :hmac, :date
@@ -109,7 +111,7 @@ module Megam
     # The output will have
     # :hmac
     # :date
-    # The  :date => format needs to be "yyy-MM-dd HH:mm"
+    # The :date => format needs to be "yyy-MM-dd HH:mm"
     def encode_header(cmd_parms)
       header_params = {}
       #encode the body (refer calculateMD5) :body_md5
