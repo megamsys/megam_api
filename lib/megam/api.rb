@@ -37,32 +37,22 @@ module Megam
       :nonblock => false,
       :scheme   => 'http'
     }
-   
-    
-      
-    # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person      
+
+    # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person
     # really the same guy on who he claims.
-    # 
+    #
     #
     def initialize(options={})
       options = OPTIONS.merge(options)
 
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
-    
-      encoded_api_header = encoded_header(options)
-      
-      options[:headers] = HEADERS.merge({
-        # Now only use the ones needed from encoded_api_header, eg: :hmac, :date
-        'Authorization' => "Basic #{Base64.encode64(user_pass).gsub("\n", '')}",
-      }).merge(options[:headers])
-      @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options)
+
     end
 
     def request(params, &block)
 
-
       begin
-        response = @connection.request(params, &block)
+        response = connection.request(params, &block)
       rescue Excon::Errors::HTTPStatusError => error
         klass = case error.response.status
         when 401 then Megam::API::Errors::Unauthorized
@@ -97,14 +87,25 @@ module Megam
     end
 
     private
-    
-    ## encode header as per rules.    
+
+    #Make a lazy connection.
+    def connection
+      encoded_api_header = encoded_header(options)
+
+      options[:headers] = HEADERS.merge({
+        # Now only use the ones needed from encoded_api_header, eg: :hmac, :date
+        'Authorization' => "Basic #{Base64.encode64(user_pass).gsub("\n", '')}",
+      }).merge(options[:headers])
+      @connection = Excon.new("#{options[:scheme]}://#{options[:host]}", options)
+    end
+
+    ## encode header as per rules.
     # The input hash will have
     # :api_key, :email, :body, :path
     # The output will have
     # :hmac
     # :date
-    # The  :date => format needs to be "yyy-MM-dd HH:mm"  
+    # The  :date => format needs to be "yyy-MM-dd HH:mm"
     def encode_header(cmd_parms)
       header_params = {}
       #encode the body (refer calculateMD5) :body_md5
