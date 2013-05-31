@@ -5,7 +5,10 @@ class TestAccounts < MiniTest::Unit::TestCase
   def test_post_accounts
 
 puts "before response"
-   response =megam.post_accounts('1', 'email@example.com', 'fake_password', 'paid')
+   #response =megam.post_accounts('1', 'email@example.com', 'fake_password', 'paid')
+
+response =megam.get_accounts('email@example.com')
+
 puts "After response"
 
    assert_equal(200, response.status)

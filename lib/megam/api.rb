@@ -50,6 +50,8 @@ module Megam
     end
 
     def request(params, &block)
+puts params
+puts params[:body].class
 
       begin
         response = connection.request(params, &block)
@@ -90,7 +92,7 @@ module Megam
 
     #Make a lazy connection.
     def connection
-      encoded_api_header = encoded_header(options)
+      encoded_api_header = encode_header(options)
 
       options[:headers] = HEADERS.merge({
         # Now only use the ones needed from encoded_api_header, eg: :hmac, :date

@@ -1,15 +1,22 @@
-require 'json'
-#require 'httparty'
+require_relative "json/okjson"
 
 module Megam
   class API
 
     # GET /accounts
-    def get_accounts
+    def get_accounts(email)
+	tempHash = {
+	    "email" => "#{email}"
+        }
+	options = {:path => '/accounts', :body => OkJson.encode(tempHash)}
+puts OkJson.encode(tempHash).class
+puts "OPTIONS	"
+puts options
       request(
         :expects  => 200,
         :method   => :get,
-        :path     => "/accounts"
+        :path     => options[:path],
+        :body     => options[:body]
       )
     end
     
@@ -21,11 +28,8 @@ module Megam
 	    "sharedprivatekey" => "#{api_key}",
 	    "authority" => "#{user_type}"
 	}
-	account_json = JSON.pretty_generate(tempHash)
-
-puts 'JSON	'+account_json
-	#options = {:path => '/accounts', :body => "#{account_json}"}
-	options = {:path => '/accounts', :body => Megam.OkJson.encode("#{tempHash}")}
+	options = {:path => '/accounts', :body => OkJson.encode(tempHash)}
+puts OkJson.encode(tempHash).class
 puts "OPTIONS	"
 puts options
       request(
