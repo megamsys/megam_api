@@ -35,7 +35,8 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-      :host => 'api.megam.co',
+      :host => 'raj-localhost',
+      :port => 9000,
       :nonblock => false,
       :scheme => 'http'
     }
@@ -50,12 +51,11 @@ module Megam
     # 3. Upon merge of the options,
     def initialize(options={})
       @options = OPTIONS.merge(options)
-      puts("options     ===> #{response}")
+      puts("options     ===> #{@options}")
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
     end
 
     def request(params, &block)
-
       begin
         response = connection.request(params, &block)
       rescue Excon::Errors::HTTPStatusError => error
@@ -96,8 +96,7 @@ module Megam
     #Make a lazy connection.
     def connection
       encoded_api_header = encode_header(@options)
-      puts("enc_api_hea ===> #{cmd_parms}")
-
+      puts("enc_api_hea ===> #{encoded_api_header}")
       @options[:headers] = HEADERS.merge({
         'hmac' => encoded_api_header[:hmac],
         'date' => encoded_api_header[:date],
@@ -127,7 +126,7 @@ module Megam
       current_date = Time.now.strftime("%Y-%m-%d %H:%M")
       puts("curr_date   ===> #{current_date}")
       final_hmac = cmd_parms[:email]+':' +
-      Digest::HMAC.hexdigest(current_date + "\n" + cmd_parms[:path] + "\n" + body_base64,
+      Digest::HMAC.hexdigest(current_date + "\n" + cmd_parms[:path] + "\n" + body_base64, 
       cmd_parms[:api_key], Digest::SHA1)
       puts("finl hmac   ===> #{final_hmac}")
       header_params = { :hmac => 'hmac ' + final_hmac, :date => current_date}
