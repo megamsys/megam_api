@@ -1,4 +1,6 @@
 require "base64"
+require "digest/md5"
+require "time"
 require "excon"
 require "securerandom"
 require "uri"
@@ -48,7 +50,6 @@ module Megam
     # 3. Upon merge of the options,
     def initialize(options={})
       @options = OPTIONS.merge(options)
-
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
     # print it to verify what @options contains.
     end
@@ -95,11 +96,11 @@ module Megam
     #Make a lazy connection.
     def connection
       encoded_api_header = encode_header(@options)
+      puts("enc_api_hea ===> #{cmd_parms}")
 
       @options[:headers] = HEADERS.merge({
-
-        # Now only use the ones needed from encoded_api_header, eg: :hmac, :date
-        'Authorization' => "Basic #{Base64.encode64("#{encoded_api_header}").gsub("\n", '')}",
+        'hmac' => encoded_api_header[:hmac],
+        'date' => encoded_api_header[:date],
       }).merge(@options[:headers])
       @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}", @options)
     end
@@ -113,15 +114,23 @@ module Megam
     # The  :date => format needs to be "yyy-MM-dd HH:mm"
     #time= Time.new
     #date = time.now.strftime(%Y/%m/%d %H%M)
+    # (Refer https://Github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
     def encode_header(cmd_parms)
       header_params ={}
-
-      #encode the body (refer calculateMD5) :body_md5
-      #build the string to sign (:date + "\n" + :path + "\n" + :body_md5 )
-      #build hmac (refer calculateHMAC)
-      #build the string :hmac (:email +":"+:calc_hmac)
-      #stick stuff in the header_parms and send it back.
-      header_params
+      #encode the body
+      puts("------------------------------------")
+      puts("cmd_parms   ===> #{cmd_parms}")
+      body_digest = Digest::MD5.hexdigest(cmd_parms[:body])
+      puts("body_digest ===> #{body_digest}")
+      body_base64 = Base64.encode64(body_digest)
+      puts("body_base64 ===> #{body_base64}")
+      current_date = Time.now.strftime("%Y-%m-%d %H:%M")
+      puts("curr_date   ===> #{current_date}")
+      final_hmac = cmd_parms[:email]+':' +
+      Digest::HMAC.hexdigest(current_date + "\n" + cmd_parms[:path] + "\n" + body_base64,
+      cmd_parms[:api_key], Digest::SHA1)
+      puts("finl hmac   ===> #{final_hmac}")
+      header_params = { :hmac => 'hmac ' + final_hmac, :date => current_date}
     end
 
     def node_params(params)
