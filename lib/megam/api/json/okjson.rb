@@ -424,7 +424,7 @@ private
 
 
   def objenc(x)
-    '{' + x.map{|k,v| keyenc(k) + ':' + valenc(v)}.join(',') + '}'
+    '{' + x.map{|k,v| keyenc(k.to_s) + ':' + valenc(v)}.join(',') + '}'
   end
 
 

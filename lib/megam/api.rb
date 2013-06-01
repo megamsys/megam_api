@@ -35,27 +35,29 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-      :host => 'raj-localhost',
-      :port => 9000,
+      :host => 'api.megam.co',
+      :port => 80,
       :nonblock => false,
       :scheme => 'http'
     }
 
-    # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person
+    API_VERSION1 = "v1"
 
+    # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person
     # really the same guy on who he claims.
     # 3 levels of options exits
-    # 1. The global OPTIONS as available inside the API
-    # 2. The options as passed via the instantiation of API. This will have the :email and :api_key and will
-    # be merged into a class variable @options
-    # 3. Upon merge of the options,
+    # 1. The global OPTIONS as available inside the API (OPTIONS)
+    # 2. The options as passed via the instantiation of API will override global options. The ones that are passed are :email and :api_key and will
+    # be  merged into a class variable @options
+    # 3. Upon merge of the options, the api_key, email as available in the @options is deleted.
     def initialize(options={})
       @options = OPTIONS.merge(options)
       puts("options     ===> #{@options}")
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
+      @email = options.delete(:email)
     end
 
-    def request(params, &block)
+    def request(params,&block)
       begin
         response = connection.request(params, &block)
       rescue Excon::Errors::HTTPStatusError => error
@@ -97,11 +99,14 @@ module Megam
     def connection
       encoded_api_header = encode_header(@options)
       puts("enc_api_hea ===> #{encoded_api_header}")
+
       @options[:headers] = HEADERS.merge({
         'hmac' => encoded_api_header[:hmac],
         'date' => encoded_api_header[:date],
       }).merge(@options[:headers])
-      @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}", @options)
+
+      @options[:path] =API_VERSION1+ @options[:path]
+      @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
     end
 
     ## encode header as per rules.
@@ -110,9 +115,6 @@ module Megam
     # The output will have
     # :hmac
     # :date
-    # The  :date => format needs to be "yyy-MM-dd HH:mm"
-    #time= Time.new
-    #date = time.now.strftime(%Y/%m/%d %H%M)
     # (Refer https://Github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
     def encode_header(cmd_parms)
       header_params ={}
@@ -125,9 +127,9 @@ module Megam
       puts("body_base64 ===> #{body_base64}")
       current_date = Time.now.strftime("%Y-%m-%d %H:%M")
       puts("curr_date   ===> #{current_date}")
-      final_hmac = cmd_parms[:email]+':' +
-      Digest::HMAC.hexdigest(current_date + "\n" + cmd_parms[:path] + "\n" + body_base64, 
-      cmd_parms[:api_key], Digest::SHA1)
+      final_hmac = @email+':' +
+      Digest::HMAC.hexdigest(current_date + "\n" + cmd_parms[:path] + "\n" + body_base64,
+      @api_key, Digest::SHA1)
       puts("finl hmac   ===> #{final_hmac}")
       header_params = { :hmac => 'hmac ' + final_hmac, :date => current_date}
     end

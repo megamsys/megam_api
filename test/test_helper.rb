@@ -5,14 +5,37 @@ gem 'minitest' # ensure we are using the gem version
 require 'minitest/autorun'
 require 'time'
 
+SANDBOX_HOST_OPTIONS = {
+  :host => 'raj-localhost',
+  :port => 9000
+}
+
+SANDBOX_OPTIONS = {
+  :email => sandbox_email, 
+  :api_key =>sandbox_apikey   
+}.merge(SANDBOX_HOST_OPTIONS)
+
 
 def megam(options={})
-  # ENV['MEGAM_API_KEY'] used for :api_key
-  mg=Megam::API.new(options={})  
+  options = SANDBOX_HOST_OPTIONS.merge(options)
+  mg=Megam::API.new(options)  
+end
+
+def megams(options={})
+  options = SANDBOX_OPTIONS.merge(options)
+  mg=Megam::API.new(options)  
 end
 
 def random_domain
   "megam.co"
+end
+
+def random_id
+  SecureRandom.random_number(1000)  
+end
+
+def random_name
+  SecureRandom.hex(15)
 end
 
 def random_apikey

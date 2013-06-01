@@ -21,7 +21,7 @@ module Megam
 
     
     # POST /nodes/content
-    def create_node(params={})
+    def post_node(params={})
       request(
         :expects  => 202,
         :method   => :post,
@@ -33,7 +33,7 @@ module Megam
     
     
     # DELETE /nodes/:node_id
-    def delete_app(node_id)
+    def delete_node(node_id)
       request(
         :expects  => 200,
         :method   => :delete,

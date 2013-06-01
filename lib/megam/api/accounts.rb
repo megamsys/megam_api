@@ -4,10 +4,10 @@ module Megam
   class API
     # GET /accounts
     def get_accounts(email)
-     
-      @options = {:path => '/v1/accounts', :email => email,
+
+      @options = {:path => '/accounts',
         :body => OkJson.encode({"email" => "#{email}"})}.merge(@options)
-    
+
       request(
         :expects  => 200,
         :method   => :get,
@@ -17,14 +17,13 @@ module Megam
     end
 
     def post_accounts(id, email, api_key, user_type)
-
-      @options = {:path => '/v1/accounts', :email => email, :api_key => api_key, :body => OkJson.encode({
+      @options = {:path => '/accounts', :body => OkJson.encode({
         "id" => "#{id}",
-        "email" => "#{email}",
-        "sharedprivatekey" => "#{api_key}",
+        "email" => email,
+        "api_key" => api_key,
         "authority" => "#{user_type}"
       })}.merge(@options)
-      
+
       request(
         :expects  => 200,
         :method   => :post,

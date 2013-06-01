@@ -20,18 +20,14 @@ class TestApps < MiniTest::Unit::TestCase
   end
 
   def test_post_node
-    response = megam.create_node
-
+    response = megam.post_node
     assert_equal(202, response.status)
-
   end
 
-  def test_post_app_with_name
+  def test_post_node_with_name
     name = random_name
-    response = megam.create_node('name' => name)
-
+    response = megam.post_node('name' => name)
     assert_equal(202, response.status)
-
   end
   
 
