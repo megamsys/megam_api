@@ -4,7 +4,7 @@ class TestLogin < MiniTest::Unit::TestCase
 
   def test_post_login
     
-   response =megam.post_auth('email@example.com', 'fake_password')
+   response =megam.post_auth(sandbox_email, sandbox_apikey)
 
    assert_equal(200, response.status)
   
