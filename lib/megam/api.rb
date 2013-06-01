@@ -35,7 +35,8 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-      :host => 'api.megam.co',
+      :host => 'raj-localhost',
+      :port => 9000,
       :nonblock => false,
       :scheme => 'http'
     }
@@ -50,11 +51,11 @@ module Megam
     # 3. Upon merge of the options,
     def initialize(options={})
       @options = OPTIONS.merge(options)
-      puts("options     ===> #{response}")
+      puts("options     ===> #{@options}")
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
     end
 
-    def request(params, &block)
+    def request(params,&block)
 
       begin
         response = connection.request(params, &block)
@@ -94,15 +95,19 @@ module Megam
     private
 
     #Make a lazy connection.
-    def connection
+	    def connection
       encoded_api_header = encode_header(@options)
-      puts("enc_api_hea ===> #{cmd_parms}")
-
+      puts("enc_api_hea ===> #{encoded_api_header}")
+      
+  
       @options[:headers] = HEADERS.merge({
         'hmac' => encoded_api_header[:hmac],
         'date' => encoded_api_header[:date],
       }).merge(@options[:headers])
-      @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}", @options)
+
+           
+      @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
+   
     end
 
     ## encode header as per rules.
@@ -111,7 +116,7 @@ module Megam
     # The output will have
     # :hmac
     # :date
-    # The  :date => format needs to be "yyy-MM-dd HH:mm"
+    # The 	 :date => format needs to be "yyy-MM-dd HH:mm"
     #time= Time.new
     #date = time.now.strftime(%Y/%m/%d %H%M)
     # (Refer https://Github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
