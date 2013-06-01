@@ -6,22 +6,28 @@ require 'minitest/autorun'
 require 'time'
 
 
-
-def megam
-  puts "working"
+def megam(options={})
   # ENV['MEGAM_API_KEY'] used for :api_key
-  mg=Megam::API.new()
-  
+  mg=Megam::API.new(options={})  
 end
 
 def random_domain
   "megam.co"
 end
 
-def random_name
-  "megam-api_#{SecureRandom.hex(10)}"
+def random_apikey
+  SecureRandom.hex(10)
 end
 
-def random_email_address
-  "email@#{random_name}.com"
+def random_email
+  "email@#{"#{random_apikey}"}.com"
+end
+
+
+def sandbox_apikey
+  "IamAtlas{74}NobodyCanSeeME#07"
+end
+
+def sandbox_email
+  "sandy@megamsandbox.com"
 end

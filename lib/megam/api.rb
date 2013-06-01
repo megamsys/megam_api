@@ -50,8 +50,8 @@ module Megam
     # 3. Upon merge of the options,
     def initialize(options={})
       @options = OPTIONS.merge(options)
+      puts("options     ===> #{response}")
       @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
-    # print it to verify what @options contains.
     end
 
     def request(params, &block)
@@ -73,7 +73,6 @@ module Megam
         reerror = klass.new(error.message, error.response)
         reerror.set_backtrace(error.backtrace)
         raise(reerror)
-        puts @connection
       end
       if response.body && !response.body.empty?
         if response.headers['Content-Encoding'] == 'gzip'
@@ -87,7 +86,8 @@ module Megam
 
       # reset (non-persistent) connection
       @connection.reset
-
+      puts("response    ===> #{response}")
+      puts("------------------------------------")
       response
     end
 
