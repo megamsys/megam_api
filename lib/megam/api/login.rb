@@ -12,7 +12,7 @@ module Megam
       request(
         :expects  => 200,
 	      :method   => :post,
-        :path     => @options[:path],
+       # :path     => @options[:path],
         :body     => @options[:body]
 
         )

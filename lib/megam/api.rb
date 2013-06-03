@@ -1,5 +1,6 @@
 require "base64"
 require "digest/md5"
+require "digest/sha1"
 require "time"
 require "excon"
 require "securerandom"
@@ -54,7 +55,6 @@ module Megam
       @options = OPTIONS.merge(options)
       @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
       @email = @options.delete(:email)
-      puts("options     ===> #{@options}")
     end
 
     def request(params,&block)
@@ -97,6 +97,7 @@ module Megam
 
     #Make a lazy connection.
     def connection
+      @options[:path] =API_VERSION1+ @options[:path]
       encoded_api_header = encode_header(@options)
       puts("enc_api_hea ===> #{encoded_api_header}")
 
@@ -105,7 +106,6 @@ module Megam
         'date' => encoded_api_header[:date],
       }).merge(@options[:headers])
 
-      @options[:path] =API_VERSION1+ @options[:path]
       @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
     end
 
@@ -121,17 +121,21 @@ module Megam
       #encode the body
       puts("------------------------------------")
       puts("cmd_parms   ===> #{cmd_parms}")
-      body_digest = Digest::MD5.hexdigest(cmd_parms[:body])
+
+      body_digest = OpenSSL::Digest::MD5.new
+      body_digest.update('cmd_parms[:body]')
+
       puts("body_digest ===> #{body_digest}")
-      body_base64 = Base64.encode64(body_digest)
+
+      body_base64 = Base64.encode64(body_digest.to_s)
       puts("body_base64 ===> #{body_base64}")
       current_date = Time.now.strftime("%Y-%m-%d %H:%M")
       puts("curr_date   ===> #{current_date}")
       final_hmac = @email+':' +
-      Digest::HMAC.hexdigest(current_date + "\n" + cmd_parms[:path] + "\n" + body_base64,
-      @api_key, Digest::SHA1)
-      puts("finl hmac   ===> #{final_hmac}")
-      header_params = { :hmac => 'hmac ' + final_hmac, :date => current_date}
+      Digest::HMAC.digest(current_date + "\n" + cmd_parms[:path] + "\n" + body_base64.to_s,
+      @api_key, Digest::SHA1).to_s
+      puts("finl hmac   ===> #{final_hmac.to_s}")
+      header_params = { :hmac => 'hmac ' + final_hmac.to_s, :date => current_date}
     end
 
     def node_params(params)
