@@ -53,8 +53,10 @@ module Megam
     def initialize(options={})
       @options = OPTIONS.merge(options)
       puts("options     ===> #{@options}")
-      @api_key = options.delete(:api_key) || ENV['MEGAM_API_KEY']
-      @email = options.delete(:email)
+      @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
+     
+      @email = @options.delete(:email)
+     puts "api_key and email :#{options}"
     end
 
     def request(params,&block)

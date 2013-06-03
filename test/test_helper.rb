@@ -10,19 +10,24 @@ SANDBOX_HOST_OPTIONS = {
   :port => 9000
 }
 
-SANDBOX_OPTIONS = {
-  :email => sandbox_email, 
-  :api_key =>sandbox_apikey   
-}.merge(SANDBOX_HOST_OPTIONS)
 
 
 def megam(options={})
+  
   options = SANDBOX_HOST_OPTIONS.merge(options)
   mg=Megam::API.new(options)  
 end
 
 def megams(options={})
-  options = SANDBOX_OPTIONS.merge(options)
+  
+ puts sandbox_email
+s_options = SANDBOX_HOST_OPTIONS.merge({
+  :email => sandbox_email,
+  :api_key => sandbox_apikey  
+})
+ 
+  options = s_options.merge(options)
+
   mg=Megam::API.new(options)  
 end
 
@@ -45,10 +50,10 @@ end
 def random_email
   "email@#{"#{random_apikey}"}.com"
 end
-
+ 
 
 def sandbox_apikey
-  "IamAtlas{74}NobodyCanSeeME#07"
+   "IamAtlas{74}NobodyCanSeeME#07"
 end
 
 def sandbox_email
