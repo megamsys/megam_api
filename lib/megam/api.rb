@@ -52,11 +52,9 @@ module Megam
     # 3. Upon merge of the options, the api_key, email as available in the @options is deleted.
     def initialize(options={})
       @options = OPTIONS.merge(options)
-      puts("options     ===> #{@options}")
       @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
-     
       @email = @options.delete(:email)
-     puts "api_key and email :#{options}"
+      puts("options     ===> #{@options}")
     end
 
     def request(params,&block)
