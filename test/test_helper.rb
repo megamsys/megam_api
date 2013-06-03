@@ -6,7 +6,7 @@ require 'minitest/autorun'
 require 'time'
 
 SANDBOX_HOST_OPTIONS = {
-  :host => 'raj-localhost',
+  :host => 'localhost',
   :port => 9000
 }
 
@@ -20,7 +20,6 @@ end
 
 def megams(options={})
   
- puts sandbox_email
 s_options = SANDBOX_HOST_OPTIONS.merge({
   :email => sandbox_email,
   :api_key => sandbox_apikey  
