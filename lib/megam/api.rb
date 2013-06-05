@@ -6,6 +6,7 @@ require "excon"
 require "securerandom"
 require "uri"
 require "zlib"
+require 'openssl'
 
 __LIB_DIR__ = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 unless $LOAD_PATH.include?(__LIB_DIR__)
@@ -99,6 +100,7 @@ module Megam
     def connection
       @options[:path] =API_VERSION1+ @options[:path]
       encoded_api_header = encode_header(@options)
+   
       puts("enc_api_hea ===> #{encoded_api_header}")
 
       @options[:headers] = HEADERS.merge({
@@ -118,22 +120,19 @@ module Megam
     # (Refer https://Github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
     def encode_header(cmd_parms)
       header_params ={}
+    # body_digest = Digest::MD5.digest(cmd_parms[:body])
       #encode the body
       puts("------------------------------------")
-      puts("cmd_parms   ===> #{cmd_parms}")
-
-      body_digest = OpenSSL::Digest::MD5.new
-      body_digest.update('cmd_parms[:body]')
-
+      puts("cmd_parms   ===> #{cmd_parms}")     
+      body_digest = OpenSSL::Digest::MD5.digest('cmd_parms[:body]')
       puts("body_digest ===> #{body_digest}")
-
-      body_base64 = Base64.encode64(body_digest.to_s)
+      body_digest = body_digest.inspect      
+      body_base64 = Base64.encode64(body_digest)
       puts("body_base64 ===> #{body_base64}")
       current_date = Time.now.strftime("%Y-%m-%d %H:%M")
-      puts("curr_date   ===> #{current_date}")
-      final_hmac = @email+':' +
-      Digest::HMAC.digest(current_date + "\n" + cmd_parms[:path] + "\n" + body_base64.to_s,
-      @api_key, Digest::SHA1).to_s
+      puts("curr_date   ===> #{current_date}") 
+      sha1 = OpenSSL::Digest::SHA1.new         
+      final_hmac = @email+':' +OpenSSL::HMAC.digest(sha1,@api_key,current_date+ "\n" + cmd_parms[:path] + "\n" + body_base64.to_s).to_s
       puts("finl hmac   ===> #{final_hmac.to_s}")
       header_params = { :hmac => 'hmac ' + final_hmac.to_s, :date => current_date}
     end
