@@ -7,6 +7,7 @@ require "securerandom"
 require "uri"
 require "zlib"
 require 'openssl'
+#require "iconv"
 
 __LIB_DIR__ = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 unless $LOAD_PATH.include?(__LIB_DIR__)
@@ -37,8 +38,8 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-      :host => 'api.megam.co',
-      :port => 80,
+      :host => 'localhost',
+      :port => '9000',
       :nonblock => false,
       :scheme => 'http'
     }
@@ -60,7 +61,11 @@ module Megam
 
     def request(params,&block)
       begin
+puts "REQUEST PARAMS ==========>>>>>"
+puts params
         response = connection.request(params, &block)
+puts "RESPONSE=========> "
+puts response.inspect
       rescue Excon::Errors::HTTPStatusError => error
         klass = case error.response.status
 
@@ -102,13 +107,16 @@ module Megam
       encoded_api_header = encode_header(@options)
    
       puts("enc_api_hea ===> #{encoded_api_header}")
+puts encoded_api_header.inspect
 
       @options[:headers] = HEADERS.merge({
         'hmac' => encoded_api_header[:hmac],
         'date' => encoded_api_header[:date],
       }).merge(@options[:headers])
-
-      @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
+puts "OPTIONS=================>>>>>>>>> "
+puts @options
+      #@connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}:#{@options[:port]}/#{@options[:path]}",@options)
+@connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
     end
 
     ## encode header as per rules.
@@ -122,19 +130,34 @@ module Megam
       header_params ={}
     # body_digest = Digest::MD5.digest(cmd_parms[:body])
       #encode the body
+
       puts("------------------------------------")
-      puts("cmd_parms   ===> #{cmd_parms}")     
-      body_digest = OpenSSL::Digest::MD5.digest('cmd_parms[:body]')
-      puts("body_digest ===> #{body_digest}")
-      body_digest = body_digest.inspect      
-      body_base64 = Base64.encode64(body_digest)
-      puts("body_base64 ===> #{body_base64}")
+      puts("cmd_parms   ===> #{cmd_parms}")
+
+
+body_digest = OpenSSL::Digest::MD5.digest(cmd_parms[:body])
+body_base64 = Base64.encode64(body_digest)
+puts("body_base64 ===> #{body_base64}")
+
       current_date = Time.now.strftime("%Y-%m-%d %H:%M")
       puts("curr_date   ===> #{current_date}") 
-      sha1 = OpenSSL::Digest::SHA1.new         
-      final_hmac = @email+':' +OpenSSL::HMAC.digest(sha1,@api_key,current_date+ "\n" + cmd_parms[:path] + "\n" + body_base64.to_s).to_s
-      puts("finl hmac   ===> #{final_hmac.to_s}")
-      header_params = { :hmac => 'hmac ' + final_hmac.to_s, :date => current_date}
+
+data = current_date + "\n" + cmd_parms[:path] + "\n" + body_base64
+puts "DATA==========================>>>>>>>>>"
+puts data
+
+puts "API KEY=====>  "
+puts @api_key
+
+dummy_hmac = [OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), @api_key, data)].pack("m").strip
+dummy_hmac1 = Base64.encode64(dummy_hmac)
+puts dummy_hmac1
+final_hmac = @email+':' + dummy_hmac
+
+      puts("Final HMAC   ===> "+final_hmac)
+
+      header_params = { :hmac => final_hmac, :date => current_date}
+
     end
 
     def node_params(params)

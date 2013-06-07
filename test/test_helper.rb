@@ -42,7 +42,7 @@ def random_apikey
 end
 
 def random_email
-  "email@#{"#{random_apikey}"}.com"
+  "email@#{random_apikey}.com"
 end
  
 
