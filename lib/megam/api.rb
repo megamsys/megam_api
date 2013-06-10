@@ -146,17 +146,16 @@ data = current_date + "\n" + cmd_parms[:path] + "\n" + body_base64
 puts "DATA==========================>>>>>>>>>"
 puts data
 
-puts "API KEY=====>  "
-puts @api_key
+digest = OpenSSL::Digest.new('SHA1', @api_key)
+puts digest
 
-dummy_hmac = [OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), @api_key, data)].pack("m").strip
-dummy_hmac1 = Base64.encode64(dummy_hmac)
-puts dummy_hmac1
+dummy_hmac = OpenSSL::HMAC.hexdigest(digest, @api_key, data)
+
 final_hmac = @email+':' + dummy_hmac
 
-      puts("Final HMAC   ===> "+final_hmac)
+puts("Final HMAC   ===> "+final_hmac)
 
-      header_params = { :hmac => final_hmac, :date => current_date}
+header_params = { :hmac => final_hmac, :date => current_date}
 
     end
 
