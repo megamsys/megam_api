@@ -147,7 +147,6 @@ puts "DATA==========================>>>>>>>>>"
 puts data
 
 digest = OpenSSL::Digest.new('SHA1', @api_key)
-puts digest
 
 dummy_hmac = OpenSSL::HMAC.hexdigest(digest, @api_key, data)
 
