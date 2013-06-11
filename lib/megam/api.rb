@@ -44,7 +44,7 @@ module Megam
       :scheme => 'http'
     }
 
-    API_VERSION1 = "v1"
+    API_VERSION1 = "/v1"
 
     # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person
     # really the same guy on who he claims.
@@ -128,9 +128,6 @@ puts @options
     # (Refer https://Github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
     def encode_header(cmd_parms)
       header_params ={}
-    # body_digest = Digest::MD5.digest(cmd_parms[:body])
-      #encode the body
-
       puts("------------------------------------")
       puts("cmd_parms   ===> #{cmd_parms}")
 
@@ -142,15 +139,15 @@ puts("body_base64 ===> #{body_base64}")
       current_date = Time.now.strftime("%Y-%m-%d %H:%M")
       puts("curr_date   ===> #{current_date}") 
 
-data = current_date + "\n" + cmd_parms[:path] + "\n" + body_base64
+data="#{current_date}"+"-"+"#{cmd_parms[:path]}"+"-"+"#{body_base64}"
 puts "DATA==========================>>>>>>>>>"
 puts data
 
-digest = OpenSSL::Digest.new('SHA1', @api_key)
 
-dummy_hmac = OpenSSL::HMAC.hexdigest(digest, @api_key, data)
-
-final_hmac = @email+':' + dummy_hmac
+digest  = OpenSSL::Digest::Digest.new('sha1')
+movingFactor = data.delete("\n")
+hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
+final_hmac = @email+':' + hash
 
 puts("Final HMAC   ===> "+final_hmac)
 
