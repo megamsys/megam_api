@@ -139,13 +139,14 @@ puts("body_base64 ===> #{body_base64}")
       current_date = Time.now.strftime("%Y-%m-%d %H:%M")
       puts("curr_date   ===> #{current_date}") 
 
-data="#{current_date}"+"-"+"#{cmd_parms[:path]}"+"-"+"#{body_base64}"
+data="#{current_date}"+"\n"+"#{cmd_parms[:path]}"+"\n"+"#{body_base64}"
 puts "DATA==========================>>>>>>>>>"
 puts data
 
-
+puts "DIGEST===================================================="
 digest  = OpenSSL::Digest::Digest.new('sha1')
-movingFactor = data.delete("\n")
+movingFactor = data.rstrip!
+puts data
 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
 final_hmac = @email+':' + hash
 
