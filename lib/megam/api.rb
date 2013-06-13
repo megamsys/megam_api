@@ -146,7 +146,7 @@ puts data
 puts "DIGEST===================================================="
 digest  = OpenSSL::Digest::Digest.new('sha1')
 puts digest
-puts "MOVING FACTOR ============================================"
+puts "MOVING FACTOR ============================================>"
 movingFactor = data.rstrip!
 puts movingFactor
 puts "API KEY =================================================="
