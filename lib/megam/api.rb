@@ -1,6 +1,4 @@
 require "base64"
-require "digest/md5"
-require "digest/sha1"
 require "time"
 require "excon"
 require "securerandom"
@@ -146,12 +144,12 @@ module Megam
       puts "DATA==========================>>>>>>>>>"
       puts data
 
-      puts "API KEY=====>  "
-      puts @api_key
+      digest = OpenSSL::Digest.new('SHA1')
+  #    tmp = digest.hexdigest(@api_key)
+      puts("tmp" + tmp)
 
-      dummy_hmac = [OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), @api_key, data)].pack("m").strip
-      dummy_hmac1 = Base64.encode64(dummy_hmac)
-      puts dummy_hmac1
+      dummy_hmac = OpenSSL::HMAC.hexdigest(digest, @api_key, data)
+
       final_hmac = @email+':' + dummy_hmac
 
       puts("Final HMAC   ===> "+final_hmac)
