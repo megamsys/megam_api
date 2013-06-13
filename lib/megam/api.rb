@@ -145,8 +145,12 @@ puts data
 
 puts "DIGEST===================================================="
 digest  = OpenSSL::Digest::Digest.new('sha1')
+puts digest
+puts "MOVING FACTOR ============================================"
 movingFactor = data.rstrip!
-puts data
+puts movingFactor
+puts "API KEY =================================================="
+puts @api_key
 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
 final_hmac = @email+':' + hash
 
