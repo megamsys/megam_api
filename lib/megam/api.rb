@@ -60,10 +60,7 @@ module Megam
 
     def request(params,&block)
       begin
-        puts "REQUEST PARAMS ==========>>>>>"
-        puts params
         response = connection.request(params, &block)
-        puts "RESPONSE=========> "
         puts response.inspect
       rescue Excon::Errors::HTTPStatusError => error
         klass = case error.response.status
@@ -93,8 +90,6 @@ module Megam
 
       # reset (non-persistent) connection
       @connection.reset
-      puts("response    ===> #{response}")
-      puts("------------------------------------")
       response
     end
 
@@ -105,16 +100,10 @@ module Megam
       @options[:path] =API_VERSION1+ @options[:path]
       encoded_api_header = encode_header(@options)
 
-      puts("enc_api_hea ===> #{encoded_api_header}")
-      puts encoded_api_header.inspect
-
       @options[:headers] = HEADERS.merge({
         'hmac' => encoded_api_header[:hmac],
         'date' => encoded_api_header[:date],
       }).merge(@options[:headers])
-      puts "OPTIONS=================>>>>>>>>> "
-      puts @options
-      #@connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}:#{@options[:port]}/#{@options[:path]}",@options)
       @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
     end
 
@@ -128,35 +117,18 @@ module Megam
     def encode_header(cmd_parms)
       header_params ={}
 
-      puts("------------------------------------")
-      puts("cmd_parms   ===> #{cmd_parms}")
-
       body_digest = OpenSSL::Digest::MD5.digest(cmd_parms[:body])
       body_base64 = Base64.encode64(body_digest)
-      puts("body_base64 ===> #{body_base64}")
 
       current_date = Time.now.strftime("%Y-%m-%d %H:%M")
-      puts("curr_date   ===> #{current_date}")
 
       data="#{current_date}"+"\n"+"#{cmd_parms[:path]}"+"\n"+"#{body_base64}"
-      puts "DATA==========================>>>>>>>>>"
-      puts data
 
-      puts "DIGEST===================================================="
       digest  = OpenSSL::Digest::Digest.new('sha1')
-      puts digest
-      puts "MOVING FACTOR ============================================>"
       movingFactor = data.rstrip!
-      puts movingFactor
-      puts "API KEY =================================================="
-      puts @api_key
       hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
       final_hmac = @email+':' + hash
-
-      puts("Final HMAC   ===> "+final_hmac)
-
       header_params = { :hmac => final_hmac, :date => current_date}
-
     end
 
     def node_params(params)

@@ -1,7 +1,6 @@
 module Megam
   class API
-
-#Yet to be tested
+    #Yet to be tested
     # GET /nodes
     def get_nodes
       @options = {:path => '/nodes',
@@ -15,7 +14,7 @@ module Megam
       )
     end
 
-#Yet to be tested
+    #Yet to be tested
     # GET /nodes/:id
     def get_node(node_id)
       @options = {:path => "/nodes/#{node_id}",
@@ -28,7 +27,7 @@ module Megam
         :body     => @options[:body]
       )
     end
-#successful Testing
+    #successful Testing
     # POST /nodes/content
     # The body content needs to be a json.
     # The OkJson takes a hash of strings so use your symbols and build the json that is needed to be sent.
@@ -72,9 +71,8 @@ module Megam
         :body     => @options[:body]
       )
     end
- 
-    
-#Yet to be tested
+
+    #Yet to be tested
     # DELETE /nodes/:node_id
     def delete_node(node_id)
       @options = {:path => '/nodes/#{node_id}',

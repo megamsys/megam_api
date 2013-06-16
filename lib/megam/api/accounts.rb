@@ -3,7 +3,7 @@ require_relative "json/okjson"
 module Megam
   class API
     # GET /accounts
-#Yet to be tested
+    #Yet to be tested
     def get_accounts(email)
 
       @options = {:path => '/accounts',
@@ -17,11 +17,9 @@ module Megam
       )
     end
 
-#TESTED with Raj Thilak's system.
+    #TESTED with Raj Thilak's system.
     # The body content needs to be a json.
     # The OkJson takes a hash of strings so use your symbols and build the json that is needed to be sent.
-
-
     def post_accounts(id, email, api_key, user_type)
       @options = {:path => '/accounts/content', :body => OkJson.encode({
         "id" => "#{id}",

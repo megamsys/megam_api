@@ -2,7 +2,7 @@ require_relative "json/okjson"
 
 module Megam
   class API
-#Successfull testing
+    #Successfull testing
     # The :api_key, :email, :path are needed to get it encoded in the header (encoded_header)
     # The body content needs to be a json.
     # The OkJson takes a hash of strings so use your symbols and build the json that is needed to be sent.
@@ -12,8 +12,7 @@ module Megam
 
       request(
         :expects  => 200,
-	:method   => :post,
-        #:path     => @options[:path],
+	      :method   => :post,
         :body     => @options[:body]
 
         )
