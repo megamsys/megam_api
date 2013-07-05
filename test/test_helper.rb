@@ -6,7 +6,7 @@ require 'minitest/autorun'
 require 'time'
 
 SANDBOX_HOST_OPTIONS = {
-  :host => 'localhost',
+  :host => 'raj-localhost',
   :port => 9000
 }
 

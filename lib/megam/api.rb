@@ -110,8 +110,8 @@ puts response.inspect
 puts encoded_api_header.inspect
 
       @options[:headers] = HEADERS.merge({
-        'hmac' => encoded_api_header[:hmac],
-        'date' => encoded_api_header[:date],
+        'X-Megam-HMAC' => encoded_api_header[:hmac],
+        'X-Megam-Date' => encoded_api_header[:date],
       }).merge(@options[:headers])
 puts "OPTIONS=================>>>>>>>>> "
 puts @options
