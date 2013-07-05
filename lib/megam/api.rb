@@ -101,8 +101,8 @@ module Megam
       encoded_api_header = encode_header(@options)
 
       @options[:headers] = HEADERS.merge({
-        'hmac' => encoded_api_header[:hmac],
-        'date' => encoded_api_header[:date],
+        'X-Megam-HMAC' => encoded_api_header[:hmac],
+        'X-Megam-Date' => encoded_api_header[:date],
       }).merge(@options[:headers])
       @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
     end

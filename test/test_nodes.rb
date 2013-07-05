@@ -2,6 +2,7 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
 
+=begin
 #Yet to be tested
   def test_get_nodes
     response = megams.get_nodes
@@ -47,11 +48,12 @@ end
 #Post node successfully post the json in riak
 #Send sandbox_email, sandbox_apikey as arguement to aunthenticate user.
 #nodes.rb contains the json data to be posted in riak.
-
+=end
   def test_post_node
     response = megams.post_node()
     assert_equal(200, response.status)
   end
+end
 
 
 
