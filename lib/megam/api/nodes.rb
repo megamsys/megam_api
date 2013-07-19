@@ -3,14 +3,14 @@ module Megam
 
 #Yet to be tested
     # GET /nodes
-    def get_nodes
+    def get_nodes(email)
       @options = {:path => '/nodes',
         :body => OkJson.encode({"email" => "#{email}"})}.merge(@options)
 
       request(
         :expects  => 200,
         :method   => :get,
-        :path     => @options[:path],
+        #:path     => @options[:path],
         :body     => @options[:body]
       )
     end
@@ -35,6 +35,7 @@ module Megam
 
     def post_node()
       @options = {:path => '/nodes/content', :body => OkJson.encode(
+=begin
 {
     "systemprovider" => {
         "provider" => {
@@ -62,7 +63,8 @@ module Megam
         }
     }
 }
-
+=end
+{"node_name" => "alrin.megam.co","command" => "commands","predefs" => {"name" => "rails", "scm" => "scm", "db" => "db", "queue" => "queue"}}
       )}.merge(@options)
 
       request(

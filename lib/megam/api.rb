@@ -105,7 +105,7 @@ puts response.inspect
     def connection
       @options[:path] =API_VERSION1+ @options[:path]
       encoded_api_header = encode_header(@options)
-   
+   puts "Connections=================>>>>>>>>> "
       puts("enc_api_hea ===> #{encoded_api_header}")
 puts encoded_api_header.inspect
 
@@ -116,7 +116,7 @@ puts encoded_api_header.inspect
 puts "OPTIONS=================>>>>>>>>> "
 puts @options
       #@connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}:#{@options[:port]}/#{@options[:path]}",@options)
-@connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
+       @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
     end
 
     ## encode header as per rules.
@@ -130,7 +130,6 @@ puts @options
       header_params ={}
       puts("------------------------------------")
       puts("cmd_parms   ===> #{cmd_parms}")
-
 
 body_digest = OpenSSL::Digest::MD5.digest(cmd_parms[:body])
 body_base64 = Base64.encode64(body_digest)
