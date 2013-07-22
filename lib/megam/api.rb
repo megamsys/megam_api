@@ -97,7 +97,6 @@ module Megam
     def connection
       @options[:path] =API_VERSION1+ @options[:path]
       encoded_api_header = encode_header(@options)
-
       @options[:headers] = HEADERS.merge({
         'X-Megam-HMAC' => encoded_api_header[:hmac],
         'X-Megam-Date' => encoded_api_header[:date],
@@ -114,7 +113,6 @@ module Megam
     # (Refer https://Github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
     def encode_header(cmd_parms)
       header_params ={}
-
       body_digest = OpenSSL::Digest::MD5.digest(cmd_parms[:body])
       body_base64 = Base64.encode64(body_digest)
 

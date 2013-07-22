@@ -6,18 +6,16 @@ module Megam
     #Yet to be tested
     def get_accounts(email)
 
-      @options = {:path => '/accounts',
-        :body => OkJson.encode({"email" => "#{email}"})}.merge(@options)
+      @options = {:path => "/accounts/#{email}",
+        :body => ''}.merge(@options)
 
       request(
         :expects  => 200,
         :method   => :get,
-        :path     => @options[:path],
         :body     => @options[:body]
       )
     end
 
-    #TESTED with Raj Thilak's system.
     # The body content needs to be a json.
     # The OkJson takes a hash of strings so use your symbols and build the json that is needed to be sent.
     def post_accounts(id, email, api_key, user_type)
@@ -29,9 +27,8 @@ module Megam
       })}.merge(@options)
 
       request(
-        :expects  => 200,
+        :expects  => 201,
         :method   => :post,
-        #:path     => @options[:path],
         :body     => @options[:body]
         )
     end
