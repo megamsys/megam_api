@@ -1,17 +1,18 @@
 require "base64"
 require "time"
 require "excon"
-require "securerandom"
 require "uri"
 require "zlib"
 require 'openssl'
+
+# open it up when needed. This will be needed when a new customer onboarded via pug.
+require "securerandom"
 
 __LIB_DIR__ = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 unless $LOAD_PATH.include?(__LIB_DIR__)
 $LOAD_PATH.unshift(__LIB_DIR__)
 end
 
-require "megam/api/json/okjson"
 require "megam/api/errors"
 require "megam/api/version"
 require "megam/api/nodes"
@@ -19,11 +20,17 @@ require "megam/api/login"
 require "megam/api/logs"
 require "megam/api/predefs"
 require "megam/api/accounts"
+require "megam/core/text"
+require "megam/core/json_compat"
 
-srand
+# Do you need a random seed now ?
+#srand
 
 module Megam
   class API
+
+    #text is used to print stuff in the terminal (message, log, info, warn etc.)
+    attr_accessor :text
 
     HEADERS = {
       'Accept' => 'application/json',
@@ -43,6 +50,14 @@ module Megam
 
     API_VERSION1 = "/v1"
 
+    def text
+      @text ||= Megam::Text.new(STDOUT, STDERR, STDIN, {})
+    end
+
+    def last_response
+      @last_response
+    end
+
     # It is assumed that every API call will use an API_KEY/email. This ensures validity of the person
     # really the same guy on who he claims.
     # 3 levels of options exits
@@ -57,9 +72,14 @@ module Megam
     end
 
     def request(params,&block)
+      start = Time.now
+      text.msg "#{text.color("START", :cyan, :bold)}"
+      params.each do |pkey, pvalue|
+        text.msg("> #{pkey}: #{pvalue}")
+      end
+
       begin
         response = connection.request(params, &block)
-        puts response.inspect
       rescue Excon::Errors::HTTPStatusError => error
         klass = case error.response.status
 
@@ -76,18 +96,34 @@ module Megam
         reerror.set_backtrace(error.backtrace)
         raise(reerror)
       end
+      @last_response = response
+      text.msg("#{text.color("RESPONSE: HTTP Status and Header Data", :magenta, :bold)}")
+      text.msg("> HTTP #{response.remote_ip} #{response.status}")
+
+      response.headers.each do |header, value|
+        text.msg("> #{header}: #{value}")
+      end
+      text.info("End HTTP Status/Header Data.")
+
       if response.body && !response.body.empty?
         if response.headers['Content-Encoding'] == 'gzip'
           response.body = Zlib::GzipReader.new(StringIO.new(response.body)).read
         end
         begin
-          response.body = Megam::API::OkJson.decode(response.body)
-        rescue
+          text.msg("#{response.body}")
+          response.body = Megam::JSONCompat.from_json(response.body.chomp)          #
+        rescue Exception => jsonerr
+          text.error(jsonerr)
+          raise(jsonerr)
+        # exception = Megam::JSONCompat.from_json(response_body)
+        # msg = "HTTP Request Returned #{response.code} #{response.message}: "
+        # msg << (exception["error"].respond_to?(:join) ? exception["error"].join(", ") : exception["error"].to_s)
+        # text.error(msg)
         end
       end
-
       # reset (non-persistent) connection
       @connection.reset
+      text.msg "#{text.color("END(#{(Time.now - start).to_s}s)", :cyan, :bold)}"
       response
     end
 
@@ -101,6 +137,13 @@ module Megam
         'X-Megam-HMAC' => encoded_api_header[:hmac],
         'X-Megam-Date' => encoded_api_header[:date],
       }).merge(@options[:headers])
+
+      text.info("HTTP Request Data:")
+      text.msg("> HTTP #{@options[:scheme]}://#{@options[:host]}")
+      @options.each do |key, value|
+        text.msg("> #{key}: #{value}")
+      end
+      text.info("End HTTP Request Data.")
       @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
     end
 
@@ -126,13 +169,6 @@ module Megam
       final_hmac = @email+':' + hash
       header_params = { :hmac => final_hmac, :date => current_date}
     end
-
-    def node_params(params)
-      node_params = {}
-      params.each do |key, value|
-        node_params["nodes[#{key}]"] = value
-      end
-      node_params
-    end
   end
+
 end

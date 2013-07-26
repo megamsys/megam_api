@@ -4,7 +4,7 @@ module Megam
     # GET /nodes
     def get_nodes(email)
       @options = {:path => '/nodes',
-        :body => OkJson.encode({"email" => "#{email}"})}.merge(@options)
+        :body => Megam::JSONCompat.to_json({"email" => "#{email}"})}.merge(@options)
 
       request(
         :expects  => 200,
@@ -18,7 +18,7 @@ module Megam
     # GET /nodes/:id
     def get_node(node_id)
       @options = {:path => "/nodes/#{node_id}",
-        :body => OkJson.encode({"node_id" => "#{node_id}"})}.merge(@options)
+        :body => Megam::JSONCompat.to_json({"node_id" => "#{node_id}"})}.merge(@options)
 
       request(
         :expects  => 200,
@@ -33,7 +33,7 @@ module Megam
     # The OkJson takes a hash of strings so use your symbols and build the json that is needed to be sent.
 
     def post_node()
-      @options = {:path => '/nodes/content', :body => OkJson.encode(
+      @options = {:path => '/nodes/content', :body => Megam::JSONCompat.to_json(
 =begin
 {
     "systemprovider" => {
@@ -78,7 +78,7 @@ module Megam
     # DELETE /nodes/:node_id
     def delete_node(node_id)
       @options = {:path => '/nodes/#{node_id}',
-        :body => OkJson.encode({"node_id" => "#{node_id}"})}.merge(@options)
+        :body => Megam::JSONCompat.to_json({"node_id" => "#{node_id}"})}.merge(@options)
 
       request(
         :expects  => 200,

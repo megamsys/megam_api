@@ -7,7 +7,7 @@ module Megam
     def get_id
 
       @options = {:path => '/id',
-        :body => OkJson.encode({"nothing" => "nothing"})}.merge(@options)
+        :body => Megam::JSONCompat.to_json({"nothing" => "nothing"})}.merge(@options)
 
       request(
         :expects  => 200,
