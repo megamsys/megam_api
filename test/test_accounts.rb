@@ -20,14 +20,12 @@ class TestAccounts < MiniTest::Unit::TestCase
   def test_post_accounts_admin
     response =megams.post_accounts(random_id, sandbox_email, sandbox_apikey, $admin)
     response.body.to_s
-
     assert_equal(201, response.status)
   end
 
   def test_post_accounts_normal
     response =megams.post_accounts(random_id, random_email, random_apikey, $normal)
     response.body.to_s
-
     assert_equal(201, response.status)
   end
 

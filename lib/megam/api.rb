@@ -22,6 +22,7 @@ require "megam/api/predefs"
 require "megam/api/accounts"
 require "megam/core/text"
 require "megam/core/json_compat"
+require "megam/core/account"
 
 # Do you need a random seed now ?
 #srand
@@ -109,9 +110,15 @@ module Megam
         if response.headers['Content-Encoding'] == 'gzip'
           response.body = Zlib::GzipReader.new(StringIO.new(response.body)).read
         end
+        text.msg("#{text.color("RESPONSE: HTTP Body(JSON)", :magenta, :bold)}")
+
+        text.msg "#{text.color("#{response.body}", :white)}"
+
         begin
-          text.msg("#{response.body}")
-          response.body = Megam::JSONCompat.from_json(response.body.chomp)          #
+          response.body = Megam::JSONCompat.from_json(response.body.chomp)
+          text.msg("#{text.color("RESPONSE: Ruby Object", :magenta, :bold)}")
+
+          text.msg "#{text.color("#{response.body}", :white, :bold)}"
         rescue Exception => jsonerr
           text.error(jsonerr)
           raise(jsonerr)
@@ -121,9 +128,9 @@ module Megam
         # text.error(msg)
         end
       end
+      text.msg "#{text.color("END(#{(Time.now - start).to_s}s)", :blue, :bold)}"
       # reset (non-persistent) connection
       @connection.reset
-      text.msg "#{text.color("END(#{(Time.now - start).to_s}s)", :cyan, :bold)}"
       response
     end
 

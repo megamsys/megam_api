@@ -1,4 +1,3 @@
-
 module Megam
   class API
     # GET /accounts

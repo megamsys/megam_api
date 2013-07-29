@@ -20,6 +20,7 @@ module Megam
       @email = nil
       @api_key = nil
       @authority = nil
+      @some_msg = {}
     end
 
     #used by resque workers and any other background job
@@ -63,28 +64,31 @@ module Megam
       end
     end
 
+    def some_msg(arg=nil)
+      if arg != nil
+        @some_msg = arg
+      else
+      @some_msg
+      end
+    end
+
+    def error?
+      crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
+    end
+
     # Transform the ruby obj ->  to a Hash
     def to_hash
       index_hash = Hash.new
-      index_hash["megam_type"] = "account"
+      index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["email"] = email
       index_hash["api_key"] = api_key
       index_hash["authority"] = authority
+      index_hash["some_msg_hash"] = some_msg
       index_hash
     end
-    
-    # Transform hash to -> a new ruby obj
-    def self.from_hash(acct_hash)
-      acct = Megam::Acount.new
-      acct.id acct_hash['id']
-      acct.email acct_hash['email']
-      acct.api_key acct_hash['password']
-      acct.authority acct_hash['authority']
-      acct
-    end
 
-    # Serialize this object as a hash: called from JsonCompat. 
+    # Serialize this object as a hash: called from JsonCompat.
     # Verify if this called from JsonCompat during testing.
     def to_json(*a)
       for_json.to_json(*a)
@@ -95,19 +99,23 @@ module Megam
         "id" => id,
         "email" => email,
         "api_key" => api_key,
-        "authority" => authority,
-        'json_class' => self.class.name
+        "authority" => authority
       }
       result
     end
 
-    # Create a Megam::Account from JSON
-    def self.from_json(json)
-      Megam::Account.from_hash(Megam::JSONCompat.from_json(json))
-    end
-
-    class << self
-      alias_method :json_create, :from_json
+    # Create a Megam::Account from JSON (used by the backgroud job workers)
+    def self.json_create(o)
+      acct = new
+      acct.id(o["id"]) if o.has_key?("id")
+      acct.email(o["email"]) if o.has_key?("email")
+      acct.api_key(o["api_key"]) if o.has_key?("api_key")
+      acct.authority(o["authority"]) if o.has_key?("authority")
+      acct.some_msg[:code] = o["code"] if o.has_key?("code")
+      acct.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+      acct.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+      acct.some_msg[:links] = o["links"] if o.has_key?("links")
+      acct
     end
 
     def self.find_or_create(email_f)
@@ -126,6 +134,7 @@ module Megam
     # Load a account by email_p
     def self.show(email_p)
       megam_rest.get_accounts(email)
+      self
     end
 
     # Create the node via the REST API
@@ -135,7 +144,7 @@ module Megam
     end
 
     def to_s
-      "account[#{email}]"
+      "---> Megam::Account:[error=#{error?}]\n"+to_hash.map{|k,v| "#{k.ljust(15)}=#{v}"}.join("\n")
     end
   end
 end
