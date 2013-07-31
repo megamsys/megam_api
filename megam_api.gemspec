@@ -11,15 +11,16 @@ Gem::Specification.new do |s|
   s.license = "Apache V2"
   sextra_rdoc_files = ["README.md", "LICENSE" ]
   s.summary     = %q{Ruby Client for the Megam}
-  s.description = %q{Ruby Client for the Megam PaaS}
+  s.description = %q{Ruby Client for the Megam PaaS. Performs REST based HTTP call to http://github.com/indykish/megam_play.git}
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-
   s.add_runtime_dependency 'excon'
   s.add_runtime_dependency 'highline'
   s.add_runtime_dependency 'yajl-ruby'
+  s.add_runtime_dependency 'mixlib-config'
+  s.add_runtime_dependency 'mixlib-log'
   s.add_development_dependency 'minitest'
   s.add_development_dependency 'rake'
 end

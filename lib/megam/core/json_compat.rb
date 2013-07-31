@@ -24,10 +24,11 @@ module Megam
 
     MEGAM_ACCOUNT           = "Megam::Account".freeze
     MEGAM_NODE              = "Megam::Node".freeze
+    MEGAM_NODECOLLECTION    = "Megam::NodeCollection".freeze
     MEGAM_PREDEF            = "Megam::Predef".freeze
+    MEGAM_PREDEFCOLLECTION    = "Megam::PredefCollection".freeze
     MEGAM_PREDEFCLOUD       = "Megam::PredefCloud".freeze
-    MEGAM_RESOURCE           = "Megam::Resource".freeze
-    Megam_RESOURCECOLLECTION = "Megam::ResourceCollection".freeze
+    MEGAM_PREDEFCLOUDCOLLECTION    = "Megam::PredefCloudCollection".freeze
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -104,17 +105,17 @@ module Megam
           Megam::Account
         when MEGAM_NODE
           Megam::Node
+        when MEGAM_NODECOLLECTION
+          Megam::NodeCollection
         when MEGAM_PREDEF
           Megam::Predef
+        when MEGAM_PREDEFCOLLECTION
+          Megam::PredefCollection
         when MEGAM_PREDEFCLOUD
           Megam::PredefCloud
-        when MEGAM_RESOURCE
-          Megam::Resource
-        when MEGAM_RESOURCECOLLECTION
-          Megam::ResourceCollection
-        when /^Megam::Resource/
-          Megam::Resource.find_subclass_by_name(json_class)
-        else
+        when MEGAM_PREDEFCLOUDCOLLECTION
+          Megam::PredefCloudCollection
+         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
       end

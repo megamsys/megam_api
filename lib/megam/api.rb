@@ -23,6 +23,9 @@ require "megam/api/accounts"
 require "megam/core/text"
 require "megam/core/json_compat"
 require "megam/core/account"
+require "megam/core/node"
+require "megam/core/config"
+require "megam/core/stuff"
 
 # Do you need a random seed now ?
 #srand
@@ -129,6 +132,8 @@ module Megam
         end
       end
       text.msg "#{text.color("END(#{(Time.now - start).to_s}s)", :blue, :bold)}"
+    #  text.msg "#{text.color("END(#{(Megam::Stuff.time_ago(start))})", :blue, :bold)}"
+
       # reset (non-persistent) connection
       @connection.reset
       response

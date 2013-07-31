@@ -84,7 +84,7 @@ module Megam
       index_hash["email"] = email
       index_hash["api_key"] = api_key
       index_hash["authority"] = authority
-      index_hash["some_msg_hash"] = some_msg
+      index_hash["some_msg"] = some_msg
       index_hash
     end
 
@@ -118,6 +118,20 @@ module Megam
       acct
     end
 
+    def self.from_hash(o)
+      acct = self.new()
+      acct.from_hash(o)
+      acct
+    end
+
+    def from_hash(o)
+      @id        = o[:id] if o.has_key?(:id)
+      @email      = o[:email] if o.has_key?(:email)
+      @api_key   = o[:api_key] if o.has_key?(:api_key)
+      @authority = o[:authority] if o.has_key?(:authority)
+      self
+    end
+
     def self.find_or_create(email_f)
       show(email_f)
     rescue Net::HTTPServerException => e
@@ -144,7 +158,8 @@ module Megam
     end
 
     def to_s
-      "---> Megam::Account:[error=#{error?}]\n"+to_hash.map{|k,v| "#{k.ljust(15)}=#{v}"}.join("\n")
+      Megam::Stuff.styled_hash(to_hash)
+    #"---> Megam::Account:[error=#{error?}]\n"+
     end
   end
 end

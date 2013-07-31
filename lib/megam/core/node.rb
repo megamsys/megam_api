@@ -13,89 +13,202 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-class Megam
+module Megam
   class Node
-
-    attr_accessor :provider
-    attr_accessor :allowed_actions
-    attr_accessor :run_context
-    attr_accessor :cookbook_name
-    attr_accessor :recipe_name
-    attr_accessor :enclosing_provider
-    attr_accessor :source_line
-    attr_accessor :retries
-    attr_accessor :retry_delay
-
-    attr_reader :updated
-    attr_reader :elapsed_time
 
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
-    def initialize(name, run_context=nil)
-      @name = name
-      @noop = nil
-      @provider = nil
-      @source_line = nil
-      @elapsed_time = 0
+    def initialize
+      @id = nil
+      @accounts_id = nil
+      @command = nil
+      @request ={}
+      @predefs={}
+      @some_msg = {}
     end
 
     def node
       self
     end
 
-    def name(name=nil)
-      if !name.nil?
-        raise ArgumentError, "name must be a string!" unless name.kind_of?(String)
-        @name = name
+    def megam_rest
+      Megam::API.new(Megam::Config[:email], Megam::Config[:api_key])
+    end
+    
+    def node_name(arg=nil)
+      if arg != nil
+        @node_name = arg
+      else
+      @node_name
       end
-      @name
     end
-
-    def noop(tf=nil)
-      if !tf.nil?
-        raise ArgumentError, "noop must be true or false!" unless tf == true || tf == false
-        @noop = tf
+    
+    def command(arg=nil)
+      if arg != nil
+        @command = arg
+      else
+      @command
       end
-      @noop
     end
 
-    # as_json does most of the to_json heavy lifted. It exists here in case activesupport
-    # is loaded. activesupport will call as_json and skip over to_json. This ensure
-    # json is encoded as expected
-    def as_json(*a)
-      safe_ivars = instance_variables.map { |ivar| ivar.to_sym } - FORBIDDEN_IVARS
-      instance_vars = Hash.new
-      safe_ivars.each do |iv|
-        instance_vars[iv.to_s.sub(/^@/, '')] = instance_variable_get(iv)
+    def id(arg=nil)
+      if arg != nil
+        @id = arg
+      else
+      @id
       end
-      {
-        'json_class' => self.class.name,
-        'instance_vars' => instance_vars
-      }
     end
 
-    # Serialize this object as a hash
-    def to_json(*a)
-      results = as_json
-      results.to_json(*a)
+    def accounts_id(arg=nil)
+      if arg != nil
+        @accounts_id = arg
+      else
+      @accounts_id
+      end
     end
 
+    def request(arg=nil)
+      if arg != nil
+        @request = arg
+      else
+      @request
+      end
+    end
+
+    def predefs(arg=nil)
+      if arg != nil
+        @predefs = arg
+      else
+      @predefs
+      end
+    end
+
+    def some_msg(arg=nil)
+      if arg != nil
+        @some_msg = arg
+      else
+      @some_msg
+      end
+    end
+
+    def error?
+      crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
+    end
+
+    # Transform the ruby obj ->  to a Hash
     def to_hash
-      safe_ivars = instance_variables.map { |ivar| ivar.to_sym } - FORBIDDEN_IVARS
-      instance_vars = Hash.new
-      safe_ivars.each do |iv|
-        key = iv.to_s.sub(/^@/,'').to_sym
-        instance_vars[key] = instance_variable_get(iv)
-      end
-      instance_vars
+      index_hash = Hash.new
+      index_hash["json_claz"] = self.class.name
+      index_hash["id"] = id
+      index_hash["accounts_id"] = accounts_id
+      index_hash["request"] = request
+      index_hash["predefs"] = predefs
+      index_hash["some_msg"] = some_msg
+      index_hash
     end
 
+    # Serialize this object as a hash: called from JsonCompat.
+    # Verify if this called from JsonCompat during testing.
+    def to_json(*a)
+      for_json.to_json(*a)
+    end
+
+    def for_json
+      result = {
+        "id" => id,
+        "accounts_id" => accounts_id,
+        "request" => request,
+        "predefs" => predefs
+      }
+      result
+    end
+
+    # Create a Megam::Node from NodeResult-JSON
+    #
+    #[{
+    #"id":"NOD362212018897289216",
+    #"accounts_id":"ACT362211962353876992",
+    #"json_claz":"Megam::Node",
+    #"request":{
+    #"req_id":"NOD362212018897289216",
+    #"command":"commands"
+    #},
+    #"predefs":{
+    #"name":"",
+    #"scm":"",
+    #"war":"",
+    #"db":"",
+    #"queue":""
+    #}
+    #}]
+    # 
     def self.json_create(o)
-      resource = self.new(o["instance_vars"]["@name"])
-      o["instance_vars"].each do |k,v|
-        resource.instance_variable_set("@#{k}".to_sym, v)
-      end
-      resource
+      node = new
+      node.id(o["id"]) if o.has_key?("id")
+      node.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
+      #requests
+      oq = o["request"]
+      node.request[:req_id] = oq["req_id"] if oq.has_key?("req_id")
+      node.request[:command] = oq["command"] if oq.has_key?("command")
+      #predef
+      op = o["predefs"]
+      node.predefs[:name] = op["name"] if op.has_key?("name")
+      node.predefs[:scm] = op["scm"] if op.has_key?("scm")
+      node.predefs[:war]= op["war"] if op.has_key?("war")
+      node.predefs[:db] = op["db"] if op.has_key?("db")
+      node.predefs[:queue] = op["queue"] if op.has_key?("queue")
+      #success or error
+      node.some_msg[:code] = o["code"] if o.has_key?("code")
+      node.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+      node.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+      node.some_msg[:links] = o["links"] if o.has_key?("links")
+      node
+    end
+
+    def self.from_hash(o)
+      acct = self.new()
+      acct.from_hash(o)
+      acct
+    end
+
+    def from_hash(o)
+      @node_name = o[:node_name] if o.has_key?(:node_name)
+      @command   = o[:command] if o.has_key?(:command)
+      @id        = o[:id] if o.has_key?(:id)
+      @email     = o[:accounts_id] if o.has_key?(:accounts_id)
+      @request   = o[:request] if o.has_key?(:request)
+      @predefs   = o[:predefs] if o.has_key?(:predefs)
+      self
+    end
+
+    def self.create
+      node = build
+      node.create
+    end
+
+    #
+    #build the node as per the need
+    def self.build
+      payload = {:node_name => self.node_name, :command => self.command, :predefs => self.predefs }
+      from_hash(payload)
+    end
+    
+     # Create the node via the REST API
+    def create(node_input)
+      megam_rest.post_nodes(node_input)
+      self
+    end
+
+    # Load a account by email_p
+    def self.show(node_name)
+      megam_rest.get_nodes(node_name)
+      self
+    end
+
+  
+    def to_s
+      Megam::Stuff.styled_hash(to_hash)
+    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end

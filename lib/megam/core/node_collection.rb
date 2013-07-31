@@ -104,7 +104,7 @@ class Megam
     def lookup(node)
       lookup_by = nil
       if node.kind_of?(Megam::Node)
-        lookup_by = node.to_s
+      lookup_by = node.to_s
       elsif node.kind_of?(String)
       lookup_by = node
       else
@@ -162,9 +162,27 @@ class Megam
       results.to_json(*a)
     end
 
+=begin
+["json_claz":"Megam::NodeCollection",{
+"id":"NOD362428315933343744",
+"accounts_id":"ACT362211963352121344",
+"json_claz":"Megam::Node",
+"request":{
+"req_id":"NOD362428315933343744",
+"command":"commands"
+},
+"predefs":{
+"name":"",
+"scm":"",
+"war":"",
+"db":"",
+"queue":""
+}
+}]
+=end
     def self.json_create(o)
       collection = self.new()
-      o["instance_vars"].each do |k,v|
+      o["Megam::Node"].each do |k,v|
         collection.instance_variable_set(k.to_sym, v)
       end
       collection
