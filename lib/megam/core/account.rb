@@ -29,7 +29,8 @@ module Megam
     end
 
     def megam_rest
-      Megam::API.new(Megam::Config[:email], Megam::Config[:api_key])
+      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
+      Megam::API.new(options)
     end
 
     def id(arg=nil)
@@ -132,14 +133,9 @@ module Megam
       self
     end
 
-    def self.create(hash)
-      acct = from_hash(hash)
+    def self.create(o)
+      acct = from_hash(o)
       acct.create
-      end
-
-    def self.build
-      payload = {:id => self.id, :email =>  self.email, :api_key => self.api_key, :authority => self.authority }
-      from_hash(payload)
     end
 
     # Load a account by email_p

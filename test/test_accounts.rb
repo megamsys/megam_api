@@ -4,6 +4,8 @@ class TestAccounts < MiniTest::Unit::TestCase
 
   $admin = "admin-tom"
   $normal = "normal-tom"
+
+
   def test_get_accounts_good
     response =megams.get_accounts(sandbox_email)
     response.body.to_s
@@ -15,6 +17,7 @@ class TestAccounts < MiniTest::Unit::TestCase
     response.body.to_s
     assert_equal(404, response.status)
   end
+
 
   def test_post_accounts_admin
     response =megams.post_accounts(
@@ -37,6 +40,7 @@ class TestAccounts < MiniTest::Unit::TestCase
     response.body.to_s
     assert_equal(400, response.status)
   end
+
 
 end
 
