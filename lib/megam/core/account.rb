@@ -29,7 +29,13 @@ module Megam
     end
 
     def megam_rest
-      Megam::API.new(Megam::Config[:email], Megam::Config[:api_key])
+	puts "MEGAM REST INST ==> "
+puts Megam::Config[:email]
+puts Megam::Config[:api_key]
+options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
+puts "OPTIONS===> "
+puts options.inspect
+      Megam::API.new(options)
     end
 
     def id(arg=nil)
@@ -78,6 +84,7 @@ module Megam
 
     # Transform the ruby obj ->  to a Hash
     def to_hash
+puts "TO HASH"
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
@@ -85,6 +92,7 @@ module Megam
       index_hash["api_key"] = api_key
       index_hash["authority"] = authority
       index_hash["some_msg"] = some_msg
+puts "INDEX HASH ==> #{index_hash.inspect}"
       index_hash
     end
 
@@ -118,32 +126,36 @@ module Megam
       acct
     end
 
+
     def self.from_hash(o)
+puts "class from O ==> #{o.inspect}"
       acct = self.new()
       acct.from_hash(o)
+puts "ACCT CLASS FROM HASH ===> #{acct.inspect}"
       acct
     end
 
     def from_hash(o)
+puts "inst from O ==> #{o.inspect}"
       @id        = o[:id] if o.has_key?(:id)
       @email      = o[:email] if o.has_key?(:email)
       @api_key   = o[:api_key] if o.has_key?(:api_key)
       @authority = o[:authority] if o.has_key?(:authority)
+      puts "INST FROM HASH self #{self.inspect}"
       self
     end
 
-    def self.find_or_create(email_f)
-      show(email_f)
-    rescue Net::HTTPServerException => e
-      raise unless e.response.code == '404'
-      acct = build
+    def self.create(o)
+puts "CLASS CREATE "
+puts o.to_yaml
+puts "INSPECT"
+puts o.inspect
+      acct = from_hash(o)
+puts "CLASS CREATE 1"
+puts "ACCT CLASS CREATE ==> #{acct.to_yaml}"
       acct.create
+puts "CLASS CREATE 2"
       end
-
-    def self.build
-      payload = {:id => self.id, :email =>  self.email, :api_key => self.api_key, :authority => self.authority }
-      from_hash(payload)
-    end
 
     # Load a account by email_p
     def self.show(email_p)
@@ -153,6 +165,8 @@ module Megam
 
     # Create the node via the REST API
     def create
+puts "INSTANCE CREATE  ==>  "
+puts "MEGAM REST ==> "
       megam_rest.post_accounts(to_hash)
       self
     end
