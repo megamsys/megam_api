@@ -25,6 +25,7 @@ require "megam/core/stuff"
 require "megam/core/text"
 require "megam/core/json_compat"
 require "megam/core/auth"
+require "megam/core/error"
 require "megam/core/account"
 require "megam/core/node"
 require "megam/core/node_collection"
@@ -32,6 +33,7 @@ require "megam/core/predef"
 require "megam/core/predef_collection"
 require "megam/core/predefcloud"
 require "megam/core/predefcloud_collection"
+
 #we may nuke logs out of the api
 #require "megam/api/logs"
 
@@ -81,6 +83,7 @@ module Megam
       @options = OPTIONS.merge(options)
       @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
       @email = @options.delete(:email)
+      raise ArgumentError, "You must specify [:email, :api_key]" if @email.nil? || @api_key.nil?
     end
 
     def request(params,&block)
@@ -106,8 +109,13 @@ module Megam
         end
         reerror = klass.new(error.message, error.response)
         reerror.set_backtrace(error.backtrace)
+        text.msg "#{text.color("#{reerror.response.body}", :white)}"
+        reerror.response.body = Megam::JSONCompat.from_json(reerror.response.body.chomp)
+        text.msg("#{text.color("RESPONSE ERR: Ruby Object", :magenta, :bold)}")
+        text.msg "#{text.color("#{reerror.response.body}", :white, :bold)}"
         raise(reerror)
       end
+
       @last_response = response
       text.msg("#{text.color("RESPONSE: HTTP Status and Header Data", :magenta, :bold)}")
       text.msg("> HTTP #{response.remote_ip} #{response.status}")
@@ -140,7 +148,7 @@ module Megam
         end
       end
       text.msg "#{text.color("END(#{(Time.now - start).to_s}s)", :blue, :bold)}"
-    #  text.msg "#{text.color("END(#{(Megam::Stuff.time_ago(start))})", :blue, :bold)}"
+      #  text.msg "#{text.color("END(#{(Megam::Stuff.time_ago(start))})", :blue, :bold)}"
 
       # reset (non-persistent) connection
       @connection.reset

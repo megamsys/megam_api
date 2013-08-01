@@ -10,6 +10,8 @@ module Megam
           super message
           @response = response
         end
+        
+      
       end
 
       class Unauthorized < ErrorWithResponse; end

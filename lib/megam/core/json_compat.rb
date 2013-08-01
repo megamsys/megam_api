@@ -23,6 +23,7 @@ module Megam
     JSON_CLAZ = "json_claz".freeze
 
     MEGAM_AUTH              = "Megam::Auth".freeze
+    MEGAM_ERROR             = "Megam::Error".freeze
     MEGAM_ACCOUNT           = "Megam::Account".freeze
     MEGAM_NODE              = "Megam::Node".freeze
     MEGAM_NODECOLLECTION    = "Megam::NodeCollection".freeze
@@ -102,6 +103,8 @@ module Megam
       # the world to get json.
       def class_for_json_class(json_class)
         case json_class
+        when MEGAM_ERROR
+          Megam::Error
         when MEGAM_AUTH
           Megam::Auth
         when MEGAM_ACCOUNT

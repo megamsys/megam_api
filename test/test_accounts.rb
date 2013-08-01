@@ -5,19 +5,19 @@ class TestAccounts < MiniTest::Unit::TestCase
   $admin = "admin-tom"
   $normal = "normal-tom"
 
-
   def test_get_accounts_good
     response =megams.get_accounts(sandbox_email)
     response.body.to_s
     assert_equal(200, response.status)
   end
+  
 
   def test_get_accounts_bad
+    assert_raises(Megam::API::Errors::NotFound) do
     response =megams.get_accounts(sandbox_email+"_bad")
     response.body.to_s
-    assert_equal(404, response.status)
+    end
   end
-
 
   def test_post_accounts_admin
     response =megams.post_accounts(
@@ -34,13 +34,13 @@ class TestAccounts < MiniTest::Unit::TestCase
   end
 
   def test_post_accounts_normal_bad
-    response =megams.post_accounts(
+    assert_raises(ArgumentError) do
+    response =megam.post_accounts(
     {:id => random_id, :emailo => sandbox_email,
       :apik_key => sandbox_apikey, :authority => $admin})
     response.body.to_s
-    assert_equal(400, response.status)
+    end    
   end
-
 
 end
 

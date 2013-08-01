@@ -63,13 +63,13 @@ class TestApps < MiniTest::Unit::TestCase
   end
   
   def test_get_node1
-    response = megams.get_node("sundownmorning.megam.co")
+    response = megams.get_node("sundown.megam.co")
     assert_equal(200, response.status)
   end
 
   def test_get_node_not_found
     assert_raises(Megam::API::Errors::NotFound) do
-      megam.get_node("stupid.megam.co")
+      megams.get_node("stupid.megam.co")
     end
   end
 
