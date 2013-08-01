@@ -148,15 +148,15 @@ module Megam
       node.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
       #requests
       oq = o["request"]
-      node.request[:req_id] = oq["req_id"] if oq.has_key?("req_id")
-      node.request[:command] = oq["command"] if oq.has_key?("command")
+      node.request[:req_id] = oq["req_id"] if oq && oq.has_key?("req_id")
+      node.request[:command] = oq["command"] if oq && oq.has_key?("command")
       #predef
       op = o["predefs"]
-      node.predefs[:name] = op["name"] if op.has_key?("name")
-      node.predefs[:scm] = op["scm"] if op.has_key?("scm")
-      node.predefs[:war]= op["war"] if op.has_key?("war")
-      node.predefs[:db] = op["db"] if op.has_key?("db")
-      node.predefs[:queue] = op["queue"] if op.has_key?("queue")
+      node.predefs[:name] = op["name"] if op && op.has_key?("name")
+      node.predefs[:scm] = op["scm"] if op && op.has_key?("scm")
+      node.predefs[:war]= op["war"] if op && op.has_key?("war")
+      node.predefs[:db] = op["db"] if op && op.has_key?("db")
+      node.predefs[:queue] = op["queue"] if op && op.has_key?("queue")
       #success or error
       node.some_msg[:code] = o["code"] if o.has_key?("code")
       node.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -166,9 +166,9 @@ module Megam
     end
 
     def self.from_hash(o)
-      acct = self.new()
-      acct.from_hash(o)
-      acct
+      node = self.new()
+      node.from_hash(o)
+      node
     end
 
     def from_hash(o)

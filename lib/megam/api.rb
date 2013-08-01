@@ -15,17 +15,25 @@ end
 
 require "megam/api/errors"
 require "megam/api/version"
-require "megam/api/nodes"
 require "megam/api/login"
-require "megam/api/logs"
-require "megam/api/predefs"
 require "megam/api/accounts"
-require "megam/core/text"
-require "megam/core/json_compat"
-require "megam/core/account"
-require "megam/core/node"
+require "megam/api/nodes"
+require "megam/api/predefs"
+require "megam/api/predef_clouds"
 require "megam/core/config"
 require "megam/core/stuff"
+require "megam/core/text"
+require "megam/core/json_compat"
+require "megam/core/auth"
+require "megam/core/account"
+require "megam/core/node"
+require "megam/core/node_collection"
+require "megam/core/predef"
+require "megam/core/predef_collection"
+require "megam/core/predefcloud"
+require "megam/core/predefcloud_collection"
+#we may nuke logs out of the api
+#require "megam/api/logs"
 
 # Do you need a random seed now ?
 #srand

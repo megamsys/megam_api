@@ -14,54 +14,19 @@
 # limitations under the License.
 #
 module Megam
-  class Account
+  class Auth
+    
     def initialize
-      @id = nil
-      @email = nil
-      @api_key = nil
-      @authority = nil
       @some_msg = {}
     end
 
     #used by resque workers and any other background job
-    def account
+    def auth
       self
     end
 
     def megam_rest
       Megam::API.new(Megam::Config[:email], Megam::Config[:api_key])
-    end
-
-    def id(arg=nil)
-      if arg != nil
-        @id = arg
-      else
-      @id
-      end
-    end
-
-    def email(arg=nil)
-      if arg != nil
-        @email = arg
-      else
-      @email
-      end
-    end
-
-    def api_key(arg=nil)
-      if arg != nil
-        @api_key = arg
-      else
-      @api_key
-      end
-    end
-
-    def authority(arg=nil)
-      if arg != nil
-        @authority = arg
-      else
-      @authority
-      end
     end
 
     def some_msg(arg=nil)
@@ -80,10 +45,6 @@ module Megam
     def to_hash
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
-      index_hash["id"] = id
-      index_hash["email"] = email
-      index_hash["api_key"] = api_key
-      index_hash["authority"] = authority
       index_hash["some_msg"] = some_msg
       index_hash
     end
@@ -95,22 +56,13 @@ module Megam
     end
 
     def for_json
-      result = {
-        "id" => id,
-        "email" => email,
-        "api_key" => api_key,
-        "authority" => authority
-      }
+      result = { }
       result
     end
 
     # Create a Megam::Account from JSON (used by the backgroud job workers)
     def self.json_create(o)
       acct = new
-      acct.id(o["id"]) if o.has_key?("id")
-      acct.email(o["email"]) if o.has_key?("email")
-      acct.api_key(o["api_key"]) if o.has_key?("api_key")
-      acct.authority(o["authority"]) if o.has_key?("authority")
       acct.some_msg[:code] = o["code"] if o.has_key?("code")
       acct.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
       acct.some_msg[:msg]= o["msg"] if o.has_key?("msg")
@@ -124,35 +76,12 @@ module Megam
       acct
     end
 
-    def from_hash(o)
-      @id        = o[:id] if o.has_key?(:id)
-      @email      = o[:email] if o.has_key?(:email)
-      @api_key   = o[:api_key] if o.has_key?(:api_key)
-      @authority = o[:authority] if o.has_key?(:authority)
+    # just an auth
+    def self.auth
+      megam_rest.post_auth
       self
     end
 
-    def self.create(hash)
-      acct = from_hash(hash)
-      acct.create
-      end
-
-    def self.build
-      payload = {:id => self.id, :email =>  self.email, :api_key => self.api_key, :authority => self.authority }
-      from_hash(payload)
-    end
-
-    # Load a account by email_p
-    def self.show(email_p)
-      megam_rest.get_accounts(email)
-      self
-    end
-
-    # Create the node via the REST API
-    def create
-      megam_rest.post_accounts(to_hash)
-      self
-    end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)

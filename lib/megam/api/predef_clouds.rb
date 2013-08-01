@@ -1,7 +1,7 @@
 module Megam
   class API
-    def get_predefs
-      @options = {:path => '/predefs',:body => ""}.merge(@options)
+    def get_predefclouds
+      @options = {:path => '/predefclouds',:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -10,8 +10,8 @@ module Megam
       )
     end
 
-    def get_predef(predef_name)
-      @options = {:path => "/predefs/#{predef_name}",:body => ""}.merge(@options)
+    def get_predefcloud(predefcloud_name)
+      @options = {:path => "/predefclouds/#{predefcloud_name}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -20,9 +20,9 @@ module Megam
       )
     end
 
-    def post_predef(new_predef)
-      @options = {:path => '/predefs/content',
-        :body => Megam::JSONCompat.to_json(new_predef)}.merge(@options)
+    def post_predefcloud(new_predefcloud)
+      @options = {:path => '/predefclouds/content',
+        :body => Megam::JSONCompat.to_json(new_predefcloud)}.merge(@options)
 
       request(
         :expects  => 201,
