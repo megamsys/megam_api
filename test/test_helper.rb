@@ -11,7 +11,7 @@ SANDBOX_HOST_OPTIONS = {
 }
 
 
-def megam(options={})  
+def megam(options)  
   options = SANDBOX_HOST_OPTIONS.merge(options)
   mg=Megam::API.new(options)  
 end
