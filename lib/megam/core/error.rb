@@ -76,6 +76,14 @@ module Megam
       acct
     end
 
+    def from_hash(o)
+      @some_msg[:code] = o["code"] if o.has_key?("code")
+      @some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+      @some_msg[:msg]= o["msg"] if o.has_key?("msg")
+      @some_msg[:links] = o["links"] if o.has_key?("links")
+      self
+    end
+
     # just an auth
     def self.auth
       megam_rest.post_auth

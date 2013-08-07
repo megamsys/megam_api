@@ -147,7 +147,6 @@ module Megam
     # Create the node via the REST API
     def create
       megam_rest.post_accounts(to_hash)
-      self
     end
 
     def to_s
