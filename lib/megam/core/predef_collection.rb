@@ -118,22 +118,22 @@ module Megam
 
 =begin
 {
-  "json_claz":"Megam::PredefCollection",
-  "results":[{
-    "id":"PRE362554468593565696",
-    "name":"rabbitmq",
-    "provider":"chef",
-    "provider_role":"rabbitmq",
-    "build_monkey":"none",
-    "json_claz":"Megam::Predef"
-  },{
-    "id":"PRE362554470090932224",
-    "name":"mobhtml5",
-    "provider":"chef",
-    "provider_role":"sencha",
-    "build_monkey":"none",
-    "json_claz":"Megam::Predef"
-  }]
+"json_claz":"Megam::PredefCollection",
+"results":[{
+"id":"PRE362554468593565696",
+"name":"rabbitmq",
+"provider":"chef",
+"provider_role":"rabbitmq",
+"build_monkey":"none",
+"json_claz":"Megam::Predef"
+},{
+"id":"PRE362554470090932224",
+"name":"mobhtml5",
+"provider":"chef",
+"provider_role":"sencha",
+"build_monkey":"none",
+"json_claz":"Megam::Predef"
+}]
 }
 =end
     def self.json_create(o)
