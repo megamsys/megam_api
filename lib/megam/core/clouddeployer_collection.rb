@@ -14,35 +14,35 @@
 # limitations under the License.
 #
 module Megam
-  class PredefCloudCollection
+  class CloudDeployerCollection
     include Enumerable
 
     attr_reader :iterator
     def initialize
-      @predefclouds = Array.new
-      @predefclouds_by_name = Hash.new
+      @clouddeployers = Array.new
+      @clouddeployers_by_name = Hash.new
       @insert_after_idx = nil
     end
 
-    def all_predefclouds
-      @predefclouds
+    def all_clouddeployers
+      @clouddeployers
     end
 
     def [](index)
-      @predefclouds[index]
+      @clouddeployers[index]
     end
 
     def []=(index, arg)
-      is_megam_predefclouds(arg)
-      @predefclouds[index] = arg
-      @predefclouds_by_name[arg.name] = index
+      is_megam_clouddeployers(arg)
+      @clouddeployers[index] = arg
+      @clouddeployers_by_name[arg.name] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
-        is_megam_predefclouds(a)
-        @predefclouds << a
-        @predefclouds_by_name[a.name] =@predefclouds.length - 1
+        is_megam_clouddeployers(a)
+        @clouddeployers << a
+        @clouddeployers_by_name[a.name] =@clouddeployers.length - 1
       end
       self
     end
@@ -50,62 +50,62 @@ module Megam
     # 'push' is an alias method to <<
     alias_method :push, :<<
 
-    def insert(predefclouds)
-      is_megam_predefclouds(predefclouds)
+    def insert(clouddeployers)
+      is_megam_clouddeployers(clouddeployers)
       if @insert_after_idx
         # in the middle of executing a run, so any predefs inserted now should
         # be placed after the most recent addition done by the currently executing
-        # predefclouds
-        @predefclouds.insert(@insert_after_idx + 1, predefclouds)
-        # update name -> location mappings and register new predefclouds
-        @predefclouds_by_name.each_key do |key|
-        @predefclouds_by_name[key] += 1 if@predefclouds_by_name[key] > @insert_after_idx
+        # clouddeployers
+        @clouddeployers.insert(@insert_after_idx + 1, clouddeployers)
+        # update name -> location mappings and register new clouddeployers
+        @clouddeployers_by_name.each_key do |key|
+        @clouddeployers_by_name[key] += 1 if@clouddeployers_by_name[key] > @insert_after_idx
         end
-        @predefclouds_by_name[predefclouds.name] = @insert_after_idx + 1
+        @clouddeployers_by_name[clouddeployers.name] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
-      @predefclouds << predefclouds
-      @predefclouds_by_name[predefclouds.name] =@predefclouds.length - 1
+      @clouddeployers << clouddeployers
+      @clouddeployers_by_name[clouddeployers.name] =@clouddeployers.length - 1
       end
     end
 
     def each
-      @predefclouds.each do |predefclouds|
-        yield predefclouds
+      @clouddeployers.each do |clouddeployers|
+        yield clouddeployers
       end
     end
 
     def each_index
-      @predefclouds.each_index do |i|
+      @clouddeployers.each_index do |i|
         yield i
       end
     end
 
     def empty?
-      @predefclouds.empty?
+      @clouddeployers.empty?
     end
 
-    def lookup(predefclouds)
+    def lookup(clouddeployers)
       lookup_by = nil
-      if predefclouds.kind_of?(Megam::PredefCloud)
-      lookup_by = predefclouds.name
-      elsif predefclouds.kind_of?(String)
-      lookup_by = predefclouds
+      if clouddeployers.kind_of?(Megam::CloudDeployer)
+      lookup_by = clouddeployers.name
+      elsif clouddeployers.kind_of?(String)
+      lookup_by = clouddeployers
       else
-        raise ArgumentError, "Must pass a Megam::PredefClouds or String to lookup"
+        raise ArgumentError, "Must pass a Megam::CloudDeployers or String to lookup"
       end
-      res =@predefclouds_by_name[lookup_by]
+      res =@clouddeployers_by_name[lookup_by]
       unless res
-        raise ArgumentError, "Cannot find a predefclouds matching #{lookup_by} (did you define it first?)"
+        raise ArgumentError, "Cannot find a clouddeployers matching #{lookup_by} (did you define it first?)"
       end
-      @predefclouds[res]
+      @clouddeployers[res]
     end
 
     # Transform the ruby obj ->  to a Hash
     def to_hash
       index_hash = Hash.new
-      self.each do |predefclouds|
-        index_hash[predefclouds.name] = predefclouds.to_s
+      self.each do |clouddeployers|
+        index_hash[clouddeployers.name] = clouddeployers.to_s
       end
       index_hash
     end
@@ -118,12 +118,12 @@ module Megam
 
 =begin
 {
-"json_claz":"Megam::PredefCloudCollection",
+"json_claz":"Megam::CloudDeployerCollection",
 "results":[{
 "id":"NOD362554470640386048",
 "name":"ec2_rails",
 "account_id":"ACT362544229488001024",
-"json_claz":"Megam::PredefCloud",
+"json_claz":"Megam::CloudDeployer",
 "spec":{
 "type_name":"sensor-type",
 "groups":"sens-group",
@@ -142,10 +142,10 @@ module Megam
 =end
     def self.json_create(o)
       collection = self.new()
-      o["results"].each do |predefclouds_list|
-        predefclouds_array = predefclouds_list.kind_of?(Array) ? predefclouds_list : [ predefclouds_list ]
-        predefclouds_array.each do |predefclouds|
-          collection.insert(predefclouds)
+      o["results"].each do |clouddeployers_list|
+        clouddeployers_array = clouddeployers_list.kind_of?(Array) ? clouddeployers_list : [ clouddeployers_list ]
+        clouddeployers_array.each do |clouddeployers|
+          collection.insert(clouddeployers)
         end
       end
       collection
@@ -153,9 +153,9 @@ module Megam
 
     private
 
-    def is_megam_predefclouds(arg)
-      unless arg.kind_of?(Megam::PredefCloud)
-        raise ArgumentError, "Members must be Megam::PredefClouds's"
+    def is_megam_clouddeployers(arg)
+      unless arg.kind_of?(Megam::CloudDeployer)
+        raise ArgumentError, "Members must be Megam::CloudDeployers's"
       end
       true
     end

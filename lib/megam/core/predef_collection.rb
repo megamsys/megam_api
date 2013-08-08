@@ -96,8 +96,7 @@ module Megam
       end
       res = @predefs_by_name[lookup_by]
       unless res
-	#Below Exception not found
-        raise Megam::Exceptions::ResourceNotFound, "Cannot find a predef matching #{lookup_by} (did you define it first?)"
+        raise ArgumentError, "Cannot find a predef matching #{lookup_by} (did you define it first?)"
       end
       @predefs[res]
     end
@@ -119,22 +118,22 @@ module Megam
 
 =begin
 {
-  "json_claz":"Megam::PredefCollection",
-  "results":[{
-    "id":"PRE362554468593565696",
-    "name":"rabbitmq",
-    "provider":"chef",
-    "provider_role":"rabbitmq",
-    "build_monkey":"none",
-    "json_claz":"Megam::Predef"
-  },{
-    "id":"PRE362554470090932224",
-    "name":"mobhtml5",
-    "provider":"chef",
-    "provider_role":"sencha",
-    "build_monkey":"none",
-    "json_claz":"Megam::Predef"
-  }]
+"json_claz":"Megam::PredefCollection",
+"results":[{
+"id":"PRE362554468593565696",
+"name":"rabbitmq",
+"provider":"chef",
+"provider_role":"rabbitmq",
+"build_monkey":"none",
+"json_claz":"Megam::Predef"
+},{
+"id":"PRE362554470090932224",
+"name":"mobhtml5",
+"provider":"chef",
+"provider_role":"sencha",
+"build_monkey":"none",
+"json_claz":"Megam::Predef"
+}]
 }
 =end
     def self.json_create(o)

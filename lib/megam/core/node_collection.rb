@@ -97,7 +97,7 @@ module Megam
       end
       res = @nodes_by_name[lookup_by]
       unless res
-        raise Megam::Exceptions::ResourceNotFound, "Cannot find a node matching #{lookup_by} (did you define it first?)"
+        raise ArgumentError, "Cannot find a node matching #{lookup_by} (did you define it first?)"
       end
       @nodes[res]
     end
