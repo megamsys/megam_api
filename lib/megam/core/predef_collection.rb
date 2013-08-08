@@ -96,7 +96,7 @@ module Megam
       end
       res = @predefs_by_name[lookup_by]
       unless res
-        raise Megam::Exceptions::ResourceNotFound, "Cannot find a predef matching #{lookup_by} (did you define it first?)"
+        raise ArgumentError, "Cannot find a predef matching #{lookup_by} (did you define it first?)"
       end
       @predefs[res]
     end
