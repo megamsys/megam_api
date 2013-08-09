@@ -3,24 +3,22 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 class TestApps < MiniTest::Unit::TestCase
 
   def test_post_predefcloud1
-    tmp_hash = { :name => "aws_morning_rails", :spec => {
+    tmp_hash = { :name => "aws-ec2-predef-small", :spec => {
         :type_name => "aws-ec2",
-        :groups => "dev_india_corsproject",
-        :image => "AWXI0E009",
-        :flavor => "t1-micro"
+        :groups => "megam",
+        :image => "ami-d783cd85",
+        :flavor => "m1.small"
       },
       :access => {
-        :ssh_key => "cors_securessh",
-        :identity_file => "https://s3.closedloc/aorc.pem",
+        :ssh_key => "megam_ec2",
+        :identity_file => "~/.ssh/megam_ec2.pem",
         :ssh_user => "ubuntu"
       },
       :ideal => "ror,redis,riak",
       :performance => "10rpm"
     }
 
-      options = { :email => "a@b.com", :api_key => "iShmBtKrP99lUO0ggDBhDQ==" }
-me = megams_new.new(options)
-    response = me.post_predefcloud(tmp_hash)
+    response = megams_new.post_predefcloud(tmp_hash)
     assert_equal(201, response.status)
   end
 =begin

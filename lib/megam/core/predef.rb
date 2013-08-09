@@ -169,10 +169,8 @@ module Megam
     # Show a particular predef by name,
     # Megam::Predef
     def self.show(p_name)
-	puts "test----------------- show --> "
 	prede = self.new()
       prede.megam_rest.get_predef(p_name)
-      self
     end
 
     def to_s
