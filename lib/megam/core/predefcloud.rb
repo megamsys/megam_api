@@ -33,7 +33,6 @@ module Megam
     end
 
     def megam_rest
-	puts "MEGAM REST------------------------>  "
       options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
       Megam::API.new(options)
     end
@@ -205,7 +204,6 @@ module Megam
     # returns a PredefsCollection
     # don't return self. check if the Megam::PredefCollection is returned.
     def self.list
-	puts "SELF. LIST---------------------->>>>>>>>>>>>>>>>>>"
 	predef = self.new()
       predef.megam_rest.get_predefclouds
     end
@@ -213,7 +211,8 @@ module Megam
     # Show a particular predef by name,
     # Megam::Predef
     def self.show(p_name)
-      megam_rest.get_predefcloud(p_name)
+	pre = self.new()
+      pre.megam_rest.get_predefcloud(p_name)
       self
     end
 

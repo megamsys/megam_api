@@ -3,11 +3,11 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 class TestApps < MiniTest::Unit::TestCase
 
   def test_post_predefcloud1
-    tmp_hash = { :name => "aws-ec2-predef-small", :spec => {
+    tmp_hash = { :name => "aws_ec2_predef_medium", :spec => {
         :type_name => "aws-ec2",
         :groups => "megam",
         :image => "ami-d783cd85",
-        :flavor => "m1.small"
+        :flavor => "m1.medium"
       },
       :access => {
         :ssh_key => "megam_ec2",

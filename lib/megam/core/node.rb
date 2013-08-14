@@ -32,7 +32,8 @@ module Megam
     end
 
     def megam_rest
-      Megam::API.new(Megam::Config[:email], Megam::Config[:api_key])
+      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
+      Megam::API.new(options)
     end
     
     def node_name(arg=nil)
@@ -101,6 +102,8 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["accounts_id"] = accounts_id
+      index_hash["node_name"] = node_name
+      index_hash["command"] = command
       index_hash["request"] = request
       index_hash["predefs"] = predefs
       index_hash["some_msg"] = some_msg
@@ -171,37 +174,29 @@ module Megam
       node
     end
 
-    def from_hash(o)
-      @node_name = o[:node_name] if o.has_key?(:node_name)
-      @command   = o[:command] if o.has_key?(:command)
-      @id        = o[:id] if o.has_key?(:id)
-      @email     = o[:accounts_id] if o.has_key?(:accounts_id)
-      @request   = o[:request] if o.has_key?(:request)
-      @predefs   = o[:predefs] if o.has_key?(:predefs)
+def from_hash(o)
+      @node_name = o["node_name"] if o.has_key?("node_name")
+      @command   = o["command"] if o.has_key?("command")
+      @id        = o["id"] if o.has_key?("id")
+      @email     = o["accounts_id"] if o.has_key?("accounts_id")
+      @request   = o["request"] if o.has_key?("request")
+      @predefs   = o["predefs"] if o.has_key?("predefs")
       self
     end
 
-    def self.create
-      node = build
-      node.create
+    def self.create(o)
+      acct = from_hash(o)
+      acct.create
     end
 
-    #
-    #build the node as per the need
-    def self.build
-      payload = {:node_name => self.node_name, :command => self.command, :predefs => self.predefs }
-      from_hash(payload)
-    end
-    
-     # Create the node via the REST API
-    def create(node_input)
-      megam_rest.post_nodes(node_input)
-      self
+    # Create the node via the REST API
+    def create
+      megam_rest.post_node(to_hash)
     end
 
     # Load a account by email_p
     def self.show(node_name)
-      megam_rest.get_nodes(node_name)
+      megam_rest.get_node(node_name)
       self
     end
 

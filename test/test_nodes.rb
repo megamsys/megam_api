@@ -1,8 +1,11 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-=begin
-{
+
+
+  def test_post_node1
+
+@com = {
 "systemprovider" => {
 "provider" => {
 "prov" => "chef"
@@ -25,19 +28,19 @@ class TestApps < MiniTest::Unit::TestCase
 "command" => "knife",
 "plugin" => "ec2 server create",
 "run-list" => "'role[opendj]'",
-"name" => "-N TestOverAll"
+"name" => "TestOverAll"
 }
 }
 }
-=end
-  def test_post_node1
+
+
     tmp_hash = {
       "node_name" => "morning.megam.co",
-      "command" => "commands",
+	"command" => "#{@com}",
       "predefs" => {"name" => "rails", "scm" => "https://github.com/temp.git",
         "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "http://s3pub.com/0.1/granny.war", "queue" => "queue@queue1"}
     }
-    response = megams.post_node(tmp_hash)
+    response = megams_new.post_node(tmp_hash)
     assert_equal(201, response.status)
   end
 
@@ -72,6 +75,5 @@ class TestApps < MiniTest::Unit::TestCase
       megams.get_node("stupid.megam.co")
     end
   end
-
 end
 
