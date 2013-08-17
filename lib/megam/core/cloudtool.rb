@@ -14,15 +14,16 @@
 # limitations under the License.
 #
 module Megam
-  class CloudDeployer
-    # Each notify entry is a resource/action pair, modeled as an
-    # Struct with a #resource and #action member
+  class CloudTool
     def initialize
-      @provider = {}
+      @id = nil
+      @name = nil
+      @cli = nil
+      @cloudtemplates = nil
       @some_msg = {}
     end
 
-    def cloud_deployer
+    def cloud_tool
       self
     end
 
@@ -30,15 +31,37 @@ module Megam
       Megam::API.new(Megam::Config[:email], Megam::Config[:api_key])
     end
 
-    def provider(arg=nil)
+    def id(arg=nil)
       if arg != nil
-        @provider = arg
+        @id = arg
       else
-      @provider
+      @id
       end
     end
 
-    
+    def cli(arg=nil)
+      if arg != nil
+        @cli = arg
+      else
+      @cli
+      end
+    end
+
+    def name(arg=nil)
+      if arg != nil
+        @name = arg
+      else
+      @name
+      end
+    end
+
+    def cloudtemplates(arg=nil)
+      if arg != nil
+        @cloudtemplates = arg
+      else
+      @cloudtemplates
+      end
+    end
 
     def some_msg(arg=nil)
       if arg != nil
@@ -56,7 +79,11 @@ module Megam
     def to_hash
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
-      index_hash["provider"] = provider
+      index_hash["id"] = id
+      index_hash["name"] = name
+      index_hash["cli"] = cli
+      index_hash["cloudtemplates"] = cloudtemplates
+      index_hash["some_msg"] = some_msg
       index_hash
     end
 
@@ -68,30 +95,34 @@ module Megam
 
     def for_json
       result = {
-        "provider" => provider 
+        "id" => id,
+        "name" => name,
+        "cli" => cli,
+        "cloudtemplates" => cloudtemplates
       }
       result
     end
 
     #
     def self.json_create(o)
-      clouddep = new
-      #requests
-      oq = o["provider"]
-      clouddep.provider[:name] = oq["name"] if oq && oq.has_key?("name")
+      cloudtool = new
+      cloudtool.id(o["id"]) if o.has_key?("id")
+      cloudtool.name(o["name"]) if o.has_key?("name")
+      cloudtool.cli(o["cli"]) if o.has_key?("cli")
+      cloudtool.cloudtemplates(o["cloudtemplates"]) if o.has_key?("cloudtemplates")
       
       #success or error
-      clouddep.some_msg[:code] = o["code"] if o.has_key?("code")
-      clouddep.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
-      clouddep.some_msg[:msg]= o["msg"] if o.has_key?("msg")
-      clouddep.some_msg[:links] = o["links"] if o.has_key?("links")
-      clouddep
+      cloudtool.some_msg[:code] = o["code"] if o.has_key?("code")
+      cloudtool.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+      cloudtool.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+      cloudtool.some_msg[:links] = o["links"] if o.has_key?("links")
+      cloudtool
     end
 
     def self.from_hash(o)
-      clouddep = self.new()
-      clouddep.from_hash(o)
-      clouddep
+      cloudtool = self.new()
+      cloudtool.from_hash(o)
+      cloudtool
     end
 
     def from_hash(o)
@@ -99,42 +130,21 @@ module Megam
       self
     end
 
-    def self.create
-      clouddep = build
-      clouddep.create
-    end
-
-    #
-    #build the node as per the need
-    def self.build
-      payload = {:id => self.id, :name => self.name, :provider => self.provider,
-        :provider_role => self.provider_role, :build_monkey => self.build_monkey}
-      from_hash(payload)
-    end
-
-    # Create the clouddeployer via the REST API
-    def create(clouddep_input)
-      megam_rest.post_clouddep(clouddep_input)
-      self
-    end
-
-    # Load all clouddeps -
-    # returns a PredefsCollection
-    # don't return self. check if the Megam::PredefCollection is returned.
+    # Load all cloudtools -
+    # returns a CloudToolsCollection
     def self.list
-      megam_rest.get_clouddeps
+      megam_rest.get_cloudtools
     end
 
-    # Show a particular clouddep by name,
-    # Megam::Predef
+    # Show a particular cloudtool by name,
+    # Megam::CloudTool
     def self.show(p_name)
-      megam_rest.get_clouddeps(p_name)
+      megam_rest.get_cloudtool(p_name)
       self
     end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
-    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end

@@ -31,8 +31,13 @@ module Megam
     MEGAM_PREDEFCOLLECTION  = "Megam::PredefCollection".freeze
     MEGAM_PREDEFCLOUD       = "Megam::PredefCloud".freeze
     MEGAM_PREDEFCLOUDCOLLECTION    = "Megam::PredefCloudCollection".freeze
-    MEGAM_CLOUDDEPLOYER     = "Megam::CloudDeployer".freeze
-    MEGAM_CLOUDDEPLOYERCOLLECTION    = "Megam::CloudDeployerCollection".freeze
+    MEGAM_CLOUDTOOL     = "Megam::CloudTool".freeze
+    MEGAM_CLOUDTOOLCOLLECTION    = "Megam::CloudToolCollection".freeze
+    MEGAM_CLOUDTEMPLATE     = "Megam::CloudTemplate".freeze
+    MEGAM_CLOUDTEMPLATECOLLECTION    = "Megam::CloudTemplateCollection".freeze
+    MEGAM_CLOUDINSTRUCTION     = "Megam::CloudInstruction".freeze
+    MEGAM_CLOUDINSTRUCTIONCOLLECTION    = "Megam::CloudInstructionCollection".freeze
+    MEGAM_CLOUDINSTRUCTIONGROUP    = "Megam::CloudInstructionGroup".freeze
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -123,10 +128,20 @@ module Megam
           Megam::PredefCloud
         when MEGAM_PREDEFCLOUDCOLLECTION
           Megam::PredefCloudCollection
-        when MEGAM_CLOUDDEPLOYER
-          Megam::CloudDeployer
-        when MEGAM_CLOUDDEPLOYERCOLLECTION
-          Megam::CloudDeployerCollection
+        when MEGAM_CLOUDTOOL
+          Megam::CloudTool
+        when MEGAM_CLOUDTOOLCOLLECTION
+          Megam::CloudToolCollection
+        when MEGAM_CLOUDTEMPLATE
+          Megam::CloudTemplate
+        when MEGAM_CLOUDTEMPLATECOLLECTION
+          Megam::CloudTemplateCollection
+        when MEGAM_CLOUDINSTRUCTION
+          Megam::CloudInstruction
+        when MEGAM_CLOUDINSTRUCTIONGROUP
+          Megam::CloudInstructionGroup
+        when MEGAM_CLOUDINSTRUCTIONCOLLECTION
+          Megam::CloudInstructionCollection
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end

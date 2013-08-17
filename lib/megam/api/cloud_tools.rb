@@ -1,7 +1,7 @@
 module Megam
   class API
-    def get_clouddeployers
-      @options = {:path => '/clouddeployers',:body => ""}.merge(@options)
+    def get_cloudtools
+      @options = {:path => '/cloudtools',:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -10,8 +10,8 @@ module Megam
       )
     end
 
-    def get_clouddeployer(clouddep_name)
-      @options = {:path => "/clouddeployers/#{clouddep_name}",:body => ""}.merge(@options)
+    def get_cloudtool(cloudtool_name)
+      @options = {:path => "/cloudtools/#{cloudtool_name}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -20,9 +20,9 @@ module Megam
       )
     end
 
-    def post_clouddeployer(new_clouddep)
-      @options = {:path => '/clouddeployers/content',
-        :body => Megam::JSONCompat.to_json(new_clouddep)}.merge(@options)
+    def post_cloudtool(new_cloudtool)
+      @options = {:path => '/cloudtools/content',
+        :body => Megam::JSONCompat.to_json(new_cloudtool)}.merge(@options)
 
       request(
         :expects  => 201,
