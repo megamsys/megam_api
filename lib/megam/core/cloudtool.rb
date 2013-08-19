@@ -28,7 +28,8 @@ module Megam
     end
 
     def megam_rest
-      Megam::API.new(Megam::Config[:email], Megam::Config[:api_key])
+      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
+      Megam::API.new(options)
     end
 
     def id(arg=nil)
@@ -133,7 +134,8 @@ module Megam
     # Load all cloudtools -
     # returns a CloudToolsCollection
     def self.list
-      megam_rest.get_cloudtools
+      ct = self.new()
+      ct.megam_rest.get_cloudtools
     end
 
     # Show a particular cloudtool by name,

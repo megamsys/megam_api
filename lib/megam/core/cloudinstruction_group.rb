@@ -45,6 +45,8 @@ module Megam
       crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
     end
 
+
+
     # Transform the ruby obj ->  to a Hash
     def to_hash
       index_hash = Hash.new

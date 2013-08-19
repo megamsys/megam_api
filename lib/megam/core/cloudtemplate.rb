@@ -17,7 +17,8 @@ module Megam
   class CloudTemplate
     def initialize
       @cctype = nil
-      @cloud_instruction_group = nil
+      @cloud_instruction_group_array = nil
+      @cloudinstructiongroup_by_name = Hash.new
     end
 
     def cloud_template
@@ -32,11 +33,11 @@ module Megam
       end
     end
 
-    def cloud_instruction_group(arg=nil)
+    def cloud_instruction_group_array(arg=nil)
       if arg != nil
-        @cloud_instruction_group = arg
+        @cloud_instruction_group_array = arg
       else
-      @cloud_instruction_group
+      @cloud_instruction_group_array
       end
     end
 
@@ -49,7 +50,9 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["cctype"] = cctype
-      cloud_instruction_group.each do |single_cig|
+	puts "======================> BEFORE EACH <================================== "
+      cloud_instruction_group_array.each do |single_cig|
+	puts "======================> AFTER EACH <================================== "
         index_hash[single_cig.group] = single_cig
       end
       index_hash
@@ -64,7 +67,7 @@ module Megam
     def for_json
       result = {
         "cctype" => cctype,
-        "cloud_instruction_group" =>  cloud_instruction_group
+        "cloud_instruction_group_array" =>  cloud_instruction_group_array
       }
       result
     end
@@ -73,9 +76,12 @@ module Megam
     def self.json_create(o)
       cloudtemplate = new
       cloudtemplate.cctype(o["cctype"]) if o.has_key?("cctype")
-      cloudtemplate.cloud_instruction_group(o["cloud_instruction_group"]) if o.has_key?("cloud_instruction_group")
+	puts "======================> json BEFORE EACH <================================== "
+      cloudtemplate.cloud_instruction_group_array(o["cloud_instruction_group"]) if o.has_key?("cloud_instruction_group")
+	puts "======================> JSON AFTER EACH <================================== "
       cloudtemplate
     end
+
 
     def self.from_hash(o)
       cloudtemplate = self.new()
@@ -86,6 +92,25 @@ module Megam
     def from_hash(o)
       @cctype   = o[:cctype] if o.has_key?(:cctype)
       self
+    end
+
+    def lookup_cig(single_cloud_instruction_group, action)
+	self.cloud_instruction_group_array.each do |single_cig|
+	if single_cig.group == single_cloud_instruction_group
+		single_cig.cloud_instructions_array.each do |cia|
+	puts "TEST 1 ==============================>>>>> "
+			cia.each do |ci|
+	puts "TEST 2 ==============================>>>>> "
+				if ci.action == action
+	puts "TEST 3 ==============================>>>>> "
+					@ci = ci
+				end
+			end
+			@cloudinstructiongroup_by_name = { single_cloud_instruction_group => single_cig, action => @ci}
+		end
+     	end
+      end
+	@cloudinstructiongroup_by_name
     end
 
     def to_s

@@ -87,7 +87,7 @@ module Megam
 
     def lookup(cloudtool)
       lookup_by = nil
-      if cloudtools.kind_of?(Megam::CloudTool)
+      if cloudtool.kind_of?(Megam::CloudTool)
       lookup_by = cloudtool.name
       elsif cloudtool.kind_of?(String)
       lookup_by = cloudtool
