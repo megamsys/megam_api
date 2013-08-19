@@ -19,6 +19,8 @@ module Megam
       @cctype = nil
       @cloud_instruction_group_array = nil
       @cloudinstructiongroup_by_name = Hash.new
+      @cloud_instruction_group = nil
+      @cloud_instruction_group_by_name = Hash.new
     end
 
     def cloud_template
@@ -39,6 +41,28 @@ module Megam
       else
       @cloud_instruction_group_array
       end
+    end
+
+    def cloud_instruction_group_by_name(arg=nil)
+      if arg != nil
+        @cloud_instruction_group_by_name = arg
+      else
+      @cloud_instruction_group_by_name
+      end
+    end
+
+    #returns a cloud instruction for a particular group
+    def lookup_by_group_name(group)
+      res =@cloud_instruction_group_by_name[group]
+      unless res
+        raise ArgumentError, "Cannot find a cloudgroup matching #{group} (did you define it first?)"
+      end
+    end
+
+    #returns a cloud instruction for a particular group, action
+    def lookup_by_instruction(group,action)
+      single_cig = lookup_by_group_name(group)
+      single_cig.cloud_instruction_array.select { |cloudinstructions| cloudinstructions.lookup(action) }
     end
 
     def error?
@@ -76,9 +100,12 @@ module Megam
     def self.json_create(o)
       cloudtemplate = new
       cloudtemplate.cctype(o["cctype"]) if o.has_key?("cctype")
-	puts "======================> json BEFORE EACH <================================== "
-      cloudtemplate.cloud_instruction_group_array(o["cloud_instruction_group"]) if o.has_key?("cloud_instruction_group")
-	puts "======================> JSON AFTER EACH <================================== "
+      #cloudtemplate.cloud_instruction_group_array(o["cloud_instruction_group"]) if o.has_key?("cloud_instruction_group")
+
+      cloudtemplate.cloud_instruction_group(o["cloud_instruction_group"]) if o.has_key?("cloud_instruction_group")
+      cloudtemplate.cloud_instruction_group.each do |single_cig|
+        cloudtemplate.cloud_instruction_group_by_name[single_cig.group] = single_cig
+      end
       cloudtemplate
     end
 
