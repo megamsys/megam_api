@@ -15,12 +15,12 @@
 #
 module Megam
   class Node
-
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
     def initialize
       @id = nil
       @accounts_id = nil
+      @status=nil
       @command = nil
       @request ={}
       @predefs={}
@@ -35,7 +35,7 @@ module Megam
       options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
       Megam::API.new(options)
     end
-    
+
     def node_name(arg=nil)
       if arg != nil
         @node_name = arg
@@ -43,7 +43,7 @@ module Megam
       @node_name
       end
     end
-    
+
     def command(arg=nil)
       if arg != nil
         @command = arg
@@ -65,6 +65,14 @@ module Megam
         @accounts_id = arg
       else
       @accounts_id
+      end
+    end
+
+    def status(arg=nil)
+      if arg != nil
+        @status = arg
+      else
+      @status
       end
     end
 
@@ -103,6 +111,7 @@ module Megam
       index_hash["id"] = id
       index_hash["accounts_id"] = accounts_id
       index_hash["node_name"] = node_name
+      index_hash["status"] = status
       index_hash["command"] = command
       index_hash["request"] = request
       index_hash["predefs"] = predefs
@@ -120,6 +129,7 @@ module Megam
       result = {
         "id" => id,
         "accounts_id" => accounts_id,
+        "status" => status,
         "request" => request,
         "predefs" => predefs
       }
@@ -144,11 +154,13 @@ module Megam
     #"queue":""
     #}
     #}]
-    # 
+    #
     def self.json_create(o)
       node = new
       node.id(o["id"]) if o.has_key?("id")
       node.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
+      node.status(o["status"]) if o.has_key?("status")
+
       #requests
       oq = o["request"]
       node.request[:req_id] = oq["req_id"] if oq && oq.has_key?("req_id")
@@ -174,11 +186,13 @@ module Megam
       node
     end
 
-def from_hash(o)
+    def from_hash(o)
       @node_name = o["node_name"] if o.has_key?("node_name")
       @command   = o["command"] if o.has_key?("command")
       @id        = o["id"] if o.has_key?("id")
-      @email     = o["accounts_id"] if o.has_key?("accounts_id")
+      @id        = o["id"] if o.has_key?("id")
+
+      @accounts_id    = o["accounts_id"] if o.has_key?("accounts_id")
       @request   = o["request"] if o.has_key?("request")
       @predefs   = o["predefs"] if o.has_key?("predefs")
       self
@@ -200,7 +214,6 @@ def from_hash(o)
       self
     end
 
-  
     def to_s
       Megam::Stuff.styled_hash(to_hash)
     #"---> Megam::Account:[error=#{error?}]\n"+

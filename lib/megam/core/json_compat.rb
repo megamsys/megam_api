@@ -27,6 +27,9 @@ module Megam
     MEGAM_ACCOUNT           = "Megam::Account".freeze
     MEGAM_NODE              = "Megam::Node".freeze
     MEGAM_NODECOLLECTION    = "Megam::NodeCollection".freeze
+    MEGAM_REQUEST            = "Megam::Request".freeze
+    MEGAM_REQUESTCOLLECTION  = "Megam::RequestCollection".freeze
+
     MEGAM_PREDEF            = "Megam::Predef".freeze
     MEGAM_PREDEFCOLLECTION  = "Megam::PredefCollection".freeze
     MEGAM_PREDEFCLOUD       = "Megam::PredefCloud".freeze
@@ -120,6 +123,10 @@ module Megam
           Megam::Node
         when MEGAM_NODECOLLECTION
           Megam::NodeCollection
+        when MEGAM_REQUEST
+          Megam::Request
+        when MEGAM_REQUESTCOLLECTION
+          Megam::RequestCollection
         when MEGAM_PREDEF
           Megam::Predef
         when MEGAM_PREDEFCOLLECTION
