@@ -5,7 +5,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,8 +17,6 @@ module Megam
   class CloudTemplate
     def initialize
       @cctype = nil
-      @cloud_instruction_group_array = nil
-      @cloudinstructiongroup_by_name = Hash.new
       @cloud_instruction_group = nil
       @cloud_instruction_group_by_name = Hash.new
     end
@@ -35,11 +33,11 @@ module Megam
       end
     end
 
-    def cloud_instruction_group_array(arg=nil)
+    def cloud_instruction_group(arg=nil)
       if arg != nil
-        @cloud_instruction_group_array = arg
+        @cloud_instruction_group = arg
       else
-      @cloud_instruction_group_array
+      @cloud_instruction_group
       end
     end
 
@@ -57,26 +55,29 @@ module Megam
       unless res
         raise ArgumentError, "Cannot find a cloudgroup matching #{group} (did you define it first?)"
       end
+	res
     end
 
     #returns a cloud instruction for a particular group, action
     def lookup_by_instruction(group,action)
       single_cig = lookup_by_group_name(group)
-      single_cig.cloud_instruction_array.select { |cloudinstructions| cloudinstructions.lookup(action) }
+      #single_cig.cloud_instructions_array.select { |cloudinstructions| cloudinstructions.lookup(action) }
+	single_cig.cloud_instructions_array.each do |cia|
+		@ci= cia.lookup(action)
+	end
+	@ci
     end
 
     def error?
-      crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
+      crocked = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
     end
 
-    # Transform the ruby obj ->  to a Hash
+    # Transform the ruby obj -> to a Hash
     def to_hash
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["cctype"] = cctype
-	puts "======================> BEFORE EACH <================================== "
-      cloud_instruction_group_array.each do |single_cig|
-	puts "======================> AFTER EACH <================================== "
+      cloud_instruction_group.each do |single_cig|
         index_hash[single_cig.group] = single_cig
       end
       index_hash
@@ -91,7 +92,7 @@ module Megam
     def for_json
       result = {
         "cctype" => cctype,
-        "cloud_instruction_group_array" =>  cloud_instruction_group_array
+        "cloud_instruction_group" => cloud_instruction_group
       }
       result
     end
@@ -100,15 +101,12 @@ module Megam
     def self.json_create(o)
       cloudtemplate = new
       cloudtemplate.cctype(o["cctype"]) if o.has_key?("cctype")
-      #cloudtemplate.cloud_instruction_group_array(o["cloud_instruction_group"]) if o.has_key?("cloud_instruction_group")
-
       cloudtemplate.cloud_instruction_group(o["cloud_instruction_group"]) if o.has_key?("cloud_instruction_group")
       cloudtemplate.cloud_instruction_group.each do |single_cig|
         cloudtemplate.cloud_instruction_group_by_name[single_cig.group] = single_cig
       end
       cloudtemplate
     end
-
 
     def self.from_hash(o)
       cloudtemplate = self.new()
@@ -117,27 +115,8 @@ module Megam
     end
 
     def from_hash(o)
-      @cctype   = o[:cctype] if o.has_key?(:cctype)
+      @cctype = o[:cctype] if o.has_key?(:cctype)
       self
-    end
-
-    def lookup_cig(single_cloud_instruction_group, action)
-	self.cloud_instruction_group_array.each do |single_cig|
-	if single_cig.group == single_cloud_instruction_group
-		single_cig.cloud_instructions_array.each do |cia|
-	puts "TEST 1 ==============================>>>>> "
-			cia.each do |ci|
-	puts "TEST 2 ==============================>>>>> "
-				if ci.action == action
-	puts "TEST 3 ==============================>>>>> "
-					@ci = ci
-				end
-			end
-			@cloudinstructiongroup_by_name = { single_cloud_instruction_group => single_cig, action => @ci}
-		end
-     	end
-      end
-	@cloudinstructiongroup_by_name
     end
 
     def to_s
