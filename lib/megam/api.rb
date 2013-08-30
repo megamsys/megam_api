@@ -68,6 +68,7 @@ module Megam
     OPTIONS = {
       :headers => {},
       :host => 'localhost',
+      #:host => 'megam_play.megam.co',
       :port => '9000',
       :nonblock => false,
       :scheme => 'http'

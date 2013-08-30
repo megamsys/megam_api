@@ -17,15 +17,26 @@ module Megam
   class Node
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
+  def self.hash_tree
+	puts "==================================> HASH TREE <============================================="
+    Hash.new do |hash, key|
+      hash[key] = hash_tree
+    end
+  end
+
+
     def initialize
+	puts "==================================> INIT <============================================="
       @id = nil
       @accounts_id = nil
       @status=nil
-      @command = nil
       @request ={}
       @predefs={}
       @some_msg = {}
+      @command = hash_tree
     end
+
+  @command = self.hash_tree
 
     def node
       self
@@ -113,6 +124,7 @@ module Megam
       index_hash["node_name"] = node_name
       index_hash["status"] = status
       index_hash["command"] = command
+      index_hash["command_new"] = command_new
       index_hash["request"] = request
       index_hash["predefs"] = predefs
       index_hash["some_msg"] = some_msg
@@ -156,6 +168,7 @@ module Megam
     #}]
     #
     def self.json_create(o)
+puts "===============================> self.json Create<==================================================="
       node = new
       node.id(o["id"]) if o.has_key?("id")
       node.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
@@ -165,6 +178,21 @@ module Megam
       oq = o["request"]
       node.request[:req_id] = oq["req_id"] if oq && oq.has_key?("req_id")
       node.request[:command] = oq["command"] if oq && oq.has_key?("command")
+
+      #Command
+      oc = o["command"]
+	node.command_new[:systemprovider][:provider][:prov] = oc["systemprovider"]["provider"]["prov"]
+	node.command_new[:compute][:cctype] = oc["compute"]["cctype"]
+	node.command_new[:compute][:cc][:image] = oc["compute"]["cc"]["image"]
+	node.command_new[:compute][:cc][:flavor] = oc["compute"]["cc"]["flavor"]
+	node.command_new[:compute][:access][:ssh_key] = oc["compute"]["access"]["ssh_key"]
+	node.command_new[:compute][:access][:identity_file] = oc["compute"]["access"]["identity_file"]
+	node.command_new[:compute][:access][:ssh_user] = oc["compute"]["access"]["ssh_user"]
+	node.command_new[:chefservice][:chef][:command] = oc["chefservice"]["chef"]["command"]
+	node.command_new[:chefservice][:chef][:plugin] = oc["chefservice"]["chef"]["plugin"]
+	node.command_new[:chefservice][:chef][:run_list] = oc["chefservice"]["chef"]["run_list"]
+	node.command_new[:chefservice][:chef][:name] = oc["chefservice"]["chef"]["name"]
+
       #predef
       op = o["predefs"]
       node.predefs[:name] = op["name"] if op && op.has_key?("name")
@@ -177,18 +205,24 @@ module Megam
       node.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
       node.some_msg[:msg]= o["msg"] if o.has_key?("msg")
       node.some_msg[:links] = o["links"] if o.has_key?("links")
+
+puts "===============================> NODE json Create<==================================================="
+puts node.inspect
       node
     end
 
     def self.from_hash(o)
+puts "===============================> self From hash<==================================================="
       node = self.new()
       node.from_hash(o)
       node
     end
 
     def from_hash(o)
+puts "===============================> From hash<==================================================="
       @node_name = o["node_name"] if o.has_key?("node_name")
       @command   = o["command"] if o.has_key?("command")
+      @command_new   = o["command"] if o.has_key?("command")
       @id        = o["id"] if o.has_key?("id")
       @id        = o["id"] if o.has_key?("id")
 
@@ -199,12 +233,14 @@ module Megam
     end
 
     def self.create(o)
+puts "===============================> self Create<==================================================="
       acct = from_hash(o)
       acct.create
     end
 
     # Create the node via the REST API
     def create
+puts "===============================> create<==================================================="
       megam_rest.post_node(to_hash)
     end
 
