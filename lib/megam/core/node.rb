@@ -18,7 +18,6 @@ module Megam
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
   def self.hash_tree
-	puts "==================================> HASH TREE <============================================="
     Hash.new do |hash, key|
       hash[key] = hash_tree
     end
@@ -33,11 +32,8 @@ module Megam
       @request ={}
       @predefs={}
       @some_msg = {}
-      @command = hash_tree
+      @command = self.class.hash_tree
     end
-
-  @command = self.hash_tree
-
     def node
       self
     end
@@ -124,7 +120,6 @@ module Megam
       index_hash["node_name"] = node_name
       index_hash["status"] = status
       index_hash["command"] = command
-      index_hash["command_new"] = command_new
       index_hash["request"] = request
       index_hash["predefs"] = predefs
       index_hash["some_msg"] = some_msg
@@ -181,17 +176,18 @@ puts "===============================> self.json Create<========================
 
       #Command
       oc = o["command"]
-	node.command_new[:systemprovider][:provider][:prov] = oc["systemprovider"]["provider"]["prov"]
-	node.command_new[:compute][:cctype] = oc["compute"]["cctype"]
-	node.command_new[:compute][:cc][:image] = oc["compute"]["cc"]["image"]
-	node.command_new[:compute][:cc][:flavor] = oc["compute"]["cc"]["flavor"]
-	node.command_new[:compute][:access][:ssh_key] = oc["compute"]["access"]["ssh_key"]
-	node.command_new[:compute][:access][:identity_file] = oc["compute"]["access"]["identity_file"]
-	node.command_new[:compute][:access][:ssh_user] = oc["compute"]["access"]["ssh_user"]
-	node.command_new[:chefservice][:chef][:command] = oc["chefservice"]["chef"]["command"]
-	node.command_new[:chefservice][:chef][:plugin] = oc["chefservice"]["chef"]["plugin"]
-	node.command_new[:chefservice][:chef][:run_list] = oc["chefservice"]["chef"]["run_list"]
-	node.command_new[:chefservice][:chef][:name] = oc["chefservice"]["chef"]["name"]
+	node.command[:systemprovider][:provider][:prov] = oc["systemprovider"]["provider"]["prov"]
+	node.command[:compute][:cctype] = oc["compute"]["cctype"]
+	node.command[:compute][:cc][:groups] = oc["compute"]["cc"]["groups"]
+	node.command[:compute][:cc][:image] = oc["compute"]["cc"]["image"]
+	node.command[:compute][:cc][:flavor] = oc["compute"]["cc"]["flavor"]
+	node.command[:compute][:access][:ssh_key] = oc["compute"]["access"]["ssh_key"]
+	node.command[:compute][:access][:identity_file] = oc["compute"]["access"]["identity_file"]
+	node.command[:compute][:access][:ssh_user] = oc["compute"]["access"]["ssh_user"]
+	node.command[:cloudtool][:chef][:command] = oc["cloudtool"]["chef"]["command"]
+	node.command[:cloudtool][:chef][:plugin] = oc["cloudtool"]["chef"]["plugin"]
+	node.command[:cloudtool][:chef][:run_list] = oc["cloudtool"]["chef"]["run_list"]
+	node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
 
       #predef
       op = o["predefs"]
@@ -222,7 +218,6 @@ puts "===============================> self From hash<==========================
 puts "===============================> From hash<==================================================="
       @node_name = o["node_name"] if o.has_key?("node_name")
       @command   = o["command"] if o.has_key?("command")
-      @command_new   = o["command"] if o.has_key?("command")
       @id        = o["id"] if o.has_key?("id")
       @id        = o["id"] if o.has_key?("id")
 

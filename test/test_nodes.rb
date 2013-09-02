@@ -12,22 +12,22 @@ class TestApps < MiniTest::Unit::TestCase
 }
 },
 "compute" => {
-"ec2" => {
-"groups" => "megam",
+"cctype" => "ec2",
+"cc" => {
 "image" => "ami-d783cd85",
 "flavor" => "t1.micro"
 },
 "access" => {
-"ssh-key" => "megam_ec2",
-"identity-file" => "~/.ssh/megam_ec2.pem",
-"ssh-user" => "ubuntu"
+"ssh_key" => "megam_ec2",
+"identity_file" => "~/.ssh/megam_ec2.pem",
+"ssh_user" => "ubuntu"
 }
 },
-"chefservice" => {
+"cloudtool" => {
 "chef" => {
 "command" => "knife",
 "plugin" => "ec2 server create",
-"run-list" => "'role[opendj]'",
+"run_list" => "role[opendj]",
 "name" => "TestOverAll"
 }
 }
@@ -36,14 +36,18 @@ class TestApps < MiniTest::Unit::TestCase
 
     tmp_hash = {
       "node_name" => "morning.megam.co",
-	"command" => "#{@com}",
+	"command" => @com,
       "predefs" => {"name" => "rails", "scm" => "https://github.com/temp.git",
         "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "http://s3pub.com/0.1/granny.war", "queue" => "queue@queue1"}
     }
+puts "======================> TEMP HASH <============================================= "
+puts tmp_hash.class
+puts tmp_hash
     response = megams_new.post_node(tmp_hash)
     assert_equal(201, response.status)
   end
 
+=begin
   def test_post_node2
     tmp_hash = {
       "node_name" => "sundown.megam.co",
@@ -75,5 +79,6 @@ class TestApps < MiniTest::Unit::TestCase
       megams.get_node("stupid.megam.co")
     end
   end
+=end
 end
 
