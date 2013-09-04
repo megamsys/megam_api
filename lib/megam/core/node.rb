@@ -13,16 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require 'hashie'
 module Megam
   class Node
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
+=begin
   def self.hash_tree
     Hash.new do |hash, key|
       hash[key] = hash_tree
     end
   end
-
+=end
 
     def initialize
 	puts "==================================> INIT <============================================="
@@ -32,7 +34,8 @@ module Megam
       @request ={}
       @predefs={}
       @some_msg = {}
-      @command = self.class.hash_tree
+      #@command = self.class.hash_tree
+	@command = Hashie::Mash.new
     end
     def node
       self
@@ -164,6 +167,7 @@ module Megam
     #
     def self.json_create(o)
 puts "===============================> self.json Create<==================================================="
+puts o.inspect
       node = new
       node.id(o["id"]) if o.has_key?("id")
       node.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
@@ -176,6 +180,8 @@ puts "===============================> self.json Create<========================
 
       #Command
       oc = o["command"]
+	node.command = node.command(oc) if oc && oc.has_key?("systemprovider")
+=begin
 	node.command[:systemprovider][:provider][:prov] = oc["systemprovider"]["provider"]["prov"]
 	node.command[:compute][:cctype] = oc["compute"]["cctype"]
 	node.command[:compute][:cc][:groups] = oc["compute"]["cc"]["groups"]
@@ -188,7 +194,7 @@ puts "===============================> self.json Create<========================
 	node.command[:cloudtool][:chef][:plugin] = oc["cloudtool"]["chef"]["plugin"]
 	node.command[:cloudtool][:chef][:run_list] = oc["cloudtool"]["chef"]["run_list"]
 	node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
-
+=end
       #predef
       op = o["predefs"]
       node.predefs[:name] = op["name"] if op && op.has_key?("name")
