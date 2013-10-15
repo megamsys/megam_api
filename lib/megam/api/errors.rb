@@ -19,6 +19,7 @@ module Megam
       class NotFound < ErrorWithResponse; end
       class Timeout < ErrorWithResponse; end
       class Locked < ErrorWithResponse; end
+      class Socket < ErrorWithResponse; end
       class RequestFailed < ErrorWithResponse; end
 
     end

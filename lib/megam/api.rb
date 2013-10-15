@@ -68,10 +68,12 @@ module Megam
     OPTIONS = {
       :headers => {},
       :host => 'localhost',
-      #:host => 'megam_play.megam.co',
+      #:host => 'play.megam.co',
       :port => '9000',
       :nonblock => false,
+      #:scheme => 'https'
       :scheme => 'http'
+
     }
 
     API_VERSION1 = "/v1"
@@ -177,6 +179,18 @@ module Megam
         'X-Megam-HMAC' => encoded_api_header[:hmac],
         'X-Megam-Date' => encoded_api_header[:date],
       }).merge(@options[:headers])
+
+
+#SSL certificate file paths
+#Excon.defaults[:ssl_verify_peer] = false
+#Excon.defaults[:ssl_ca_path] = '/etc/nginx/ssl/'
+#Excon.defaults[:ssl_ca_file] = '/etc/nginx/ssl/server.crt'
+
+#Excon.defaults[:ssl_ca_path] = File.join(File.dirname(__FILE__), '../../test/data/')
+#ENV['SSL_CERT_DIR'] = File.join(File.dirname(__FILE__), '../../test/data/')
+#Excon.defaults[:ssl_ca_file] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'data', 'server.crt')
+#ENV['SSL_CERT_FILE'] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'data', 'server.crt')
+
 
       text.info("HTTP Request Data:")
       text.msg("> HTTP #{@options[:scheme]}://#{@options[:host]}")
