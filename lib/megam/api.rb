@@ -69,11 +69,10 @@ module Megam
       :headers => {},
       :host => 'localhost',
       #:host => 'play.megam.co',
-      :port => '9000',
+      #:port => '9000',
       :nonblock => false,
-      #:scheme => 'https'
-      :scheme => 'http'
-
+      :scheme => 'https'
+      #:scheme => 'http'
     }
 
     API_VERSION1 = "/v1"
@@ -186,10 +185,10 @@ module Megam
 #Excon.defaults[:ssl_ca_path] = '/etc/nginx/ssl/'
 #Excon.defaults[:ssl_ca_file] = '/etc/nginx/ssl/server.crt'
 
-#Excon.defaults[:ssl_ca_path] = File.join(File.dirname(__FILE__), '../../test/data/')
-#ENV['SSL_CERT_DIR'] = File.join(File.dirname(__FILE__), '../../test/data/')
-#Excon.defaults[:ssl_ca_file] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'data', 'server.crt')
-#ENV['SSL_CERT_FILE'] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'data', 'server.crt')
+Excon.defaults[:ssl_ca_path] = File.join(File.dirname(__FILE__), '../../test/data/')
+ENV['SSL_CERT_DIR'] = File.join(File.dirname(__FILE__), '../../test/data/')
+Excon.defaults[:ssl_ca_file] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'data', 'server.pem')
+ENV['SSL_CERT_FILE'] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'data', 'server.pem')
 
 
       text.info("HTTP Request Data:")
