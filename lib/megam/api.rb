@@ -185,16 +185,19 @@ module Megam
 #Excon.defaults[:ssl_ca_path] = '/etc/nginx/ssl/'
 #Excon.defaults[:ssl_ca_file] = '/etc/nginx/ssl/server.crt'
 
+
+
+puts "TEST PATH ====>  ============> =================> =============> "
 Excon.defaults[:ssl_ca_path] = File.join(File.dirname(__FILE__), '../../test/certs/')
 ENV['SSL_CERT_DIR'] = File.join(File.dirname(__FILE__), '../../test/certs/')
-Excon.defaults[:ssl_ca_file] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'certs', 'cacert.org.pem')
-ENV['SSL_CERT_FILE'] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'certs', 'cacert.org.pem')
+Excon.defaults[:ssl_ca_file] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'certs', 'cacert.pem')
+ENV['SSL_CERT_FILE'] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'certs', 'cacert.pem')
 
 
-#Excon.defaults[:ssl_ca_path] = "/etc/nginx/certs/"
-#ENV['SSL_CERT_DIR'] = "/etc/nginx/certs/"
-#Excon.defaults[:ssl_ca_file] = "/etc/nginx/certs/server.pem"
-#ENV['SSL_CERT_FILE'] = "/etc/nginx/certs/server.pem"
+#Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs/"
+#ENV['SSL_CERT_DIR'] = "/etc/ssl/certs/"
+#Excon.defaults[:ssl_ca_file] = "/etc/ssl/certs/ca.pem"
+#ENV['SSL_CERT_FILE'] = "/etc/ssl/certs/ca.pem"
 
       text.info("HTTP Request Data:")
       text.msg("> HTTP #{@options[:scheme]}://#{@options[:host]}")
