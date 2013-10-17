@@ -67,7 +67,8 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-      :host => 'localhost',
+      #:host => 'localhost',
+      :host => 'thomas-work',
       #:host => 'play.megam.co',
       #:port => '9000',
       :nonblock => false,
@@ -188,12 +189,12 @@ module Megam
 
 
 puts "TEST PATH ====>  ============> =================> =============> "
-puts "#{File.expand_path(File.join(File.dirname(__FILE__), "..", "data"))}"
+puts "#{File.expand_path(File.join(File.dirname(__FILE__), "..", "data", "cacert.pem"))}"
 puts "#{Excon.defaults[:ssl_ca_path]}"
 #Excon.defaults[:ssl_ca_path] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data1"))
 #ENV['SSL_CERT_DIR'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data1"))
-Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs/"
-ENV['SSL_CERT_DIR'] = "/etc/ssl/certs/"
+Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs"
+ENV['SSL_CERT_DIR'] = "/etc/ssl/certs"
 Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data", "cacert.pem"))
 ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data", "cacert.pem"))
 
