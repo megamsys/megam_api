@@ -182,39 +182,24 @@ module Megam
 
 
 #SSL certificate file paths
-#Excon.defaults[:ssl_verify_peer] = true
-#Excon.defaults[:ssl_ca_path] = '/etc/nginx/ssl/'
-#Excon.defaults[:ssl_ca_file] = '/etc/nginx/ssl/server.crt'
-
-
-
-puts "TEST PATH ====>  ============> =================> =============> "
-puts "#{File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))}"
-puts "#{Excon.defaults[:ssl_ca_path]}"
-#Excon.defaults[:ssl_ca_path] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs"))
-#ENV['SSL_CERT_DIR'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs"))
+#If ssl_ca_path and file specified shows error
+#Only file pass through
 #Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs"
 #ENV['SSL_CERT_DIR'] = "/etc/ssl/certs"
 Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem"))
 ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem"))
 
 if !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem")))
-	puts "==================> Test CER 1===============>"
 	text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
 	Excon.defaults[:ssl_verify_peer] = false
-elsif !File.readable_real?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem")))
-	puts "==================> Test CER 2===============>"
-	text.warn("Certificate file is readable. SSL_VERIFY_PEER set as false")
-	Excon.defaults[:ssl_verify_peer] = false
+#elsif !File.readable_real?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem")))
+#	puts "==================> Test CER 2===============>"
+#	text.warn("Certificate file is readable. SSL_VERIFY_PEER set as false")
+#	Excon.defaults[:ssl_verify_peer] = false
 else
-	puts "==================> Test CER 3===============>"
 	text.info("Certificate found")
 	Excon.defaults[:ssl_verify_peer] = true
 end
-#Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs/"
-#ENV['SSL_CERT_DIR'] = "/etc/ssl/certs/"
-#Excon.defaults[:ssl_ca_file] = "/etc/ssl/certs/ca.pem"
-#ENV['SSL_CERT_FILE'] = "/etc/ssl/certs/ca.pem"
 
       text.info("HTTP Request Data:")
       text.msg("> HTTP #{@options[:scheme]}://#{@options[:host]}")
