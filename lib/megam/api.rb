@@ -188,12 +188,14 @@ module Megam
 
 
 puts "TEST PATH ====>  ============> =================> =============> "
-puts "#{Excon.defaults[:ssl_ca_file]}"
-#puts "#{Excon.DEFAULT_CA_FILE}"
-Excon.defaults[:ssl_ca_path] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data"))
-ENV['SSL_CERT_DIR'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data"))
-Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data", "server.crt"))
-ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data", "server.crt"))
+puts "#{File.expand_path(File.join(File.dirname(__FILE__), "..", "data"))}"
+puts "#{Excon.defaults[:ssl_ca_path]}"
+#Excon.defaults[:ssl_ca_path] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data1"))
+#ENV['SSL_CERT_DIR'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data1"))
+Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs/"
+ENV['SSL_CERT_DIR'] = "/etc/ssl/certs/"
+Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data", "cacert.pem"))
+ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data", "cacert.pem"))
 
 
 #Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs/"
