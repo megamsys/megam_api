@@ -188,10 +188,12 @@ module Megam
 
 
 puts "TEST PATH ====>  ============> =================> =============> "
-Excon.defaults[:ssl_ca_path] = File.join(File.dirname(__FILE__), '../../test/certs/')
-ENV['SSL_CERT_DIR'] = File.join(File.dirname(__FILE__), '../../test/certs/')
-Excon.defaults[:ssl_ca_file] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'certs', 'cacert.pem')
-ENV['SSL_CERT_FILE'] = File.join(File.dirname(__FILE__), '..', '..', 'test', 'certs', 'cacert.pem')
+puts "#{Excon.defaults[:ssl_ca_file]}"
+#puts "#{Excon.DEFAULT_CA_FILE}"
+Excon.defaults[:ssl_ca_path] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data"))
+ENV['SSL_CERT_DIR'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data"))
+Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data", "server.crt"))
+ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "data", "server.crt"))
 
 
 #Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs/"
