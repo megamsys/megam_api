@@ -72,7 +72,7 @@ module Megam
       #:host => 'play.megam.co',
       #:port => '9000',
       :nonblock => false,
-      :scheme => 'https',
+      :scheme => 'https'
       #:scheme => 'http'
     }
 
