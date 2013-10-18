@@ -67,8 +67,8 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-      #:host => 'localhost',
-      :host => 'thomas-work',
+      :host => 'localhost',
+      #:host => 'thomas-work',
       #:host => 'play.megam.co',
       #:port => '9000',
       :nonblock => false,
@@ -186,10 +186,10 @@ module Megam
 #Only file pass through
 #Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs"
 #ENV['SSL_CERT_DIR'] = "/etc/ssl/certs"
-Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem"))
-ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem"))
+Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
+#ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
 
-if !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem")))
+if !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
 	text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
 	Excon.defaults[:ssl_verify_peer] = false
 #elsif !File.readable_real?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem")))
