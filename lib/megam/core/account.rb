@@ -20,6 +20,7 @@ module Megam
       @email = nil
       @api_key = nil
       @authority = nil
+      @created_at = nil
       @some_msg = {}
     end
 
@@ -65,6 +66,14 @@ module Megam
       end
     end
 
+    def created_at(arg=nil)
+      if arg != nil
+        @created_at = arg
+      else
+      @created_at
+      end
+    end
+
     def some_msg(arg=nil)
       if arg != nil
         @some_msg = arg
@@ -85,6 +94,7 @@ module Megam
       index_hash["email"] = email
       index_hash["api_key"] = api_key
       index_hash["authority"] = authority
+      index_hash["created_at"] = created_at
       index_hash["some_msg"] = some_msg
       index_hash
     end
@@ -100,7 +110,8 @@ module Megam
         "id" => id,
         "email" => email,
         "api_key" => api_key,
-        "authority" => authority
+        "authority" => authority,
+        "created_at" => created_at
       }
       result
     end
@@ -112,6 +123,7 @@ module Megam
       acct.email(o["email"]) if o.has_key?("email")
       acct.api_key(o["api_key"]) if o.has_key?("api_key")
       acct.authority(o["authority"]) if o.has_key?("authority")
+      acct.created_at(o["created_at"]) if o.has_key?("created_at")
       acct.some_msg[:code] = o["code"] if o.has_key?("code")
       acct.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
       acct.some_msg[:msg]= o["msg"] if o.has_key?("msg")
@@ -130,6 +142,7 @@ module Megam
       @email      = o[:email] if o.has_key?(:email)
       @api_key   = o[:api_key] if o.has_key?(:api_key)
       @authority = o[:authority] if o.has_key?(:authority)
+      @created_at        = o[:created_at] if o.has_key?(:created_at)
       self
     end
 

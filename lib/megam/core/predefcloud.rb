@@ -25,6 +25,7 @@ module Megam
       @access = {}
       @ideal=nil
       @performance = nil
+      @created_at = nil
       @some_msg = {}
     end
 
@@ -93,6 +94,14 @@ module Megam
       end
     end
 
+    def created_at(arg=nil)
+      if arg != nil
+        @created_at = arg
+      else
+      @created_at
+      end
+    end
+
     def some_msg(arg=nil)
       if arg != nil
         @some_msg = arg
@@ -116,6 +125,7 @@ module Megam
       index_hash["access"] = access
       index_hash["ideal"] = ideal
       index_hash["performance"] = performance
+      index_hash["created_at"] = created_at
       index_hash
     end
 
@@ -133,7 +143,8 @@ module Megam
         "spec" => spec,
         "access" => access,
         "ideal" => ideal,
-        "performance" => performance
+        "performance" => performance,
+        "created_at" => created_at
       }
       result
     end
@@ -157,6 +168,7 @@ module Megam
       #access
       predefcd.ideal(o["ideal"]) if o.has_key?("ideal")
       predefcd.performance(o["performance"]) if o.has_key?("performance")
+      predefcd.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       predefcd.some_msg[:code] = o["code"] if o.has_key?("code")
       predefcd.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -178,6 +190,7 @@ module Megam
       @access     = o[:access] if o.has_key?(:access)
       @ideal   = o[:ideal] if o.has_key?(:ideal)
       @performance   = o[:performance] if o.has_key?(:performance)
+      @created_at   = o[:created_at] if o.has_key?(:created_at)
       self
     end
 

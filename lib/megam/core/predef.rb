@@ -22,6 +22,7 @@ module Megam
       @provider = nil
       @provider_role =nil
       @build_monkey=nil
+      @created_at = nil
       @some_msg = {}
     end
 
@@ -74,6 +75,14 @@ module Megam
       end
     end
 
+    def created_at(arg=nil)
+      if arg != nil
+        @created_at = arg
+      else
+      @created_at
+      end
+    end
+
     def some_msg(arg=nil)
       if arg != nil
         @some_msg = arg
@@ -95,6 +104,7 @@ module Megam
       index_hash["provider"] = provider
       index_hash["provider_role"] = provider_role
       index_hash["build_monkey"] = build_monkey
+      index_hash["created_at"] = created_at
       index_hash
     end
 
@@ -110,7 +120,8 @@ module Megam
         "name" => name,
         "provider" => provider,
         "provider_role" => provider_role,
-        "build_monkey" => build_monkey
+        "build_monkey" => build_monkey,
+        "created_at" => created_at
       }
       result
     end
@@ -123,6 +134,7 @@ module Megam
       node.provider(o["provider"]) if o.has_key?("provider")
       node.provider_role(o["provider_role"]) if o.has_key?("provider_role")
       node.build_monkey(o["build_monkey"]) if o.has_key?("build_monkey")
+      node.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       node.some_msg[:code] = o["code"] if o.has_key?("code")
       node.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -143,6 +155,7 @@ module Megam
       @provider       = o[:provider] if o.has_key?(:provider)
       @provider_role  = o[:provider_role] if o.has_key?(:provider_role)
       @build_monkey   = o[:build_monkey] if o.has_key?(:build_monkey)
+      @created_at   = o[:created_at] if o.has_key?(:created_at)
       self
     end
 

@@ -27,15 +27,18 @@ module Megam
 =end
 
     def initialize
-	puts "==================================> INIT <============================================="
       @id = nil
       @accounts_id = nil
+      @node_type = nil
+      @req_type = nil
       @status=nil
       @request ={}
       @predefs={}
       @some_msg = {}
       #@command = self.class.hash_tree
 	@command = Hashie::Mash.new
+	@appdefns = {}
+	@boltdefns = {}
     end
     def node
       self
@@ -78,6 +81,22 @@ module Megam
       end
     end
 
+    def node_type(arg=nil)
+      if arg != nil
+        @node_type = arg
+      else
+      @node_type
+      end
+    end
+
+    def req_type(arg=nil)
+      if arg != nil
+        @req_type = arg
+      else
+      @req_type
+      end
+    end
+
     def status(arg=nil)
       if arg != nil
         @status = arg
@@ -102,6 +121,22 @@ module Megam
       end
     end
 
+    def appdefns(arg=nil)
+      if arg != nil
+        @appdefns = arg
+      else
+      @appdefns
+      end
+    end
+
+    def boltdefns(arg=nil)
+      if arg != nil
+        @boltdefns = arg
+      else
+      @boltdefns
+      end
+    end
+
     def some_msg(arg=nil)
       if arg != nil
         @some_msg = arg
@@ -120,11 +155,15 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["accounts_id"] = accounts_id
+      index_hash["node_type"] = node_type
+      index_hash["req_type"] = req_type
       index_hash["node_name"] = node_name
       index_hash["status"] = status
       index_hash["command"] = command
       index_hash["request"] = request
       index_hash["predefs"] = predefs
+      index_hash["appdefns"] = appdefns
+      index_hash["boltdefns"] = boltdefns
       index_hash["some_msg"] = some_msg
       index_hash
     end
@@ -139,9 +178,13 @@ module Megam
       result = {
         "id" => id,
         "accounts_id" => accounts_id,
+        "node_type" => node_type,
+        "req_type" => req_type,
         "status" => status,
         "request" => request,
-        "predefs" => predefs
+        "predefs" => predefs,
+        "appdefns" => appdefns,
+        "boltdefns" => boltdefns
       }
       result
     end
@@ -166,16 +209,17 @@ module Megam
     #}]
     #
     def self.json_create(o)
-puts "===============================> self.json Create<==================================================="
-puts o.inspect
       node = new
       node.id(o["id"]) if o.has_key?("id")
       node.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
+      node.node_type(o["node_type"]) if o.has_key?("node_type")
+      node.req_type(o["req_type"]) if o.has_key?("req_type")
       node.status(o["status"]) if o.has_key?("status")
 
       #requests
       oq = o["request"]
       node.request[:req_id] = oq["req_id"] if oq && oq.has_key?("req_id")
+      node.request[:req_type] = oq["req_type"] if oq && oq.has_key?("req_type")
       node.request[:command] = oq["command"] if oq && oq.has_key?("command")
 
       #Command
@@ -202,46 +246,62 @@ puts o.inspect
       node.predefs[:war]= op["war"] if op && op.has_key?("war")
       node.predefs[:db] = op["db"] if op && op.has_key?("db")
       node.predefs[:queue] = op["queue"] if op && op.has_key?("queue")
+
+      #APP DEFINITIONS
+      op = o["appdefns"]
+      node.appdefns[:timetokill] = op["timetokill"] if op && op.has_key?("timetokill")
+      node.appdefns[:metered] = op["metered"] if op && op.has_key?("metered")
+      node.appdefns[:logging]= op["logging"] if op && op.has_key?("logging")
+      node.appdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+
+      #BOLT DEFINITIONS
+      op = o["boltdefns"]
+      node.boltdefns[:username] = op["username"] if op && op.has_key?("username")
+      node.boltdefns[:apikey] = op["apikey"] if op && op.has_key?("apikey")
+      node.boltdefns[:store_name]= op["store_name"] if op && op.has_key?("store_name")
+      node.boltdefns[:url] = op["url"] if op && op.has_key?("url")
+      node.boltdefns[:timetokill] = op["timetokill"] if op && op.has_key?("timetokill")
+      node.boltdefns[:metered] = op["metered"] if op && op.has_key?("metered")
+      node.boltdefns[:logging]= op["logging"] if op && op.has_key?("logging")
+      node.boltdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+
       #success or error
       node.some_msg[:code] = o["code"] if o.has_key?("code")
       node.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
       node.some_msg[:msg]= o["msg"] if o.has_key?("msg")
       node.some_msg[:links] = o["links"] if o.has_key?("links")
-
-puts "===============================> NODE json Create<==================================================="
-puts node.inspect
       node
     end
 
     def self.from_hash(o)
-puts "===============================> self From hash<==================================================="
       node = self.new()
       node.from_hash(o)
       node
     end
 
     def from_hash(o)
-puts "===============================> From hash<==================================================="
       @node_name = o["node_name"] if o.has_key?("node_name")
       @command   = o["command"] if o.has_key?("command")
       @id        = o["id"] if o.has_key?("id")
       @id        = o["id"] if o.has_key?("id")
 
       @accounts_id    = o["accounts_id"] if o.has_key?("accounts_id")
+      @node_type    = o["node_type"] if o.has_key?("node_type")
+      @req_type    = o["req_type"] if o.has_key?("req_type")
       @request   = o["request"] if o.has_key?("request")
       @predefs   = o["predefs"] if o.has_key?("predefs")
+      @appdefns   = o["appdefns"] if o.has_key?("appdefns")
+      @boltdefns   = o["boltdefns"] if o.has_key?("boltdefns")
       self
     end
 
     def self.create(o)
-puts "===============================> self Create<==================================================="
       acct = from_hash(o)
       acct.create
     end
 
     # Create the node via the REST API
     def create
-puts "===============================> create<==================================================="
       megam_rest.post_node(to_hash)
     end
 

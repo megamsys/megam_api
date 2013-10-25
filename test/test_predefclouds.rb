@@ -43,12 +43,12 @@ class TestApps < MiniTest::Unit::TestCase
   end
 =end
   def test_get_predefclouds
-    response = megams_new.get_predefclouds
+    response = megams.get_predefclouds
     assert_equal(200, response.status)
   end
 
   def test_get_predefcloud2
-    response = megams_new.get_predefcloud("iaas_default")
+    response = megams.get_predefcloud("iaas_default")
     assert_equal(200, response.status)
   end
 
