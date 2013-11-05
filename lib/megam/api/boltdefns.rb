@@ -2,7 +2,7 @@ module Megam
   class API
 
     # GET /boltdefns
-    def get_appdefns
+    def get_boltdefns
       @options = {:path => '/boltdefns',:body => ""}.merge(@options)
 
       request(
