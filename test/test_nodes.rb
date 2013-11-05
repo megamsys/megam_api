@@ -56,7 +56,7 @@ puts tmp_hash
     assert_equal(201, response.status)
   end
 
-
+=begin
   def test_post_node2
     tmp_hash = {
       "node_name" => "sundown.megam.co",
@@ -82,7 +82,7 @@ puts response.data.body.nodes
     assert_equal(200, response.status)
   end
 
-
+=end
 =begin
   def test_get_node1
     response = megams.get_node("sundown.megam.co")

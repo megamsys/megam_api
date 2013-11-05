@@ -15,4 +15,9 @@ puts tmp_hash
     assert_equal(201, response.status)
   end
 
+  def test_get_boltdefns
+    response = megams.get_boltdefn("night.megam.co")
+    assert_equal(200, response.status)
+  end
+
 end

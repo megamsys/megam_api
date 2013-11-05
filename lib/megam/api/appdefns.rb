@@ -12,8 +12,8 @@ module Megam
       )
     end
 
-    def get_appdefn(appdefns_id)
-      @options = {:path => "/appdefns/#{appdefns_id}",:body => ""}.merge(@options)
+    def get_appdefn(node_name)
+      @options = {:path => "/appdefns/#{node_name}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,

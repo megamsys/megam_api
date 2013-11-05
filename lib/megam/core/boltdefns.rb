@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require 'hashie'
+
 module Megam
   class Boltdefns
     # Each notify entry is a resource/action pair, modeled as an
@@ -140,6 +140,7 @@ module Megam
       node.id(o["id"]) if o.has_key?("id")
       node.node_id(o["node_id"]) if o.has_key?("node_id")
       node.node_name(o["node_name"]) if o.has_key?("node_name")
+      node.created_at(o["created_at"]) if o.has_key?("created_at")
 
 
       #APP DEFINITIONS
@@ -154,8 +155,6 @@ module Megam
       node.boltdefns[:metered] = op["metered"] if op && op.has_key?("metered")
       node.boltdefns[:logging]= op["logging"] if op && op.has_key?("logging")
       node.boltdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
-
-      node.created_at[:created_at] = o["created_at"] if o.has_key?("created_at")
       node
     end
 

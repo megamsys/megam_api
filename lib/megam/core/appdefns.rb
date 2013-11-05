@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-require 'hashie'
 module Megam
   class Appdefns
     # Each notify entry is a resource/action pair, modeled as an
@@ -89,6 +88,8 @@ module Megam
 
     # Transform the ruby obj ->  to a Hash
     def to_hash
+puts "===================> CLASS NAME ====================================="
+puts self.class.name
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
@@ -140,7 +141,7 @@ module Megam
       node.id(o["id"]) if o.has_key?("id")
       node.node_id(o["node_id"]) if o.has_key?("node_id")
       node.node_name(o["node_name"]) if o.has_key?("node_name")
-
+      node.created_at(o["created_at"]) if o.has_key?("created_at")
 
       #APP DEFINITIONS
       op = o["appdefns"]
@@ -148,8 +149,6 @@ module Megam
       node.appdefns[:metered] = op["metered"] if op && op.has_key?("metered")
       node.appdefns[:logging]= op["logging"] if op && op.has_key?("logging")
       node.appdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
-
-      node.created_at[:created_at] = o["created_at"] if o.has_key?("created_at")
       node
     end
 
