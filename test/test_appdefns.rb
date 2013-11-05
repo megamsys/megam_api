@@ -6,7 +6,7 @@ class TestApps < MiniTest::Unit::TestCase
 
    tmp_hash = {
       "node_name" => "night.megam.co",
-	"appdefns" => {"username" => "new", "apikey" => "new", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""}
+	"appdefns" => {"timetokill" => "test", "metered" => "test", "logging" => "test", "runtime_exec" => "test"}
     }
 
 puts "======================> POST APPDEFNS TEMP HASH <============================================= "
