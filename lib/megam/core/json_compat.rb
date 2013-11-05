@@ -27,6 +27,8 @@ module Megam
     MEGAM_ACCOUNT           = "Megam::Account".freeze
     MEGAM_NODE              = "Megam::Node".freeze
     MEGAM_APPDEFNS          = "Megam::AppDefns".freeze
+    MEGAM_APPREQS          = "Megam::AppRequest".freeze
+    MEGAM_BOLTREQS          = "Megam::BoltRequest".freeze
     MEGAM_BOLTDEFNS         = "Megam::BoltDefns".freeze
     MEGAM_NODECOLLECTION    = "Megam::NodeCollection".freeze
     MEGAM_APPDEFNSCOLLECTION    = "Megam::AppDefnCollection".freeze
@@ -127,6 +129,10 @@ module Megam
           Megam::Node
         when MEGAM_APPDEFNS
           Megam::Appdefns
+        when MEGAM_APPREQS
+          Megam::Appreqs
+        when MEGAM_BOLTREQS
+          Megam::Boltreqs
         when MEGAM_BOLTDEFNS
           Megam::Boltdefns
         when MEGAM_NODECOLLECTION

@@ -1,17 +1,6 @@
 module Megam
   class API
 
-    # GET /appdefns
-    def get_appdefns
-      @options = {:path => '/appdefns',:body => ""}.merge(@options)
-
-      request(
-        :expects  => 200,
-        :method   => :get,
-        :body     => @options[:body]
-      )
-    end
-
     def get_appdefn(node_name)
       @options = {:path => "/appdefns/#{node_name}",:body => ""}.merge(@options)
 

@@ -174,12 +174,12 @@ puts self.class.name
 
     # Create the node via the REST API
     def create
-      megam_rest.post_node(to_hash)
+      megam_rest.post_appdefn(to_hash)
     end
 
     # Load a account by email_p
     def self.show(node_name)
-      megam_rest.get_node(node_name)
+      megam_rest.get_appdefn(node_name)
       self
     end
 

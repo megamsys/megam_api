@@ -13,9 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 module Megam
-  class Boltdefns
+  class Boltreqs
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
 =begin
@@ -27,10 +26,12 @@ module Megam
 =end
 
     def initialize
-      @id = nil
-      @node_id = nil
+      @req_type = nil
+      @boltdefns_id = nil
       @node_name = nil
-      @boltdefns ={}
+      @lc_apply = nil
+      @lc_additional = nil
+      @lc_when = nil
       @created_at = nil
     end
     def node
@@ -42,19 +43,19 @@ module Megam
       Megam::API.new(options)
     end
 
-    def id(arg=nil)
+    def req_type(arg=nil)
       if arg != nil
-        @id = arg
+        @req_type = arg
       else
-      @id
+      @req_type
       end
     end
 
-    def node_id(arg=nil)
+    def boltdefns_id(arg=nil)
       if arg != nil
-        @node_id = arg
+        @boltdefns_id = arg
       else
-      @node_id
+      @boltdefns_id
       end
     end
 
@@ -66,14 +67,29 @@ module Megam
       end
     end
 
-    def boltdefns(arg=nil)
+    def lc_apply(arg=nil)
       if arg != nil
-        @boltdefns = arg
+        @lc_apply = arg
       else
-      @boltdefns
+      @lc_apply
       end
     end
 
+    def lc_additional(arg=nil)
+      if arg != nil
+        @lc_additional = arg
+      else
+      @lc_additional
+      end
+    end
+
+    def lc_when(arg=nil)
+      if arg != nil
+        @lc_when = arg
+      else
+      @lc_when
+      end
+    end
 
     def created_at(arg=nil)
       if arg != nil
@@ -91,10 +107,12 @@ module Megam
     def to_hash
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
-      index_hash["id"] = id
-      index_hash["node_id"] = node_id
+      index_hash["req_type"] = req_type
+      index_hash["boltdefns_id"] = boltdefns_id
       index_hash["node_name"] = node_name
-      index_hash["boltdefns"] = boltdefns
+      index_hash["lc_apply"] = lc_apply
+      index_hash["lc_additional"] = lc_additional
+      index_hash["lc_when"] = lc_when
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -107,14 +125,17 @@ module Megam
 
     def for_json
       result = {
-        "id" => id,
-        "node_id" => node_id,
+        "req_type" => req_type,
+        "boltdefns_id" => boltdefns_id,
         "node_name" => node_name,
-        "boltdefns" => boltdefns,
+        "lc_apply" => lc_apply,
+        "lc_additional" => lc_additional,
+        "lc_when" => lc_when,
         "created_at" => created_at
       }
       result
     end
+
 
     # Create a Megam::Node from NodeResult-JSON
     #
@@ -137,24 +158,14 @@ module Megam
     #
     def self.json_create(o)
       node = new
-      node.id(o["id"]) if o.has_key?("id")
-      node.node_id(o["node_id"]) if o.has_key?("node_id")
+      node.req_type(o["req_type"]) if o.has_key?("req_type")
+      node.boltdefns_id(o["boltdefns_id"]) if o.has_key?("boltdefns_id")
       node.node_name(o["node_name"]) if o.has_key?("node_name")
+      node.lc_apply(o["lc_apply"]) if o.has_key?("lc_apply")
+      node.lc_additional(o["lc_additional"]) if o.has_key?("lc_additional")
+      node.lc_when(o["lc_when"]) if o.has_key?("lc_when")
       node.created_at(o["created_at"]) if o.has_key?("created_at")
 
-
-      #APP DEFINITIONS
-      op = o["boltdefns"]
-      node.boltdefns[:username] = op["username"] if op && op.has_key?("username")
-      node.boltdefns[:apikey] = op["apikey"] if op && op.has_key?("apikey")
-      node.boltdefns[:store_name]= op["store_name"] if op && op.has_key?("store_name")
-      node.boltdefns[:url] = op["url"] if op && op.has_key?("url")
-      node.boltdefns[:prime] = op["prime"] if op && op.has_key?("prime")
-
-      node.boltdefns[:timetokill] = op["timetokill"] if op && op.has_key?("timetokill")
-      node.boltdefns[:metered] = op["metered"] if op && op.has_key?("metered")
-      node.boltdefns[:logging]= op["logging"] if op && op.has_key?("logging")
-      node.boltdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
       node
     end
 
@@ -165,10 +176,12 @@ module Megam
     end
 
     def from_hash(o)
-      @id        = o["id"] if o.has_key?("id")
-      @node_id    = o["node_id"] if o.has_key?("node_id")
+      @req_type        = o["req_type"] if o.has_key?("req_type")
+      @boltdefns_id    = o["boltdefns_id"] if o.has_key?("boltdefns_id")
       @node_name = o["node_name"] if o.has_key?("node_name")
-      @boltdefns   = o["boltdefns"] if o.has_key?("boltdefns")
+      @lc_apply   = o["lc_apply"] if o.has_key?("lc_apply")
+      @lc_additional   = o["lc_additional"] if o.has_key?("lc_additional")
+      @lc_when   = o["lc_when"] if o.has_key?("lc_when")
       @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
@@ -180,12 +193,12 @@ module Megam
 
     # Create the node via the REST API
     def create
-      megam_rest.post_boltdefn(to_hash)
+      megam_rest.post_node(to_hash)
     end
 
     # Load a account by email_p
     def self.show(node_name)
-      megam_rest.get_boltdefn(node_name)
+      megam_rest.get_node(node_name)
       self
     end
 
