@@ -39,6 +39,7 @@ module Megam
 	@command = Hashie::Mash.new
 	@appdefns = {}
 	@boltdefns = {}
+      #@created_at = nil
     end
     def node
       self
@@ -137,6 +138,14 @@ module Megam
       end
     end
 
+    def created_at(arg=nil)
+      if arg != nil
+        @created_at = arg
+      else
+      @created_at
+      end
+    end
+
     def some_msg(arg=nil)
       if arg != nil
         @some_msg = arg
@@ -165,6 +174,7 @@ module Megam
       index_hash["appdefns"] = appdefns
       index_hash["boltdefns"] = boltdefns
       index_hash["some_msg"] = some_msg
+      #index_hash["created_at"] = created_at
       index_hash
     end
 
@@ -184,7 +194,7 @@ module Megam
         "request" => request,
         "predefs" => predefs,
         "appdefns" => appdefns,
-        "boltdefns" => boltdefns
+        "boltdefns" => boltdefns,
       }
       result
     end
@@ -270,6 +280,8 @@ module Megam
       node.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
       node.some_msg[:msg]= o["msg"] if o.has_key?("msg")
       node.some_msg[:links] = o["links"] if o.has_key?("links")
+
+      #node.created_at[:created_at] = o["created_at"] if o.has_key?("created_at")
       node
     end
 
@@ -283,8 +295,6 @@ module Megam
       @node_name = o["node_name"] if o.has_key?("node_name")
       @command   = o["command"] if o.has_key?("command")
       @id        = o["id"] if o.has_key?("id")
-      @id        = o["id"] if o.has_key?("id")
-
       @accounts_id    = o["accounts_id"] if o.has_key?("accounts_id")
       @node_type    = o["node_type"] if o.has_key?("node_type")
       @req_type    = o["req_type"] if o.has_key?("req_type")
@@ -292,6 +302,7 @@ module Megam
       @predefs   = o["predefs"] if o.has_key?("predefs")
       @appdefns   = o["appdefns"] if o.has_key?("appdefns")
       @boltdefns   = o["boltdefns"] if o.has_key?("boltdefns")
+     # @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
 

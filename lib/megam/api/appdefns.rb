@@ -1,9 +1,9 @@
 module Megam
   class API
 
-    # GET /requests
-    def get_requests
-      @options = {:path => '/requests',:body => ""}.merge(@options)
+    # GET /appdefns
+    def get_appdefns
+      @options = {:path => '/appdefns',:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -12,8 +12,8 @@ module Megam
       )
     end
 
-    def get_request(node_name)
-      @options = {:path => "/requests/#{node_name}",:body => ""}.merge(@options)
+    def get_appdefn(appdefns_id)
+      @options = {:path => "/appdefns/#{appdefns_id}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -22,9 +22,9 @@ module Megam
       )
     end
 
-    def post_request(new_req)
-      @options = {:path => '/requests/content',
-        :body => Megam::JSONCompat.to_json(new_req)}.merge(@options)
+    def post_appdefn(new_appdefn)
+      @options = {:path => '/appdefns/content',
+        :body => Megam::JSONCompat.to_json(new_appdefn)}.merge(@options)
 
       request(
         :expects  => 201,
