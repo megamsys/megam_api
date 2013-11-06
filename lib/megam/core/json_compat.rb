@@ -32,6 +32,8 @@ module Megam
     MEGAM_BOLTDEFNS         = "Megam::BoltDefns".freeze
     MEGAM_NODECOLLECTION    = "Megam::NodeCollection".freeze
     MEGAM_APPDEFNSCOLLECTION    = "Megam::AppDefnCollection".freeze
+    MEGAM_APPREQSCOLLECTION    = "Megam::AppRequestCollection".freeze
+    MEGAM_BOLTREQSCOLLECTION    = "Megam::BoltRequestCollection".freeze
     MEGAM_BOLTDEFNSCOLLECTION    = "Megam::BoltDefnCollection".freeze
     MEGAM_REQUEST            = "Megam::Request".freeze
     MEGAM_REQUESTCOLLECTION  = "Megam::RequestCollection".freeze
@@ -139,6 +141,10 @@ module Megam
           Megam::NodeCollection
         when MEGAM_APPDEFNSCOLLECTION
           Megam::AppdefnsCollection
+        when MEGAM_APPREQSCOLLECTION
+          Megam::AppreqsCollection
+        when MEGAM_BOLTREQSCOLLECTION
+          Megam::BoltreqsCollection
         when MEGAM_BOLTDEFNSCOLLECTION
           Megam::BoltdefnsCollection
         when MEGAM_REQUEST

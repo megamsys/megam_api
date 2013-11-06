@@ -18,11 +18,11 @@ puts tmp_hash
     response = megams.post_boltreq(tmp_hash)
     assert_equal(201, response.status)
   end
-=begin
-  def test_get_appdefns
-    response = megams.get_appdefn("night.megam.co")
+
+  def test_get_boltreqs
+    response = megams.get_boltreq("night.megam.co")
     assert_equal(200, response.status)
   end
-=end
+
 
 end

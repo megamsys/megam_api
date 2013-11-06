@@ -194,23 +194,14 @@ module Megam
       self
     end
 
-    def self.create
-      predef = build
-      predef.create
-    end
-
-    #
-    #build the node as per the need
-    def self.build
-      payload = {:id => self.id, :name => self.name, :provider => self.provider,
-        :provider_role => self.provider_role, :build_monkey => self.build_monkey}
-      from_hash(payload)
+    def self.create(o)
+      acct = from_hash(o)
+      acct.create
     end
 
     # Create the predef via the REST API
-    def create(predef_input)
-      megam_rest.post_predef(predef_input)
-      self
+    def create
+      megam_rest.post_predefcloud(to_hash)
     end
 
     # Load all predefs -

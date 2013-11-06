@@ -18,11 +18,11 @@ puts tmp_hash
     response = megams.post_appreq(tmp_hash)
     assert_equal(201, response.status)
   end
-=begin
-  def test_get_appdefns
-    response = megams.get_appdefn("night.megam.co")
+#=begin
+  def test_get_appreqs
+    response = megams.get_appreq("night.megam.co")
     assert_equal(200, response.status)
   end
-=end
+#=end
 
 end

@@ -26,6 +26,7 @@ module Megam
 =end
 
     def initialize
+      @id = nil
       @req_type = nil
       @boltdefns_id = nil
       @node_name = nil
@@ -41,6 +42,14 @@ module Megam
     def megam_rest
       options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
       Megam::API.new(options)
+    end
+
+    def id(arg=nil)
+      if arg != nil
+        @id = arg
+      else
+      @id
+      end
     end
 
     def req_type(arg=nil)
@@ -107,6 +116,7 @@ module Megam
     def to_hash
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
+      index_hash["id"] = id
       index_hash["req_type"] = req_type
       index_hash["boltdefns_id"] = boltdefns_id
       index_hash["node_name"] = node_name
@@ -125,6 +135,7 @@ module Megam
 
     def for_json
       result = {
+        "id" => id,
         "req_type" => req_type,
         "boltdefns_id" => boltdefns_id,
         "node_name" => node_name,
@@ -158,6 +169,7 @@ module Megam
     #
     def self.json_create(o)
       node = new
+      node.id(o["id"]) if o.has_key?("id")
       node.req_type(o["req_type"]) if o.has_key?("req_type")
       node.boltdefns_id(o["boltdefns_id"]) if o.has_key?("boltdefns_id")
       node.node_name(o["node_name"]) if o.has_key?("node_name")
@@ -176,6 +188,7 @@ module Megam
     end
 
     def from_hash(o)
+      @id        = o["id"] if o.has_key?("id")
       @req_type        = o["req_type"] if o.has_key?("req_type")
       @boltdefns_id    = o["boltdefns_id"] if o.has_key?("boltdefns_id")
       @node_name = o["node_name"] if o.has_key?("node_name")
