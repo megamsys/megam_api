@@ -32,7 +32,7 @@ module Megam
       @node_type = nil
       @req_type = nil
       @status=nil
-      @noofinstances=nil
+      @noofinstances=0
       @request ={}
       @predefs={}
       @some_msg = {}
@@ -183,7 +183,7 @@ module Megam
       index_hash["appdefns"] = appdefns
       index_hash["boltdefns"] = boltdefns
       index_hash["some_msg"] = some_msg
-      index_hash["noofinstances"] = noofinstances
+      index_hash["noofinstances"] = noofinstances.to_i
       index_hash["created_at"] = created_at
       index_hash
     end
