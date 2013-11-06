@@ -331,8 +331,8 @@ module Megam
 
     # Load a account by email_p
     def self.show(node_name)
-      megam_rest.get_node(node_name)
-      self
+      node = self.new()
+      node.megam_rest.get_node(node_name)
     end
 
     def to_s
