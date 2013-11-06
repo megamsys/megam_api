@@ -43,7 +43,7 @@ class TestApps < MiniTest::Unit::TestCase
 	"command" => @com,
       "predefs" => {"name" => "rails", "scm" => "https://github.com/temp.git",
         "db" => "postgres@postgresql1.megam.com/night.megam.co", "war" => "http://s3pub.com/0.1/granny.war", "queue" => "queue@queue1"},
-	"appdefns" => {"timetokill" => "timetokillTOM", "metered" => "meteredTOM", "logging" => "loggingTOM", "runtime_exec" => "runtime_execTOM"},
+	"appdefns" => {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "runtime_execTOM"},
 	"boltdefns" => {"username" => "tom", "apikey" => "123456", "store_name" => "tom_db", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
 	"appreq" => {},
 	"boltreq" => {}

@@ -32,6 +32,7 @@ module Megam
       @node_type = nil
       @req_type = nil
       @status=nil
+      @noofinstances=nil
       @request ={}
       @predefs={}
       @some_msg = {}
@@ -55,6 +56,14 @@ module Megam
         @node_name = arg
       else
       @node_name
+      end
+    end
+
+    def noofinstances(arg=nil)
+      if arg != nil
+        @noofinstances = arg
+      else
+      @noofinstances
       end
     end
 
@@ -174,6 +183,7 @@ module Megam
       index_hash["appdefns"] = appdefns
       index_hash["boltdefns"] = boltdefns
       index_hash["some_msg"] = some_msg
+      index_hash["noofinstances"] = noofinstances
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -195,6 +205,8 @@ module Megam
         "predefs" => predefs,
         "appdefns" => appdefns,
         "boltdefns" => boltdefns,
+        "noofinstances" => noofinstances,
+        "created_at" => created_at
       }
       result
     end
@@ -225,6 +237,7 @@ module Megam
       node.node_type(o["node_type"]) if o.has_key?("node_type")
       node.req_type(o["req_type"]) if o.has_key?("req_type")
       node.status(o["status"]) if o.has_key?("status")
+      node.noofinstances(o["noofinstances"]) if o.has_key?("noofinstances")
       node.created_at(o["created_at"]) if o.has_key?("created_at")
       #requests
       oq = o["request"]
@@ -301,6 +314,7 @@ module Megam
       @predefs   = o["predefs"] if o.has_key?("predefs")
       @appdefns   = o["appdefns"] if o.has_key?("appdefns")
       @boltdefns   = o["boltdefns"] if o.has_key?("boltdefns")
+      @noofinstances        = o["noofinstances"] if o.has_key?("noofinstances")
       @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
