@@ -22,6 +22,7 @@ module Megam
       @provider = nil
       @provider_role =nil
       @build_monkey=nil
+      @runtime_exec = nil
       @created_at = nil
       @some_msg = {}
     end
@@ -48,6 +49,14 @@ module Megam
         @name = arg
       else
       @name
+      end
+    end
+
+    def runtime_exec(arg=nil)
+      if arg != nil
+        @runtime_exec = arg
+      else
+      @runtime_exec
       end
     end
 
@@ -104,6 +113,7 @@ module Megam
       index_hash["provider"] = provider
       index_hash["provider_role"] = provider_role
       index_hash["build_monkey"] = build_monkey
+      index_hash["runtime_exec"] = runtime_exec
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -121,6 +131,7 @@ module Megam
         "provider" => provider,
         "provider_role" => provider_role,
         "build_monkey" => build_monkey,
+        "runtime_exec" => runtime_exec,
         "created_at" => created_at
       }
       result
@@ -134,6 +145,7 @@ module Megam
       node.provider(o["provider"]) if o.has_key?("provider")
       node.provider_role(o["provider_role"]) if o.has_key?("provider_role")
       node.build_monkey(o["build_monkey"]) if o.has_key?("build_monkey")
+      node.runtime_exec(o["runtime_exec"]) if o.has_key?("runtime_exec")
       node.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       node.some_msg[:code] = o["code"] if o.has_key?("code")
@@ -155,6 +167,7 @@ module Megam
       @provider       = o[:provider] if o.has_key?(:provider)
       @provider_role  = o[:provider_role] if o.has_key?(:provider_role)
       @build_monkey   = o[:build_monkey] if o.has_key?(:build_monkey)
+      @runtime_exec   = o[:runtime_exec] if o.has_key?(:runtime_exec)
       @created_at   = o[:created_at] if o.has_key?(:created_at)
       self
     end

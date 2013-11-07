@@ -95,7 +95,13 @@ module Megam
       else
         raise ArgumentError, "Must pass a Megam::Node or String to lookup"
       end
+	puts "==================> NODE COLLECTION LOOKUP <======================== "
+	puts lookup_by.class
+	puts lookup_by
       res = @nodes_by_name[lookup_by]
+	puts "==================> NODE COLLECTION LOOKUP RES <======================== "
+	puts res.class
+	puts res.inspect
       unless res
         raise ArgumentError, "Cannot find a node matching #{lookup_by} (did you define it first?)"
       end

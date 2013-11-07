@@ -23,8 +23,8 @@ module Megam
       @accounts_id = nil
       @spec = {}
       @access = {}
-      @ideal=nil
-      @performance = nil
+      #@ideal=nil
+      #@performance = nil
       @created_at = nil
       @some_msg = {}
     end
@@ -123,8 +123,8 @@ module Megam
       index_hash["accounts_id"] = accounts_id
       index_hash["spec"] = spec
       index_hash["access"] = access
-      index_hash["ideal"] = ideal
-      index_hash["performance"] = performance
+     # index_hash["ideal"] = ideal
+     # index_hash["performance"] = performance
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -142,8 +142,8 @@ module Megam
         "accounts_id" => accounts_id,
         "spec" => spec,
         "access" => access,
-        "ideal" => ideal,
-        "performance" => performance,
+     #   "ideal" => ideal,
+     #   "performance" => performance,
         "created_at" => created_at
       }
       result
@@ -166,8 +166,8 @@ module Megam
       predefcd.access[:identity_file] = op["identity_file"] if op && op.has_key?("identity_file")
       predefcd.access[:ssh_user]= op["ssh_user"] if op && op.has_key?("ssh_user")
       #access
-      predefcd.ideal(o["ideal"]) if o.has_key?("ideal")
-      predefcd.performance(o["performance"]) if o.has_key?("performance")
+     # predefcd.ideal(o["ideal"]) if o.has_key?("ideal")
+     # predefcd.performance(o["performance"]) if o.has_key?("performance")
       predefcd.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       predefcd.some_msg[:code] = o["code"] if o.has_key?("code")
@@ -188,8 +188,8 @@ module Megam
       @name = o[:name] if o.has_key?(:name)
       @spec   = o[:spec] if o.has_key?(:spec)
       @access     = o[:access] if o.has_key?(:access)
-      @ideal   = o[:ideal] if o.has_key?(:ideal)
-      @performance   = o[:performance] if o.has_key?(:performance)
+    #  @ideal   = o[:ideal] if o.has_key?(:ideal)
+    #  @performance   = o[:performance] if o.has_key?(:performance)
       @created_at   = o[:created_at] if o.has_key?(:created_at)
       self
     end
