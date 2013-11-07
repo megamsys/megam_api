@@ -1,3 +1,4 @@
+
 # Copyright:: Copyright (c) 2012, 2013 Megam Systems
 # License:: Apache License, Version 2.0
 #
@@ -23,8 +24,8 @@ module Megam
       @accounts_id = nil
       @spec = {}
       @access = {}
-      @ideal=nil
-      @performance = nil
+      #@ideal=nil
+      #@performance = nil
       @created_at = nil
       @some_msg = {}
     end
@@ -123,8 +124,8 @@ module Megam
       index_hash["accounts_id"] = accounts_id
       index_hash["spec"] = spec
       index_hash["access"] = access
-      index_hash["ideal"] = ideal
-      index_hash["performance"] = performance
+      #index_hash["ideal"] = ideal
+      #index_hash["performance"] = performance
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -142,8 +143,8 @@ module Megam
         "accounts_id" => accounts_id,
         "spec" => spec,
         "access" => access,
-        "ideal" => ideal,
-        "performance" => performance,
+        #"ideal" => ideal,
+        #"performance" => performance,
         "created_at" => created_at
       }
       result
@@ -166,8 +167,8 @@ module Megam
       predefcd.access[:identity_file] = op["identity_file"] if op && op.has_key?("identity_file")
       predefcd.access[:ssh_user]= op["ssh_user"] if op && op.has_key?("ssh_user")
       #access
-      predefcd.ideal(o["ideal"]) if o.has_key?("ideal")
-      predefcd.performance(o["performance"]) if o.has_key?("performance")
+      #predefcd.ideal(o["ideal"]) if o.has_key?("ideal")
+      #predefcd.performance(o["performance"]) if o.has_key?("performance")
       predefcd.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       predefcd.some_msg[:code] = o["code"] if o.has_key?("code")
@@ -188,43 +189,34 @@ module Megam
       @name = o[:name] if o.has_key?(:name)
       @spec   = o[:spec] if o.has_key?(:spec)
       @access     = o[:access] if o.has_key?(:access)
-      @ideal   = o[:ideal] if o.has_key?(:ideal)
-      @performance   = o[:performance] if o.has_key?(:performance)
+      #@ideal   = o[:ideal] if o.has_key?(:ideal)
+      #@performance   = o[:performance] if o.has_key?(:performance)
       @created_at   = o[:created_at] if o.has_key?(:created_at)
       self
     end
 
-    def self.create
-      predef = build
-      predef.create
-    end
-
-    #
-    #build the node as per the need
-    def self.build
-      payload = {:id => self.id, :name => self.name, :provider => self.provider,
-        :provider_role => self.provider_role, :build_monkey => self.build_monkey}
-      from_hash(payload)
+    def self.create(o)
+      acct = from_hash(o)
+      acct.create
     end
 
     # Create the predef via the REST API
-    def create(predef_input)
-      megam_rest.post_predef(predef_input)
-      self
+    def create
+      megam_rest.post_predefcloud(to_hash)
     end
 
     # Load all predefs -
     # returns a PredefsCollection
     # don't return self. check if the Megam::PredefCollection is returned.
     def self.list
-	predef = self.new()
+    predef = self.new()
       predef.megam_rest.get_predefclouds
     end
 
     # Show a particular predef by name,
     # Megam::Predef
     def self.show(p_name)
-	pre = self.new()
+    pre = self.new()
       pre.megam_rest.get_predefcloud(p_name)
       self
     end
