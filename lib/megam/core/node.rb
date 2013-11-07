@@ -32,6 +32,7 @@ module Megam
       @node_type = nil
       @req_type = nil
       @status=nil
+      @noofinstances=0
       @request ={}
       @predefs={}
       @some_msg = {}
@@ -39,6 +40,7 @@ module Megam
 	@command = Hashie::Mash.new
 	@appdefns = {}
 	@boltdefns = {}
+      @created_at = nil
     end
     def node
       self
@@ -54,6 +56,14 @@ module Megam
         @node_name = arg
       else
       @node_name
+      end
+    end
+
+    def noofinstances(arg=nil)
+      if arg != nil
+        @noofinstances = arg
+      else
+      @noofinstances
       end
     end
 
@@ -137,6 +147,14 @@ module Megam
       end
     end
 
+    def created_at(arg=nil)
+      if arg != nil
+        @created_at = arg
+      else
+      @created_at
+      end
+    end
+
     def some_msg(arg=nil)
       if arg != nil
         @some_msg = arg
@@ -165,6 +183,8 @@ module Megam
       index_hash["appdefns"] = appdefns
       index_hash["boltdefns"] = boltdefns
       index_hash["some_msg"] = some_msg
+      index_hash["noofinstances"] = noofinstances.to_i
+      index_hash["created_at"] = created_at
       index_hash
     end
 
@@ -184,7 +204,9 @@ module Megam
         "request" => request,
         "predefs" => predefs,
         "appdefns" => appdefns,
-        "boltdefns" => boltdefns
+        "boltdefns" => boltdefns,
+        "noofinstances" => noofinstances,
+        "created_at" => created_at
       }
       result
     end
@@ -215,7 +237,8 @@ module Megam
       node.node_type(o["node_type"]) if o.has_key?("node_type")
       node.req_type(o["req_type"]) if o.has_key?("req_type")
       node.status(o["status"]) if o.has_key?("status")
-
+      node.noofinstances(o["noofinstances"]) if o.has_key?("noofinstances")
+      node.created_at(o["created_at"]) if o.has_key?("created_at")
       #requests
       oq = o["request"]
       node.request[:req_id] = oq["req_id"] if oq && oq.has_key?("req_id")
@@ -270,6 +293,7 @@ module Megam
       node.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
       node.some_msg[:msg]= o["msg"] if o.has_key?("msg")
       node.some_msg[:links] = o["links"] if o.has_key?("links")
+
       node
     end
 
@@ -283,8 +307,6 @@ module Megam
       @node_name = o["node_name"] if o.has_key?("node_name")
       @command   = o["command"] if o.has_key?("command")
       @id        = o["id"] if o.has_key?("id")
-      @id        = o["id"] if o.has_key?("id")
-
       @accounts_id    = o["accounts_id"] if o.has_key?("accounts_id")
       @node_type    = o["node_type"] if o.has_key?("node_type")
       @req_type    = o["req_type"] if o.has_key?("req_type")
@@ -292,6 +314,8 @@ module Megam
       @predefs   = o["predefs"] if o.has_key?("predefs")
       @appdefns   = o["appdefns"] if o.has_key?("appdefns")
       @boltdefns   = o["boltdefns"] if o.has_key?("boltdefns")
+      @noofinstances        = o["noofinstances"] if o.has_key?("noofinstances")
+      @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
 
@@ -307,8 +331,8 @@ module Megam
 
     # Load a account by email_p
     def self.show(node_name)
-      megam_rest.get_node(node_name)
-      self
+      node = self.new()
+      node.megam_rest.get_node(node_name)
     end
 
     def to_s

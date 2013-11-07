@@ -26,7 +26,15 @@ module Megam
     MEGAM_ERROR             = "Megam::Error".freeze
     MEGAM_ACCOUNT           = "Megam::Account".freeze
     MEGAM_NODE              = "Megam::Node".freeze
+    MEGAM_APPDEFNS          = "Megam::AppDefns".freeze
+    MEGAM_APPREQS          = "Megam::AppRequest".freeze
+    MEGAM_BOLTREQS          = "Megam::BoltRequest".freeze
+    MEGAM_BOLTDEFNS         = "Megam::BoltDefns".freeze
     MEGAM_NODECOLLECTION    = "Megam::NodeCollection".freeze
+    MEGAM_APPDEFNSCOLLECTION    = "Megam::AppDefnCollection".freeze
+    MEGAM_APPREQSCOLLECTION    = "Megam::AppRequestCollection".freeze
+    MEGAM_BOLTREQSCOLLECTION    = "Megam::BoltRequestCollection".freeze
+    MEGAM_BOLTDEFNSCOLLECTION    = "Megam::BoltDefnCollection".freeze
     MEGAM_REQUEST            = "Megam::Request".freeze
     MEGAM_REQUESTCOLLECTION  = "Megam::RequestCollection".freeze
 
@@ -121,8 +129,24 @@ module Megam
           Megam::Account
         when MEGAM_NODE
           Megam::Node
+        when MEGAM_APPDEFNS
+          Megam::Appdefns
+        when MEGAM_APPREQS
+          Megam::Appreqs
+        when MEGAM_BOLTREQS
+          Megam::Boltreqs
+        when MEGAM_BOLTDEFNS
+          Megam::Boltdefns
         when MEGAM_NODECOLLECTION
           Megam::NodeCollection
+        when MEGAM_APPDEFNSCOLLECTION
+          Megam::AppdefnsCollection
+        when MEGAM_APPREQSCOLLECTION
+          Megam::AppreqsCollection
+        when MEGAM_BOLTREQSCOLLECTION
+          Megam::BoltreqsCollection
+        when MEGAM_BOLTDEFNSCOLLECTION
+          Megam::BoltdefnsCollection
         when MEGAM_REQUEST
           Megam::Request
         when MEGAM_REQUESTCOLLECTION

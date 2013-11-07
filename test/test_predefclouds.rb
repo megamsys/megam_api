@@ -19,7 +19,7 @@ class TestApps < MiniTest::Unit::TestCase
       #:performance => "10rpm"
     }
 
-    response = megams_new.post_predefcloud(tmp_hash)
+    response = megams.post_predefcloud(tmp_hash)
     assert_equal(201, response.status)
   end
 
