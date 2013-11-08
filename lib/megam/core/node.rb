@@ -28,6 +28,7 @@ module Megam
 
     def initialize
       @id = nil
+      @node_name = nil
       @accounts_id = nil
       @node_type = nil
       @req_type = nil
@@ -172,10 +173,10 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
+      index_hash["node_name"] = node_name
       index_hash["accounts_id"] = accounts_id
       index_hash["node_type"] = node_type
       index_hash["req_type"] = req_type
-      index_hash["node_name"] = node_name
       index_hash["status"] = status
       index_hash["command"] = command
       index_hash["request"] = request
@@ -197,6 +198,7 @@ module Megam
     def for_json
       result = {
         "id" => id,
+        "node_name" => node_name,
         "accounts_id" => accounts_id,
         "node_type" => node_type,
         "req_type" => req_type,
@@ -233,6 +235,7 @@ module Megam
     def self.json_create(o)
       node = new
       node.id(o["id"]) if o.has_key?("id")
+      node.node_name(o["node_name"]) if o.has_key?("node_name")
       node.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
       node.node_type(o["node_type"]) if o.has_key?("node_type")
       node.req_type(o["req_type"]) if o.has_key?("req_type")
