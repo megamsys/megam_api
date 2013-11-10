@@ -79,13 +79,9 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-      :host => 'localhost',
-      #:host => 'thomas-work',
-      #:host => 'play.megam.co',
-      #:port => '9000',
+      :host => 'api.megam.co',
       :nonblock => false,
       :scheme => 'https'
-      #:scheme => 'http'
     }
 
     API_VERSION1 = "/v1"
@@ -192,26 +188,25 @@ module Megam
         'X-Megam-Date' => encoded_api_header[:date],
       }).merge(@options[:headers])
 
+      #SSL certificate file paths
+      #If ssl_ca_path and file specified shows error
+      #Only file pass through
+      #Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs"
+      #ENV['SSL_CERT_DIR'] = "/etc/ssl/certs"
+      Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
+      #ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
 
-#SSL certificate file paths
-#If ssl_ca_path and file specified shows error
-#Only file pass through
-#Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs"
-#ENV['SSL_CERT_DIR'] = "/etc/ssl/certs"
-Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
-#ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
-
-if !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
-	text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
-	Excon.defaults[:ssl_verify_peer] = false
-#elsif !File.readable_real?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem")))
-#	puts "==================> Test CER 2===============>"
-#	text.warn("Certificate file is readable. SSL_VERIFY_PEER set as false")
-#	Excon.defaults[:ssl_verify_peer] = false
-else
-	text.info("Certificate found")
-	Excon.defaults[:ssl_verify_peer] = true
-end
+      if !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
+        text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
+        Excon.defaults[:ssl_verify_peer] = false
+      #elsif !File.readable_real?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem")))
+      #	puts "==================> Test CER 2===============>"
+      #	text.warn("Certificate file is readable. SSL_VERIFY_PEER set as false")
+      #	Excon.defaults[:ssl_verify_peer] = false
+      else
+        text.info("Certificate found")
+        Excon.defaults[:ssl_verify_peer] = true
+      end
 
       text.info("HTTP Request Data:")
       text.msg("> HTTP #{@options[:scheme]}://#{@options[:host]}")
