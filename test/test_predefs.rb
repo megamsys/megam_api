@@ -4,10 +4,10 @@ class TestApps < MiniTest::Unit::TestCase
 =begin
 def test_post_predef
 tmp_hash = {
-"node_name" => "sundown.megam.co",
+"node_name" => "black1.megam.co",
 "command" => "commands2",
 "predefs" => {"name" => "rails", "scm" => "https://github.com/awesome.git",
-"db" => "postgres@postgresql2.megam.com/morning.megam.co", "war" => "http://s3pub.com/0.1/orion.war", "queue" => "rabbit@queue1"}
+"db" => "postgres@postgresql2.megam.com/morning.megam.co", "war" => "http://s3pub.com/0.1/orion.war", "queue" => "rabbit@queue1", "runtime_exec" => "sudo start rails"}
 }
 response = megams.post_node(tmp_hash)
 assert_equal(201, response.status)

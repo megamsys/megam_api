@@ -51,7 +51,7 @@ class TestApps < MiniTest::Unit::TestCase
 }
 
     @@tmp_hash = {
-      "node_name" => "night.megam.co",
+      "node_name" => "black1.megam.co",
       "node_type" => "APP", #APP or Bolt
       "req_type" => "delete",
       "noofinstances" => 0,

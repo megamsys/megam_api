@@ -5,7 +5,7 @@ class TestApps < MiniTest::Unit::TestCase
   def test_post_boltdefns
 
    tmp_hash = {
-      "node_name" => "night.megam.co",
+      "node_name" => "black1.megam.co",
 	"boltdefns" => {"username" => "new", "apikey" => "new", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""}
     }
 
@@ -16,7 +16,7 @@ puts tmp_hash
   end
 
   def test_get_boltdefns
-    response = megams.get_boltdefn("night.megam.co")
+    response = megams.get_boltdefn("black1.megam.co")
     assert_equal(200, response.status)
   end
 
