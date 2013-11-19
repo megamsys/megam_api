@@ -338,6 +338,11 @@ module Megam
       node.megam_rest.get_node(node_name)
     end
 
+    def self.list
+      node = self.new()
+      node.megam_rest.get_nodes
+    end
+
     def to_s
       Megam::Stuff.styled_hash(to_hash)
     #"---> Megam::Account:[error=#{error?}]\n"+
