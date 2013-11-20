@@ -66,12 +66,16 @@ tmp_hash = {
 response = megams.post_node(tmp_hash)
 assert_equal(201, response.status)
 end
-
+=end
 def test_get_nodes
 response = megams.get_nodes
+
+    puts "=================> GET NODES Response ========>"
+    puts response.inspect
+
 assert_equal(200, response.status)
 end
-=end
+
   def test_get_node0
     response = megams.get_node("black1.megam.co")
     puts "=================> Response ========>"
