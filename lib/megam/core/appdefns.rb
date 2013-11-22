@@ -32,7 +32,7 @@ module Megam
       @appdefns ={}
       @created_at = nil
     end
-    def node
+    def appdefns
       self
     end
 
@@ -137,25 +137,25 @@ puts self.class.name
     #}]
     #
     def self.json_create(o)
-      node = new
-      node.id(o["id"]) if o.has_key?("id")
-      node.node_id(o["node_id"]) if o.has_key?("node_id")
-      node.node_name(o["node_name"]) if o.has_key?("node_name")
-      node.created_at(o["created_at"]) if o.has_key?("created_at")
+      appdefns = new
+      appdefns.id(o["id"]) if o.has_key?("id")
+      appdefns.node_id(o["node_id"]) if o.has_key?("node_id")
+      appdefns.node_name(o["node_name"]) if o.has_key?("node_name")
+      appdefns.created_at(o["created_at"]) if o.has_key?("created_at")
 
       #APP DEFINITIONS
       op = o["appdefns"]
-      node.appdefns[:timetokill] = op["timetokill"] if op && op.has_key?("timetokill")
-      node.appdefns[:metered] = op["metered"] if op && op.has_key?("metered")
-      node.appdefns[:logging]= op["logging"] if op && op.has_key?("logging")
-      node.appdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
-      node
+      appdefns.appdefns[:timetokill] = op["timetokill"] if op && op.has_key?("timetokill")
+      appdefns.appdefns[:metered] = op["metered"] if op && op.has_key?("metered")
+      appdefns.appdefns[:logging]= op["logging"] if op && op.has_key?("logging")
+      appdefns.appdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+      appdefns
     end
 
     def self.from_hash(o)
-      node = self.new()
-      node.from_hash(o)
-      node
+      appdefns = self.new()
+      appdefns.from_hash(o)
+      appdefns
     end
 
     def from_hash(o)

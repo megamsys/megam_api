@@ -20,7 +20,8 @@ class TestApps < MiniTest::Unit::TestCase
 "access" => {
 "ssh_key" => "megam_ec2",
 "identity_file" => "~/.ssh/megam_ec2.pem",
-"ssh_user" => "ubuntu"
+"ssh_user" => "ubuntu",
+"vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default"
 }
 },
 "cloudtool" => {
@@ -55,7 +56,7 @@ class TestApps < MiniTest::Unit::TestCase
   end
 
   #=end
-=begin
+#=begin
 def test_post_node2
 tmp_hash = {
 "node_name" => "sundown.megam.co",
@@ -66,7 +67,7 @@ tmp_hash = {
 response = megams.post_node(tmp_hash)
 assert_equal(201, response.status)
 end
-=end
+#=end
 def test_get_nodes
 response = megams.get_nodes
 
@@ -115,7 +116,8 @@ end
 "access" => {
 "ssh_key" => "megam_ec2",
 "identity_file" => "~/.ssh/megam_ec2.pem",
-"ssh_user" => ""
+"ssh_user" => "",
+"vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default"
 }
 },
 "cloudtool" => {

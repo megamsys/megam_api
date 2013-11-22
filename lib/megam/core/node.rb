@@ -39,6 +39,8 @@ module Megam
       @some_msg = {}
       #@command = self.class.hash_tree
 	@command = Hashie::Mash.new
+	@appdefnsid = nil
+	@boltdefnsid = nil
 	@appdefns = {}
 	@boltdefns = {}
       @created_at = nil
@@ -147,6 +149,21 @@ module Megam
       @boltdefns
       end
     end
+    def appdefnsid(arg=nil)
+      if arg != nil
+        @appdefnsid = arg
+      else
+      @appdefnsid
+      end
+    end
+
+    def boltdefnsid(arg=nil)
+      if arg != nil
+        @boltdefnsid = arg
+      else
+      @boltdefnsid
+      end
+    end
 
     def created_at(arg=nil)
       if arg != nil
@@ -185,6 +202,8 @@ module Megam
       index_hash["boltdefns"] = boltdefns
       index_hash["some_msg"] = some_msg
       index_hash["noofinstances"] = noofinstances.to_i
+      index_hash["appdefnsid"] = appdefnsid
+      index_hash["boltdefnsid"] = boltdefnsid
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -207,6 +226,8 @@ module Megam
         "predefs" => predefs,
         "appdefns" => appdefns,
         "boltdefns" => boltdefns,
+        "appdefnsid" => appdefnsid,
+        "boltdefnsid" => boltdefnsid,
         "noofinstances" => noofinstances,
         "created_at" => created_at
       }
@@ -240,6 +261,8 @@ module Megam
       node.node_type(o["node_type"]) if o.has_key?("node_type")
       node.req_type(o["req_type"]) if o.has_key?("req_type")
       node.status(o["status"]) if o.has_key?("status")
+      node.appdefnsid(o["appdefnsid"]) if o.has_key?("appdefnsid")
+      node.boltdefnsid(o["boltdefnsid"]) if o.has_key?("boltdefnsid")
       node.noofinstances(o["noofinstances"]) if o.has_key?("noofinstances")
       node.created_at(o["created_at"]) if o.has_key?("created_at")
       #requests
@@ -249,8 +272,6 @@ module Megam
       node.request[:command] = oq["command"] if oq && oq.has_key?("command")
 
       #Command
-      oc = o["command"]
-	node.command = node.command(oc) if oc && oc.has_key?("systemprovider")
 =begin
 	node.command[:systemprovider][:provider][:prov] = oc["systemprovider"]["provider"]["prov"]
 	node.command[:compute][:cctype] = oc["compute"]["cctype"]
@@ -317,6 +338,8 @@ module Megam
       @predefs   = o["predefs"] if o.has_key?("predefs")
       @appdefns   = o["appdefns"] if o.has_key?("appdefns")
       @boltdefns   = o["boltdefns"] if o.has_key?("boltdefns")
+      @appdefnsid   = o["appdefnsid"] if o.has_key?("appdefnsid")
+      @boltdefnsid   = o["boltdefnsid"] if o.has_key?("boltdefnsid")
       @noofinstances        = o["noofinstances"] if o.has_key?("noofinstances")
       @created_at        = o["created_at"] if o.has_key?("created_at")
       self

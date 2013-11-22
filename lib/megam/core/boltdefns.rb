@@ -33,7 +33,7 @@ module Megam
       @boltdefns ={}
       @created_at = nil
     end
-    def node
+    def boltdefns
       self
     end
 
@@ -136,32 +136,32 @@ module Megam
     #}]
     #
     def self.json_create(o)
-      node = new
-      node.id(o["id"]) if o.has_key?("id")
-      node.node_id(o["node_id"]) if o.has_key?("node_id")
-      node.node_name(o["node_name"]) if o.has_key?("node_name")
-      node.created_at(o["created_at"]) if o.has_key?("created_at")
+      boltdefns = new
+      boltdefns.id(o["id"]) if o.has_key?("id")
+      boltdefns.node_id(o["node_id"]) if o.has_key?("node_id")
+      boltdefns.node_name(o["node_name"]) if o.has_key?("node_name")
+      boltdefns.created_at(o["created_at"]) if o.has_key?("created_at")
 
 
       #APP DEFINITIONS
       op = o["boltdefns"]
-      node.boltdefns[:username] = op["username"] if op && op.has_key?("username")
-      node.boltdefns[:apikey] = op["apikey"] if op && op.has_key?("apikey")
-      node.boltdefns[:store_name]= op["store_name"] if op && op.has_key?("store_name")
-      node.boltdefns[:url] = op["url"] if op && op.has_key?("url")
-      node.boltdefns[:prime] = op["prime"] if op && op.has_key?("prime")
+      boltdefns.boltdefns[:username] = op["username"] if op && op.has_key?("username")
+      boltdefns.boltdefns[:apikey] = op["apikey"] if op && op.has_key?("apikey")
+      boltdefns.boltdefns[:store_name]= op["store_name"] if op && op.has_key?("store_name")
+      boltdefns.boltdefns[:url] = op["url"] if op && op.has_key?("url")
+      boltdefns.boltdefns[:prime] = op["prime"] if op && op.has_key?("prime")
 
-      node.boltdefns[:timetokill] = op["timetokill"] if op && op.has_key?("timetokill")
-      node.boltdefns[:metered] = op["metered"] if op && op.has_key?("metered")
-      node.boltdefns[:logging]= op["logging"] if op && op.has_key?("logging")
-      node.boltdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
-      node
+      boltdefns.boltdefns[:timetokill] = op["timetokill"] if op && op.has_key?("timetokill")
+      boltdefns.boltdefns[:metered] = op["metered"] if op && op.has_key?("metered")
+      boltdefns.boltdefns[:logging]= op["logging"] if op && op.has_key?("logging")
+      boltdefns.boltdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+      boltdefns
     end
 
     def self.from_hash(o)
-      node = self.new()
-      node.from_hash(o)
-      node
+      boltdefns = self.new()
+      boltdefns.from_hash(o)
+      boltdefns
     end
 
     def from_hash(o)

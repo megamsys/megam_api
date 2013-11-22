@@ -35,7 +35,7 @@ module Megam
       @lc_when = nil
       @created_at = nil
     end
-    def node
+    def appreq
       self
     end
 
@@ -168,23 +168,23 @@ module Megam
     #}]
     #
     def self.json_create(o)
-      node = new
-      node.id(o["id"]) if o.has_key?("id")
-      node.req_type(o["req_type"]) if o.has_key?("req_type")
-      node.appdefns_id(o["appdefns_id"]) if o.has_key?("appdefns_id")
-      node.node_name(o["node_name"]) if o.has_key?("node_name")
-      node.lc_apply(o["lc_apply"]) if o.has_key?("lc_apply")
-      node.lc_additional(o["lc_additional"]) if o.has_key?("lc_additional")
-      node.lc_when(o["lc_when"]) if o.has_key?("lc_when")
-      node.created_at(o["created_at"]) if o.has_key?("created_at")
+      appreq = new
+      appreq.id(o["id"]) if o.has_key?("id")
+      appreq.req_type(o["req_type"]) if o.has_key?("req_type")
+      appreq.appdefns_id(o["appdefns_id"]) if o.has_key?("appdefns_id")
+      appreq.node_name(o["node_name"]) if o.has_key?("node_name")
+      appreq.lc_apply(o["lc_apply"]) if o.has_key?("lc_apply")
+      appreq.lc_additional(o["lc_additional"]) if o.has_key?("lc_additional")
+      appreq.lc_when(o["lc_when"]) if o.has_key?("lc_when")
+      appreq.created_at(o["created_at"]) if o.has_key?("created_at")
 
-      node
+      appreq
     end
 
     def self.from_hash(o)
-      node = self.new()
-      node.from_hash(o)
-      node
+      appreq = self.new()
+      appreq.from_hash(o)
+      appreq
     end
 
     def from_hash(o)
@@ -206,12 +206,12 @@ module Megam
 
     # Create the node via the REST API
     def create
-      megam_rest.post_node(to_hash)
+      megam_rest.post_appreq(to_hash)
     end
 
     # Load a account by email_p
     def self.show(node_name)
-      megam_rest.get_node(node_name)
+      megam_rest.get_appreq(node_name)
       self
     end
 
