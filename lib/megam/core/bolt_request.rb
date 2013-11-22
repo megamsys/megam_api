@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 module Megam
-  class Appreqs
+  class BoltRequest
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
 =begin
@@ -28,14 +28,15 @@ module Megam
     def initialize
       @id = nil
       @req_type = nil
-      @appdefns_id = nil
+      @boltdefns_id = nil
       @node_name = nil
       @lc_apply = nil
       @lc_additional = nil
       @lc_when = nil
       @created_at = nil
+      @some_msg = {}
     end
-    def appreq
+    def boltreqs
       self
     end
 
@@ -60,11 +61,11 @@ module Megam
       end
     end
 
-    def appdefns_id(arg=nil)
+    def boltdefns_id(arg=nil)
       if arg != nil
-        @appdefns_id = arg
+        @boltdefns_id = arg
       else
-      @appdefns_id
+      @boltdefns_id
       end
     end
 
@@ -107,6 +108,14 @@ module Megam
       @created_at
       end
     end
+    def some_msg(arg=nil)
+      if arg != nil
+        @some_msg = arg
+      else
+      @some_msg
+      end
+    end
+
 
     def error?
       crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
@@ -118,12 +127,13 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["req_type"] = req_type
-      index_hash["appdefns_id"] = appdefns_id
+      index_hash["boltdefns_id"] = boltdefns_id
       index_hash["node_name"] = node_name
       index_hash["lc_apply"] = lc_apply
       index_hash["lc_additional"] = lc_additional
       index_hash["lc_when"] = lc_when
       index_hash["created_at"] = created_at
+      index_hash["some_msg"] = some_msg
       index_hash
     end
 
@@ -137,7 +147,7 @@ module Megam
       result = {
         "id" => id,
         "req_type" => req_type,
-        "appdefns_id" => appdefns_id,
+        "boltdefns_id" => boltdefns_id,
         "node_name" => node_name,
         "lc_apply" => lc_apply,
         "lc_additional" => lc_additional,
@@ -168,29 +178,34 @@ module Megam
     #}]
     #
     def self.json_create(o)
-      appreq = new
-      appreq.id(o["id"]) if o.has_key?("id")
-      appreq.req_type(o["req_type"]) if o.has_key?("req_type")
-      appreq.appdefns_id(o["appdefns_id"]) if o.has_key?("appdefns_id")
-      appreq.node_name(o["node_name"]) if o.has_key?("node_name")
-      appreq.lc_apply(o["lc_apply"]) if o.has_key?("lc_apply")
-      appreq.lc_additional(o["lc_additional"]) if o.has_key?("lc_additional")
-      appreq.lc_when(o["lc_when"]) if o.has_key?("lc_when")
-      appreq.created_at(o["created_at"]) if o.has_key?("created_at")
+      boltreqs = new
+      boltreqs.id(o["id"]) if o.has_key?("id")
+      boltreqs.req_type(o["req_type"]) if o.has_key?("req_type")
+      boltreqs.boltdefns_id(o["boltdefns_id"]) if o.has_key?("boltdefns_id")
+      boltreqs.node_name(o["node_name"]) if o.has_key?("node_name")
+      boltreqs.lc_apply(o["lc_apply"]) if o.has_key?("lc_apply")
+      boltreqs.lc_additional(o["lc_additional"]) if o.has_key?("lc_additional")
+      boltreqs.lc_when(o["lc_when"]) if o.has_key?("lc_when")
+      boltreqs.created_at(o["created_at"]) if o.has_key?("created_at")
 
-      appreq
+      boltreqs.some_msg[:code] = o["code"] if o.has_key?("code")
+      boltreqs.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+      boltreqs.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+      boltreqs.some_msg[:links] = o["links"] if o.has_key?("links")
+
+      boltreqs
     end
 
     def self.from_hash(o)
-      appreq = self.new()
-      appreq.from_hash(o)
-      appreq
+      boltreqs = self.new()
+      boltreqs.from_hash(o)
+      boltreqs
     end
 
     def from_hash(o)
       @id        = o["id"] if o.has_key?("id")
       @req_type        = o["req_type"] if o.has_key?("req_type")
-      @appdefns_id    = o["appdefns_id"] if o.has_key?("appdefns_id")
+      @boltdefns_id    = o["boltdefns_id"] if o.has_key?("boltdefns_id")
       @node_name = o["node_name"] if o.has_key?("node_name")
       @lc_apply   = o["lc_apply"] if o.has_key?("lc_apply")
       @lc_additional   = o["lc_additional"] if o.has_key?("lc_additional")
@@ -206,12 +221,13 @@ module Megam
 
     # Create the node via the REST API
     def create
-      megam_rest.post_appreq(to_hash)
+      megam_rest.post_boltreq(to_hash)
     end
 
     # Load a account by email_p
-    def self.show(node_name)
-      megam_rest.get_appreq(node_name)
+    def self.list(node_name)
+      boltreq = self.new()
+      boltreq.megam_rest.get_boltreq(node_name)
       self
     end
 

@@ -32,6 +32,7 @@ module Megam
       @node_name = nil
       @boltdefns ={}
       @created_at = nil
+      @some_msg = {}
     end
     def boltdefns
       self
@@ -83,6 +84,14 @@ module Megam
       end
     end
 
+    def some_msg(arg=nil)
+      if arg != nil
+        @some_msg = arg
+      else
+      @some_msg
+      end
+    end
+
     def error?
       crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
     end
@@ -96,6 +105,7 @@ module Megam
       index_hash["node_name"] = node_name
       index_hash["boltdefns"] = boltdefns
       index_hash["created_at"] = created_at
+      index_hash["some_msg"] = some_msg
       index_hash
     end
 
@@ -155,6 +165,12 @@ module Megam
       boltdefns.boltdefns[:metered] = op["metered"] if op && op.has_key?("metered")
       boltdefns.boltdefns[:logging]= op["logging"] if op && op.has_key?("logging")
       boltdefns.boltdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+
+      boltdefns.some_msg[:code] = o["code"] if o.has_key?("code")
+      boltdefns.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+      boltdefns.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+      boltdefns.some_msg[:links] = o["links"] if o.has_key?("links")
+
       boltdefns
     end
 
