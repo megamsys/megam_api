@@ -31,8 +31,9 @@ module Megam
       @node_name = nil
       @appdefns ={}
       @created_at = nil
+      @some_msg = {}
     end
-    def node
+    def appdefns
       self
     end
 
@@ -82,6 +83,14 @@ module Megam
       end
     end
 
+    def some_msg(arg=nil)
+      if arg != nil
+        @some_msg = arg
+      else
+      @some_msg
+      end
+    end
+
     def error?
       crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
     end
@@ -97,6 +106,7 @@ puts self.class.name
       index_hash["node_name"] = node_name
       index_hash["appdefns"] = appdefns
       index_hash["created_at"] = created_at
+      index_hash["some_msg"] = some_msg
       index_hash
     end
 
@@ -137,25 +147,31 @@ puts self.class.name
     #}]
     #
     def self.json_create(o)
-      node = new
-      node.id(o["id"]) if o.has_key?("id")
-      node.node_id(o["node_id"]) if o.has_key?("node_id")
-      node.node_name(o["node_name"]) if o.has_key?("node_name")
-      node.created_at(o["created_at"]) if o.has_key?("created_at")
+      appdefns = new
+      appdefns.id(o["id"]) if o.has_key?("id")
+      appdefns.node_id(o["node_id"]) if o.has_key?("node_id")
+      appdefns.node_name(o["node_name"]) if o.has_key?("node_name")
+      appdefns.created_at(o["created_at"]) if o.has_key?("created_at")
 
       #APP DEFINITIONS
       op = o["appdefns"]
-      node.appdefns[:timetokill] = op["timetokill"] if op && op.has_key?("timetokill")
-      node.appdefns[:metered] = op["metered"] if op && op.has_key?("metered")
-      node.appdefns[:logging]= op["logging"] if op && op.has_key?("logging")
-      node.appdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
-      node
+      appdefns.appdefns[:timetokill] = op["timetokill"] if op && op.has_key?("timetokill")
+      appdefns.appdefns[:metered] = op["metered"] if op && op.has_key?("metered")
+      appdefns.appdefns[:logging]= op["logging"] if op && op.has_key?("logging")
+      appdefns.appdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+
+      appdefns.some_msg[:code] = o["code"] if o.has_key?("code")
+      appdefns.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+      appdefns.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+      appdefns.some_msg[:links] = o["links"] if o.has_key?("links")
+
+      appdefns
     end
 
     def self.from_hash(o)
-      node = self.new()
-      node.from_hash(o)
-      node
+      appdefns = self.new()
+      appdefns.from_hash(o)
+      appdefns
     end
 
     def from_hash(o)
@@ -179,8 +195,8 @@ puts self.class.name
 
     # Load a account by email_p
     def self.show(node_name)
-      megam_rest.get_appdefn(node_name)
-      self
+      appdefns = self.new()
+      appdefns.megam_rest.get_appdefn(node_name)
     end
 
     def to_s

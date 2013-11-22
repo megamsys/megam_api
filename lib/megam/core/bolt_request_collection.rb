@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 module Megam
-  class BoltreqsCollection
+  class BoltRequestCollection
     include Enumerable
 
     
@@ -88,7 +88,7 @@ module Megam
 
     def lookup(boltreq)
       lookup_by = nil
-      if boltreq.kind_of?(Megam::Boltreqs)
+      if boltreq.kind_of?(Megam::BoltRequest)
       lookup_by = boltreq.id
       elsif boltreq.kind_of?(String)
       lookup_by = boltreq
@@ -134,7 +134,7 @@ module Megam
     
     
     def is_megam_boltreq(arg)
-      unless arg.kind_of?(Megam::Boltreqs)
+      unless arg.kind_of?(Megam::BoltRequest)
         raise ArgumentError, "Members must be Megam::Boltreq's"
       end
       true

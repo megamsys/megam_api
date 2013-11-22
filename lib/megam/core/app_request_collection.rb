@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 module Megam
-  class AppreqsCollection
+  class AppRequestCollection
     include Enumerable
 
     
@@ -88,7 +88,7 @@ module Megam
 
     def lookup(appreq)
       lookup_by = nil
-      if appreq.kind_of?(Megam::Appreqs)
+      if appreq.kind_of?(Megam::AppRequest)
       lookup_by = appreq.id
       elsif appreq.kind_of?(String)
       lookup_by = appreq
@@ -134,7 +134,7 @@ module Megam
     
     
     def is_megam_appreq(arg)
-      unless arg.kind_of?(Megam::Appreqs)
+      unless arg.kind_of?(Megam::AppRequest)
         raise ArgumentError, "Members must be Megam::Appreq's"
       end
       true

@@ -168,12 +168,12 @@ module Megam
     end
 
     
-     def self.list
+     def self.show
       prede = self.new()
       prede.megam_rest.get_requests
     end
 
-     def self.show(n_name)
+     def self.list(n_name)
       prede = self.new()
       prede.megam_rest.get_request(n_name)
     end
