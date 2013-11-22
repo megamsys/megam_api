@@ -201,8 +201,9 @@ module Megam
 
     # Load a account by email_p
     def self.show(node_name)
-      megam_rest.get_boltdefn(node_name)
-      self
+      boltdefns = self.new()
+      boltdefns.megam_rest.get_boltdefn(node_name)
+
     end
 
     def to_s

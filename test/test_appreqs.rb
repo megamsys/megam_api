@@ -20,7 +20,7 @@ puts tmp_hash
   end
 #=begin
   def test_get_appreqs
-    response = megams.get_appreq("black1.megam.co")
+    response = megams.get_appreq("oceanographer1.megam.co")
     assert_equal(200, response.status)
   end
 #=end

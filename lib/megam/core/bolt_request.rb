@@ -228,7 +228,6 @@ module Megam
     def self.list(node_name)
       boltreq = self.new()
       boltreq.megam_rest.get_boltreq(node_name)
-      self
     end
 
     def to_s

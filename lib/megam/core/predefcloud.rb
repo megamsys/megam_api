@@ -218,7 +218,6 @@ module Megam
     def self.show(p_name)
 	pre = self.new()
       pre.megam_rest.get_predefcloud(p_name)
-      self
     end
 
     def to_s

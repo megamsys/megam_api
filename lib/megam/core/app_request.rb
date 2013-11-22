@@ -227,7 +227,7 @@ module Megam
     def self.list(node_name)
       appreq = self.new()
       appreq.megam_rest.get_appreq(node_name)
-      self
+      #self
     end
 
     def to_s

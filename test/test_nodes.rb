@@ -40,7 +40,7 @@ class TestApps < MiniTest::Unit::TestCase
       "req_type" => "create", #CREATE OR DELETE
       "noofinstances" => 2, # integer
       "command" => @com,
-      "predefs" => {"name" => "rails", "scm" => "https://github.com/temp.git",
+      "predefs" => {"name" => "rails", "scm" => "",
         "db" => "postgres@postgresql1.megam.com/night.megam.co", "war" => "http://s3pub.com/0.1/granny.war", "queue" => "queue@queue1", "runtime_exec" => "sudo start rails"},
       "appdefns" => {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "runtime_execTOM"},
       "boltdefns" => {"username" => "tom", "apikey" => "123456", "store_name" => "tom_db", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
