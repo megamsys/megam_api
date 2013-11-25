@@ -19,8 +19,10 @@ module Megam
       @id = nil
       @node_id = nil
       @node_name = nil
+      @req_type = nil
       @command =nil
       @some_msg = {}
+      @created_at = nil
     end
 
     def request
@@ -55,6 +57,20 @@ module Megam
       @node_name
       end
     end
+    def req_type(arg=nil)
+      if arg != nil
+        @req_type = arg
+      else
+      @req_type
+      end
+    end
+    def created_at(arg=nil)
+      if arg != nil
+        @created_at = arg
+      else
+      @created_at
+      end
+    end
 
     def command(arg=nil)
       if arg != nil
@@ -83,7 +99,9 @@ module Megam
       index_hash["id"] = id
       index_hash["node_id"] = node_id
       index_hash["node_name"] = node_name
+      index_hash["req_type"] = req_type
       index_hash["command"] = command
+      index_hash["created_at"] = created_at
       index_hash
     end
 
@@ -98,7 +116,9 @@ module Megam
         "id" => id,
         "node_id" => node_id,
         "node_name" => node_name,
-        "command" => command
+        "req_type" => req_type,
+        "command" => command,
+        "created_at" => created_at
       }
       result
     end
@@ -109,7 +129,9 @@ module Megam
       node.id(o["id"]) if o.has_key?("id")
       node.node_id(o["node_id"]) if o.has_key?("node_id")
       node.node_name(o["node_name"]) if o.has_key?("node_name")
+      node.req_type(o["req_type"]) if o.has_key?("req_type")
       node.command(o["command"]) if o.has_key?("command")
+      node.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       node.some_msg[:code] = o["code"] if o.has_key?("code")
       node.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -125,11 +147,24 @@ module Megam
     end
 
     def from_hash(o)
-      @id = o[:id] if o.has_key?(:id)
-      @node_id  = o[:node_id] if o.has_key?(:node_id)
-      @node_name       = o[:node_name] if o.has_key?(:node_name)
-      @command  = o[:command] if o.has_key?(:command)
+      @id = o["id"] if o.has_key?("id")
+      @node_id  = o["node_id"] if o.has_key?("node_id")
+      @node_name       = o["node_name"] if o.has_key?("node_name")
+      @req_type       = o["req_type"] if o.has_key?("req_type")
+      @command  = o["command"] if o.has_key?("command")
+      @created_at       = o["created_at"] if o.has_key?("created_at")
       self
+    end
+
+
+    def self.create(o)
+      acct = from_hash(o)
+      acct.create
+    end
+
+    # Create the node via the REST API
+    def create
+      megam_rest.post_request(to_hash)
     end
 
     

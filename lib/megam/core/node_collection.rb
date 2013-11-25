@@ -36,14 +36,14 @@ module Megam
     def []=(index, arg)
       is_megam_node(arg)
       @nodes[index] = arg
-      @nodes_by_name[arg.id] = index
+      @nodes_by_name[arg.node_name] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
         is_megam_node(a)
         @nodes << a
-        @nodes_by_name[a.id] = @nodes.length - 1
+        @nodes_by_name[a.node_name] = @nodes.length - 1
       end
       self
     end
@@ -62,11 +62,11 @@ module Megam
         @nodes_by_name.each_key do |key|
         @nodes_by_name[key] += 1 if @nodes_by_name[key] > @insert_after_idx
         end
-        @nodes_by_name[node.id] = @insert_after_idx + 1
+        @nodes_by_name[node.node_name] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
       @nodes << node
-      @nodes_by_name[node.id] = @nodes.length - 1 
+      @nodes_by_name[node.node_name] = @nodes.length - 1 
       end
     end
 
@@ -89,7 +89,7 @@ module Megam
     def lookup(node)
       lookup_by = nil
       if node.kind_of?(Megam::Node)
-      lookup_by = node.id
+      lookup_by = node.node_name
       elsif node.kind_of?(String)
       lookup_by = node
       else
@@ -106,7 +106,7 @@ module Megam
     def to_hash
       index_hash = Hash.new
       self.each do |node|
-        index_hash[node.id] = node.to_s
+        index_hash[node.node_name] = node.to_s
       end
       index_hash
     end
