@@ -7,7 +7,7 @@ require 'time'
 
 SANDBOX_HOST_OPTIONS = {
       :scheme => 'https',
-  :host => 'localhost',
+  :host => 'api.megam.co',
       :nonblock => false,
   #:port => 9000
    :port => 443

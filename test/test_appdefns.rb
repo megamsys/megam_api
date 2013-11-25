@@ -5,7 +5,7 @@ class TestApps < MiniTest::Unit::TestCase
   def test_post_appdefns
 
    tmp_hash = {
-      "node_name" => "night.megam.co",
+      "node_name" => "black1.megam.co",
 	"appdefns" => {"timetokill" => "test1", "metered" => "test1", "logging" => "test1", "runtime_exec" => "test"}
     }
 
@@ -16,7 +16,7 @@ puts tmp_hash
   end
 
   def test_get_appdefns
-    response = megams.get_appdefn("night.megam.co")
+    response = megams.get_appdefn("black1.megam.co")
     assert_equal(200, response.status)
   end
 

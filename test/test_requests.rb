@@ -2,7 +2,7 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
 
-=begin
+#=begin
   def test_get_requests
     response = megams.get_requests
     assert_equal(200, response.status)
@@ -13,14 +13,14 @@ class TestApps < MiniTest::Unit::TestCase
       response = megams.get_request("faulty")
     end
   end
-
+#=end
   def test_get_request_good
-    response = megams.get_request("morning.megam.co")
+    response = megams.get_request("black1.megam.co")
     assert_equal(200, response.status)
   end
-=end
 
 
+#=begin
 @com = {
 "systemprovider" => {
 "provider" => {
@@ -37,7 +37,8 @@ class TestApps < MiniTest::Unit::TestCase
 "access" => {
 "ssh_key" => "megam_ec2",
 "identity_file" => "~/.ssh/megam_ec2.pem",
-"ssh_user" => ""
+"ssh_user" => "",
+"vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default"
 }
 },
 "cloudtool" => {
@@ -51,7 +52,7 @@ class TestApps < MiniTest::Unit::TestCase
 }
 
     @@tmp_hash = {
-      "node_name" => "night.megam.co",
+      "node_name" => "black1.megam.co",
       "node_type" => "APP", #APP or Bolt
       "req_type" => "delete",
       "noofinstances" => 0,
@@ -80,6 +81,6 @@ puts @@tmp_hash
     response = megams.post_request(@@tmp_hash)
     assert_equal(201, response.status)
   end
-
+#=end
   
 end

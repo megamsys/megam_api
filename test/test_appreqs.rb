@@ -6,7 +6,7 @@ class TestApps < MiniTest::Unit::TestCase
 
    tmp_hash = {
       "req_type" => "NStart",
-      "node_name" => "night.megam.co",
+      "node_name" => "black1.megam.co",
       "appdefns_id" => "12455",
       "lc_apply" => "APPly",
       "lc_additional" => "ADDition",
@@ -20,7 +20,7 @@ puts tmp_hash
   end
 #=begin
   def test_get_appreqs
-    response = megams.get_appreq("night.megam.co")
+    response = megams.get_appreq("oceanographer1.megam.co")
     assert_equal(200, response.status)
   end
 #=end
