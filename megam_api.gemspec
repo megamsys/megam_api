@@ -5,8 +5,8 @@ require "megam/api/version"
 Gem::Specification.new do |s|
   s.name        = "megam_api"
   s.version     = Megam::API::VERSION
-  s.authors     = ["Kishorekumar Neelamegam, Thomas Alrin, Subash Sethurajan"]
-  s.email       = ["nkishore@megam.co.in","alrin@megam.co.in","subash.avc@gmail.com"]
+  s.authors     = ["Kishorekumar Neelamegam, Thomas Alrin, Subash Sethurajan, Rajthilak"]
+  s.email       = ["nkishore@megam.co.in","alrin@megam.co.in","subash.avc@gmail.com", "rajthilak@megam.co.in"]
   s.homepage    = "http://github.com/indykish/megam_api"
   s.license = "Apache V2"
   s.extra_rdoc_files = ["README.md", "LICENSE" ]
