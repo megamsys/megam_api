@@ -14,6 +14,7 @@ class TestApps < MiniTest::Unit::TestCase
         :identity_file => "~/.ssh/megam_ec2.pem",
         :ssh_user => "ubuntu",
 	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default"
+	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default"
       },
       :ideal => "ror,redis,riak",
       :performance => "10rpm"
@@ -35,6 +36,7 @@ class TestApps < MiniTest::Unit::TestCase
         :identity_file => "https://boering.dropbox.closedloc/aorc.pem",
         :ssh_user => "ubuntu",
 	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default"
+	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default"
       },
       :ideal => "play,redis,riak",
       :performance => "10rpm"
