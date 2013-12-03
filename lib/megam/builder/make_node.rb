@@ -41,7 +41,6 @@ module Megam
       return re
     end
     
-    #command = {:predef_clouds => pc_collection.data[:body], :cloud_tools => ct_collection.data[:body]}
     
     predef_cloud = pc_collection.data[:body].lookup("#{data[:predef_cloud_name]}")
 tool = ct_collection.data[:body].lookup(data[:provider])
@@ -88,17 +87,17 @@ command_hash = {
         "noofinstances" => data[:no_of_instances],
         "command" => command_hash,
         "predefs" => {"name" => data[:predef_name], "scm" => "#{data[:deps_scm]}",
-          "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:predef][:runtime_exec]},
+          "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:runtime_exec]},
         "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
         "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
         "appreq" => {},
         "boltreq" => {}
       }
 
-      if data[:cloud_book][:book_type] == "APP"
+      if data[:book_type] == "APP"
         node_hash["appdefns"] = {"timetokill" => "#{data[:timetokill]}", "metered" => "#{data[:metered]}", "logging" => "#{data[:logging]}", "runtime_exec" => "#{data[:runtime_exec]}"}
       end
-      if data[:cloud_book][:book_type] == "BOLT"
+      if data[:book_type] == "BOLT"
         node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
       end
 
