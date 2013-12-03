@@ -15,35 +15,45 @@
 #
 module Megam
   class MakeNode
-=begin
-def megam_rest
-options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-Megam::API.new(options)
-end
+    def megam_rest
+      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
+      Megam::API.new(options)
+    end
 
-def self.predef_clouds
-predef = self.new()
-pc_collection = predef.megam_rest.get_predefclouds
-pc_collection
-end
-def self.cloud_tools
-ct = self.new()
-ct_collection = ct.megam_rest.get_cloudtools
-ct_collection
-end
-
-def self.run(data, group, action, user)
-predef_cloud = predef_clouds.lookup("#{data[:cloud_book][:predef_cloud_name]}")
-tool = cloud_tools.lookup(data[:predef][:provider])
+    def self.create(data, group, action, email)
+    
+       make_command = self.new()
+     begin
+      pc_collection = make_command.megam_rest.get_predefclouds
+      ct_collection = make_command.megam_rest.get_cloudtools
+      
+    rescue ArgumentError => ae
+      hash = {"msg" => ae.message, "msg_type" => "error"}
+      re = Megam::Error.from_hash(hash)
+      return re
+    rescue Megam::API::Errors::ErrorWithResponse => ewr
+      hash = {"msg" => ewr.message, "msg_type" => "error"}
+      re = Megam::Error.from_hash(hash)
+      return re
+    rescue StandardError => se
+      hash = {"msg" => se.message, "msg_type" => "error"}
+      re = Megam::Error.from_hash(hash)
+      return re
+    end
+    
+    #command = {:predef_clouds => pc_collection.data[:body], :cloud_tools => ct_collection.data[:body]}
+    
+    predef_cloud = pc_collection.data[:body].lookup("#{data[:predef_cloud_name]}")
+tool = ct_collection.data[:body].lookup(data[:provider])
 template = tool.cloudtemplates.lookup(predef_cloud.spec[:type_name])
 cloud_instruction = template.lookup_by_instruction(group, action)
 ci_command = cloud_instruction.command
 ci_name = cloud_instruction.name
 
-hash = {
+command_hash = {
 "systemprovider" => {
 "provider" => {
-"prov" => "#{data[:predef][:provider]}"
+"prov" => "#{data[:provider]}"
 }
 },
 "compute" => {
@@ -55,7 +65,7 @@ hash = {
 },
 "access" => {
 "ssh_key" => "#{predef_cloud.access[:ssh_key]}",
-"identity_file" => user.email+"/"+"#{data[:cloud_book][:predef_cloud_name]}"+"/"+"#{predef_cloud.access[:identity_file]}",
+"identity_file" => email+"/"+"#{data[:predef_cloud_name]}"+"/"+"#{predef_cloud.access[:identity_file]}",
 "ssh_user" => "#{predef_cloud.access[:ssh_user]}",
 "vault_location" => "#{predef_cloud.access[:vault_location]}",
 "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}"
@@ -65,24 +75,19 @@ hash = {
 "chef" => {
 "command" => "#{tool.cli}",
 "plugin" => "#{template.cctype} #{ci_command}",
-"run_list" => "'role[#{data[:predef][:provider_role]}]'",
-"name" => "#{ci_name} #{data[:cloud_book][:name]}"
+"run_list" => "'role[#{data[:provider_role]}]'",
+"name" => "#{ci_name} #{data[:book_name]}"
 }
 }
 }
-hash
-end
-=end
-    def self.create(data, group, action, user)
-      com = run(data, group, action, user)
 
       node_hash = {
-        "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",
-        "node_type" => "#{data[:cloud_book][:book_type]}",
+        "node_name" => "#{data[:book_name]}#{data[:domain_name]}",
+        "node_type" => "#{data[:book_type]}",
         "req_type" => "#{action}",
         "noofinstances" => data[:no_of_instances],
-        "command" => com,
-        "predefs" => {"name" => data[:predef][:name], "scm" => "#{data['deps_scm']}",
+        "command" => command_hash,
+        "predefs" => {"name" => data[:predef_name], "scm" => "#{data[:deps_scm]}",
           "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:predef][:runtime_exec]},
         "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
         "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
@@ -91,13 +96,13 @@ end
       }
 
       if data[:cloud_book][:book_type] == "APP"
-        node_hash["appdefns"] = {"timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}"}
+        node_hash["appdefns"] = {"timetokill" => "#{data[:timetokill]}", "metered" => "#{data[:metered]}", "logging" => "#{data[:logging]}", "runtime_exec" => "#{data[:runtime_exec]}"}
       end
       if data[:cloud_book][:book_type] == "BOLT"
         node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
       end
 
+node_hash
     end
-
   end
 end
