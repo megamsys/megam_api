@@ -20,7 +20,7 @@ module Megam
       Megam::API.new(options)
     end
 
-    def self.create(data, group, action, email)
+    def self.create(data, group, action)
 
       make_command = self.new()
       begin
@@ -41,13 +41,6 @@ module Megam
       return re
       end
 
-      predef_cloud = pc_collection.data[:body].lookup("#{data[:predef_cloud_name]}")
-      tool = ct_collection.data[:body].lookup(data[:provider])
-      template = tool.cloudtemplates.lookup(predef_cloud.spec[:type_name])
-      cloud_instruction = template.lookup_by_instruction(group, action)
-      ci_command = cloud_instruction.command
-      ci_name = cloud_instruction.name
-
       command_hash = {
         "systemprovider" => {
           "provider" => {
@@ -63,7 +56,7 @@ module Megam
           },
           "access" => {
             "ssh_key" => "#{predef_cloud.access[:ssh_key]}",
-            "identity_file" => email+"/"+"#{data[:predef_cloud_name]}"+"/"+"#{predef_cloud.access[:identity_file]}",
+            "identity_file" => "#{predef_cloud.access[:identity_file]}",
             "ssh_user" => "#{predef_cloud.access[:ssh_user]}",
             "vault_location" => "#{predef_cloud.access[:vault_location]}",
             "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}"
