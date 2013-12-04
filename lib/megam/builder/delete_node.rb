@@ -66,7 +66,8 @@ command_hash = {
 "ssh_key" => "#{node.request[:command]['compute']['access']['ssh_key']}",
 "identity_file" => "#{node.request[:command]['compute']['access']['identity_file']}",
 "ssh_user" => "",
-"vault_location" => "#{node.request[:command]['compute']['access']['vault_location']}"
+"vault_location" => "#{node.request[:command]['compute']['access']['vault_location']}",
+"sshpub_location" => "#{node.request[:command]['compute']['access']['sshpub_location']}"
 }
 },
 "cloudtool" => {
