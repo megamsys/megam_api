@@ -20,7 +20,7 @@ module Megam
       Megam::API.new(options)
     end
 
-    def self.create(data, group, action, email)
+    def self.create(data, group, action)
     
        make_command = self.new()
      begin
@@ -64,7 +64,7 @@ command_hash = {
 },
 "access" => {
 "ssh_key" => "#{predef_cloud.access[:ssh_key]}",
-"identity_file" => email+"/"+"#{data[:predef_cloud_name]}"+"/"+"#{predef_cloud.access[:identity_file]}",
+"identity_file" => "#{predef_cloud.access[:identity_file]}",
 "ssh_user" => "#{predef_cloud.access[:ssh_user]}",
 "vault_location" => "#{predef_cloud.access[:vault_location]}",
 "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}"
