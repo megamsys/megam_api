@@ -152,9 +152,9 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.show(email_p)
-      megam_rest.get_accounts(email)
-      self
+    def self.show(email)
+      acct = self.new()
+      acct.megam_rest.get_accounts(email)
     end
 
     # Create the node via the REST API
