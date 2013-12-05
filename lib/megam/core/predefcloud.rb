@@ -167,6 +167,8 @@ module Megam
       predefcd.access[:identity_file] = op["identity_file"] if op && op.has_key?("identity_file")
       predefcd.access[:ssh_user]= op["ssh_user"] if op && op.has_key?("ssh_user")
       predefcd.access[:vault_location]= op["vault_location"] if op && op.has_key?("vault_location")
+      predefcd.access[:sshpub_location]= op["sshpub_location"] if op && op.has_key?("sshpub_location")
+      predefcd.access[:zone]= op["zone"] if op && op.has_key?("zone")
       #access
      # predefcd.ideal(o["ideal"]) if o.has_key?("ideal")
      # predefcd.performance(o["performance"]) if o.has_key?("performance")
