@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "megam/core/text_formatter"
 module Megam
   class Text
 
