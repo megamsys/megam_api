@@ -112,7 +112,7 @@ module Megam
 
     def request(params,&block)
       start = Time.now
-      text.msg "#{text.color("START", :cyan, :bold)}"
+      Megam::Log.debug("START")
       params.each do |pkey, pvalue|
         Megam::Log.debug("> #{pkey}: #{pvalue}")
       end
@@ -135,8 +135,8 @@ module Megam
         reerror.set_backtrace(error.backtrace)
         Megam::Log.error("#{reerror.response.body}")
         reerror.response.body = Megam::JSONCompat.from_json(reerror.response.body.chomp)
-        Megam::Log.error("RESPONSE ERR: Ruby Object")
-        Megam::Log.error("#{reerror.response.body}")
+        Megam::Log.debug("RESPONSE ERR: Ruby Object")
+        Megam::Log.debug("#{reerror.response.body}")
         raise(reerror)
       end
 
