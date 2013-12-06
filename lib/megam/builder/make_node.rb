@@ -66,7 +66,8 @@ ci_name = cloud_instruction.name
             "identity_file" => "#{predef_cloud.access[:identity_file]}",
             "ssh_user" => "#{predef_cloud.access[:ssh_user]}",
             "vault_location" => "#{predef_cloud.access[:vault_location]}",
-            "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}"
+            "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}",
+            "zone" => "#{predef_cloud.access[:zone]}"
           }
         },
         "cloudtool" => {
