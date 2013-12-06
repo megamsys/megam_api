@@ -31,6 +31,18 @@ module Megam
       end
     end
 
+    # Summarize the data. Defaults to text format output,
+    # which may not be very summary-like
+    def summarize(data)
+      text_format(data)
+    end
+
+    # Converts the +data+ to a String in the text format. Uses
+    # Chef::Knife::Core::TextFormatter
+    def text_format(data)
+      Megam::TextFormatter.new(data, self).formatted_data
+    end
+
     def msg(message)
       stdout.puts message
     end
