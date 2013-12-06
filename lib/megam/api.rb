@@ -114,7 +114,7 @@ module Megam
       start = Time.now
       text.msg "#{text.color("START", :cyan, :bold)}"
       params.each do |pkey, pvalue|
-        text.msg("> #{pkey}: #{pvalue}")
+        Megam::Log.debug("> #{pkey}: #{pvalue}")
       end
 
       begin
@@ -133,47 +133,39 @@ module Megam
         end
         reerror = klass.new(error.message, error.response)
         reerror.set_backtrace(error.backtrace)
-        text.msg "#{text.color("#{reerror.response.body}", :white)}"
+        Megam::Log.error("#{reerror.response.body}")
         reerror.response.body = Megam::JSONCompat.from_json(reerror.response.body.chomp)
-        text.msg("#{text.color("RESPONSE ERR: Ruby Object", :magenta, :bold)}")
-        text.msg "#{text.color("#{reerror.response.body}", :white, :bold)}"
+        Megam::Log.error("RESPONSE ERR: Ruby Object")
+        Megam::Log.error("#{reerror.response.body}")
         raise(reerror)
       end
 
       @last_response = response
-      text.msg("#{text.color("RESPONSE: HTTP Status and Header Data", :magenta, :bold)}")
-      text.msg("> HTTP #{response.remote_ip} #{response.status}")
+      Megam::Log.debug("RESPONSE: HTTP Status and Header Data")
+      Megam::Log.debug("> HTTP #{response.remote_ip} #{response.status}")
 
       response.headers.each do |header, value|
-        text.msg("> #{header}: #{value}")
+        Megam::Log.debug("> #{header}: #{value}")
       end
-      text.info("End HTTP Status/Header Data.")
+      Megam::Log.debug("End HTTP Status/Header Data.")
 
       if response.body && !response.body.empty?
         if response.headers['Content-Encoding'] == 'gzip'
           response.body = Zlib::GzipReader.new(StringIO.new(response.body)).read
         end
-        text.msg("#{text.color("RESPONSE: HTTP Body(JSON)", :magenta, :bold)}")
-
-        text.msg "#{text.color("#{response.body}", :white)}"
+        Megam::Log.debug("RESPONSE: HTTP Body(JSON)")
+        Megam::Log.debug("#{response.body}")
 
         begin
           response.body = Megam::JSONCompat.from_json(response.body.chomp)
-          text.msg("#{text.color("RESPONSE: Ruby Object", :magenta, :bold)}")
-
-          text.msg "#{text.color("#{response.body}", :white, :bold)}"
+          Megam::Log.debug("RESPONSE: Ruby Object")
+          Megam::Log.debug("#{response.body}")
         rescue Exception => jsonerr
-          text.error(jsonerr)
+          Megam::Log.error(jsonerr)
           raise(jsonerr)
-        # exception = Megam::JSONCompat.from_json(response_body)
-        # msg = "HTTP Request Returned #{response.code} #{response.message}: "
-        # msg << (exception["error"].respond_to?(:join) ? exception["error"].join(", ") : exception["error"].to_s)
-        # text.error(msg)
         end
       end
-      text.msg "#{text.color("END(#{(Time.now - start).to_s}s)", :blue, :bold)}"
-      #  text.msg "#{text.color("END(#{(Megam::Stuff.time_ago(start))})", :blue, :bold)}"
-
+      Megam::Log.debug("END(#{(Time.now - start).to_s}s)")
       # reset (non-persistent) connection
       @connection.reset
       response
@@ -190,32 +182,22 @@ module Megam
         'X-Megam-Date' => encoded_api_header[:date],
       }).merge(@options[:headers])
 
-      #SSL certificate file paths
-      #If ssl_ca_path and file specified shows error
-      #Only file pass through
-      #Excon.defaults[:ssl_ca_path] = "/etc/ssl/certs"
-      #ENV['SSL_CERT_DIR'] = "/etc/ssl/certs"
       Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
-      #ENV['SSL_CERT_FILE'] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
 
       if !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
-      #elsif !File.readable_real?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "test.pem")))
-      #	puts "==================> Test CER 2===============>"
-      #	text.warn("Certificate file is readable. SSL_VERIFY_PEER set as false")
-      #	Excon.defaults[:ssl_verify_peer] = false
       else
-        text.info("Certificate found")
+        Megam::Log.debug("Certificate found")
         Excon.defaults[:ssl_verify_peer] = true
       end
 
-      text.info("HTTP Request Data:")
-      text.msg("> HTTP #{@options[:scheme]}://#{@options[:host]}")
+      Megam::Log.debug("HTTP Request Data:")
+      Megam::Log.debug("> HTTP #{@options[:scheme]}://#{@options[:host]}")
       @options.each do |key, value|
-        text.msg("> #{key}: #{value}")
+        Megam::Log.debug("> #{key}: #{value}")
       end
-      text.info("End HTTP Request Data.")
+      Megam::Log.debug("End HTTP Request Data.")
       @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
     end
 
