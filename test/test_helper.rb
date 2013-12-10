@@ -33,6 +33,7 @@ s_options = SANDBOX_HOST_OPTIONS.merge({
   :email => sandbox_email,
   :api_key => sandbox_apikey  
 }) 
+Megam::Log.level(:debug)
   options = s_options.merge(options)
   mg=Megam::API.new(options)  
 end

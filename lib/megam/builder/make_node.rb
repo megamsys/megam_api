@@ -40,6 +40,13 @@ module Megam
         re = Megam::Error.from_hash(hash)
       return re
       end
+      
+predef_cloud = pc_collection.data[:body].lookup("#{data[:predef_cloud_name]}")
+tool = ct_collection.data[:body].lookup(data[:provider])
+template = tool.cloudtemplates.lookup(predef_cloud.spec[:type_name])
+cloud_instruction = template.lookup_by_instruction(group, action)
+ci_command = cloud_instruction.command
+ci_name = cloud_instruction.name
 
       command_hash = {
         "systemprovider" => {
@@ -59,7 +66,8 @@ module Megam
             "identity_file" => "#{predef_cloud.access[:identity_file]}",
             "ssh_user" => "#{predef_cloud.access[:ssh_user]}",
             "vault_location" => "#{predef_cloud.access[:vault_location]}",
-            "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}"
+            "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}",
+            "zone" => "#{predef_cloud.access[:zone]}"
           }
         },
         "cloudtool" => {

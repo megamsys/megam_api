@@ -26,9 +26,11 @@ require "megam/api/requests"
 require "megam/api/predefs"
 require "megam/api/predef_clouds"
 require "megam/api/cloud_tools"
+require "megam/api/cloud_tool_settings"
 require "megam/core/config"
 require "megam/core/stuff"
 require "megam/core/text"
+require "megam/core/log"
 require "megam/core/json_compat"
 require "megam/builder/make_node"
 require "megam/builder/delete_node"
@@ -58,6 +60,8 @@ require "megam/core/cloudtemplate_collection"
 require "megam/core/cloudinstruction_group"
 require "megam/core/cloudinstruction_collection"
 require "megam/core/cloudinstruction"
+require "megam/core/cloudtoolsetting"
+require "megam/core/cloudtoolsetting_collection"
 
 #we may nuke logs out of the api
 #require "megam/api/logs"
@@ -112,7 +116,7 @@ module Megam
 
     def request(params,&block)
       start = Time.now
-      text.msg "#{text.color("START", :cyan, :bold)}"
+      Megam::Log.debug("START")
       params.each do |pkey, pvalue|
         Megam::Log.debug("> #{pkey}: #{pvalue}")
       end
@@ -135,8 +139,8 @@ module Megam
         reerror.set_backtrace(error.backtrace)
         Megam::Log.error("#{reerror.response.body}")
         reerror.response.body = Megam::JSONCompat.from_json(reerror.response.body.chomp)
-        Megam::Log.error("RESPONSE ERR: Ruby Object")
-        Megam::Log.error("#{reerror.response.body}")
+        Megam::Log.debug("RESPONSE ERR: Ruby Object")
+        Megam::Log.debug("#{reerror.response.body}")
         raise(reerror)
       end
 

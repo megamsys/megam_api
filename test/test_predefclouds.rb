@@ -15,7 +15,7 @@ class TestApps < MiniTest::Unit::TestCase
         :ssh_user => "ubuntu",
 	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
 	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
-	:zone => "az1"
+	:zone => ""
       },
       #:ideal => "ror,redis,riak",
       #:performance => "10rpm"
@@ -38,7 +38,7 @@ class TestApps < MiniTest::Unit::TestCase
         :ssh_user => "ubuntu",
 	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
 	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
-	:zone => "az1"
+	:zone => ""
       },
       #:ideal => "play,redis,riak",
       #:performance => "10rpm"

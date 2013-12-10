@@ -44,6 +44,8 @@ module Megam
     MEGAM_PREDEFCLOUDCOLLECTION    = "Megam::PredefCloudCollection".freeze
     MEGAM_CLOUDTOOL     = "Megam::CloudTool".freeze
     MEGAM_CLOUDTOOLCOLLECTION    = "Megam::CloudToolCollection".freeze
+    MEGAM_CLOUDTOOLSETTING     = "Megam::CloudToolSetting".freeze
+    MEGAM_CLOUDTOOLSETTINGCOLLECTION    = "Megam::CloudToolSettingCollection".freeze
     MEGAM_CLOUDTEMPLATE     = "Megam::CloudTemplate".freeze
     MEGAM_CLOUDTEMPLATECOLLECTION    = "Megam::CloudTemplateCollection".freeze
     MEGAM_CLOUDINSTRUCTION     = "Megam::CloudInstruction".freeze
@@ -163,6 +165,10 @@ module Megam
           Megam::CloudTool
         when MEGAM_CLOUDTOOLCOLLECTION
           Megam::CloudToolCollection
+        when MEGAM_CLOUDTOOLSETTING
+          Megam::CloudToolSetting
+        when MEGAM_CLOUDTOOLSETTINGCOLLECTION
+          Megam::CloudToolSettingCollection
         when MEGAM_CLOUDTEMPLATE
           Megam::CloudTemplate
         when MEGAM_CLOUDTEMPLATECOLLECTION
