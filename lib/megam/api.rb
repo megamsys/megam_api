@@ -115,7 +115,7 @@ module Megam
     end
 
     def request(params,&block)
-      text.msg "#{text.color("==  API: (#{path}) ====", :cyan, :bold)}"
+      text.msg "#{text.color("==  API: (#{@options[:path]}) ====", :cyan, :bold)}"
       just_color_debug("#{@options[:path]}","start(#{params[:method]})")
       start = Time.now
       Megam::Log.debug("START")
@@ -173,7 +173,7 @@ module Megam
       end
       Megam::Log.debug("END(#{(Time.now - start).to_s}s)")
       just_color_debug("#{@options[:path]}","end(#{params[:method]})")
-      text.msg "#{text.color("==  API: (#{path}) ====", :cyan, :bold)}"
+      text.msg "#{text.color("==  API: (#{@options[:path]}) ====", :cyan, :bold)}"
       # reset (non-persistent) connection
       @connection.reset
       response
