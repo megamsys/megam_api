@@ -115,6 +115,8 @@ module Megam
     end
 
     def request(params,&block)
+      text.msg "#{text.color("==  API: (#{path}) ====", :cyan, :bold)}"
+      just_color_debug("#{@options[:path]}","start(#{params[:method]})")
       start = Time.now
       Megam::Log.debug("START")
       params.each do |pkey, pvalue|
@@ -137,7 +139,7 @@ module Megam
         end
         reerror = klass.new(error.message, error.response)
         reerror.set_backtrace(error.backtrace)
-        Megam::Log.error("#{reerror.response.body}")
+        Megam::Log.debug("#{reerror.response.body}")
         reerror.response.body = Megam::JSONCompat.from_json(reerror.response.body.chomp)
         Megam::Log.debug("RESPONSE ERR: Ruby Object")
         Megam::Log.debug("#{reerror.response.body}")
@@ -170,12 +172,19 @@ module Megam
         end
       end
       Megam::Log.debug("END(#{(Time.now - start).to_s}s)")
+      just_color_debug("#{@options[:path]}","end(#{params[:method]})")
+      text.msg "#{text.color("==  API: (#{path}) ====", :cyan, :bold)}"
       # reset (non-persistent) connection
       @connection.reset
       response
     end
 
     private
+
+    def just_color_debug(path, meth)
+      text.msg "#{text.color("-- (#{meth})", :green)}"
+      text.msg "#{text.color("  -> #{Time.now}", :magenta, :bold)}"
+    end
 
     #Make a lazy connection.
     def connection
