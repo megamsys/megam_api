@@ -9,8 +9,6 @@ class TestApps < MiniTest::Unit::TestCase
 	"boltdefns" => {"username" => "new", "apikey" => "new", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""}
     }
 
-puts "======================> POST APPDEFNS TEMP HASH <============================================= "
-puts tmp_hash
     response = megams.post_boltdefn(tmp_hash)
     assert_equal(201, response.status)
   end

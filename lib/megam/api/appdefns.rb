@@ -10,6 +10,16 @@ module Megam
         :body     => @options[:body]
       )
     end
+    
+    def get_appdefn(node_name,defn_id)
+      @options = {:path => "/appdefns/#{node_name}/#{defn_id}",:body => ""}.merge(@options)
+
+      request(
+        :expects  => 200,
+        :method   => :get,
+        :body     => @options[:body]
+      )
+    end
 
     def post_appdefn(new_appdefn)
       @options = {:path => '/appdefns/content',

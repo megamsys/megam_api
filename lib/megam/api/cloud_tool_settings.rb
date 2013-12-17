@@ -21,7 +21,6 @@ module Megam
     end
 
     def post_cloudtoolsetting(new_cloudtoolsetting)
-    puts "entry"
       @options = {:path => '/cloudtoolsettings/content',
         :body => Megam::JSONCompat.to_json(new_cloudtoolsetting)}.merge(@options)
 

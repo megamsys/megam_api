@@ -13,8 +13,6 @@ class TestApps < MiniTest::Unit::TestCase
       "lc_when" => "When"
     }
 
-puts "======================> POST BOLTREQS TEMP HASH <============================================= "
-puts tmp_hash
     response = megams.post_boltreq(tmp_hash)
     assert_equal(201, response.status)
   end

@@ -115,8 +115,7 @@ module Megam
     end
 
     def request(params,&block)
-      text.msg "#{text.color("==  API: (#{@options[:path]}) ====", :cyan, :bold)}"
-      just_color_debug("#{@options[:path]}","start(#{params[:method]})")
+      just_color_debug("#{@options[:path]}")
       start = Time.now
       Megam::Log.debug("START")
       params.each do |pkey, pvalue|
@@ -172,8 +171,6 @@ module Megam
         end
       end
       Megam::Log.debug("END(#{(Time.now - start).to_s}s)")
-      just_color_debug("#{@options[:path]}","end(#{params[:method]})")
-      text.msg "#{text.color("==  API: (#{@options[:path]}) ====", :cyan, :bold)}"
       # reset (non-persistent) connection
       @connection.reset
       response
@@ -181,9 +178,8 @@ module Megam
 
     private
 
-    def just_color_debug(path, meth)
-      text.msg "#{text.color("-- (#{meth})", :green)}"
-      text.msg "#{text.color("  -> #{Time.now}", :magenta, :bold)}"
+    def just_color_debug(path)
+      text.msg "--> #{text.color("(#{path})", :cyan,:bold)}"
     end
 
     #Make a lazy connection.

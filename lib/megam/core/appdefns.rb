@@ -18,13 +18,12 @@ module Megam
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
 =begin
-  def self.hash_tree
-    Hash.new do |hash, key|
-      hash[key] = hash_tree
-    end
-  end
+def self.hash_tree
+Hash.new do |hash, key|
+hash[key] = hash_tree
+end
+end
 =end
-
     def initialize
       @id = nil
       @node_id = nil
@@ -33,6 +32,7 @@ module Megam
       @created_at = nil
       @some_msg = {}
     end
+
     def appdefns
       self
     end
@@ -74,7 +74,6 @@ module Megam
       end
     end
 
-
     def created_at(arg=nil)
       if arg != nil
         @created_at = arg
@@ -97,8 +96,6 @@ module Megam
 
     # Transform the ruby obj ->  to a Hash
     def to_hash
-puts "===================> CLASS NAME ====================================="
-puts self.class.name
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id

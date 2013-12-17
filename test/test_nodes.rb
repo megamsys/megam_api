@@ -50,39 +50,28 @@ class TestApps < MiniTest::Unit::TestCase
       "boltreq" => {}
     }
 
-    puts "======================> TEMP HASH <============================================= "
-    puts tmp_hash.class
-    puts tmp_hash
     response = megams.post_node(tmp_hash)
     assert_equal(201, response.status)
   end
 
-  #=end
-#=begin
-def test_post_node2
-tmp_hash = {
-"node_name" => "sundown.megam.co",
-"command" => "commands2",
-"predefs" => {"name" => "rails", "scm" => "https://github.com/awesome.git",
-"db" => "postgres@postgresql2.megam.com/morning.megam.co", "war" => "http://s3pub.com/0.1/orion.war", "queue" => "rabbit@queue1"}
-}
-response = megams.post_node(tmp_hash)
-assert_equal(201, response.status)
-end
-#=end
-def test_get_nodes
-response = megams.get_nodes
+  def test_post_node2
+    tmp_hash = {
+      "node_name" => "sundown.megam.co",
+      "command" => "commands2",
+      "predefs" => {"name" => "rails", "scm" => "https://github.com/awesome.git",
+        "db" => "postgres@postgresql2.megam.com/morning.megam.co", "war" => "http://s3pub.com/0.1/orion.war", "queue" => "rabbit@queue1"}
+    }
+    response = megams.post_node(tmp_hash)
+    assert_equal(201, response.status)
+  end
 
-    puts "=================> GET NODES Response ========>"
-    puts response.inspect
-
-assert_equal(200, response.status)
-end
+  def test_get_nodes
+    response = megams.get_nodes
+    assert_equal(200, response.status)
+  end
 
   def test_get_node0
     response = megams.get_node("black1.megam.co")
-    puts "=================> Response ========>"
-    puts response.inspect
     assert_equal(200, response.status)
   end
 
@@ -140,9 +129,6 @@ end
       "command" => @com
     }
 
-    puts "======================> TEMP HASH <============================================= "
-    puts tmp_hash.class
-    puts tmp_hash
     response = megams.post_request(tmp_hash)
     assert_equal(201, response.status)
   end
