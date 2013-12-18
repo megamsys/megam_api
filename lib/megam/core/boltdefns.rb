@@ -19,13 +19,12 @@ module Megam
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
 =begin
-  def self.hash_tree
-    Hash.new do |hash, key|
-      hash[key] = hash_tree
-    end
-  end
+def self.hash_tree
+Hash.new do |hash, key|
+hash[key] = hash_tree
+end
+end
 =end
-
     def initialize
       @id = nil
       @node_id = nil
@@ -34,6 +33,7 @@ module Megam
       @created_at = nil
       @some_msg = {}
     end
+
     def boltdefns
       self
     end
@@ -74,7 +74,6 @@ module Megam
       @boltdefns
       end
     end
-
 
     def created_at(arg=nil)
       if arg != nil
@@ -152,7 +151,6 @@ module Megam
       boltdefns.node_name(o["node_name"]) if o.has_key?("node_name")
       boltdefns.created_at(o["created_at"]) if o.has_key?("created_at")
 
-
       #APP DEFINITIONS
       op = o["boltdefns"]
       boltdefns.boltdefns[:username] = op["username"] if op && op.has_key?("username")
@@ -199,16 +197,20 @@ module Megam
       megam_rest.post_boltdefn(to_hash)
     end
 
-    # Load a account by email_p
+    # Show all bolt defns by [node_name]/email
     def self.show(node_name)
       boltdefns = self.new()
       boltdefns.megam_rest.get_boltdefn(node_name)
+    end
 
+    # Show a bolt defn by [node_name, defn id] for an email
+    def self.show(node_name,id)
+      boltdefns = self.new()
+      boltdefns.megam_rest.get_boltdefn(node_name,id)
     end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
-    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end

@@ -124,25 +124,7 @@ end
       result
     end
 
-    # Create a Megam::Node from NodeResult-JSON
-    #
-    #[{
-    #"id":"NOD362212018897289216",
-    #"accounts_id":"ACT362211962353876992",
-    #"json_claz":"Megam::Node",
-    #"request":{
-    #"req_id":"NOD362212018897289216",
-    #"command":"commands"
-    #},
-    #"predefs":{
-    #"name":"",
-    #"scm":"",
-    #"war":"",
-    #"db":"",
-    #"queue":""
-    #}
-    #}]
-    #
+    
     def self.json_create(o)
       appdefns = new
       appdefns.id(o["id"]) if o.has_key?("id")
@@ -195,10 +177,15 @@ end
       appdefns = self.new()
       appdefns.megam_rest.get_appdefn(node_name)
     end
+    
+    # Load a account by email_p
+    def self.show(node_name, id)
+      appdefns = self.new()
+      appdefns.megam_rest.get_appdefn(node_name,id)
+    end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
-    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end
