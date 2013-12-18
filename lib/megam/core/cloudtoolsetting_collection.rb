@@ -35,14 +35,14 @@ module Megam
     def []=(index, arg)
       is_megam_cloudtoolsettings(arg)
       @cloudtoolsettings[index] = arg
-      @cloudtoolsettings_by_name[arg.name] = index
+      @cloudtoolsettings_by_name[arg.repo_name] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
         is_megam_cloudtoolsettings(a)
         @cloudtoolsettings << a
-        @cloudtoolsettings_by_name[a.name] =@cloudtoolsettings.length - 1
+        @cloudtoolsettings_by_name[a.repo_name] =@cloudtoolsettings.length - 1
       end
       self
     end
@@ -61,11 +61,11 @@ module Megam
         @cloudtoolsettings_by_name.each_key do |key|
         @cloudtoolsettings_by_name[key] += 1 if@cloudtoolsettings_by_name[key] > @insert_after_idx
         end
-        @cloudtoolsettings_by_name[cloudtoolsettings.cloud_type] = @insert_after_idx + 1
+        @cloudtoolsettings_by_name[cloudtoolsettings.repo_name] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
       @cloudtoolsettings << cloudtoolsettings
-      @cloudtoolsettings_by_name[cloudtoolsettings.cloud_type] =@cloudtoolsettings.length - 1
+      @cloudtoolsettings_by_name[cloudtoolsettings.repo_name] =@cloudtoolsettings.length - 1
       end
     end
 
@@ -88,7 +88,7 @@ module Megam
     def lookup(cloudtoolsettings)
       lookup_by = nil
       if cloudtoolsettings.kind_of?(Megam::CloudToolSetting)
-      lookup_by = cloudtoolsettings.cloud_type
+      lookup_by = cloudtoolsettings.repo_name
       elsif cloudtoolsettings.kind_of?(String)
       lookup_by = cloudtoolsettings
       else
@@ -105,7 +105,7 @@ module Megam
     def to_hash
       index_hash = Hash.new
       self.each do |cloudtoolsettings|
-        index_hash[cloudtoolsettings.cloud_type] = cloudtoolsettings.to_s
+        index_hash[cloudtoolsettings.repo_name] = cloudtoolsettings.to_s
       end
       index_hash
     end

@@ -26,6 +26,7 @@ module Megam
       begin
         pc_collection = make_command.megam_rest.get_predefclouds
         ct_collection = make_command.megam_rest.get_cloudtools
+        cts_collection = make_command.megam_rest.get_cloudtoolsettings
 
       rescue ArgumentError => ae
         hash = {"msg" => ae.message, "msg_type" => "error"}
@@ -45,7 +46,9 @@ predef_cloud = pc_collection.data[:body].lookup("#{data[:predef_cloud_name]}")
 tool = ct_collection.data[:body].lookup(data[:provider])
 template = tool.cloudtemplates.lookup(predef_cloud.spec[:type_name])
 cloud_instruction = template.lookup_by_instruction(group, action)
-ci_command = cloud_instruction.command
+cts = cts_collection.data[:body].lookup(data[:repo])
+ci_command = "#{cloud_instruction.command}"
+ci_command["-c"] = "-c #{cts.conf_location}"
 ci_name = cloud_instruction.name
 
       command_hash = {
@@ -59,7 +62,8 @@ ci_name = cloud_instruction.name
           "cc"=> {
             "groups" => "#{predef_cloud.spec[:groups]}",
             "image" => "#{predef_cloud.spec[:image]}",
-            "flavor" => "#{predef_cloud.spec[:flavor]}"
+            "flavor" => "#{predef_cloud.spec[:flavor]}",
+            "tenant_id" => "#{predef_cloud.spec[:tenant_id]}"
           },
           "access" => {
             "ssh_key" => "#{predef_cloud.access[:ssh_key]}",
@@ -67,7 +71,8 @@ ci_name = cloud_instruction.name
             "ssh_user" => "#{predef_cloud.access[:ssh_user]}",
             "vault_location" => "#{predef_cloud.access[:vault_location]}",
             "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}",
-            "zone" => "#{predef_cloud.access[:zone]}"
+            "zone" => "#{predef_cloud.access[:zone]}",
+            "region" => "#{predef_cloud.access[:region]}"
           }
         },
         "cloudtool" => {
@@ -99,8 +104,7 @@ ci_name = cloud_instruction.name
       end
       if data[:book_type] == "BOLT"
         node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
-      end
-
+      end      
       node_hash
     end
   end

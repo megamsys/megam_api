@@ -15,7 +15,8 @@ class TestApps < MiniTest::Unit::TestCase
 "cc" => {
 "groups" => "megam",
 "image" => "ami-d783cd85",
-"flavor" => "t1.micro"
+"flavor" => "t1.micro",
+"tenant_id" => ""
 },
 "access" => {
 "ssh_key" => "megam_ec2",
@@ -23,13 +24,14 @@ class TestApps < MiniTest::Unit::TestCase
 "ssh_user" => "ubuntu",
 "vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
 "sshpub_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
-"zone" => ""
+"zone" => "",
+"region" => "region"
 }
 },
 "cloudtool" => {
 "chef" => {
 "command" => "knife",
-"plugin" => "ec2 server create", #ec2 server delete or create
+"plugin" => "ec2 server create -c sandy@megamsandbox.com/default", #ec2 server delete or create
 "run_list" => "role[opendj]",
 "name" => "-N TestOverAll"
 }
@@ -58,7 +60,7 @@ class TestApps < MiniTest::Unit::TestCase
   end
 
   #=end
-#=begin
+=begin
 def test_post_node2
 tmp_hash = {
 "node_name" => "sundown.megam.co",
@@ -99,7 +101,7 @@ megams.get_node("stupid.megam.co")
 end
 end
 =end
-
+=begin
   def test_delete_node1
 
     @com = {
@@ -113,7 +115,8 @@ end
 "cc" => {
 "groups" => "",
 "image" => "",
-"flavor" => ""
+"flavor" => "", 
+"tenant_id" => ""
 },
 "access" => {
 "ssh_key" => "megam_ec2",
@@ -121,7 +124,8 @@ end
 "ssh_user" => "",
 "vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
 "sshpub_location" => "",
-"zone" => ""
+"zone" => "",
+"region" => "region"
 }
 },
 "cloudtool" => {
@@ -146,6 +150,6 @@ end
     response = megams.post_request(tmp_hash)
     assert_equal(201, response.status)
   end
-
+=end
 end
 

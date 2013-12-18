@@ -7,7 +7,8 @@ class TestApps < MiniTest::Unit::TestCase
         :type_name => "aws-ec2",
         :groups => "megam",
         :image => "ami-d783cd85",
-        :flavor => "m1.medium"
+        :flavor => "m1.medium",
+        :tenant_id => ""
       },
       :access => {
         :ssh_key => "megam_ec2",
@@ -15,7 +16,8 @@ class TestApps < MiniTest::Unit::TestCase
         :ssh_user => "ubuntu",
 	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
 	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
-	:zone => ""
+	:zone => "",
+	:region => "southeast"
       },
       #:ideal => "ror,redis,riak",
       #:performance => "10rpm"
@@ -30,7 +32,8 @@ class TestApps < MiniTest::Unit::TestCase
         :type_name => "rackspace",
         :groups => "staging_france_boeing",
         :image => "RCP000XERAOl",
-        :flavor => "m1-miniscule"
+        :flavor => "m1-miniscule",
+        :tenant_id => ""
       },
       :access => {
         :ssh_key => "boo_flightssh",
@@ -38,7 +41,8 @@ class TestApps < MiniTest::Unit::TestCase
         :ssh_user => "ubuntu",
 	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
 	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
-	:zone => ""
+	:zone => "",
+	:region => ""
       },
       #:ideal => "play,redis,riak",
       #:performance => "10rpm"
