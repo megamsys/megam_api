@@ -17,13 +17,7 @@ module Megam
   class Appdefns
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
-=begin
-def self.hash_tree
-Hash.new do |hash, key|
-hash[key] = hash_tree
-end
-end
-=end
+
     def initialize
       @id = nil
       @node_id = nil
