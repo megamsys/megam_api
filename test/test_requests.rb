@@ -31,7 +31,8 @@ class TestApps < MiniTest::Unit::TestCase
 "cc" => {
 "groups" => "",
 "image" => "",
-"flavor" => ""
+"flavor" => "",
+"tenant_id" => ""
 },
 "access" => {
 "ssh_key" => "megam_ec2",
@@ -39,7 +40,8 @@ class TestApps < MiniTest::Unit::TestCase
 "ssh_user" => "",
 "vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
 "sshpub_location" => "",
-"zone" => ""
+"zone" => "",
+"region" => ""
 }
 },
 "cloudtool" => {

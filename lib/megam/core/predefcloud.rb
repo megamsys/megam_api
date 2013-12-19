@@ -161,6 +161,7 @@ module Megam
       predefcd.spec[:groups] = oq["groups"] if oq && oq.has_key?("groups")
       predefcd.spec[:image] = oq["image"] if oq && oq.has_key?("image")
       predefcd.spec[:flavor] = oq["flavor"] if oq && oq.has_key?("flavor")
+      predefcd.spec[:tenant_id] = oq["tenant_id"] if oq && oq.has_key?("tenant_id")
       #predef
       op = o["access"]
       predefcd.access[:ssh_key] = op["ssh_key"] if op && op.has_key?("ssh_key")
@@ -169,6 +170,7 @@ module Megam
       predefcd.access[:vault_location]= op["vault_location"] if op && op.has_key?("vault_location")
       predefcd.access[:sshpub_location]= op["sshpub_location"] if op && op.has_key?("sshpub_location")
       predefcd.access[:zone]= op["zone"] if op && op.has_key?("zone")
+      predefcd.access[:region]= op["region"] if op && op.has_key?("region")
       #access
      # predefcd.ideal(o["ideal"]) if o.has_key?("ideal")
      # predefcd.performance(o["performance"]) if o.has_key?("performance")
