@@ -24,33 +24,45 @@ module Megam
 
       make_command = self.new()
       begin
-        pc_collection = make_command.megam_rest.get_predefclouds
-        ct_collection = make_command.megam_rest.get_cloudtools
-        cts_collection = make_command.megam_rest.get_cloudtoolsettings
-
+        pc_collection = make_command.megam_rest.get_predefclouds        
+        ct_collection = make_command.megam_rest.get_cloudtools          
+        cts_collection = make_command.megam_rest.get_cloudtoolsettings                
       rescue ArgumentError => ae
         hash = {"msg" => ae.message, "msg_type" => "error"}
-        re = Megam::Error.from_hash(hash)
+        re = Megam::Error.from_hash(hash)        
         return re
       rescue Megam::API::Errors::ErrorWithResponse => ewr
         hash = {"msg" => ewr.message, "msg_type" => "error"}
-        re = Megam::Error.from_hash(hash)
+        re = Megam::Error.from_hash(hash)  
         return re
       rescue StandardError => se
         hash = {"msg" => se.message, "msg_type" => "error"}
-        re = Megam::Error.from_hash(hash)
+        re = Megam::Error.from_hash(hash)        
       return re
+      end      
+      predef_cloud = pc_collection.data[:body].lookup("#{data[:predef_cloud_name]}")      
+      tool = ct_collection.data[:body].lookup(data[:provider])      
+      template = tool.cloudtemplates.lookup(predef_cloud.spec[:type_name])      
+      cloud_instruction = template.lookup_by_instruction(group, action)
+      cts = cts_collection.data[:body].lookup(data[:repo])
+      puts "+++++++++++++++++++++++++++++++"
+      ci_command = "#{cloud_instruction.command}"  
+      puts ci_command
+      if ci_command["<node_name>"].present?     
+      ci_command["<node_name>"] = "#{data[:book_name]}"
+      end          
+      puts ci_command
+      u = URI.parse(predef_cloud.access[:vault_location])
+      u.path[0]=""
+      if ci_command["-f"].present?     
+      ci_command["-f"] = "-f " + u.path + "/" + predef_cloud.spec[:type_name] + ".json"     
       end
-      
-predef_cloud = pc_collection.data[:body].lookup("#{data[:predef_cloud_name]}")
-tool = ct_collection.data[:body].lookup(data[:provider])
-template = tool.cloudtemplates.lookup(predef_cloud.spec[:type_name])
-cloud_instruction = template.lookup_by_instruction(group, action)
-cts = cts_collection.data[:body].lookup(data[:repo])
-ci_command = "#{cloud_instruction.command}"
-ci_command["-c"] = "-c #{cts.conf_location}"
-ci_name = cloud_instruction.name
-
+      puts ci_command
+      if ci_command["-c"].present?  
+      ci_command["-c"] = "-c #{cts.conf_location}"      
+      end
+      puts ci_command
+      ci_name = cloud_instruction.name
       command_hash = {
         "systemprovider" => {
           "provider" => {
