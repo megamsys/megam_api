@@ -44,24 +44,19 @@ module Megam
       tool = ct_collection.data[:body].lookup(data[:provider])      
       template = tool.cloudtemplates.lookup(predef_cloud.spec[:type_name])      
       cloud_instruction = template.lookup_by_instruction(group, action)
-      cts = cts_collection.data[:body].lookup(data[:repo])
-      puts "+++++++++++++++++++++++++++++++"
-      ci_command = "#{cloud_instruction.command}"  
-      puts ci_command
+      cts = cts_collection.data[:body].lookup(data[:repo])      
+      ci_command = "#{cloud_instruction.command}"       
       if ci_command["<node_name>"].present?     
       ci_command["<node_name>"] = "#{data[:book_name]}"
-      end          
-      puts ci_command
+      end                
       u = URI.parse(predef_cloud.access[:vault_location])
       u.path[0]=""
       if ci_command["-f"].present?     
       ci_command["-f"] = "-f " + u.path + "/" + predef_cloud.spec[:type_name] + ".json"     
-      end
-      puts ci_command
+      end      
       if ci_command["-c"].present?  
       ci_command["-c"] = "-c #{cts.conf_location}"      
-      end
-      puts ci_command
+      end      
       ci_name = cloud_instruction.name
       command_hash = {
         "systemprovider" => {
