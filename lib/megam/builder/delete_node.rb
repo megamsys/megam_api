@@ -47,8 +47,7 @@ module Megam
       cloud_instruction = template.lookup_by_instruction(group, action)
       ci_command = "#{cloud_instruction.command}"
       ci_command["<node_name>"] = "#{node_name}"
-
-      command_hash = {
+         command_hash = {
         "systemprovider" => {
           "provider" => {
             "prov" => "#{node.request[:command]['systemprovider']['provider']['prov']}"

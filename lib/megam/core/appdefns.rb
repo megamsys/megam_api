@@ -167,13 +167,13 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.show(node_name)
+    def self.show(id)
       appdefns = self.new()
-      appdefns.megam_rest.get_appdefn(node_name)
+      appdefns.megam_rest.get_appdefn(id)
     end
     
     # Load a account by email_p
-    def self.show(node_name, id)
+    def self.shown(node_name, id)
       appdefns = self.new()
       appdefns.megam_rest.get_appdefn(node_name,id)
     end

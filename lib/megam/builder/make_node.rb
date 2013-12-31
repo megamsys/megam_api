@@ -24,39 +24,39 @@ module Megam
 
       make_command = self.new()
       begin
-        pc_collection = make_command.megam_rest.get_predefclouds        
-        ct_collection = make_command.megam_rest.get_cloudtools          
-        cts_collection = make_command.megam_rest.get_cloudtoolsettings                
+        pc_collection = make_command.megam_rest.get_predefclouds
+        ct_collection = make_command.megam_rest.get_cloudtools
+        cts_collection = make_command.megam_rest.get_cloudtoolsettings
       rescue ArgumentError => ae
         hash = {"msg" => ae.message, "msg_type" => "error"}
-        re = Megam::Error.from_hash(hash)        
+        re = Megam::Error.from_hash(hash)
         return re
       rescue Megam::API::Errors::ErrorWithResponse => ewr
         hash = {"msg" => ewr.message, "msg_type" => "error"}
-        re = Megam::Error.from_hash(hash)  
+        re = Megam::Error.from_hash(hash)
         return re
       rescue StandardError => se
         hash = {"msg" => se.message, "msg_type" => "error"}
-        re = Megam::Error.from_hash(hash)        
+        re = Megam::Error.from_hash(hash)
       return re
-      end      
-      predef_cloud = pc_collection.data[:body].lookup("#{data[:predef_cloud_name]}")      
-      tool = ct_collection.data[:body].lookup(data[:provider])      
-      template = tool.cloudtemplates.lookup(predef_cloud.spec[:type_name])      
+      end
+      predef_cloud = pc_collection.data[:body].lookup("#{data[:predef_cloud_name]}")
+      tool = ct_collection.data[:body].lookup(data[:provider])
+      template = tool.cloudtemplates.lookup(predef_cloud.spec[:type_name])
       cloud_instruction = template.lookup_by_instruction(group, action)
-      cts = cts_collection.data[:body].lookup(data[:repo])      
-      ci_command = "#{cloud_instruction.command}"       
-      if ci_command["<node_name>"].present?     
-      ci_command["<node_name>"] = "#{data[:book_name]}"
-      end                
+      cts = cts_collection.data[:body].lookup(data[:repo])
+      ci_command = "#{cloud_instruction.command}"
+      if ci_command["<node_name>"].present?
+        ci_command["<node_name>"] = "#{data[:book_name]}"
+      end
       u = URI.parse(predef_cloud.access[:vault_location])
       u.path[0]=""
-      if ci_command["-f"].present?     
-      ci_command["-f"] = "-f " + u.path + "/" + predef_cloud.spec[:type_name] + ".json"     
-      end      
-      if ci_command["-c"].present?  
-      ci_command["-c"] = "-c #{cts.conf_location}"      
-      end      
+      if ci_command["-f"].present?
+        ci_command["-f"] = "-f " + u.path + "/" + predef_cloud.spec[:type_name] + ".json"
+      end
+      if ci_command["-c"].present?
+        ci_command["-c"] = "-c #{cts.conf_location}"
+      end
       ci_name = cloud_instruction.name
       command_hash = {
         "systemprovider" => {
@@ -107,12 +107,26 @@ module Megam
       }
 
       if data[:book_type] == "APP"
+        if data[:deps_scm].length > 0
+          data[:runtime_exec] = change_runtime(data[:deps_scm], data[:runtime_exec], action)
+        end
+        if data[:deps_war].length > 0
+          data[:runtime_exec] = change_runtime(data[:deps_war], data[:runtime_exec], action)
+        end
         node_hash["appdefns"] = {"timetokill" => "#{data[:timetokill]}", "metered" => "#{data[:metered]}", "logging" => "#{data[:logging]}", "runtime_exec" => "#{data[:runtime_exec]}"}
       end
       if data[:book_type] == "BOLT"
         node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
-      end      
+      end
       node_hash
+    end
+
+    def self.change_runtime(deps, runtime, action)      
+      project_name = File.basename(deps).split(".").first
+      if /<projectname>/.match(runtime)
+        runtime["unicorn_<projectname>"] = "unicorn_" + project_name
+      end            
+      runtime
     end
   end
 end

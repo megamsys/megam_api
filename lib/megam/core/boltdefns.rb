@@ -204,7 +204,7 @@ end
     end
 
     # Show a bolt defn by [node_name, defn id] for an email
-    def self.show(node_name,id)
+    def self.shown(node_name,id)
       boltdefns = self.new()
       boltdefns.megam_rest.get_boltdefn(node_name,id)
     end

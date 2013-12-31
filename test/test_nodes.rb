@@ -45,8 +45,8 @@ class TestApps < MiniTest::Unit::TestCase
       "command" => @com,
       "predefs" => {"name" => "rails", "scm" => "",
         "db" => "postgres@postgresql1.megam.com/night.megam.co", "war" => "http://s3pub.com/0.1/granny.war", "queue" => "queue@queue1", "runtime_exec" => "sudo start rails"},
-      "appdefns" => {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "runtime_execTOM"},
-      "boltdefns" => {"username" => "tom", "apikey" => "123456", "store_name" => "tom_db", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
+      "appdefns" => {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "start unicorn_<projectname>"},
+      "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
       "appreq" => {},
       "boltreq" => {}
     }
@@ -54,7 +54,7 @@ class TestApps < MiniTest::Unit::TestCase
     response = megams.post_node(tmp_hash)
     assert_equal(201, response.status)
   end
-
+=begin
   def test_post_node2
     tmp_hash = {
       "node_name" => "sundown.megam.co",
@@ -132,4 +132,5 @@ class TestApps < MiniTest::Unit::TestCase
     response = megams.post_request(tmp_hash)
     assert_equal(201, response.status)
   end
+=end  
 end
