@@ -16,11 +16,11 @@ Gem::Specification.new do |s|
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-  s.add_runtime_dependency 'excon'
-  s.add_runtime_dependency 'highline'
-  s.add_runtime_dependency 'yajl-ruby'
-  s.add_runtime_dependency 'mixlib-config'
-  s.add_runtime_dependency 'mixlib-log'
-  s.add_development_dependency 'minitest'
-  s.add_development_dependency 'rake'
+  s.add_runtime_dependency 'excon', '~> 0'
+  s.add_runtime_dependency 'highline', '~> 0'
+  s.add_runtime_dependency 'yajl-ruby', '~> 0'
+  s.add_runtime_dependency 'mixlib-config', '~> 0'
+  s.add_runtime_dependency 'mixlib-log', '~> 0'
+  s.add_development_dependency 'minitest', '~> 0'
+  s.add_development_dependency 'rake', '~> 0'
 end
