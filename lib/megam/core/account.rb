@@ -15,7 +15,6 @@
 #
 module Megam
   class Account < Megam::ServerAPI
-    
     def initialize(email=nil, api_key=nil)
       @id = nil
       @email = nil
@@ -30,7 +29,6 @@ module Megam
     def account
       self
     end
-   
 
     def id(arg=nil)
       if arg != nil
@@ -130,7 +128,7 @@ module Megam
     end
 
     def self.from_hash(o)
-      acct = self.new()
+      acct = self.new(o[:email], o[:api_key])
       acct.from_hash(o)
       acct
     end
@@ -140,7 +138,7 @@ module Megam
       @email     = o[:email] if o.has_key?(:email)
       @api_key   = o[:api_key] if o.has_key?(:api_key)
       @authority = o[:authority] if o.has_key?(:authority)
-      @created_at        = o[:created_at] if o.has_key?(:created_at)
+      @created_at = o[:created_at] if o.has_key?(:created_at)
       self
     end
 
@@ -150,9 +148,9 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.show(email)
-      acct = self.new()
-      acct.megam_rest.get_accounts(email)
+    def self.show(email,api_key=nil)
+      acct = self.new(email, api_key)
+      megam_rest.get_accounts(email)
     end
 
     # Create the node via the REST API

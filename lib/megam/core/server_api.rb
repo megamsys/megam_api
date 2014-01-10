@@ -37,7 +37,7 @@ module Megam
     # === Parameters
     # api:: The Megam::API client
     def megam_rest
-      options = { :email =>email, :api_key => email}
+      options = { :email =>email || Megam::Config[:email], :api_key => api_key || Megam::Config[:api_key]}
       Megam::API.new(options)
     end
     

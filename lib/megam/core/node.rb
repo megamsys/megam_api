@@ -14,17 +14,11 @@
 # limitations under the License.
 #
 require 'hashie'
+
 module Megam
   class Node
     # Each notify entry is a resource/action pair, modeled as an
     # Struct with a #resource and #action member
-=begin
-  def self.hash_tree
-    Hash.new do |hash, key|
-      hash[key] = hash_tree
-    end
-  end
-=end
 
     def initialize
       @id = nil
@@ -37,14 +31,14 @@ module Megam
       @request ={}
       @predefs={}
       @some_msg = {}
-      #@command = self.class.hash_tree
-	@command = Hashie::Mash.new
-	@appdefnsid = nil
-	@boltdefnsid = nil
-	@appdefns = {}
-	@boltdefns = {}
+      @command = Hashie::Mash.new
+      @appdefnsid = nil
+      @boltdefnsid = nil
+      @appdefns = {}
+      @boltdefns = {}
       @created_at = nil
     end
+
     def node
       self
     end
@@ -149,6 +143,7 @@ module Megam
       @boltdefns
       end
     end
+
     def appdefnsid(arg=nil)
       if arg != nil
         @appdefnsid = arg
@@ -273,18 +268,18 @@ module Megam
 
       #Command
 =begin
-	node.command[:systemprovider][:provider][:prov] = oc["systemprovider"]["provider"]["prov"]
-	node.command[:compute][:cctype] = oc["compute"]["cctype"]
-	node.command[:compute][:cc][:groups] = oc["compute"]["cc"]["groups"]
-	node.command[:compute][:cc][:image] = oc["compute"]["cc"]["image"]
-	node.command[:compute][:cc][:flavor] = oc["compute"]["cc"]["flavor"]
-	node.command[:compute][:access][:ssh_key] = oc["compute"]["access"]["ssh_key"]
-	node.command[:compute][:access][:identity_file] = oc["compute"]["access"]["identity_file"]
-	node.command[:compute][:access][:ssh_user] = oc["compute"]["access"]["ssh_user"]
-	node.command[:cloudtool][:chef][:command] = oc["cloudtool"]["chef"]["command"]
-	node.command[:cloudtool][:chef][:plugin] = oc["cloudtool"]["chef"]["plugin"]
-	node.command[:cloudtool][:chef][:run_list] = oc["cloudtool"]["chef"]["run_list"]
-	node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
+node.command[:systemprovider][:provider][:prov] = oc["systemprovider"]["provider"]["prov"]
+node.command[:compute][:cctype] = oc["compute"]["cctype"]
+node.command[:compute][:cc][:groups] = oc["compute"]["cc"]["groups"]
+node.command[:compute][:cc][:image] = oc["compute"]["cc"]["image"]
+node.command[:compute][:cc][:flavor] = oc["compute"]["cc"]["flavor"]
+node.command[:compute][:access][:ssh_key] = oc["compute"]["access"]["ssh_key"]
+node.command[:compute][:access][:identity_file] = oc["compute"]["access"]["identity_file"]
+node.command[:compute][:access][:ssh_user] = oc["compute"]["access"]["ssh_user"]
+node.command[:cloudtool][:chef][:command] = oc["cloudtool"]["chef"]["command"]
+node.command[:cloudtool][:chef][:plugin] = oc["cloudtool"]["chef"]["plugin"]
+node.command[:cloudtool][:chef][:run_list] = oc["cloudtool"]["chef"]["run_list"]
+node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
 =end
       #predef
       op = o["predefs"]
