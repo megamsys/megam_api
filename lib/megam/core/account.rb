@@ -14,25 +14,23 @@
 # limitations under the License.
 #
 module Megam
-  class Account
-    def initialize
+  class Account < Megam::ServerAPI
+    
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @email = nil
       @api_key = nil
       @authority = nil
       @created_at = nil
       @some_msg = {}
+      super(email, api_key)
     end
 
     #used by resque workers and any other background job
     def account
       self
     end
-
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
+   
 
     def id(arg=nil)
       if arg != nil
@@ -139,7 +137,7 @@ module Megam
 
     def from_hash(o)
       @id        = o[:id] if o.has_key?(:id)
-      @email      = o[:email] if o.has_key?(:email)
+      @email     = o[:email] if o.has_key?(:email)
       @api_key   = o[:api_key] if o.has_key?(:api_key)
       @authority = o[:authority] if o.has_key?(:authority)
       @created_at        = o[:created_at] if o.has_key?(:created_at)
@@ -164,7 +162,6 @@ module Megam
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
-    #"---> Megam::Account:[error=#{error?}]\n"+
     end
   end
 end
