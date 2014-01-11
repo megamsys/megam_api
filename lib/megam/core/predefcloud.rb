@@ -15,10 +15,8 @@
 # limitations under the License.
 #
 module Megam
-  class PredefCloud
-    # Each notify entry is a resource/action pair, modeled as an
-    # Struct with a #resource and #action member
-    def initialize
+  class PredefCloud < Megam::ServerAPI
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @name = nil
       @accounts_id = nil
@@ -28,17 +26,14 @@ module Megam
       #@performance = nil
       @created_at = nil
       @some_msg = {}
+      super(email, api_key)
     end
 
     def predef_cloud
       self
     end
 
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
-
+    
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -200,8 +195,8 @@ module Megam
       self
     end
 
-    def self.create(o)
-      acct = from_hash(o)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key)
       acct.create
     end
 
@@ -213,16 +208,16 @@ module Megam
     # Load all predefs -
     # returns a PredefsCollection
     # don't return self. check if the Megam::PredefCollection is returned.
-    def self.list
-    predef = self.new()
+    def self.list(tmp_email=nil, tmp_api_key=nil)
+    predef = self.new(tmp_email,tmp_api_key)
       predef.megam_rest.get_predefclouds
     end
 
     # Show a particular predef by name,
     # Megam::Predef
-    def self.show(p_name)
-    pre = self.new()
-      pre.megam_rest.get_predefcloud(p_name)
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
+    pre = self.new(tmp_email,tmp_api_key)
+    pre.megam_rest.get_predefcloud(p_name)
     end
 
     def to_s

@@ -14,24 +14,22 @@
 # limitations under the License.
 #
 module Megam
-  class CloudTool
-    def initialize
+  class CloudTool < Megam::ServerAPI
+    
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @name = nil
       @cli = nil
       @cloudtemplates = nil
       @some_msg = {}
+      super(email, api_key)
     end
 
     def cloud_tool
       self
     end
 
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
-
+    
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -133,15 +131,16 @@ module Megam
 
     # Load all cloudtools -
     # returns a CloudToolsCollection
-    def self.list
-      ct = self.new()
+    def self.list(tmp_email=nil, tmp_api_key=nil)
+      ct = self.new(tmp_email, tmp_api_key)
       ct.megam_rest.get_cloudtools
     end
 
     # Show a particular cloudtool by name,
     # Megam::CloudTool
-    def self.show(p_name)
-      megam_rest.get_cloudtool(p_name)
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
+      ct = self.new(tmp_email=nil, tmp_api_key=nil)
+      ct.megam_rest.get_cloudtool(p_name)
       self
     end
 

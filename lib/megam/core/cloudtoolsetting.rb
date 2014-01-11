@@ -14,10 +14,9 @@
 # limitations under the License.
 #
 module Megam
-  class CloudToolSetting
-    # Each notify entry is a resource/action pair, modeled as an
-    # Struct with a #resource and #action member
-    def initialize
+  class CloudToolSetting < Megam::ServerAPI
+    
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @accounts_id = nil
       @cloud_type = nil
@@ -27,17 +26,14 @@ module Megam
       @conf_location=nil
       @created_at = nil
       @some_msg = {}
+      super(email, api_key)
     end
 
     def cloud_tool_setting
       self
     end
 
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
-
+    
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -170,8 +166,8 @@ module Megam
       cts
     end
 
-    def self.from_hash(o)
-      cts = self.new()
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      cts = self.new(tmp_email,tmp_api_key)
       cts.from_hash(o)
       cts
     end
@@ -188,8 +184,8 @@ module Megam
       self
     end
 
-    def self.create(o)
-      acct = from_hash(o)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key)
       acct.create
     end
 
@@ -201,15 +197,15 @@ module Megam
     # Load all cloudtoolsettings -
     # returns a cloudtoolsettingsCollection
     # don't return self. check if the Megam::cloudtoolsettingCollection is returned.
-    def self.list
-      cts = self.new()
+    def self.list(tmp_email=nil, tmp_api_key=nil)
+      cts = self.new(tmp_email, tmp_api_key)
       cts.megam_rest.get_cloudtoolsettings
     end
 
     # Show a particular cloudtoolsetting by name,
     # Megam::cloudtoolsetting
-    def self.show(p_name)
-      pre = self.new()
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
+      pre = self.new(tmp_email, tmp_api_key)
       pre.megam_rest.get_cloudtoolsetting(p_name)
     end
 

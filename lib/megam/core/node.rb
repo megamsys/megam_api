@@ -16,11 +16,8 @@
 require 'hashie'
 
 module Megam
-  class Node
-    # Each notify entry is a resource/action pair, modeled as an
-    # Struct with a #resource and #action member
-
-    def initialize
+  class Node < Megam::ServerAPI
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @node_name = nil
       @accounts_id = nil
@@ -37,17 +34,14 @@ module Megam
       @appdefns = {}
       @boltdefns = {}
       @created_at = nil
+      super(email, api_key)
     end
 
     def node
       self
     end
 
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
-
+    
     def node_name(arg=nil)
       if arg != nil
         @node_name = arg
@@ -316,8 +310,8 @@ node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
       node
     end
 
-    def self.from_hash(o)
-      node = self.new()
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      node = self.new(tmp_email, tmp_api_key)
       node.from_hash(o)
       node
     end
@@ -340,8 +334,8 @@ node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
       self
     end
 
-    def self.create(o)
-      acct = from_hash(o)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+      acct = from_hash(o, tmp_email, tmp_api_key)
       acct.create
     end
 
@@ -351,13 +345,13 @@ node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
     end
 
     # Load a account by email_p
-    def self.show(node_name)
-      node = self.new()
+    def self.show(node_name,tmp_email=nil, tmp_api_key=nil)
+      node = self.new(tmp_email, tmp_api_key)
       node.megam_rest.get_node(node_name)
     end
 
-    def self.list
-      node = self.new()
+    def self.list(tmp_email=nil, tmp_api_key=nil)
+      node = self.new(tmp_email, tmp_api_key)
       node.megam_rest.get_nodes
     end
 

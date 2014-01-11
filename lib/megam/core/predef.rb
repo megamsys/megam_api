@@ -14,9 +14,8 @@
 # limitations under the License.
 #
 module Megam
-  class Predef
-
-    def initialize
+  class Predef < Megam::ServerAPI
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @name = nil
       @provider = nil
@@ -25,15 +24,11 @@ module Megam
       @runtime_exec = nil
       @created_at = nil
       @some_msg = {}
+      super(email, api_key)
     end
 
     def predef
       self
-    end
-
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
     end
 
     def id(arg=nil)
@@ -67,7 +62,7 @@ module Megam
       @provider
       end
     end
-    
+
     def provider_role(arg=nil)
       if arg != nil
         @provider_role = arg
@@ -155,8 +150,8 @@ module Megam
       node
     end
 
-    def self.from_hash(o)
-      node = self.new()
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      node = self.new(tmp_email, tmp_api_key)
       node.from_hash(o)
       node
     end
@@ -171,13 +166,12 @@ module Megam
       @created_at   = o[:created_at] if o.has_key?(:created_at)
       self
     end
-
-    def self.create
-      predef = build
+    
+    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+      predef = from_hash(o,tmp_email, tmp_api_key)
       predef.create
     end
 
-   
     # Create the predef via the REST API
     def create(predef_input)
       megam_rest.post_predef(predef_input)
@@ -187,21 +181,20 @@ module Megam
     # Load all predefs -
     # returns a PredefsCollection
     # don't return self. check if the Megam::PredefCollection is returned.
-    def self.list
-	prede = self.new()
+    def self.list(tmp_email=nil, tmp_api_key=nil)
+      prede = self.new(tmp_email,tmp_api_key)
       prede.megam_rest.get_predefs
     end
 
     # Show a particular predef by name,
     # Megam::Predef
-    def self.show(p_name)
-	prede = self.new()
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
+      prede = self.new(tmp_email,tmp_api_key)
       prede.megam_rest.get_predef(p_name)
     end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
-    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end
