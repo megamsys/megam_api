@@ -14,15 +14,15 @@
 # limitations under the License.
 #
 module Megam
-  class DeleteNode
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
+  class DeleteNode < Megam::ServerAPI
+    
+    def initialize(email=nil, api_key=nil)      
+      super(email, api_key)
     end
+    
 
-    def self.create(node_name, group, action)
-
-      delete_command = self.new()
+    def self.create(node_name, group, action, tmp_email, tmp_api_key)
+      delete_command = self.new(tmp_email, tmp_api_key)
       begin
         node_collection = delete_command.megam_rest.get_node(node_name)
         ct_collection = delete_command.megam_rest.get_cloudtools

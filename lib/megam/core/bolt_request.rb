@@ -14,18 +14,8 @@
 # limitations under the License.
 #
 module Megam
-  class BoltRequest
-    # Each notify entry is a resource/action pair, modeled as an
-    # Struct with a #resource and #action member
-=begin
-  def self.hash_tree
-    Hash.new do |hash, key|
-      hash[key] = hash_tree
-    end
-  end
-=end
-
-    def initialize
+  class BoltRequest < Megam::ServerAPI
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @req_type = nil
       @boltdefns_id = nil
@@ -35,16 +25,14 @@ module Megam
       @lc_when = nil
       @created_at = nil
       @some_msg = {}
+      super(email, api_key)
     end
+
     def boltreqs
       self
     end
 
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
-
+    
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -108,6 +96,7 @@ module Megam
       @created_at
       end
     end
+
     def some_msg(arg=nil)
       if arg != nil
         @some_msg = arg
@@ -115,7 +104,6 @@ module Megam
       @some_msg
       end
     end
-
 
     def error?
       crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
@@ -157,7 +145,6 @@ module Megam
       result
     end
 
-
     # Create a Megam::Node from NodeResult-JSON
     #
     #[{
@@ -196,8 +183,8 @@ module Megam
       boltreqs
     end
 
-    def self.from_hash(o)
-      boltreqs = self.new()
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      boltreqs = self.new(tmp_email, tmp_api_key)
       boltreqs.from_hash(o)
       boltreqs
     end
@@ -214,8 +201,8 @@ module Megam
       self
     end
 
-    def self.create(o)
-      acct = from_hash(o)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key)
       acct.create
     end
 
@@ -225,14 +212,13 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.list(node_name)
-      boltreq = self.new()
+    def self.list(node_name,tmp_email=nil, tmp_api_key=nil)
+      boltreq = self.new(tmp_email, tmp_api_key)
       boltreq.megam_rest.get_boltreq(node_name)
     end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
-    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end

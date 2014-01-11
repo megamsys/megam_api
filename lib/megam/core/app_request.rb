@@ -14,11 +14,9 @@
 # limitations under the License.
 #
 module Megam
-  class AppRequest
-    # Each notify entry is a resource/action pair, modeled as an
-    # Struct with a #resource and #action member
-
-    def initialize
+  class AppRequest< Megam::ServerAPI
+    
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @req_type = nil
       @appdefns_id = nil
@@ -28,15 +26,13 @@ module Megam
       @lc_when = nil
       @created_at = nil
       @some_msg = {}
+      super(email,api_key)
     end
+    
     def appreq
       self
     end
-
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
+    
 
     def id(arg=nil)
       if arg != nil
@@ -188,8 +184,8 @@ module Megam
       appreq
     end
 
-    def self.from_hash(o)
-      appreq = self.new()
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      appreq = self.new(tmp_email, tmp_api_key)
       appreq.from_hash(o)
       appreq
     end
@@ -206,8 +202,8 @@ module Megam
       self
     end
 
-    def self.create(o)
-      acct = from_hash(o)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key)
       acct.create
     end
 
@@ -217,15 +213,14 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.list(node_name)
-      appreq = self.new()
+    def self.list(node_name,tmp_email=nil, tmp_api_key=nil)
+      appreq = self.new(tmp_email, tmp_api_key)
       appreq.megam_rest.get_appreq(node_name)
       #self
     end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
-    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end

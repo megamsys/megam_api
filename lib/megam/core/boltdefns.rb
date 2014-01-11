@@ -15,33 +15,22 @@
 #
 
 module Megam
-  class Boltdefns
-    # Each notify entry is a resource/action pair, modeled as an
-    # Struct with a #resource and #action member
-=begin
-def self.hash_tree
-Hash.new do |hash, key|
-hash[key] = hash_tree
-end
-end
-=end
-    def initialize
+  class Boltdefns < Megam::ServerAPI
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @node_id = nil
       @node_name = nil
       @boltdefns ={}
       @created_at = nil
       @some_msg = {}
+      super(email,api_key)
     end
 
     def boltdefns
       self
     end
 
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
+    
 
     def id(arg=nil)
       if arg != nil
@@ -172,8 +161,8 @@ end
       boltdefns
     end
 
-    def self.from_hash(o)
-      boltdefns = self.new()
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      boltdefns = self.new(tmp_email, tmp_api_key)
       boltdefns.from_hash(o)
       boltdefns
     end
@@ -187,8 +176,8 @@ end
       self
     end
 
-    def self.create(o)
-      acct = from_hash(o)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key)
       acct.create
     end
 
@@ -198,14 +187,14 @@ end
     end
 
     # Show all bolt defns by [node_name]/email
-    def self.show(node_name)
-      boltdefns = self.new()
+    def self.show(node_name,tmp_email=nil, tmp_api_key=nil)
+      boltdefns = self.new(tmp_email, tmp_api_key)
       boltdefns.megam_rest.get_boltdefn(node_name)
     end
 
     # Show a bolt defn by [node_name, defn id] for an email
-    def self.shown(node_name,id)
-      boltdefns = self.new()
+    def self.show_by_node(node_name,id,tmp_email=nil, tmp_api_key=nil)
+      boltdefns = self.new(tmp_email, tmp_api_key)
       boltdefns.megam_rest.get_boltdefn(node_name,id)
     end
 

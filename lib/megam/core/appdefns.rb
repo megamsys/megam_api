@@ -14,28 +14,23 @@
 # limitations under the License.
 #
 module Megam
-  class Appdefns
-    # Each notify entry is a resource/action pair, modeled as an
-    # Struct with a #resource and #action member
-
-    def initialize
+  class Appdefns < Megam::ServerAPI
+    
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @node_id = nil
       @node_name = nil
       @appdefns ={}
       @created_at = nil
       @some_msg = {}
+      super(email, api_key)
     end
 
     def appdefns
       self
     end
 
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
-
+    
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -141,8 +136,8 @@ module Megam
       appdefns
     end
 
-    def self.from_hash(o)
-      appdefns = self.new()
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      appdefns = self.new(tmp_email, tmp_api_key)
       appdefns.from_hash(o)
       appdefns
     end
@@ -156,8 +151,8 @@ module Megam
       self
     end
 
-    def self.create(o)
-      acct = from_hash(o)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+      acct = from_hash(o,tmp_email=nil, tmp_api_key=nil)
       acct.create
     end
 
@@ -167,14 +162,14 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.show(id)
-      appdefns = self.new()
+    def self.show(id,tmp_email=nil, tmp_api_key=nil)
+      appdefns = self.new(tmp_email, tmp_api_key)
       appdefns.megam_rest.get_appdefn(id)
     end
     
     # Load a account by email_p
-    def self.shown(node_name, id)
-      appdefns = self.new()
+    def self.show_by_node(node_name, id,tmp_email=nil, tmp_api_key=nil)
+      appdefns = self.new(tmp_email, tmp_api_key)
       appdefns.megam_rest.get_appdefn(node_name,id)
     end
 

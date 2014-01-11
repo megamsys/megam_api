@@ -14,8 +14,8 @@
 # limitations under the License.
 #
 module Megam
-  class Request
-    def initialize
+  class Request < Megam::ServerAPI
+    def initialize(email=nil, api_key=nil)
       @id = nil
       @node_id = nil
       @node_name = nil
@@ -23,17 +23,14 @@ module Megam
       @command =nil
       @some_msg = {}
       @created_at = nil
+      super(email, api_key)
     end
 
     def request
       self
     end
 
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
-    end
-
+    
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -140,8 +137,8 @@ module Megam
       node
     end
 
-    def self.from_hash(o)
-      node = self.new()
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      node = self.new(tmp_email, tmp_api_key)
       node.from_hash(o)
       node
     end
@@ -157,8 +154,8 @@ module Megam
     end
 
 
-    def self.create(o)
-      acct = from_hash(o)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key)
       acct.create
     end
 
@@ -168,13 +165,13 @@ module Megam
     end
 
     
-     def self.show
-      prede = self.new()
+     def self.show(tmp_email=nil, tmp_api_key=nil)
+      prede = self.new(tmp_email, tmp_api_key)
       prede.megam_rest.get_requests
     end
 
-     def self.list(n_name)
-      prede = self.new()
+     def self.list(n_name,tmp_email=nil, tmp_api_key=nil)
+      prede = self.new(tmp_email,tmp_api_key)
       prede.megam_rest.get_request(n_name)
     end
 

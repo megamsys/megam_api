@@ -14,15 +14,16 @@
 # limitations under the License.
 #
 module Megam
-  class MakeNode
-    def megam_rest
-      options = { :email => Megam::Config[:email], :api_key => Megam::Config[:api_key]}
-      Megam::API.new(options)
+  class MakeNode < Megam::ServerAPI
+    
+    def initialize(email=nil, api_key=nil)      
+      super(email, api_key)
     end
-
-    def self.create(data, group, action)
-
-      make_command = self.new()
+    
+    
+    
+    def self.create(data, group, action,tmp_email, tmp_api_key)
+      make_command = self.new(tmp_email, tmp_api_key)
       begin
         pc_collection = make_command.megam_rest.get_predefclouds
         ct_collection = make_command.megam_rest.get_cloudtools
@@ -121,11 +122,11 @@ module Megam
       node_hash
     end
 
-    def self.change_runtime(deps, runtime, action)      
+    def self.change_runtime(deps, runtime, action)
       project_name = File.basename(deps).split(".").first
       if /<projectname>/.match(runtime)
         runtime["unicorn_<projectname>"] = "unicorn_" + project_name
-      end            
+      end
       runtime
     end
   end
