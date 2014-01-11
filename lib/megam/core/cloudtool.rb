@@ -139,7 +139,7 @@ module Megam
     # Show a particular cloudtool by name,
     # Megam::CloudTool
     def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-      ct = self.new(tmp_email=nil, tmp_api_key=nil)
+      ct = self.new(tmp_email, tmp_api_key)
       ct.megam_rest.get_cloudtool(p_name)
       self
     end

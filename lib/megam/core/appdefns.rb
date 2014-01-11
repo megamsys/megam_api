@@ -152,7 +152,7 @@ module Megam
     end
 
     def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key)
       acct.create
     end
 

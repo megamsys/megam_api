@@ -178,8 +178,8 @@ module Megam
       predefcd
     end
 
-    def self.from_hash(o)
-      predefcd = self.new()
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
+      predefcd = self.new(tmp_email, tmp_api_key)
       predefcd.from_hash(o)
       predefcd
     end
