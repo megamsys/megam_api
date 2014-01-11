@@ -58,7 +58,8 @@ module Megam
           "cc" => {
             "groups" => "",
             "image" => "",
-            "flavor" => ""
+            "flavor" => "",
+            "tenant_id" =>  "#{node.request[:command]['compute']['tenant_id']}"
           },
           "access" => {
             "ssh_key" => "#{node.request[:command]['compute']['access']['ssh_key']}",
@@ -66,7 +67,8 @@ module Megam
             "ssh_user" => "",
             "vault_location" => "#{node.request[:command]['compute']['access']['vault_location']}",
             "sshpub_location" => "#{node.request[:command]['compute']['access']['sshpub_location']}",
-            "zone" => "#{node.request[:command]['compute']['access']['zone']}"
+            "zone" => "#{node.request[:command]['compute']['access']['zone']}",
+            "region" => "#{node.request[:command]['compute']['access']['region']}"
           }
         },
         "cloudtool" => {
@@ -81,8 +83,15 @@ module Megam
 
       node_hash = {
         "node_name" => "#{node_name}",
+        "node_type" => "#{node[:node_type]}",
         "req_type" => "#{action}",
-        "command" => command_hash
+        "noofinstances" => "",
+        "command" => command_hash,
+        "predefs" => {},
+        "appdefns" => {},
+        "boltdefns" => {},
+        "appreq" => {},
+        "boltreq" => {}
       }
       node_hash
     end
