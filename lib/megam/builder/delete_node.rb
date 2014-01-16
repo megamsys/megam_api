@@ -21,12 +21,12 @@ module Megam
     end
     
 
-    def self.create(node_name, group, action, tmp_email, tmp_api_key)
+    def self.create(data, group, action, tmp_email, tmp_api_key)
       delete_command = self.new(tmp_email, tmp_api_key)
       begin
-        node_collection = delete_command.megam_rest.get_node(node_name)
+        node_collection = delete_command.megam_rest.get_node(data[:node_name])
         ct_collection = delete_command.megam_rest.get_cloudtools
-
+        cts_collection = delete_command.megam_rest.get_cloudtoolsettings
       rescue ArgumentError => ae
         hash = {"msg" => ae.message, "msg_type" => "error"}
         re = Megam::Error.from_hash(hash)
@@ -40,13 +40,19 @@ module Megam
         re = Megam::Error.from_hash(hash)
       return re
       end
-
-      node = node_collection.data[:body].lookup(node_name)
+    
+      node = node_collection.data[:body].lookup(data[:node_name])      
       tool = ct_collection.data[:body].lookup(node.request[:command]['systemprovider']['provider']['prov'])
       template = tool.cloudtemplates.lookup(node.request[:command]['compute']['cctype'])
-      cloud_instruction = template.lookup_by_instruction(group, action)
-      ci_command = "#{cloud_instruction.command}"
-      ci_command["<node_name>"] = "#{node_name}"
+      cloud_instruction = template.lookup_by_instruction(group, action)      
+      cts = cts_collection.data[:body].lookup(data[:repo])      
+      ci_command = "#{cloud_instruction.command}"     
+      if ci_command["<node_name>"].present?
+      ci_command["<node_name>"] = "#{data[:node_name]}"
+      end  
+      if ci_command["-c"].present?
+        ci_command["-c"] = "-c #{cts.conf_location}"
+      end       
          command_hash = {
         "systemprovider" => {
           "provider" => {
@@ -62,8 +68,10 @@ module Megam
             "tenant_id" =>  "#{node.request[:command]['compute']['tenant_id']}"
           },
           "access" => {
-            "ssh_key" => "#{node.request[:command]['compute']['access']['ssh_key']}",
-            "identity_file" => "#{node.request[:command]['compute']['access']['identity_file']}",
+            #"ssh_key" => "#{node.request[:command]['compute']['access']['ssh_key']}",
+            #"identity_file" => "#{node.request[:command]['compute']['access']['identity_file']}",
+            "ssh_key" => "",
+            "identity_file" => "",
             "ssh_user" => "",
             "vault_location" => "#{node.request[:command]['compute']['access']['vault_location']}",
             "sshpub_location" => "#{node.request[:command]['compute']['access']['sshpub_location']}",
@@ -73,17 +81,16 @@ module Megam
         },
         "cloudtool" => {
           "chef" => {
-            "command" => "#{node.request[:command]['cloudtool']['chef']['prov']}",
+            "command" => "#{node.request[:command]['cloudtool']['chef']['command']}",
             "plugin" => "#{node.request[:command]['compute']['cctype']} #{ci_command}", #ec2 server delete or create
             "run_list" => "",
-            "name" => "-N #{node_name}"
+            "name" => "-N #{data[:node_name]}"
           }
         }
-      }
-
+      }        
       node_hash = {
-        "node_name" => "#{node_name}",
-        "node_type" => "#{node[:node_type]}",
+        "node_name" => "#{data[:node_name]}",
+        "node_type" => "#{node.node_type}",
         "req_type" => "#{action}",
         "noofinstances" => "",
         "command" => command_hash,
@@ -92,7 +99,7 @@ module Megam
         "boltdefns" => {},
         "appreq" => {},
         "boltreq" => {}
-      }
+      }       
       node_hash
     end
   end
