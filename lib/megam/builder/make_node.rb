@@ -22,7 +22,7 @@ module Megam
     
     
     
-    def self.create(data, group, action,tmp_email, tmp_api_key)
+    def self.create(data, group, action,tmp_email=nil, tmp_api_key=nil)
       make_command = self.new(tmp_email, tmp_api_key)
       begin
         pc_collection = make_command.megam_rest.get_predefclouds
