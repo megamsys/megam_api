@@ -100,7 +100,7 @@ module Megam
         "noofinstances" => data[:no_of_instances],
         "command" => command_hash,
         "predefs" => {"name" => data[:predef_name], "scm" => "#{data[:deps_scm]}",
-          "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:runtime_exec]},
+         "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:runtime_exec]},
         "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
         "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
         "appreq" => {},
