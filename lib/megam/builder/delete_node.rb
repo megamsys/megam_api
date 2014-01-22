@@ -21,7 +21,7 @@ module Megam
     end
     
 
-    def self.create(data, group, action, tmp_email, tmp_api_key)
+    def self.create(data, group, action, tmp_email=nil, tmp_api_key=nil)
       delete_command = self.new(tmp_email, tmp_api_key)
       begin
         node_collection = delete_command.megam_rest.get_node(data[:node_name])
