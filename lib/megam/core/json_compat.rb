@@ -51,6 +51,8 @@ module Megam
     MEGAM_CLOUDINSTRUCTION     = "Megam::CloudInstruction".freeze
     MEGAM_CLOUDINSTRUCTIONCOLLECTION    = "Megam::CloudInstructionCollection".freeze
     MEGAM_CLOUDINSTRUCTIONGROUP    = "Megam::CloudInstructionGroup".freeze
+    MEGAM_SSHKEY       = "Megam::SshKey".freeze
+    MEGAM_SSHKEYCOLLECTION    = "Megam::SshKeyCollection".freeze
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -179,6 +181,10 @@ module Megam
           Megam::CloudInstructionGroup
         when MEGAM_CLOUDINSTRUCTIONCOLLECTION
           Megam::CloudInstructionCollection
+        when MEGAM_SSHKEY
+          Megam::SshKey
+        when MEGAM_SSHKEYCOLLECTION
+          Megam::SshKeyCollection
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end

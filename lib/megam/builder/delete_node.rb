@@ -49,10 +49,10 @@ module Megam
       ci_command = "#{cloud_instruction.command}"     
       if ci_command["<node_name>"].present?
       ci_command["<node_name>"] = "#{data[:node_name]}"
-      end  
-      if ci_command["-c"].present?
-        ci_command["-c"] = "-c #{cts.conf_location}"
       end       
+      if ci_command["-c"].present?
+        ci_command["-c"] = "-c #{cts.conf_location}"         
+      end          
          command_hash = {
         "systemprovider" => {
           "provider" => {
