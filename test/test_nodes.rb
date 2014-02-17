@@ -1,7 +1,8 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-  
+
+=begin
   def test_post_node1
     @com = {
 "systemprovider" => {
@@ -65,12 +66,12 @@ class TestApps < MiniTest::Unit::TestCase
     response = megams.post_node(tmp_hash)
     assert_equal(201, response.status)
   end
-
+=end
   def test_get_nodes
     response = megams.get_nodes
     assert_equal(200, response.status)
   end
-
+=begin
   def test_get_node0
     response = megams.get_node("black1.megam.co")
     assert_equal(200, response.status)

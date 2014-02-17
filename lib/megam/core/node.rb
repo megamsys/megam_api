@@ -345,7 +345,7 @@ node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
     end
 
     # Load a account by email_p
-    def self.show(node_name,tmp_email=nil, tmp_api_key=nil)
+    def self.show(node_name, tmp_email=nil, tmp_api_key=nil)
       node = self.new(tmp_email, tmp_api_key)
       node.megam_rest.get_node(node_name)
     end
