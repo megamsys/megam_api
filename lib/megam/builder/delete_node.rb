@@ -65,7 +65,7 @@ module Megam
             "groups" => "",
             "image" => "",
             "flavor" => "",
-            "tenant_id" =>  "#{node.request[:command]['compute']['tenant_id']}"
+            "tenant_id" =>  "#{node.request[:command]['compute']['cc']['tenant_id']}"
           },
           "access" => {
             "ssh_key" => "",
