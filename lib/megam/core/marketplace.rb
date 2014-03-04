@@ -48,7 +48,7 @@ module Megam
 
     def logo(arg=nil)
       if arg != nil
-        @nlogo = arg
+        @logo = arg
       else
       @logo
       end

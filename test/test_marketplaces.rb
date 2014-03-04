@@ -1,7 +1,7 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestMarketplaces < MiniTest::Unit::TestCase
-
+=begin
 def test_post_marketplace
     tmp_hash = {      
       "name" => "sample",
@@ -17,6 +17,7 @@ def test_post_marketplace
     response = megams.post_marketplaceapp(tmp_hash)
     assert_equal(201, response.status)
   end
+=end  
 =begin
   def test_post_node2
     tmp_hash = {
@@ -29,10 +30,10 @@ def test_post_marketplace
     assert_equal(201, response.status)
   end
 =end
-  #def test_get_marketplaces
-  #  response = megams.get_marketplaceapps
-  #  assert_equal(200, response.status)
- # end
+  def test_get_marketplaces
+    response = megams.get_marketplaceapps
+    assert_equal(200, response.status)
+  end
 =begin
   def test_get_node0
     response = megams.get_node("black1.megam.co")
