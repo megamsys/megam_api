@@ -187,7 +187,7 @@ module Megam
       app.logo(o["logo"]) if o.has_key?("logo")
       app.catagory(o["catagory"]) if o.has_key?("catagory")
       app.pricetype(o["pricetype"]) if o.has_key?("pricetype")   
-      app.attach(["attach"]) if o.has_key?("attach")
+      app.attach(o["attach"]) if o.has_key?("attach")
       app.predefnode(o["predefnode"]) if o.has_key?("predefnode")
       app.approved(o["approved"]) if o.has_key?("approved")
       app.created_at(o["created_at"]) if o.has_key?("created_at")
