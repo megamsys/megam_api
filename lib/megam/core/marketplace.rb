@@ -20,8 +20,7 @@ module Megam
     def initialize(email=nil, api_key=nil)
       @id = nil
       @name = nil
-      @logo = nil
-      @catagory = nil
+      @appdetails = {}      
       @pricetype = nil
       @features={}
       @plan={}
@@ -46,21 +45,13 @@ module Megam
       end
     end
 
-    def logo(arg=nil)
+    def appdetails(arg=nil)
       if arg != nil
-        @logo = arg
+        @appdetails = arg
       else
-      @logo
+      @appdetails
       end
-    end
-
-    def catagory(arg=nil)
-      if arg != nil
-        @catagory = arg
-      else
-      @catagory
-      end
-    end
+    end    
 
     def id(arg=nil)
       if arg != nil
@@ -144,8 +135,7 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["name"] = name
-      index_hash["logo"] = logo
-      index_hash["catagory"] = catagory
+      index_hash["appdetails"] = appdetails
       index_hash["pricetype"] = pricetype
       index_hash["features"] = features
       index_hash["plan"] = plan
@@ -167,8 +157,7 @@ module Megam
       result = {
         "id" => id,
         "name" => name,
-        "logo" => logo,
-        "catagory" => catagory,
+        "appdetails" => appdetails,
         "pricetype" => pricetype,
         "features" => features,
         "plan" => plan,
@@ -198,6 +187,12 @@ module Megam
       app.features[:feature3] = oq["feature3"] if oq && oq.has_key?("feature3")
       app.features[:feature4] = oq["feature4"] if oq && oq.has_key?("feature4")
     
+      oa = o["appdetails"]
+      app.appdetails[:logo] = oa["logo"] if oa && oa.has_key?("logo")
+      app.appdetails[:category] = oa["category"] if oa && oa.has_key?("category")
+      app.appdetails[:version] = oa["version"] if oa && oa.has_key?("version")
+      app.appdetails[:description] = oa["description"] if oa && oa.has_key?("description")
+    
       op = o["plan"]
       app.plan[:price] = op["price"] if op && op.has_key?("price")
       app.plan[:description] = op["description"] if op && op.has_key?("description")
@@ -220,9 +215,8 @@ module Megam
 
     def from_hash(o)
       @name = o["name"] if o.has_key?("name")
-      @catagory   = o["catagory"] if o.has_key?("catagory")
       @id        = o["id"] if o.has_key?("id")
-      @logo    = o["logo"] if o.has_key?("logo")
+      @appdetails    = o["appdetails"] if o.has_key?("appdetails")
       @pricetype    = o["pricetype"] if o.has_key?("pricetype")
       @features    = o["features"] if o.has_key?("features")
       @plan   = o["plan"] if o.has_key?("plan")
