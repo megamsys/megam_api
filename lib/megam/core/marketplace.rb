@@ -216,6 +216,7 @@ module Megam
       app.applinks[:info_link] = ol["info_link"] if ol && ol.has_key?("info_link")
       app.applinks[:content_link] = ol["content_link"] if ol && ol.has_key?("content_link")
       app.applinks[:wiki_link] = ol["wiki_link"] if ol && ol.has_key?("wiki_link")
+      app.applinks[:source_link] = ol["source_link"] if ol && ol.has_key?("source_link")
       
       #success or error
       app.some_msg[:code] = o["code"] if o.has_key?("code")

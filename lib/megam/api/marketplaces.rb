@@ -12,7 +12,7 @@ module Megam
       )
     end
 
-    def get_meraketplaceapp(id)
+    def get_marketplaceapp(id)
       @options = {:path => "/marketplaces/#{id}",:body => ""}.merge(@options)
 
       request(

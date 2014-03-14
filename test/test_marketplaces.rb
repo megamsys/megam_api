@@ -37,7 +37,7 @@ def test_post_marketplace
 =end
 
   def test_get_node0
-    response = megams.get_meraketplaceapp("riak")
+    response = megams.get_marketplaceapp("riak")
     assert_equal(200, response.status)
   end
 =begin
