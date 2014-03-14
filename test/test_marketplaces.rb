@@ -29,17 +29,18 @@ def test_post_marketplace
     response = megams.post_node(tmp_hash)
     assert_equal(201, response.status)
   end
-=end
+
   def test_get_marketplaces
     response = megams.get_marketplaceapps
     assert_equal(200, response.status)
   end
-=begin
+=end
+
   def test_get_node0
-    response = megams.get_node("black1.megam.co")
+    response = megams.get_meraketplaceapp("riak")
     assert_equal(200, response.status)
   end
-
+=begin
   def test_get_node1
     response = megams.get_node("night.megam.co")
     assert_equal(200, response.status)

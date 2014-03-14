@@ -24,6 +24,7 @@ module Megam
       @pricetype = nil
       @features={}
       @plan={}
+      @applinks={}
       @attach =nil
       @predefnode=nil
       @some_msg = {}      
@@ -84,6 +85,14 @@ module Megam
       @plan
       end
     end
+    
+    def applinks(arg=nil)
+      if arg != nil
+        @applinks = arg
+      else
+      @applinks
+      end
+    end
 
     def predefnode(arg=nil)
       if arg != nil
@@ -139,6 +148,7 @@ module Megam
       index_hash["pricetype"] = pricetype
       index_hash["features"] = features
       index_hash["plan"] = plan
+      index_hash["applinks"] = applinks
       index_hash["attach"] = attach
       index_hash["predefnode"] = predefnode
       index_hash["approved"] = approved      
@@ -161,6 +171,7 @@ module Megam
         "pricetype" => pricetype,
         "features" => features,
         "plan" => plan,
+        "applinks" => applinks,
         "attach" => attach,
         "predefnode" => predefnode,
         "approved" => approved,        
@@ -191,12 +202,20 @@ module Megam
       app.appdetails[:logo] = oa["logo"] if oa && oa.has_key?("logo")
       app.appdetails[:category] = oa["category"] if oa && oa.has_key?("category")
       app.appdetails[:version] = oa["version"] if oa && oa.has_key?("version")
-      app.appdetails[:description] = oa["description"] if oa && oa.has_key?("description")
+      app.appdetails[:description] = oa["description"] if oa && oa.has_key?("description")      
     
       op = o["plan"]
       app.plan[:price] = op["price"] if op && op.has_key?("price")
       app.plan[:description] = op["description"] if op && op.has_key?("description")
       app.plan[:plantype]= op["plantype"] if op && op.has_key?("plantype")    
+      
+      ol = o["applinks"]
+      app.applinks[:free_support] = ol["free_support"] if ol && ol.has_key?("free_support")
+      app.applinks[:paid_support] = ol["paid_support"] if ol && ol.has_key?("paid_support")
+      app.applinks[:home_link] = ol["home_link"] if ol && ol.has_key?("home_link")
+      app.applinks[:info_link] = ol["info_link"] if ol && ol.has_key?("info_link")
+      app.applinks[:content_link] = ol["content_link"] if ol && ol.has_key?("content_link")
+      app.applinks[:wiki_link] = ol["wiki_link"] if ol && ol.has_key?("wiki_link")
       
       #success or error
       app.some_msg[:code] = o["code"] if o.has_key?("code")
@@ -220,6 +239,7 @@ module Megam
       @pricetype    = o["pricetype"] if o.has_key?("pricetype")
       @features    = o["features"] if o.has_key?("features")
       @plan   = o["plan"] if o.has_key?("plan")
+      @applinks   = o["applinks"] if o.has_key?("applinks")
       @attach   = o["attach"] if o.has_key?("attach")
       @predefnode   = o["predefnode"] if o.has_key?("predefnode")
       @approved   = o["approved"] if o.has_key?("approved")      
@@ -238,7 +258,7 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.show(name, tmp_email=nil, tmp_api_key=nil)
+    def self.show(tmp_email=nil, tmp_api_key=nil, name)
       app = self.new(tmp_email, tmp_api_key)
       app.megam_rest.get_marketplaceapp(name)
     end
