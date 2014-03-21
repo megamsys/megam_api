@@ -55,6 +55,8 @@ module Megam
     MEGAM_SSHKEYCOLLECTION    = "Megam::SshKeyCollection".freeze
     MEGAM_MARKETPLACE       = "Megam::MarketPlace".freeze
     MEGAM_MARKETPLACECOLLECTION    = "Megam::MarketPlaceCollection".freeze
+    MEGAM_SPACE       = "Megam::Space".freeze
+    MEGAM_SPACECOLLECTION    = "Megam::SpaceCollection".freeze
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -191,6 +193,10 @@ module Megam
           Megam::MarketPlace
         when MEGAM_MARKETPLACECOLLECTION
           Megam::MarketPlaceCollection
+        when MEGAM_SPACE
+          Megam::Space
+        when MEGAM_SPACECOLLECTION
+          Megam::SpaceCollection
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
