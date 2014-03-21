@@ -7,7 +7,7 @@ For more about the Megam API see <http://docs.megam.co>.[Megam API server](https
 
 [![Build Status](https://travis-ci.org/indykish/megam_api.png)](https://travis-ci.org/indykish/megam_api)
 
-Launching soon. For early access [register at:](http://www.megam.co)
+For early access [register at:](https://www.megam.co)
 
 Usage
 -----
