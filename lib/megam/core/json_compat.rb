@@ -193,10 +193,10 @@ module Megam
           Megam::MarketPlace
         when MEGAM_MARKETPLACECOLLECTION
           Megam::MarketPlaceCollection
-        when MEGAM_SPACE
-          Megam::Space
-        when MEGAM_SPACECOLLECTION
-          Megam::SpaceCollection
+#        when MEGAM_SPACE
+#          Megam::Space
+#        when MEGAM_SPACECOLLECTION
+#          Megam::SpaceCollection
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
