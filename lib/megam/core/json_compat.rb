@@ -22,40 +22,40 @@ module Megam
 
     JSON_CLAZ = "json_claz".freeze
 
-    MEGAM_AUTH              = "Megam::Auth".freeze
-    MEGAM_ERROR             = "Megam::Error".freeze
-    MEGAM_ACCOUNT           = "Megam::Account".freeze
-    MEGAM_NODE              = "Megam::Node".freeze
-    MEGAM_APPDEFNS          = "Megam::AppDefns".freeze
-    MEGAM_APPREQUEST          = "Megam::AppRequest".freeze
-    MEGAM_BOLTREQUEST          = "Megam::BoltRequest".freeze
-    MEGAM_BOLTDEFNS         = "Megam::BoltDefns".freeze
-    MEGAM_NODECOLLECTION    = "Megam::NodeCollection".freeze
-    MEGAM_APPDEFNSCOLLECTION    = "Megam::AppDefnCollection".freeze
+    MEGAM_AUTH                    = "Megam::Auth".freeze
+    MEGAM_ERROR                   = "Megam::Error".freeze
+    MEGAM_ACCOUNT                 = "Megam::Account".freeze
+    MEGAM_NODE                    = "Megam::Node".freeze        
+    MEGAM_NODECOLLECTION          = "Megam::NodeCollection".freeze
+    MEGAM_APPDEFNS                = "Megam::AppDefns".freeze
+    MEGAM_APPREQUEST              = "Megam::AppRequest".freeze
+    MEGAM_BOLTREQUEST             = "Megam::BoltRequest".freeze
+    MEGAM_BOLTDEFNS               = "Megam::BoltDefns".freeze
+    MEGAM_APPDEFNSCOLLECTION      = "Megam::AppDefnCollection".freeze
     MEGAM_APPREQUESTCOLLECTION    = "Megam::AppRequestCollection".freeze
-    MEGAM_BOLTREQUESTCOLLECTION    = "Megam::BoltRequestCollection".freeze
-    MEGAM_BOLTDEFNSCOLLECTION    = "Megam::BoltDefnCollection".freeze
-    MEGAM_REQUEST            = "Megam::Request".freeze
-    MEGAM_REQUESTCOLLECTION  = "Megam::RequestCollection".freeze
+    MEGAM_BOLTREQUESTCOLLECTION   = "Megam::BoltRequestCollection".freeze
+    MEGAM_BOLTDEFNSCOLLECTION     = "Megam::BoltDefnCollection".freeze
+    MEGAM_REQUEST                 = "Megam::Request".freeze
+    MEGAM_REQUESTCOLLECTION       = "Megam::RequestCollection".freeze
 
-    MEGAM_PREDEF            = "Megam::Predef".freeze
-    MEGAM_PREDEFCOLLECTION  = "Megam::PredefCollection".freeze
-    MEGAM_PREDEFCLOUD       = "Megam::PredefCloud".freeze
-    MEGAM_PREDEFCLOUDCOLLECTION    = "Megam::PredefCloudCollection".freeze
-    MEGAM_CLOUDTOOL     = "Megam::CloudTool".freeze
-    MEGAM_CLOUDTOOLCOLLECTION    = "Megam::CloudToolCollection".freeze
-    MEGAM_CLOUDTOOLSETTING     = "Megam::CloudToolSetting".freeze
+    MEGAM_PREDEF                  = "Megam::Predef".freeze
+    MEGAM_PREDEFCOLLECTION        = "Megam::PredefCollection".freeze
+    MEGAM_PREDEFCLOUD             = "Megam::PredefCloud".freeze
+    MEGAM_PREDEFCLOUDCOLLECTION   = "Megam::PredefCloudCollection".freeze
+    MEGAM_CLOUDTOOL               = "Megam::CloudTool".freeze
+    MEGAM_CLOUDTOOLCOLLECTION     = "Megam::CloudToolCollection".freeze
+    MEGAM_CLOUDTOOLSETTING        = "Megam::CloudToolSetting".freeze
     MEGAM_CLOUDTOOLSETTINGCOLLECTION    = "Megam::CloudToolSettingCollection".freeze
-    MEGAM_CLOUDTEMPLATE     = "Megam::CloudTemplate".freeze
-    MEGAM_CLOUDTEMPLATECOLLECTION    = "Megam::CloudTemplateCollection".freeze
-    MEGAM_CLOUDINSTRUCTION     = "Megam::CloudInstruction".freeze
+    MEGAM_CLOUDTEMPLATE           = "Megam::CloudTemplate".freeze
+    MEGAM_CLOUDTEMPLATECOLLECTION = "Megam::CloudTemplateCollection".freeze
+    MEGAM_CLOUDINSTRUCTION        = "Megam::CloudInstruction".freeze
     MEGAM_CLOUDINSTRUCTIONCOLLECTION    = "Megam::CloudInstructionCollection".freeze
-    MEGAM_CLOUDINSTRUCTIONGROUP    = "Megam::CloudInstructionGroup".freeze
-    MEGAM_SSHKEY       = "Megam::SshKey".freeze
-    MEGAM_SSHKEYCOLLECTION    = "Megam::SshKeyCollection".freeze
-    MEGAM_MARKETPLACE       = "Megam::MarketPlace".freeze
-    MEGAM_MARKETPLACECOLLECTION    = "Megam::MarketPlaceCollection".freeze
-   
+    MEGAM_CLOUDINSTRUCTIONGROUP   = "Megam::CloudInstructionGroup".freeze
+    MEGAM_SSHKEY                  = "Megam::SshKey".freeze
+    MEGAM_SSHKEYCOLLECTION        = "Megam::SshKeyCollection".freeze
+    MEGAM_MARKETPLACE             = "Megam::MarketPlace".freeze
+    MEGAM_MARKETPLACECOLLECTION   = "Megam::MarketPlaceCollection".freeze
+    
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
