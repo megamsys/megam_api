@@ -15,11 +15,9 @@
 #
 module Megam
   class DeleteNode < Megam::ServerAPI
-    
-    def initialize(email=nil, api_key=nil)      
+    def initialize(email=nil, api_key=nil)
       super(email, api_key)
     end
-    
 
     def self.create(data, group, action, tmp_email=nil, tmp_api_key=nil)
       delete_command = self.new(tmp_email, tmp_api_key)
@@ -39,21 +37,26 @@ module Megam
         hash = {"msg" => se.message, "msg_type" => "error"}
         re = Megam::Error.from_hash(hash)
       return re
-      end
-    
-      node = node_collection.data[:body].lookup(data[:node_name])      
+      end    
+      node = node_collection.data[:body].lookup(data[:node_name])     
       tool = ct_collection.data[:body].lookup(node.request[:command]['systemprovider']['provider']['prov'])
       template = tool.cloudtemplates.lookup(node.request[:command]['compute']['cctype'])
-      cloud_instruction = template.lookup_by_instruction(group, action)      
-      cts = cts_collection.data[:body].lookup(data[:repo])      
-      ci_command = "#{cloud_instruction.command}"     
+      cloud_instruction = template.lookup_by_instruction(group, action)
+      cts = cts_collection.data[:body].lookup(data[:repo])     
+      ci_command = "#{cloud_instruction.command}"
       if ci_command["<node_name>"].present?
-      ci_command["<node_name>"] = "#{data[:node_name]}"
-      end       
+        ci_command["<node_name>"] = "#{data[:node_name]}"
+      end
+      u = URI.parse(node.request[:command]['compute']['access']['vault_location'])
+      u.path[0]=""
+      if ci_command["-f"].present?
+        ci_command["-f"] = "-f " + u.path + "/#{node.request[:command]['compute']['cctype']}.json"
+      end
+
       if ci_command["-c"].present?
-        ci_command["-c"] = "-c #{cts.conf_location}"         
-      end          
-         command_hash = {
+        ci_command["-c"] = "-c #{cts.conf_location}"
+      end
+      command_hash = {
         "systemprovider" => {
           "provider" => {
             "prov" => "#{node.request[:command]['systemprovider']['provider']['prov']}"
@@ -85,7 +88,7 @@ module Megam
             "name" => "-N #{data[:node_name]}"
           }
         }
-      }        
+      }
       node_hash = {
         "node_name" => "#{data[:node_name]}",
         "node_type" => "#{node.node_type}",
@@ -97,7 +100,7 @@ module Megam
         "boltdefns" => {},
         "appreq" => {},
         "boltreq" => {}
-      }       
+      }
       node_hash
     end
   end
