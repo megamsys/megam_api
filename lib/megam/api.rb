@@ -73,8 +73,7 @@ require "megam/core/marketplace_collection"
 #we may nuke logs out of the api
 #require "megam/api/logs"
 
-# Do you need a random seed now ?
-#srand
+
 
 module Megam
   class API
