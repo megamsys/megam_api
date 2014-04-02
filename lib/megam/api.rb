@@ -29,6 +29,7 @@ require "megam/api/cloud_tools"
 require "megam/api/cloud_tool_settings"
 require "megam/api/sshkeys"
 require "megam/api/marketplaces"
+require "megam/api/marketplace_addons"
 require "megam/core/server_api"
 require "megam/core/config"
 require "megam/core/stuff"
@@ -69,6 +70,8 @@ require "megam/core/sshkey"
 require "megam/core/sshkey_collection"
 require "megam/core/marketplace"
 require "megam/core/marketplace_collection"
+require "megam/core/marketplace_addon"
+require "megam/core/marketplace_addon_collection"
 
 #we may nuke logs out of the api
 #require "megam/api/logs"
@@ -128,8 +131,8 @@ module Megam
         Megam::Log.debug("> #{pkey}: #{pvalue}")
       end
 
-      begin
-        response = connection.request(params, &block)
+      begin            
+        response = connection.request(params, &block)        
       rescue Excon::Errors::HTTPStatusError => error
         klass = case error.response.status
 
