@@ -5,11 +5,10 @@ class TestMarketplaces < MiniTest::Unit::TestCase
 def test_post_marketplace
     tmp_hash = {      
       "name" => "sample",
-      "logo" => "riak.logo",
-      "catagory" => "DB",
-      "pricetype" => "free",
+      "appdetails" => {"logo" => "logo", "category"=> "catagroy", "description"=> "description"},
       "features" => {"feature1" => "feature1","feature2" => "feature2","feature3" => "feature3","feature4" => "feature4"},
-      "plan" => {"price" => "50","description" => "description","plantype" => "free"},
+      "plans" => [{"price"=> "30", "description"=> "description", "plantype"=> "paid", "version"=> "0.1", "source"=> "source"}],  
+      "applinks" => {"free_support"=> "String", "paid_support"=> "String", "home_link"=> "String", "info_link"=> "String", "content_link"=> "String", "wiki_link"=> "String", "source_link"=> "String"},   
       "attach" => "attach",
       "predefnode" => "predefnode",
       "approved" => "approved" }
@@ -35,11 +34,12 @@ def test_post_marketplace
     assert_equal(200, response.status)
   end
 =end
-
+#=begin
   def test_get_node0
-    response = megams.get_marketplaceapp("riak")
+    response = megams.get_marketplaceapp("34-Trac")    
     assert_equal(200, response.status)
   end
+#=end  
 =begin
   def test_get_node1
     response = megams.get_node("night.megam.co")

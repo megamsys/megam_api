@@ -19,7 +19,7 @@ module Megam
         :expects  => 200,
         :method   => :get,
         :body     => @options[:body]
-      )
+      )     
     end
 
     def post_marketplaceapp(new_node)

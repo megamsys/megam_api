@@ -21,9 +21,8 @@ module Megam
       @id = nil
       @name = nil
       @appdetails = {}      
-      @pricetype = nil
       @features={}
-      @plan={}
+      @plans=nil
       @applinks={}
       @attach =nil
       @predefnode=nil
@@ -60,15 +59,7 @@ module Megam
       else
       @id
       end
-    end
-
-    def pricetype(arg=nil)
-      if arg != nil
-        @pricetype = arg
-      else
-      @pricetype
-      end
-    end
+    end   
 
     def features(arg=nil)
       if arg != nil
@@ -78,11 +69,11 @@ module Megam
       end
     end
 
-    def plan(arg=nil)
+    def plans(arg=nil)
       if arg != nil
-        @plan = arg
+        @plans = arg
       else
-      @plan
+      @plans
       end
     end
     
@@ -145,9 +136,8 @@ module Megam
       index_hash["id"] = id
       index_hash["name"] = name
       index_hash["appdetails"] = appdetails
-      index_hash["pricetype"] = pricetype
       index_hash["features"] = features
-      index_hash["plan"] = plan
+      index_hash["plans"] = plans
       index_hash["applinks"] = applinks
       index_hash["attach"] = attach
       index_hash["predefnode"] = predefnode
@@ -168,9 +158,8 @@ module Megam
         "id" => id,
         "name" => name,
         "appdetails" => appdetails,
-        "pricetype" => pricetype,
         "features" => features,
-        "plan" => plan,
+        "plans" => plans,
         "applinks" => applinks,
         "attach" => attach,
         "predefnode" => predefnode,
@@ -186,11 +175,11 @@ module Megam
       app.name(o["name"]) if o.has_key?("name")
       app.logo(o["logo"]) if o.has_key?("logo")
       app.catagory(o["catagory"]) if o.has_key?("catagory")
-      app.pricetype(o["pricetype"]) if o.has_key?("pricetype")   
       app.attach(o["attach"]) if o.has_key?("attach")
       app.predefnode(o["predefnode"]) if o.has_key?("predefnode")
       app.approved(o["approved"]) if o.has_key?("approved")
       app.created_at(o["created_at"]) if o.has_key?("created_at")
+      app.plans(o["plans"]) if o.has_key?("plans")
       #requests
       oq = o["features"]
       app.features[:feature1] = oq["feature1"] if oq && oq.has_key?("feature1")
@@ -201,13 +190,12 @@ module Megam
       oa = o["appdetails"]
       app.appdetails[:logo] = oa["logo"] if oa && oa.has_key?("logo")
       app.appdetails[:category] = oa["category"] if oa && oa.has_key?("category")
-      app.appdetails[:version] = oa["version"] if oa && oa.has_key?("version")
       app.appdetails[:description] = oa["description"] if oa && oa.has_key?("description")      
     
-      op = o["plan"]
-      app.plan[:price] = op["price"] if op && op.has_key?("price")
-      app.plan[:description] = op["description"] if op && op.has_key?("description")
-      app.plan[:plantype]= op["plantype"] if op && op.has_key?("plantype")    
+      #op = o["plan"]
+      #app.plan[:price] = op["price"] if op && op.has_key?("price")
+      #app.plan[:description] = op["description"] if op && op.has_key?("description")
+      #app.plan[:plantype]= op["plantype"] if op && op.has_key?("plantype")    
       
       ol = o["applinks"]
       app.applinks[:free_support] = ol["free_support"] if ol && ol.has_key?("free_support")
@@ -237,9 +225,8 @@ module Megam
       @name = o["name"] if o.has_key?("name")
       @id        = o["id"] if o.has_key?("id")
       @appdetails    = o["appdetails"] if o.has_key?("appdetails")
-      @pricetype    = o["pricetype"] if o.has_key?("pricetype")
       @features    = o["features"] if o.has_key?("features")
-      @plan   = o["plan"] if o.has_key?("plan")
+      @plans   = o["plans"] if o.has_key?("plans")
       @applinks   = o["applinks"] if o.has_key?("applinks")
       @attach   = o["attach"] if o.has_key?("attach")
       @predefnode   = o["predefnode"] if o.has_key?("predefnode")
