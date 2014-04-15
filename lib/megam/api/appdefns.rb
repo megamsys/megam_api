@@ -31,6 +31,17 @@ module Megam
         :body     => @options[:body]
       )
     end
+    
+    def update_appdefn(new_appdefn)
+      @options = {:path => '/appdefns/update',
+        :body => Megam::JSONCompat.to_json(new_appdefn)}.merge(@options)
+
+      request(
+        :expects  => 201,
+        :method   => :post,
+        :body     => @options[:body]
+      )
+    end
 
   end
 end

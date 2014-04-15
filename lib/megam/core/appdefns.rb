@@ -127,6 +127,7 @@ module Megam
       appdefns.appdefns[:metered] = op["metered"] if op && op.has_key?("metered")
       appdefns.appdefns[:logging]= op["logging"] if op && op.has_key?("logging")
       appdefns.appdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+      appdefns.appdefns[:env_sh] = op["env_sh"] if op && op.has_key?("env_sh")
 
       appdefns.some_msg[:code] = o["code"] if o.has_key?("code")
       appdefns.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
