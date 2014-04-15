@@ -7,19 +7,23 @@ def test_post_addon
 "disaster"=>{
 "locations"=>"locations",
 "fromhost"=>"appsample1.megam.co",
-"tohosts"=>"appsample2.megam.co;appsample3.megam.co"
+"tohosts"=>"appsample2.megam.co;appsample3.megam.co",
+"recipe"=>"role[drbd]"
 },
 "loadbalancing"=>{
 "haproxyhost"=>"",
-"loadbalancehost"=>""
+"loadbalancehost"=>"",
+"recipe"=>""
 },
 "autoscaling"=>{
 "cputhreshold"=>"",
 "memorythreshold"=>"",
-"noofinstances"=>""
+"noofinstances"=>"",
+"recipe"=>""
 },
 "monitoring"=>{
-"agent"=>"op5"
+"agent"=>"op5",
+"recipe"=>"role[op5]"
 }
 }
 

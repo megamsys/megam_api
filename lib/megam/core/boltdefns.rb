@@ -152,6 +152,7 @@ module Megam
       boltdefns.boltdefns[:metered] = op["metered"] if op && op.has_key?("metered")
       boltdefns.boltdefns[:logging]= op["logging"] if op && op.has_key?("logging")
       boltdefns.boltdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+      boltdefns.boltdefns[:env_sh] = op["env_sh"] if op && op.has_key?("env_sh")
 
       boltdefns.some_msg[:code] = o["code"] if o.has_key?("code")
       boltdefns.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
