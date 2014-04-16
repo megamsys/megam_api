@@ -21,7 +21,7 @@ module Megam
       @node_id = nil
       @node_name = nil
       @marketplace_id = nil
-      @config = {}
+      @config = nil
       @config_id = nil
       @created_at = nil
       @some_msg = {}
@@ -127,7 +127,7 @@ module Megam
         "node_id" => node_id,
         "node_name" => node_name,
         "marketplace_id" => marketplace_id,
-        "config" => config,
+        "config" => {},
         "config_id" => config_id,
         "created_at" => created_at
       }     
@@ -144,7 +144,7 @@ module Megam
       addon.config(o["config"]) if o.has_key?("config")
       addon.config_id(o["config_id"]) if o.has_key?("config_id")
       addon.created_at(o["created_at"]) if o.has_key?("created_at")        
-
+      
       addon.some_msg[:code] = o["code"] if o.has_key?("code")
       addon.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
       addon.some_msg[:msg]= o["msg"] if o.has_key?("msg")

@@ -101,8 +101,8 @@ module Megam
         "command" => command_hash,
         "predefs" => {"name" => data[:predef_name], "scm" => "#{data[:deps_scm]}",
          "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:runtime_exec]},
-        "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
-        "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
+        "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "", "env_sh" => ""},
+        "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "", "env_sh" => ""},
         "appreq" => {},
         "boltreq" => {}
       }
@@ -114,10 +114,10 @@ module Megam
         if data[:deps_war].length > 0
           data[:runtime_exec] = change_runtime(data[:deps_war], data[:runtime_exec], action)
         end
-        node_hash["appdefns"] = {"timetokill" => "#{data[:timetokill]}", "metered" => "#{data[:metered]}", "logging" => "#{data[:logging]}", "runtime_exec" => "#{data[:runtime_exec]}"}
+        node_hash["appdefns"] = {"timetokill" => "#{data[:timetokill]}", "metered" => "#{data[:metered]}", "logging" => "#{data[:logging]}", "runtime_exec" => "#{data[:runtime_exec]}", "env_sh" => "#{data[:env_sh]}"}
       end
       if data[:book_type] == "BOLT"
-        node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
+        node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}", "env_sh" => "#{data[:env_sh]}" }
       end
       node_hash
     end

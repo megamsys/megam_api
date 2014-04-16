@@ -289,6 +289,7 @@ node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
       node.appdefns[:metered] = op["metered"] if op && op.has_key?("metered")
       node.appdefns[:logging]= op["logging"] if op && op.has_key?("logging")
       node.appdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+      node.appdefns[:env_sh] = op["env_sh"] if op && op.has_key?("env_sh")
 
       #BOLT DEFINITIONS
       op = o["boltdefns"]
@@ -300,6 +301,7 @@ node.command[:cloudtool][:chef][:name] = oc["cloudtool"]["chef"]["name"]
       node.boltdefns[:metered] = op["metered"] if op && op.has_key?("metered")
       node.boltdefns[:logging]= op["logging"] if op && op.has_key?("logging")
       node.boltdefns[:runtime_exec] = op["runtime_exec"] if op && op.has_key?("runtime_exec")
+      node.boltdefns[:env_sh] = op["env_sh"] if op && op.has_key?("env_sh")
 
       #success or error
       node.some_msg[:code] = o["code"] if o.has_key?("code")

@@ -46,8 +46,8 @@ class TestApps < MiniTest::Unit::TestCase
       "command" => @com,
       "predefs" => {"name" => "rails", "scm" => "",
         "db" => "postgres@postgresql1.megam.com/night.megam.co", "war" => "http://s3pub.com/0.1/granny.war", "queue" => "queue@queue1", "runtime_exec" => "sudo start rails"},
-      "appdefns" => {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "start unicorn_<projectname>"},
-      "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
+      "appdefns" => {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "start unicorn_<projectname>", "env_sh" => "changed env_sh"},
+      "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "", "env_sh" => "changed env_sh"},
       "appreq" => {},
       "boltreq" => {}
     }
@@ -67,16 +67,19 @@ class TestApps < MiniTest::Unit::TestCase
     assert_equal(201, response.status)
   end
 =end
+=begin
   def test_get_nodes
     response = megams.get_nodes
     assert_equal(200, response.status)
   end
-=begin
+=end  
+#=begin
   def test_get_node0
-    response = megams.get_node("black1.megam.co")
+    response = megams.get_node("appsample1.megam.co")
     assert_equal(200, response.status)
   end
-
+#=end
+=begin
   def test_get_node1
     response = megams.get_node("night.megam.co")
     assert_equal(200, response.status)
