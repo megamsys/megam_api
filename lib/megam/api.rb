@@ -4,6 +4,7 @@ require "excon"
 require "uri"
 require "zlib"
 require 'openssl'
+require 'yaml'                  #COMMON YML
 
 # open it up when needed. This will be needed when a new customer onboarded via pug.
 require "securerandom"
@@ -98,7 +99,8 @@ module Megam
       :nonblock => false,
       :scheme => 'https'
     }
-
+        COMMON = YAML.load_file("#{ENV['MEGAM_HOME']}/common.yml")                  #COMMON YML
+        OPTIONS[:host] = "#{COMMON["api"]["host"]}"
     API_VERSION1 = "/v1"
 
     def text
@@ -188,7 +190,7 @@ module Megam
     private
 
     def just_color_debug(path)
-      text.msg "--> #{text.color("(#{path})", :cyan,:bold)}"
+      text.msg "--> #{text.color(\"(#{path})\", :cyan,:bold)}"                  #Megam change. 2 \ added by me. Why " inside "
     end
 
     #Make a lazy connection.
@@ -199,10 +201,13 @@ module Megam
         'X-Megam-HMAC' => encoded_api_header[:hmac],
         'X-Megam-Date' => encoded_api_header[:date],
       }).merge(@options[:headers])
+                  #COMMON YML
+      Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{COMMON["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))                  #COMMON YML
 
-      Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
-
-      if !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
+      if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{COMMON["api"]["pub_key"]}")))
+        text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
+        Excon.defaults[:ssl_verify_peer] = false
+      elsif !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
       else
