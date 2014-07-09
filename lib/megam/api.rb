@@ -4,6 +4,7 @@ require "excon"
 require "uri"
 require "zlib"
 require 'openssl'
+require 'yaml'                  #COMMON YML
 
 # open it up when needed. This will be needed when a new customer onboarded via pug.
 require "securerandom"
@@ -98,7 +99,6 @@ module Megam
       :nonblock => false,
       :scheme => 'https'
     }
-
     API_VERSION1 = "/v1"
 
     def text
@@ -118,6 +118,11 @@ module Megam
     # 3. Upon merge of the options, the api_key, email as available in the @options is deleted.
     def initialize(options={})
       @options = OPTIONS.merge(options)
+if File.exist?("#{ENV['MEGAM_HOME']}/nilavu.yml")
+        @common = YAML.load_file("#{ENV['MEGAM_HOME']}/nilavu.yml")                  #COMMON YML
+        @options[:host] = "#{@common["api"]["host"]}"
+        @options[:scheme] = "#{@common["api"]["scheme"]}"
+end
       @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
       @email = @options.delete(:email)
       raise ArgumentError, "You must specify [:email, :api_key]" if @email.nil? || @api_key.nil?
@@ -188,7 +193,7 @@ module Megam
     private
 
     def just_color_debug(path)
-      text.msg "--> #{text.color("(#{path})", :cyan,:bold)}"
+      text.msg "--> #{text.color('(#{path})', :cyan,:bold)}"                  # Why " inside "
     end
 
     #Make a lazy connection.
@@ -199,16 +204,22 @@ module Megam
         'X-Megam-HMAC' => encoded_api_header[:hmac],
         'X-Megam-Date' => encoded_api_header[:date],
       }).merge(@options[:headers])
+                  #COMMON YML
+        if @options[:scheme] == "https"
+puts "=====> if https =======>"
+      Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))                  #COMMON YML
 
-      Excon.defaults[:ssl_ca_file] = File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
-
-      if !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
+      if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")))
+        text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
+        Excon.defaults[:ssl_verify_peer] = false
+      elsif !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
       else
         Megam::Log.debug("Certificate found")
         Excon.defaults[:ssl_verify_peer] = true
       end
+        end
 
       Megam::Log.debug("HTTP Request Data:")
       Megam::Log.debug("> HTTP #{@options[:scheme]}://#{@options[:host]}")
@@ -216,7 +227,13 @@ module Megam
         Megam::Log.debug("> #{key}: #{value}")
       end
       Megam::Log.debug("End HTTP Request Data.")
+        if @options[:scheme] == "https"
       @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
+        else
+           Excon.defaults[:ssl_verify_peer] = false
+           @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}:9000",@options)
+        end
+        @connection
     end
 
     ## encode header as per rules.
