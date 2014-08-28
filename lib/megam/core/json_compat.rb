@@ -57,6 +57,11 @@ module Megam
     MEGAM_MARKETPLACECOLLECTION   = "Megam::MarketPlaceCollection".freeze
     MEGAM_MARKETPLACEADDON             = "Megam::MarketPlaceAddons".freeze
     MEGAM_MARKETPLACEADDONCOLLECTION   = "Megam::MarketPlaceAddonsCollection".freeze
+    MEGAM_CSAR             = "Megam::CSAR".freeze
+    MEGAM_CSARCOLLECTION   = "Megam::CSARCollection".freeze
+    
+
+
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -65,12 +70,12 @@ module Megam
         if opts.nil? || !opts.has_key?(:max_nesting)
           opts = opts.nil? ? Hash.new : opts.clone
           opts[:max_nesting] = JSON_MAX_NESTING
-        end       
+        end
         opts
       end
 
       # Just call the JSON gem's parse method with a modified :max_nesting field
-      def from_json(source, opts = {})       
+      def from_json(source, opts = {})
         obj = ::Yajl::Parser.parse(source)
         # JSON gem requires top level object to be a Hash or Array (otherwise
         # you get the "must contain two octets" error). Yajl doesn't impose the
@@ -115,7 +120,7 @@ module Megam
         json_hash
       end
 
-      def to_json(obj, opts = nil)      
+      def to_json(obj, opts = nil)
         obj.to_json(opts_add_max_nesting(opts))
       end
 
@@ -197,6 +202,10 @@ module Megam
           Megam::MarketPlaceAddons
         when MEGAM_MARKETPLACEADDONCOLLECTION
           Megam::MarketPlaceAddonsCollection
+        when MEGAM_CSAR
+          Megam::CSAR
+        when MEGAM_CSARCOLLECTION
+          Megam::CSARCollection
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end

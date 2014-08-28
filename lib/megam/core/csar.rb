@@ -1,4 +1,3 @@
-
 # Copyright:: Copyright (c) 2012, 2014 Megam Systems
 # License:: Apache License, Version 2.0
 #
@@ -14,55 +13,48 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require 'hashie'
+
 module Megam
-  class SshKey < Megam::ServerAPI
+  class CSAR < Megam::ServerAPI
     def initialize(email=nil, api_key=nil)
       @id = nil
-      @name = nil
-      @accounts_id = nil      
-      @path=nil      
-      @created_at = nil
+      @desc = nil
+      @link = {}
       @some_msg = {}
+      @created_at = nil
       super(email, api_key)
     end
 
-    def sshkey
+    def csar
       self
     end
 
-    
     def id(arg=nil)
       if arg != nil
         @id = arg
       else
-      @id
+        @id
       end
     end
 
-    def name(arg=nil)
+    def desc(arg=nil)
       if arg != nil
-        @name = arg
+        @desc = arg
       else
-      @name
+      @desc
       end
     end
 
-    def accounts_id(arg=nil)
+
+    def link(arg=nil)
       if arg != nil
-        @accounts_id= arg
+        @link = arg
       else
-      @accounts_id
+      @link
       end
     end
-    
 
-    def path(arg=nil)
-      if arg != nil
-        @path= arg
-      else
-      @path
-      end
-    end  
 
     def created_at(arg=nil)
       if arg != nil
@@ -89,9 +81,9 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
-      index_hash["name"] = name
-      index_hash["accounts_id"] = accounts_id
-      index_hash["path"] = path     
+      index_hash["desc"] = desc
+      index_hash["link"] = link
+      index_hash["some_msg"] = some_msg
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -105,71 +97,68 @@ module Megam
     def for_json
       result = {
         "id" => id,
-        "name" => name,
-        "accounts_id" => accounts_id,
-        "path" => path,        
+        "desc" => desc,
+        "link" => link,
         "created_at" => created_at
       }
       result
     end
 
-    #
     def self.json_create(o)
-      sshKey = new
-      sshKey.id(o["id"]) if o.has_key?("id")
-      sshKey.name(o["name"]) if o.has_key?("name")     
-      sshKey.path(o["path"]) if o.has_key?("path")     
-      sshKey.created_at(o["created_at"]) if o.has_key?("created_at")
+      csarjslf = new
+      csarjslf.id(o["id"]) if o.has_key?("id")
+      csarjslf.desc(o["desc"]) if o.has_key?("desc")
+      csarjslf.link(o["link"]) if o.has_key?("link")
+
       #success or error
-      sshKey.some_msg[:code] = o["code"] if o.has_key?("code")
-      sshKey.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
-      sshKey.some_msg[:msg]= o["msg"] if o.has_key?("msg")
-      sshKey.some_msg[:links] = o["links"] if o.has_key?("links")
-      sshKey
+      csarjslf.some_msg[:code] = o["code"] if o.has_key?("code")
+      csarjslf.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+      csarjslf.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+      csarjslf.some_msg[:links] = o["links"] if o.has_key?("links")
+
+      csarjslf
     end
 
     def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      sshKey = self.new(tmp_email, tmp_api_key)
-      sshKey.from_hash(o)
-      sshKey
+      csarhslf = self.new(tmp_email, tmp_api_key)
+      csarhslf.from_hash(o)
+      csarhslf
     end
 
     def from_hash(o)
-      @id        = o[:id] if o.has_key?(:id)
-      @name = o[:name] if o.has_key?(:name)      
-      @path   = o[:path] if o.has_key?(:path)   
-      @created_at   = o[:created_at] if o.has_key?(:created_at)
+      @id        = o["id"] if o.has_key?("id")
+      @desc      = o["desc"] if o.has_key?("desc")
+      @link      = o["link"] if o.has_key?("link")
+      @created_at = o["created_at"] if o.has_key?("created_at")
       self
     end
 
+    #This won't work, as the body just needs the yaml string.
     def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
-      acct.create
+      csarslf = from_hash(o, tmp_email, tmp_api_key)
+      csarslf.create
     end
 
-    # Create the predef via the REST API
+    # Create the csar yaml
+    #This won't work, as the body just needs the yaml string.
     def create
-      megam_rest.post_sshkey(to_hash)
+      megam_rest.post_csar(to_hash)
     end
 
-    # Load all sshkeys -
-    # returns a sshkeysCollection
-    # don't return self. check if the Megam::SshKeyCollection is returned.
+    # Load the yaml back from the link
+    def self.show(tmp_email=nil, tmp_api_key=nil, csarlink_name)
+      csarslf = self.new(tmp_email, tmp_api_key)
+      csarslf.megam_rest.get_csar(csarlink_name)
+    end
+
+    #list all csars (links)
     def self.list(tmp_email=nil, tmp_api_key=nil)
-    sshKey = self.new(tmp_email,tmp_api_key)
-      sshKey.megam_rest.get_sshkeys
-    end
-
-    # Show a particular sshKey by name,
-    # Megam::SshKey
-    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-    pre = self.new(tmp_email,tmp_api_key)
-    pre.megam_rest.get_sshkey(p_name)
+      csarslf = self.new(tmp_email, tmp_api_key)
+      csarslf.megam_rest.get_csars
     end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
-    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end

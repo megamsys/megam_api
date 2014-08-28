@@ -72,7 +72,7 @@ def test_post_marketplace
 "ssh_key" => "megam_ec2",
 "identity_file" => "~/.ssh/megam_ec2.pem",
 "ssh_user" => "",
-"vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
+"vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default",
 "sshpub_location" => "",
 "zone" => "",
 "region" => "region"

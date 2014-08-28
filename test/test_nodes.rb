@@ -22,8 +22,8 @@ class TestApps < MiniTest::Unit::TestCase
 "ssh_key" => "megam_ec2",
 "identity_file" => "~/.ssh/megam_ec2.pem",
 "ssh_user" => "ubuntu",
-"vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
-"sshpub_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
+"vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default",
+"sshpub_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default",
 "zone" => "",
 "region" => "region"
 }
@@ -31,7 +31,7 @@ class TestApps < MiniTest::Unit::TestCase
 "cloudtool" => {
 "chef" => {
 "command" => "knife",
-"plugin" => "ec2 server create -c sandy@megamsandbox.com/default", #ec2 server delete or create
+"plugin" => "ec2 server create -c megam@mypaas.io/default", #ec2 server delete or create
 "run_list" => "role[opendj]",
 "name" => "-N TestOverAll"
 }
@@ -111,7 +111,7 @@ class TestApps < MiniTest::Unit::TestCase
 "ssh_key" => "megam_ec2",
 "identity_file" => "~/.ssh/megam_ec2.pem",
 "ssh_user" => "",
-"vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
+"vault_location" => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default",
 "sshpub_location" => "",
 "zone" => "",
 "region" => "region"
