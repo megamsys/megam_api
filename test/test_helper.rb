@@ -64,5 +64,5 @@ def sandbox_apikey
 end
 
 def sandbox_email
-  "sandy@megamsandbox.com"
+  "megam@mypaas.io"
 end

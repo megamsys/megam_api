@@ -1,4 +1,4 @@
-# Copyright:: Copyright (c) 2012, 2013 Megam Systems
+# Copyright:: Copyright (c) 2012, 2014 Megam Systems
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
 #
 module Megam
   class MarketPlaceAddons< Megam::ServerAPI
-    
+
     def initialize(email=nil, api_key=nil)
       @id = nil
       @node_id = nil
@@ -27,11 +27,11 @@ module Megam
       @some_msg = {}
       super(email,api_key)
     end
-    
+
     def market_place_addons
       self
     end
-    
+
 
     def id(arg=nil)
       if arg != nil
@@ -117,7 +117,7 @@ module Megam
 
     # Serialize this object as a hash: called from JsonCompat.
     # Verify if this called from JsonCompat during testing.
-    def to_json(*a)       
+    def to_json(*a)
       for_json.to_json(*a)
     end
 
@@ -130,7 +130,7 @@ module Megam
         "config" => {},
         "config_id" => config_id,
         "created_at" => created_at
-      }     
+      }
       result
     end
 
@@ -143,8 +143,8 @@ module Megam
       addon.marketplace_id(o["marketplace_id"]) if o.has_key?("marketplace_id")
       addon.config(o["config"]) if o.has_key?("config")
       addon.config_id(o["config_id"]) if o.has_key?("config_id")
-      addon.created_at(o["created_at"]) if o.has_key?("created_at")        
-      
+      addon.created_at(o["created_at"]) if o.has_key?("created_at")
+
       addon.some_msg[:code] = o["code"] if o.has_key?("code")
       addon.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
       addon.some_msg[:msg]= o["msg"] if o.has_key?("msg")
