@@ -3,12 +3,12 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 class TestMarketplaces < MiniTest::Unit::TestCase
 =begin
 def test_post_marketplace
-    tmp_hash = {      
+    tmp_hash = {
       "name" => "sample",
       "appdetails" => {"logo" => "logo", "category"=> "catagroy", "description"=> "description"},
       "features" => {"feature1" => "feature1","feature2" => "feature2","feature3" => "feature3","feature4" => "feature4"},
-      "plans" => [{"price"=> "30", "description"=> "description", "plantype"=> "paid", "version"=> "0.1", "source"=> "source"}],  
-      "applinks" => {"free_support"=> "String", "paid_support"=> "String", "home_link"=> "String", "info_link"=> "String", "content_link"=> "String", "wiki_link"=> "String", "source_link"=> "String"},   
+      "plans" => [{"price"=> "30", "description"=> "description", "plantype"=> "paid", "version"=> "0.1", "source"=> "source"}],
+      "applinks" => {"free_support"=> "String", "paid_support"=> "String", "home_link"=> "String", "info_link"=> "String", "content_link"=> "String", "wiki_link"=> "String", "source_link"=> "String"},
       "attach" => "attach",
       "predefnode" => "predefnode",
       "approved" => "approved" }
@@ -16,7 +16,7 @@ def test_post_marketplace
     response = megams.post_marketplaceapp(tmp_hash)
     assert_equal(201, response.status)
   end
-=end  
+=end
 =begin
   def test_post_node2
     tmp_hash = {
@@ -35,11 +35,11 @@ def test_post_marketplace
   end
 =end
 #=begin
-  def test_get_node0
+  def test_get_marketplace
     response = megams.get_marketplaceapp("34-Trac")    
     assert_equal(200, response.status)
   end
-#=end  
+#=end
 =begin
   def test_get_node1
     response = megams.get_node("night.megam.co")
@@ -97,5 +97,5 @@ def test_post_marketplace
     response = megams.post_request(tmp_hash)
     assert_equal(201, response.status)
   end
-=end  
+=end
 end

@@ -20,14 +20,14 @@ module Megam
   class Config
 
     extend Mixlib::Config
-    
+
     def self.inspect
       configuration.inspect
     end
 
     megam_api_server_url   "http://localhost:9000"
-    
-    megam_api_version      "v1"
+
+    megam_api_version      "v2"
 
     email nil
     api_key nil
