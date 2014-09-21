@@ -207,17 +207,19 @@ end
                   #COMMON YML
         if @options[:scheme] == "https"
 puts "=====> if https =======>"
-      Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))                  #COMMON YML
-
+      
       if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
+        @options[:scheme] == "http"
       elsif !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
+        @options[:scheme] == "http"
       else
         Megam::Log.debug("Certificate found")
         Excon.defaults[:ssl_verify_peer] = true
+                Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))                  #COMMON YML
       end
         end
 
@@ -258,6 +260,7 @@ puts "=====> if https =======>"
       final_hmac = @email+':' + hash
       header_params = { :hmac => final_hmac, :date => current_date}
     end
-  end
+    
+ end
 
 end
