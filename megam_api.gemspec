@@ -7,11 +7,11 @@ Gem::Specification.new do |s|
   s.version     = Megam::API::VERSION
   s.authors     = ["Kishorekumar Neelamegam, Thomas Alrin, Subash Sethurajan, Rajthilak"]
   s.email       = ["nkishore@megam.co.in","alrin@megam.co.in","subash.avc@gmail.com", "rajthilak@megam.co.in"]
-  s.homepage    = "http://github.com/indykish/megam_api"
+  s.homepage    = "http://github.com/megamsys/megam_api"
   s.license = "Apache V2"
-  sextra_rdoc_files = ["README.md", "LICENSE" ]
-  s.summary = %q{Ruby Client for the Megam Cloud}
-  s.description = %q{Ruby Client for the Megam. Performs REST calls to Megam Gateway - api.megam.co http://github.com/indykish/megam_play.git}
+  s.extra_rdoc_files = ["README.md", "LICENSE" ]
+  s.summary = %q{Ruby Client for the Megam}
+  s.description = %q{Ruby Client for the Megam. Performs REST calls to Megam Gateway -  http://github.com/megamsys/megam_play.git}
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
