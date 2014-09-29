@@ -219,21 +219,22 @@ module Megam
         X_Megam_HMAC => encoded_api_header[:hmac],
         X_Megam_DATE => encoded_api_header[:date],
       }).merge(@options[:headers])
-                  #COMMON YML
-        if @options[:scheme] == "https"
-          Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))                  #COMMON YML
 
+      if @options[:scheme] == "https"
       if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
+        @options[:scheme] == "http"
       elsif !File.exist?(File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
+        @options[:scheme] == "http"
       else
         Megam::Log.debug("Certificate found")
         Excon.defaults[:ssl_verify_peer] = true
+                Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))                  
       end
-        end
+      end
 
       Megam::Log.debug("HTTP Request Data:")
       Megam::Log.debug("> HTTP #{@options[:scheme]}://#{@options[:host]}")
@@ -241,13 +242,13 @@ module Megam
         Megam::Log.debug("> #{key}: #{value}")
       end
       Megam::Log.debug("End HTTP Request Data.")
-        if @options[:scheme] == "https"
+      if @options[:scheme] == "https"
       @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
-        else
+      else
            Excon.defaults[:ssl_verify_peer] = false
            @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}:9000",@options)
-        end
-        @connection
+      end
+      @connection
     end
 
     ## encode header as per rules.
@@ -272,6 +273,7 @@ module Megam
       final_hmac = @email+':' + hash
       header_params = { :hmac => final_hmac, :date => current_date}
     end
-  end
+    
+ end
 
 end
