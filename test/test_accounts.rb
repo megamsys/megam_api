@@ -12,7 +12,7 @@ class TestAccounts < MiniTest::Unit::TestCase
     response.body.to_s
     assert_equal(200, response.status)
   end
-  
+=begin
   def test_get_accounts_bad
     assert_raises(Megam::API::Errors::NotFound) do
     response =megams.get_accounts(sandbox_email+"_bad")
@@ -42,4 +42,5 @@ class TestAccounts < MiniTest::Unit::TestCase
     response.body.to_s
     end    
   end
+=end
 end
