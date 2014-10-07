@@ -31,12 +31,9 @@ require "megam/api/cloud_tool_settings"
 require "megam/api/sshkeys"
 require "megam/api/marketplaces"
 require "megam/api/marketplace_addons"
-<<<<<<< HEAD
 require "megam/api/organizations"
 require "megam/api/domains"
-=======
 require "megam/api/csars"
->>>>>>> origin/0.5
 require "megam/core/server_api"
 require "megam/core/config"
 require "megam/core/stuff"
@@ -79,18 +76,16 @@ require "megam/core/marketplace"
 require "megam/core/marketplace_collection"
 require "megam/core/marketplace_addon"
 require "megam/core/marketplace_addon_collection"
-<<<<<<< HEAD
 require "megam/core/organizations"
 require "megam/core/domains"
 
 #we may nuke logs out of the api
 #require "megam/api/logs"
 
-=======
 require "megam/core/csar"
 require "megam/core/csar_collection"
 require "megam/core/konipai"
->>>>>>> origin/0.5
+
 
 
 module Megam
@@ -116,19 +111,14 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-<<<<<<< HEAD
-      :host => '127.0.0.1',
-=======
-      :host => API_MEGAM_CO,
->>>>>>> origin/0.5
+      :host => '127.0.0.1'
       :nonblock => false,
       :scheme => 'http'
     }
-<<<<<<< HEAD
-    API_VERSION1 = "/v2"
-=======
 
->>>>>>> origin/0.5
+    API_VERSION1 = "/v2"
+
+
 
     def text
       @text ||= Megam::Text.new(STDOUT, STDERR, STDIN, {})
@@ -241,15 +231,14 @@ module Megam
         X_Megam_HMAC => encoded_api_header[:hmac],
         X_Megam_DATE => encoded_api_header[:date],
       }).merge(@options[:headers])
-<<<<<<< HEAD
+
                   #COMMON YML
         if @options[:scheme] == "https"
 puts "=====> if https =======>"
 
-=======
 
       if @options[:scheme] == "https"
->>>>>>> origin/0.5
+
       if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
@@ -261,7 +250,7 @@ puts "=====> if https =======>"
       else
         Megam::Log.debug("Certificate found")
         Excon.defaults[:ssl_verify_peer] = true
-                Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))                  
+                Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
       end
       end
 

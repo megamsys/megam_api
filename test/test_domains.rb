@@ -6,10 +6,18 @@ class TestDomains < MiniTest::Unit::TestCase
   $normal = "normal-tom"
   $tom_email = "tom@gomegam.com"
   $bob_email = "bob@gomegam.com"
+  $dname = "sampledomainname"
 
   def test_get_domains_good
     response =megams.get_domains(domain_name)
     response.body.to_s
     assert_equal(200, response.status)
+  end
+
+  def test_post_domains_admin
+    response =megams.post_domains(
+    {:name => $dname })
+    response.body.to_s
+    assert_equal(201, response.status)
   end
 end
