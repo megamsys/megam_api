@@ -225,7 +225,9 @@ module Megam
 
     #Make a lazy connection.
     def connection
-      @options[:path] =API_VERSION2+ @options[:path]
+      puts @options[:path]
+      puts API_VERSION2
+      @options[:path] =API_VERSION2 + @options[:path]
       encoded_api_header = encode_header(@options)
       @options[:headers] = HEADERS.merge({
         X_Megam_HMAC => encoded_api_header[:hmac],

@@ -16,7 +16,7 @@ end
 
 def post_organizations(new_organization)
 
-      @option = {:path => '/organizations/content',
+      @options = {:path => '/organizations/content',
         :body =>  Megam::JSONCompat.to_json(new_organization)}.merge(@options)
 
 

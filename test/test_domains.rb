@@ -6,7 +6,7 @@ class TestDomains < MiniTest::Unit::TestCase
   $normal = "normal-tom"
   $tom_email = "tom@gomegam.com"
   $bob_email = "bob@gomegam.com"
-  #$dname = "sampledomainname"
+  
 
   def test_get_domains_good
     response =megams.get_domains(domain_name)
