@@ -31,6 +31,7 @@ require "megam/api/cloud_tool_settings"
 require "megam/api/sshkeys"
 require "megam/api/marketplaces"
 require "megam/api/marketplace_addons"
+require "megam/api/organizations"
 require "megam/core/server_api"
 require "megam/core/config"
 require "megam/core/stuff"
@@ -73,7 +74,7 @@ require "megam/core/marketplace"
 require "megam/core/marketplace_collection"
 require "megam/core/marketplace_addon"
 require "megam/core/marketplace_addon_collection"
-
+require "megam/core/organizations"
 #we may nuke logs out of the api
 #require "megam/api/logs"
 
@@ -95,11 +96,11 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-      :host => 'api.megam.co',
+      :host => '127.0.0.1',
       :nonblock => false,
-      :scheme => 'https'
+      :scheme => 'http'
     }
-    API_VERSION1 = "/v1"
+    API_VERSION1 = "/v2"
 
     def text
       @text ||= Megam::Text.new(STDOUT, STDERR, STDIN, {})
@@ -136,8 +137,8 @@ end
         Megam::Log.debug("> #{pkey}: #{pvalue}")
       end
 
-      begin            
-        response = connection.request(params, &block)        
+      begin
+        response = connection.request(params, &block)
       rescue Excon::Errors::HTTPStatusError => error
         klass = case error.response.status
 
@@ -207,7 +208,7 @@ end
                   #COMMON YML
         if @options[:scheme] == "https"
 puts "=====> if https =======>"
-      
+
       if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
@@ -244,7 +245,7 @@ puts "=====> if https =======>"
     # The output will have
     # :hmac
     # :date
-    # (Refer https://Github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
+    # (Refer https://github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
     def encode_header(cmd_parms)
       header_params ={}
       body_digest = OpenSSL::Digest::MD5.digest(cmd_parms[:body])
@@ -260,7 +261,7 @@ puts "=====> if https =======>"
       final_hmac = @email+':' + hash
       header_params = { :hmac => final_hmac, :date => current_date}
     end
-    
+
  end
 
 end
