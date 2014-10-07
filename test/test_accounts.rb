@@ -40,7 +40,7 @@ class TestAccounts < MiniTest::Unit::TestCase
     {:id => random_id, :emailo => sandbox_email,
       :apik_key => sandbox_apikey, :authority => $admin})
     response.body.to_s
-    end    
+    end
   end
 =end
 end

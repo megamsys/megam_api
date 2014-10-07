@@ -37,6 +37,8 @@ module Megam
     MEGAM_BOLTDEFNSCOLLECTION     = "Megam::BoltDefnCollection".freeze
     MEGAM_REQUEST                 = "Megam::Request".freeze
     MEGAM_REQUESTCOLLECTION       = "Megam::RequestCollection".freeze
+    MEGAM_ORGANIZATION            = "Megam::Organizations".freeze
+    MEGAM_DOMAIN                  = "Megam::Domains".freeze
 
     MEGAM_PREDEF                  = "Megam::Predef".freeze
     MEGAM_PREDEFCOLLECTION        = "Megam::PredefCollection".freeze
@@ -202,10 +204,15 @@ module Megam
           Megam::MarketPlaceAddons
         when MEGAM_MARKETPLACEADDONCOLLECTION
           Megam::MarketPlaceAddonsCollection
+<<<<<<< HEAD
+        when MEGAM_ORGANIZATION
+          Megam::Organizations
+=======
         when MEGAM_CSAR
           Megam::CSAR
         when MEGAM_CSARCOLLECTION
           Megam::CSARCollection
+>>>>>>> origin/0.5
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
