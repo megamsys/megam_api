@@ -6,8 +6,8 @@ class TestApps < MiniTest::Unit::TestCase
     tmp_hash = { :cloud_type => "chef", 
                  :repo_name => "test_chef",
                  :repo => "https://github.com",
-                 :vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudrecipes/sandy@megamsandbox.com/chef",
-                 :conf_location => "sandy@megamsandbox.com/chef/chef-repo/.chef/knife.rb"  
+                 :vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudrecipes/megam@mypaas.io/chef",
+                 :conf_location => "megam@mypaas.io/chef/chef-repo/.chef/knife.rb"  
     }
 
     response = megams.post_cloudtoolsetting(tmp_hash)
@@ -19,7 +19,7 @@ class TestApps < MiniTest::Unit::TestCase
     tmp_hash = { :cloud_type => "chef",
       :repo_name => "test_chef", 
                  :repo => "https://github.com",
-                 :vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default"  
+                 :vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default"  
     }
     response = megams.post_cloudtoolsetting(tmp_hash)
     assert_equal(201, response.status)

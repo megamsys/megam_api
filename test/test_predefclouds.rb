@@ -14,8 +14,8 @@ class TestApps < MiniTest::Unit::TestCase
         :ssh_key => "megam_ec2",
         :identity_file => "~/.ssh/megam_ec2.pem",
         :ssh_user => "ubuntu",
-	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
-	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
+	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default",
+	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default",
 	:zone => "",
 	:region => "southeast"
       },
@@ -39,8 +39,8 @@ class TestApps < MiniTest::Unit::TestCase
         :ssh_key => "boo_flightssh",
         :identity_file => "https://boering.dropbox.closedloc/aorc.pem",
         :ssh_user => "ubuntu",
-	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
-	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default",
+	:vault_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default",
+	:sshpub_location => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default",
 	:zone => "",
 	:region => ""
       },

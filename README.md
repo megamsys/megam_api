@@ -1,13 +1,15 @@
 Megam Ruby Client
 ==================
 
-The Megam Ruby Client is used to interact with the Megam API from Ruby.
+[![Gem Version](https://badge.fury.io/rb/megam_api.svg)](http://badge.fury.io/rb/megam_api)
 
-For more about the Megam API see <http://docs.megam.co>.[Megam API server](https://github.com/indykish/megam_play.git)
+Megam Ruby Client is used to interact with the Megam API Server.
+
+For more about the Megam' REST API <http://gomegam.com/docs>.[Megam API server](https://github.com/indykish/megam_play.git)
 
 [![Build Status](https://travis-ci.org/indykish/megam_api.png)](https://travis-ci.org/indykish/megam_api)
 
-For early access [register at:](https://www.megam.co)
+We are on beta [register at:](https://www.megam.co)
 
 Usage
 -----
@@ -32,13 +34,9 @@ For additional details about any of the commands, see the [API docs](http://docs
     megam.get_nodes                              # get a list of your nodes
     megam.get_node(POGO)                         # get info about the node named POGO
     megam.create_node('name' => POGO, 
-    'type' => 'rails')  				         # create an nodep with a generated name and the default type
+    'type' => 'rails')  			 # create an nodep with a generated name and the default type
     megam.delete_node(POGO)                      # delete the node named POGO
 
-
-### Logs
-
-    megam.get_logs('node' => POGO)               # stream logs information for POGO Node
 
 ### Predefs
 
@@ -53,11 +51,11 @@ For additional details about any of the commands, see the [API docs](http://docs
 
 We are glad to help if you have questions, or request for new features.
 
-[twitter](http://twitter.com/indykish) [email](<alrin@megam.co.in>)
+[twitter](http://twitter.com/megamsys) [email](<alrin@megam.co.in>)
 
 #### TO - DO
 
-* Interface to [megam_play](https://github.com/indykish/megam_play) 
+*  
 	
 # License
 

@@ -1,4 +1,4 @@
-# Copyright:: Copyright (c) 2012, 2013 Megam Systems
+# Copyright:: Copyright (c) 2012, 2014 Megam Systems
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,7 +18,7 @@ module Megam
   # Basic HTTP client, with support for adding features via middleware
   class ServerAPI
 
-    
+
     attr_reader :email
     attr_reader :api_key
 
@@ -29,7 +29,7 @@ module Megam
     # HTTP GET request to http://api.megam.co/nodes using the email, api_key
     def initialize(email=nil, api_key=nil)
       @email = email
-      @api_key = api_key      
+      @api_key = api_key
     end
 
     # Build a megam api client
@@ -40,9 +40,8 @@ module Megam
       options = { :email =>email || Megam::Config[:email], :api_key => api_key || Megam::Config[:api_key]}
       Megam::API.new(options)
     end
-    
+
 
 
   end
 end
-
