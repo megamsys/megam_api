@@ -38,6 +38,7 @@ module Megam
     MEGAM_REQUEST                 = "Megam::Request".freeze
     MEGAM_REQUESTCOLLECTION       = "Megam::RequestCollection".freeze
     MEGAM_ORGANIZATION            = "Megam::Organizations".freeze
+    MEGAM_DOMAIN                  = "Megam::Domains".freeze
 
     MEGAM_PREDEF                  = "Megam::Predef".freeze
     MEGAM_PREDEFCOLLECTION        = "Megam::PredefCollection".freeze

@@ -32,6 +32,7 @@ require "megam/api/sshkeys"
 require "megam/api/marketplaces"
 require "megam/api/marketplace_addons"
 require "megam/api/organizations"
+require "megam/api/domains"
 require "megam/core/server_api"
 require "megam/core/config"
 require "megam/core/stuff"
@@ -75,6 +76,8 @@ require "megam/core/marketplace_collection"
 require "megam/core/marketplace_addon"
 require "megam/core/marketplace_addon_collection"
 require "megam/core/organizations"
+require "megam/core/domains"
+
 #we may nuke logs out of the api
 #require "megam/api/logs"
 
