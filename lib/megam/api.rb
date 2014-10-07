@@ -111,12 +111,12 @@ module Megam
 
     OPTIONS = {
       :headers => {},
-      :host => '127.0.0.1'
+      :host => '127.0.0.1',
       :nonblock => false,
       :scheme => 'http'
     }
 
-    API_VERSION1 = "/v2"
+    API_VERSION1 = "/v1"
 
 
 
@@ -233,7 +233,7 @@ module Megam
       }).merge(@options[:headers])
 
                   #COMMON YML
-        if @options[:scheme] == "https"
+      #  if @options[:scheme] == "https"
 puts "=====> if https =======>"
 
 
