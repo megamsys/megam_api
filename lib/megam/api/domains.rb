@@ -1,9 +1,9 @@
 module Megam
   class API
 
-def get_organizations(name)
+def get_domains(name)
 
-  @options = {:path => "/organizations/#{name}",
+  @options = {:path => "/domains/#{name}",
     :body => ''}.merge(@options)
 
   request(
@@ -14,12 +14,12 @@ def get_organizations(name)
 end
 
 
-def post_organizations(new_organization)
+def post_domains(new_domain)
 
-      @options = {:path => '/organizations/content',
-        :body =>  Megam::JSONCompat.to_json(new_organization)}.merge(@options)
+      @options = {:path => '/domains/content',
+        :body =>  Megam::JSONCompat.to_json(new_domain)}.merge(@options)
 
-
+   
               request(
                 :expects  => 201,
                 :method   => :post,

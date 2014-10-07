@@ -38,6 +38,7 @@ module Megam
     MEGAM_REQUEST                 = "Megam::Request".freeze
     MEGAM_REQUESTCOLLECTION       = "Megam::RequestCollection".freeze
     MEGAM_ORGANIZATION            = "Megam::Organizations".freeze
+    MEGAM_DOMAIN                  = "Megam::Domains".freeze
 
     MEGAM_PREDEF                  = "Megam::Predef".freeze
     MEGAM_PREDEFCOLLECTION        = "Megam::PredefCollection".freeze
@@ -58,6 +59,11 @@ module Megam
     MEGAM_MARKETPLACECOLLECTION   = "Megam::MarketPlaceCollection".freeze
     MEGAM_MARKETPLACEADDON             = "Megam::MarketPlaceAddons".freeze
     MEGAM_MARKETPLACEADDONCOLLECTION   = "Megam::MarketPlaceAddonsCollection".freeze
+    MEGAM_CSAR             = "Megam::CSAR".freeze
+    MEGAM_CSARCOLLECTION   = "Megam::CSARCollection".freeze
+
+
+
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -199,6 +205,12 @@ module Megam
         when MEGAM_MARKETPLACEADDONCOLLECTION
           Megam::MarketPlaceAddonsCollection
         when MEGAM_ORGANIZATION
+          Megam::Organizations
+        when MEGAM_CSAR
+          Megam::CSAR
+        when MEGAM_CSARCOLLECTION
+          Megam::CSARCollection
+        when MEGAM_DOMAIN
           Megam::Organizations
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"

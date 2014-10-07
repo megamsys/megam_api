@@ -60,6 +60,10 @@ def random_email
   "email@#{random_apikey}.com"
 end
 
+def domain_name
+   "defaultdomain.co"
+end
+
 def sandbox_name
   "Default_Org"
 end

@@ -2,7 +2,7 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
   def test_post_sshkey2
-    tmp_hash = { :name => "test_sample",  :path => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/sandy@megamsandbox.com/default"  }
+    tmp_hash = { :name => "test_sample",  :path => "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/megam@mypaas.io/default"  }
     response = megams.post_sshkey(tmp_hash)
     assert_equal(201, response.status)
   end
