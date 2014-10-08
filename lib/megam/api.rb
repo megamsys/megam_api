@@ -24,7 +24,12 @@ require "megam/api/cloud_tool_settings"
 require "megam/api/sshkeys"
 require "megam/api/marketplaces"
 require "megam/api/marketplace_addons"
+<<<<<<< HEAD
+require "megam/api/organizations"
+require "megam/api/domains"
+=======
 require "megam/api/csars"
+>>>>>>> origin/0.5
 require "megam/core/server_api"
 require "megam/core/config"
 require "megam/core/stuff"
@@ -48,9 +53,18 @@ require "megam/core/marketplace"
 require "megam/core/marketplace_collection"
 require "megam/core/marketplace_addon"
 require "megam/core/marketplace_addon_collection"
+<<<<<<< HEAD
+require "megam/core/organizations"
+require "megam/core/domains"
+
+#we may nuke logs out of the api
+#require "megam/api/logs"
+
+=======
 require "megam/core/csar"
 require "megam/core/csar_collection"
 require "megam/core/konipai"
+>>>>>>> origin/0.5
 
 
 module Megam
@@ -76,11 +90,19 @@ module Megam
 
     OPTIONS = {
       :headers => {},
+<<<<<<< HEAD
+      :host => '127.0.0.1',
+=======
       :host => API_MEGAM_CO,
+>>>>>>> origin/0.5
       :nonblock => false,
-      :scheme => 'https'
+      :scheme => 'http'
     }
+<<<<<<< HEAD
+    API_VERSION1 = "/v2"
+=======
 
+>>>>>>> origin/0.5
 
     def text
       @text ||= Megam::Text.new(STDOUT, STDERR, STDIN, {})
@@ -193,8 +215,15 @@ module Megam
         X_Megam_HMAC => encoded_api_header[:hmac],
         X_Megam_DATE => encoded_api_header[:date],
       }).merge(@options[:headers])
+<<<<<<< HEAD
+                  #COMMON YML
+        if @options[:scheme] == "https"
+puts "=====> if https =======>"
+
+=======
 
       if @options[:scheme] == "https"
+>>>>>>> origin/0.5
       if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")))
         text.warn("Certificate file does not exist. SSL_VERIFY_PEER set as false")
         Excon.defaults[:ssl_verify_peer] = false
@@ -231,7 +260,7 @@ module Megam
     # The output will have
     # :hmac
     # :date
-    # (Refer https://Github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
+    # (Refer https://github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
     def encode_header(cmd_parms)
       header_params ={}
       body_digest = OpenSSL::Digest::MD5.digest(cmd_parms[:body])
