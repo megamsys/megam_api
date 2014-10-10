@@ -34,6 +34,8 @@ require "megam/api/marketplace_addons"
 require "megam/api/organizations"
 require "megam/api/domains"
 require "megam/api/csars"
+require "megam/api/assemblies"
+
 require "megam/core/server_api"
 require "megam/core/config"
 require "megam/core/stuff"
@@ -78,6 +80,8 @@ require "megam/core/marketplace_addon"
 require "megam/core/marketplace_addon_collection"
 require "megam/core/organizations"
 require "megam/core/domains"
+require "megam/core/assemblies"
+require "megam/core/assemblies_collection"
 
 #we may nuke logs out of the api
 #require "megam/api/logs"

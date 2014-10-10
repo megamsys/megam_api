@@ -83,17 +83,17 @@ end
 
 # Create a Megam::Domains from JSON (used by the backgroud job workers)
 def self.json_create(o)
-  acct = new
-  acct.id(o["id"]) if o.has_key?("id")
-  acct.name(o["name"]) if o.has_key?("name")
-  acct.created_at(o["created_at"]) if o.has_key?("created_at")
-  acct
+  dmn = new
+  dmn.id(o["id"]) if o.has_key?("id")
+  dmn.name(o["name"]) if o.has_key?("name")
+  dmn.created_at(o["created_at"]) if o.has_key?("created_at")
+  dmn
 end
 
 def self.from_hash(o)
-  acct = self.new(o[:email], o[:api_key])
-  acct.from_hash(o)
-  acct
+  dmn = self.new(o[:email], o[:api_key])
+  dmn.from_hash(o)
+  dmn
 end
 
 def from_hash(o)
@@ -104,14 +104,14 @@ def from_hash(o)
 end
 
 def self.create(o)
-  acct = from_hash(o)
-  acct.create
+  dmn = from_hash(o)
+  dmn.create
 end
 
 # Load a Domain by email_p
 def self.show(email,api_key=nil)
-  acct = self.new(email, api_key)
-  acct.megam_rest.get_domains(email)
+  dmn = self.new(email, api_key)
+  dmn.megam_rest.get_domains(email)
 end
 
 
