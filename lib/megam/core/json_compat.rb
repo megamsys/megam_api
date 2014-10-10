@@ -39,6 +39,8 @@ module Megam
     MEGAM_REQUESTCOLLECTION       = "Megam::RequestCollection".freeze
     MEGAM_ORGANIZATION            = "Megam::Organizations".freeze
     MEGAM_DOMAIN                  = "Megam::Domains".freeze
+    MEGAM_ASSEMBLIES              = "Megam::Assemblies".freeze
+    MEGAM_ASSEMBLIESCOLLECTION    = "Megam::AssembliesCollection".freeze
 
     MEGAM_PREDEF                  = "Megam::Predef".freeze
     MEGAM_PREDEFCOLLECTION        = "Megam::PredefCollection".freeze
@@ -61,7 +63,7 @@ module Megam
     MEGAM_MARKETPLACEADDONCOLLECTION   = "Megam::MarketPlaceAddonsCollection".freeze
     MEGAM_CSAR             = "Megam::CSAR".freeze
     MEGAM_CSARCOLLECTION   = "Megam::CSARCollection".freeze
-    
+
 
 
     class <<self
@@ -79,6 +81,8 @@ module Megam
       # Just call the JSON gem's parse method with a modified :max_nesting field
       def from_json(source, opts = {})
         obj = ::Yajl::Parser.parse(source)
+        puts obj
+
         # JSON gem requires top level object to be a Hash or Array (otherwise
         # you get the "must contain two octets" error). Yajl doesn't impose the
         # same limitation. For compatibility, we re-impose this condition.
@@ -100,16 +104,24 @@ module Megam
       # Look at an object that's a basic type (from json parse) and convert it
       # to an instance of Megam classes if desired.
       def map_to_rb_obj(json_obj)
+
+
         case json_obj
         when Hash
           mapped_hash = map_hash_to_rb_obj(json_obj)
+           puts json_obj
+
           if json_obj.has_key?(JSON_CLAZ) && (class_to_inflate = class_for_json_class(json_obj[JSON_CLAZ]))
           class_to_inflate.json_create(mapped_hash)
+
+          #puts JSON_CLAZ
+
+          #puts class_to_inflate
           else
           mapped_hash
           end
         when Array
-          json_obj.map {|e| map_to_rb_obj(e) }
+          json_obj.map {|e| map_to_rb_obj(e)}
         else
         json_obj
         end
@@ -204,15 +216,18 @@ module Megam
           Megam::MarketPlaceAddons
         when MEGAM_MARKETPLACEADDONCOLLECTION
           Megam::MarketPlaceAddonsCollection
-<<<<<<< HEAD
         when MEGAM_ORGANIZATION
           Megam::Organizations
-=======
         when MEGAM_CSAR
           Megam::CSAR
         when MEGAM_CSARCOLLECTION
           Megam::CSARCollection
->>>>>>> origin/0.5
+        when MEGAM_DOMAIN
+          Megam::Organizations
+        when MEGAM_ASSEMBLIES
+          Megam::Assemblies
+        when MEGAM_ASSEMBLIESCOLLECTION
+          Megam::AssembliesCollection
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
