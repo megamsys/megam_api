@@ -14,12 +14,12 @@ def get_domains(name)
 end
 
 
-def post_domain(new_domain)
+def post_domains(new_domain)
 
-      @option = {:path => '/domains/content',
+      @options = {:path => '/domains/content',
         :body =>  Megam::JSONCompat.to_json(new_domain)}.merge(@options)
 
-
+   
               request(
                 :expects  => 201,
                 :method   => :post,
