@@ -70,8 +70,8 @@ end
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
-      index_hash["accounts_id"] = accounts_id
       index_hash["name"] = name
+      index_hash["accounts_id"] = accounts_id
       index_hash["created_at"] = created_at
       index_hash
     end

@@ -6,7 +6,7 @@ class TestDomains < MiniTest::Unit::TestCase
   $normal = "normal-tom"
   $tom_email = "tom@gomegam.com"
   $bob_email = "bob@gomegam.com"
-  
+
 
   def test_get_domains_good
     response =megams.get_domains(domain_name)
@@ -17,7 +17,7 @@ class TestDomains < MiniTest::Unit::TestCase
 
   def test_post_domains_good
   tmp_hash = {
-    "name" => "dmnname"}
+    "name" => "dmnname1"}
 
     response =megams.post_domains(tmp_hash)
     response.body.to_s
