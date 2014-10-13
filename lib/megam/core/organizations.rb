@@ -19,6 +19,7 @@ module Megam
    def initialize(email=nil, api_key=nil)
      @id = nil
      @name = nil
+     @accounts_id = nil
      @created_at = nil
      super(email, api_key)
    end
@@ -36,7 +37,13 @@ def id(arg=nil)
   end
 end
 
-
+def accounts_id(arg=nil)
+  if arg != nil
+     @accounts_id = arg
+  else
+    @accounts_id
+  end
+end
 
 def name(arg=nil)
   if arg != nil
@@ -63,6 +70,7 @@ end
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
+      index_hash["accounts_id"] = accounts_id
       index_hash["name"] = name
       index_hash["created_at"] = created_at
       index_hash
@@ -76,6 +84,7 @@ def for_json
   result = {
     "id" => id,
     "name" => name,
+    "accounts_id" => accounts_id,
     "created_at" => created_at
   }
   result
@@ -86,6 +95,7 @@ def self.json_create(o)
   org = new
   org.id(o["id"]) if o.has_key?("id")
   org.name(o["name"]) if o.has_key?("name")
+  org.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
   org.created_at(o["created_at"]) if o.has_key?("created_at")
   org
 end
@@ -99,6 +109,7 @@ end
 def from_hash(o)
   @id        = o[:id] if o.has_key?(:id)
   @name     = o[:name] if o.has_key?(:name)
+  @accounts_id = o[:accounts_id] if o.has_key?(:accounts_id)
   @created_at = o[:created_at] if o.has_key?(:created_at)
   self
 end

@@ -65,7 +65,7 @@ def domain_name
 end
 
 def sandbox_name
-  "Default_Org"
+  "Default_Org1"
 end
 
 def sandbox_apikey
