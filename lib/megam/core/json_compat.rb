@@ -63,9 +63,6 @@ module Megam
     MEGAM_MARKETPLACEADDONCOLLECTION   = "Megam::MarketPlaceAddonsCollection".freeze
     MEGAM_CSAR             = "Megam::CSAR".freeze
     MEGAM_CSARCOLLECTION   = "Megam::CSARCollection".freeze
-
-
-
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -81,7 +78,6 @@ module Megam
       # Just call the JSON gem's parse method with a modified :max_nesting field
       def from_json(source, opts = {})
         obj = ::Yajl::Parser.parse(source)
-        puts obj
 
         # JSON gem requires top level object to be a Hash or Array (otherwise
         # you get the "must contain two octets" error). Yajl doesn't impose the
@@ -105,18 +101,13 @@ module Megam
       # to an instance of Megam classes if desired.
       def map_to_rb_obj(json_obj)
 
-
         case json_obj
         when Hash
           mapped_hash = map_hash_to_rb_obj(json_obj)
-           puts json_obj
 
           if json_obj.has_key?(JSON_CLAZ) && (class_to_inflate = class_for_json_class(json_obj[JSON_CLAZ]))
           class_to_inflate.json_create(mapped_hash)
 
-          #puts JSON_CLAZ
-
-          #puts class_to_inflate
           else
           mapped_hash
           end

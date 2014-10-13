@@ -35,8 +35,6 @@ require "megam/core/stuff"
 require "megam/core/text"
 require "megam/core/log"
 require "megam/core/json_compat"
-require "megam/builder/make_node"
-require "megam/builder/delete_node"
 require "megam/core/auth"
 require "megam/core/error"
 require "megam/core/account"
@@ -56,10 +54,6 @@ require "megam/core/organizations"
 require "megam/core/domains"
 require "megam/core/assemblies"
 require "megam/core/assemblies_collection"
-
-#we may nuke logs out of the api
-#require "megam/api/logs"
-
 require "megam/core/csar"
 require "megam/core/csar_collection"
 require "megam/core/konipai"
@@ -200,11 +194,8 @@ module Megam
     end
 
 
-
     #Make a lazy connection.
     def connection
-      puts @options[:path]
-      puts API_VERSION2
       @options[:path] =API_VERSION2 + @options[:path]
       encoded_api_header = encode_header(@options)
       @options[:headers] = HEADERS.merge({
@@ -212,11 +203,7 @@ module Megam
         X_Megam_DATE => encoded_api_header[:date],
       }).merge(@options[:headers])
 
-                  #COMMON YML
-      #  if @options[:scheme] == "https"
-puts "=====> if https =======>"
-
-
+ 
       if @options[:scheme] == "https"
 
       if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")))
