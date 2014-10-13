@@ -17,13 +17,11 @@ module Megam
   class AssembliesCollection
     include Enumerable
 
-
     attr_reader :iterator
     def initialize
       @assemblies = Array.new
       @assemblies_by_name = Hash.new
       @insert_after_idx = nil
-
     end
 
     def all_assemblies
@@ -43,8 +41,8 @@ module Megam
     def <<(*args)
       args.flatten.each do |a|
         is_megam_assemblies(a)
-        @assembliess << a
-        @assemblies_by_name[a.assemblies_name] = @assemblies.length - 1
+        @assemblies << a
+        @assemblies_by_name[a.name] = @assemblies.length - 1
       end
       self
     end
@@ -63,11 +61,11 @@ module Megam
         @assemblies_by_name.each_key do |key|
         @assemblies_by_name[key] += 1 if @assemblies_by_name[key] > @insert_after_idx
         end
-        @assemblies_by_name[assemblies.assemblies_name] = @insert_after_idx + 1
+        @assemblies_by_name[assemblies.name] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
       @assemblies << assemblies
-      @assemblies_by_name[assemblies.assemblies_name] = @assemblies.length - 1
+      @assemblies_by_name[assemblies.name] = @assemblies.length - 1
       end
     end
 
@@ -90,8 +88,8 @@ module Megam
     def lookup(assemblies)
       lookup_by = nil
       if assemblies.kind_of?(Megam::Assemblies)
-      lookup_by = assemblies.assemblies_name
-    elsif assemblies.kind_of?(String)
+      lookup_by = assemblies.name
+      elsif assemblies.kind_of?(String)
       lookup_by = assemblies
       else
         raise ArgumentError, "Must pass a Megam::Assemblies or String to lookup"
@@ -103,11 +101,11 @@ module Megam
       @assemblies[res]
     end
 
-     # Transform the ruby obj ->  to a Hash
+    # Transform the ruby obj ->  to a Hash
     def to_hash
       index_hash = Hash.new
       self.each do |assemblies|
-        index_hash[assemblies.assemblies_name] = assemblies.to_s
+        index_hash[assemblies.name] = assemblies.to_s
       end
       index_hash
     end
@@ -118,27 +116,7 @@ module Megam
       for_json.to_json(*a)
     end
 
-
-=begin
-["json_claz":"Megam::NodeCollection",{
-"id":"NOD362428315933343744",
-"accounts_id":"ACT362211963352121344",
-"json_claz":"Megam::Node",
-"request":{
-"req_id":"NOD362428315933343744",
-"command":"commands"
-},
-"predefs":{
-"name":"",
-"scm":"",
-"war":"",
-"db":"",
-"queue":""
-}
-}]
-=end
     def self.json_create(o)
-      puts "-----------------------------oooooooooooooooooo-----"
       collection = self.new()
       o["results"].each do |assemblies_list|
         assemblies_array = assemblies_list.kind_of?(Array) ? assemblies_list : [ assemblies_list ]
@@ -152,9 +130,7 @@ module Megam
 
     private
 
-
-
-    def is_megam_node(arg)
+    def is_megam_assemblies(arg)
       unless arg.kind_of?(Megam::Assemblies)
         raise ArgumentError, "Members must be Megam::Assemblies's"
       end

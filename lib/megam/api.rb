@@ -18,15 +18,8 @@ require "megam/api/errors"
 require "megam/api/version"
 require "megam/api/login"
 require "megam/api/accounts"
-require "megam/api/nodes"
-require "megam/api/appdefns"
-require "megam/api/app_request"
-require "megam/api/bolt_request"
-require "megam/api/boltdefns"
 require "megam/api/requests"
-require "megam/api/predefs"
 require "megam/api/predef_clouds"
-require "megam/api/cloud_tools"
 require "megam/api/cloud_tool_settings"
 require "megam/api/sshkeys"
 require "megam/api/marketplaces"
@@ -42,34 +35,13 @@ require "megam/core/stuff"
 require "megam/core/text"
 require "megam/core/log"
 require "megam/core/json_compat"
-require "megam/builder/make_node"
-require "megam/builder/delete_node"
 require "megam/core/auth"
 require "megam/core/error"
 require "megam/core/account"
-require "megam/core/node"
-require "megam/core/appdefns"
-require "megam/core/app_request"
-require "megam/core/bolt_request"
-require "megam/core/boltdefns"
-require "megam/core/node_collection"
-require "megam/core/appdefns_collection"
-require "megam/core/app_request_collection"
-require "megam/core/bolt_request_collection"
-require "megam/core/boltdefns_collection"
 require "megam/core/request"
 require "megam/core/request_collection"
-require "megam/core/predef"
-require "megam/core/predef_collection"
 require "megam/core/predefcloud"
 require "megam/core/predefcloud_collection"
-require "megam/core/cloudtool"
-require "megam/core/cloudtool_collection"
-require "megam/core/cloudtemplate"
-require "megam/core/cloudtemplate_collection"
-require "megam/core/cloudinstruction_group"
-require "megam/core/cloudinstruction_collection"
-require "megam/core/cloudinstruction"
 require "megam/core/cloudtoolsetting"
 require "megam/core/cloudtoolsetting_collection"
 require "megam/core/sshkey"
@@ -82,10 +54,6 @@ require "megam/core/organizations"
 require "megam/core/domains"
 require "megam/core/assemblies"
 require "megam/core/assemblies_collection"
-
-#we may nuke logs out of the api
-#require "megam/api/logs"
-
 require "megam/core/csar"
 require "megam/core/csar_collection"
 require "megam/core/konipai"
@@ -226,11 +194,8 @@ module Megam
     end
 
 
-
     #Make a lazy connection.
     def connection
-      puts @options[:path]
-      puts API_VERSION2
       @options[:path] =API_VERSION2 + @options[:path]
       encoded_api_header = encode_header(@options)
       @options[:headers] = HEADERS.merge({
@@ -238,11 +203,7 @@ module Megam
         X_Megam_DATE => encoded_api_header[:date],
       }).merge(@options[:headers])
 
-                  #COMMON YML
-      #  if @options[:scheme] == "https"
-puts "=====> if https =======>"
-
-
+ 
       if @options[:scheme] == "https"
 
       if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")))
