@@ -11,7 +11,7 @@ module Megam
       )
     end
 
-    def get_assemblies(asm_id)
+    def get_assembly(asm_id)
       @options = {:path => "/assemblies/#{asm_id}",:body => ""}.merge(@options)
 
       request(
