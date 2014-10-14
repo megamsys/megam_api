@@ -1,6 +1,5 @@
 module Megam
   class API
-
     # GET /nodes
     def get_assemblies
       @options = {:path => '/assemblies',:body => ""}.merge(@options)

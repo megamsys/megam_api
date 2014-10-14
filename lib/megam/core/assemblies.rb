@@ -162,9 +162,9 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.show(node_name, tmp_email=nil, tmp_api_key=nil)
+    def self.show(assembly_id, tmp_email=nil, tmp_api_key=nil)
       asm = self.new(tmp_email, tmp_api_key)
-      asm.megam_rest.get_assemblies(node_name)
+      asm.megam_rest.get_assembly(assembly_id)
     end
 
     def self.list(tmp_email=nil, tmp_api_key=nil)
