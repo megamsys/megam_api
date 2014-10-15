@@ -157,6 +157,9 @@ module Megam
     
     def self.show(assembly_id, tmp_email=nil, tmp_api_key=nil)
       asm = self.new(tmp_email, tmp_api_key)
+      puts "---->>>> "
+      puts #{assembly_id}
+      puts "----------->>>"
       asm.megam_rest.get_one_assembly(assembly_id)
     end
     

@@ -4,7 +4,7 @@ class TestApps < MiniTest::Unit::TestCase
 
 
  def test_get_assembly
-   response = megams.get_one_assembly("ASM1133747829995601920")
+   response = megams.get_one_assembly("ASM1133747830209511424")
    assert_equal(200, response.status)
  end
 end
