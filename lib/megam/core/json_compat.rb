@@ -22,47 +22,31 @@ module Megam
 
     JSON_CLAZ = "json_claz".freeze
 
-    MEGAM_AUTH                    = "Megam::Auth".freeze
-    MEGAM_ERROR                   = "Megam::Error".freeze
-    MEGAM_ACCOUNT                 = "Megam::Account".freeze
-    MEGAM_NODE                    = "Megam::Node".freeze
-    MEGAM_NODECOLLECTION          = "Megam::NodeCollection".freeze
-    MEGAM_APPDEFNS                = "Megam::AppDefns".freeze
-    MEGAM_APPREQUEST              = "Megam::AppRequest".freeze
-    MEGAM_BOLTREQUEST             = "Megam::BoltRequest".freeze
-    MEGAM_BOLTDEFNS               = "Megam::BoltDefns".freeze
-    MEGAM_APPDEFNSCOLLECTION      = "Megam::AppDefnCollection".freeze
-    MEGAM_APPREQUESTCOLLECTION    = "Megam::AppRequestCollection".freeze
-    MEGAM_BOLTREQUESTCOLLECTION   = "Megam::BoltRequestCollection".freeze
-    MEGAM_BOLTDEFNSCOLLECTION     = "Megam::BoltDefnCollection".freeze
-    MEGAM_REQUEST                 = "Megam::Request".freeze
-    MEGAM_REQUESTCOLLECTION       = "Megam::RequestCollection".freeze
-    MEGAM_ORGANIZATION            = "Megam::Organizations".freeze
-    MEGAM_DOMAIN                  = "Megam::Domains".freeze
-    MEGAM_ASSEMBLIES              = "Megam::Assemblies".freeze
-    MEGAM_ASSEMBLIESCOLLECTION    = "Megam::AssembliesCollection".freeze
+    MEGAM_AUTH                      = "Megam::Auth".freeze
+    MEGAM_ERROR                     = "Megam::Error".freeze
+    MEGAM_ACCOUNT                   = "Megam::Account".freeze
+    MEGAM_ASSEMBLIES                = "Megam::Assemblies".freeze
+    MEGAM_ASSEMBLIESCOLLECTION      = "Megam::AssembliesCollection".freeze
+    MEGAM_ASSEMBLY                  = "Megam::Assembly".freeze
+    MEGAM_ASSEMBLYCOLLECTION        = "Megam::AssemblyCollection".freeze
+    MEGAM_REQUEST                   = "Megam::Request".freeze
+    MEGAM_REQUESTCOLLECTION         = "Megam::RequestCollection".freeze
+    MEGAM_ORGANIZATION              = "Megam::Organizations".freeze
+    MEGAM_DOMAIN                    = "Megam::Domains".freeze
 
-    MEGAM_PREDEF                  = "Megam::Predef".freeze
-    MEGAM_PREDEFCOLLECTION        = "Megam::PredefCollection".freeze
-    MEGAM_PREDEFCLOUD             = "Megam::PredefCloud".freeze
-    MEGAM_PREDEFCLOUDCOLLECTION   = "Megam::PredefCloudCollection".freeze
-    MEGAM_CLOUDTOOL               = "Megam::CloudTool".freeze
-    MEGAM_CLOUDTOOLCOLLECTION     = "Megam::CloudToolCollection".freeze
-    MEGAM_CLOUDTOOLSETTING        = "Megam::CloudToolSetting".freeze
-    MEGAM_CLOUDTOOLSETTINGCOLLECTION    = "Megam::CloudToolSettingCollection".freeze
-    MEGAM_CLOUDTEMPLATE           = "Megam::CloudTemplate".freeze
-    MEGAM_CLOUDTEMPLATECOLLECTION = "Megam::CloudTemplateCollection".freeze
-    MEGAM_CLOUDINSTRUCTION        = "Megam::CloudInstruction".freeze
-    MEGAM_CLOUDINSTRUCTIONCOLLECTION    = "Megam::CloudInstructionCollection".freeze
-    MEGAM_CLOUDINSTRUCTIONGROUP   = "Megam::CloudInstructionGroup".freeze
-    MEGAM_SSHKEY                  = "Megam::SshKey".freeze
-    MEGAM_SSHKEYCOLLECTION        = "Megam::SshKeyCollection".freeze
-    MEGAM_MARKETPLACE             = "Megam::MarketPlace".freeze
-    MEGAM_MARKETPLACECOLLECTION   = "Megam::MarketPlaceCollection".freeze
-    MEGAM_MARKETPLACEADDON             = "Megam::MarketPlaceAddons".freeze
-    MEGAM_MARKETPLACEADDONCOLLECTION   = "Megam::MarketPlaceAddonsCollection".freeze
-    MEGAM_CSAR             = "Megam::CSAR".freeze
-    MEGAM_CSARCOLLECTION   = "Megam::CSARCollection".freeze
+    MEGAM_PREDEFCLOUD               = "Megam::PredefCloud".freeze
+    MEGAM_PREDEFCLOUDCOLLECTION     = "Megam::PredefCloudCollection".freeze
+    MEGAM_CLOUDTOOLSETTING          = "Megam::CloudToolSetting".freeze
+    MEGAM_CLOUDTOOLSETTINGCOLLECTION= "Megam::CloudToolSettingCollection".freeze
+    MEGAM_SSHKEY                    = "Megam::SshKey".freeze
+    MEGAM_SSHKEYCOLLECTION          = "Megam::SshKeyCollection".freeze
+    MEGAM_MARKETPLACE               = "Megam::MarketPlace".freeze
+    MEGAM_MARKETPLACECOLLECTION     = "Megam::MarketPlaceCollection".freeze
+    MEGAM_MARKETPLACEADDON          = "Megam::MarketPlaceAddons".freeze
+    MEGAM_MARKETPLACEADDONCOLLECTION= "Megam::MarketPlaceAddonsCollection".freeze
+    MEGAM_CSAR                      = "Megam::CSAR".freeze
+    MEGAM_CSARCOLLECTION            = "Megam::CSARCollection".freeze
+
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -145,56 +129,22 @@ module Megam
           Megam::Auth
         when MEGAM_ACCOUNT
           Megam::Account
-        when MEGAM_NODE
-          Megam::Node
-        when MEGAM_APPDEFNS
-          Megam::Appdefns
-        when MEGAM_APPREQUEST
-          Megam::AppRequest
-        when MEGAM_BOLTREQUEST
-          Megam::BoltRequest
-        when MEGAM_BOLTDEFNS
-          Megam::Boltdefns
-        when MEGAM_NODECOLLECTION
-          Megam::NodeCollection
-        when MEGAM_APPDEFNSCOLLECTION
-          Megam::AppdefnsCollection
-        when MEGAM_APPREQUESTCOLLECTION
-          Megam::AppRequestCollection
-        when MEGAM_BOLTREQUESTCOLLECTION
-          Megam::BoltRequestCollection
-        when MEGAM_BOLTDEFNSCOLLECTION
-          Megam::BoltdefnsCollection
+        when MEGAM_ASSEMBLIES
+          Megam::Assemblies
+        when MEGAM_ASSEMBLIESCOLLECTION
+          Megam::AssembliesCollection
+        when MEGAM_ASSEMBLY
+          Megam::Assembly
+        when MEGAM_ASSEMBLYCOLLECTION
+          Megam::AssemblyCollection
         when MEGAM_REQUEST
           Megam::Request
         when MEGAM_REQUESTCOLLECTION
           Megam::RequestCollection
-        when MEGAM_PREDEF
-          Megam::Predef
-        when MEGAM_PREDEFCOLLECTION
-          Megam::PredefCollection
         when MEGAM_PREDEFCLOUD
           Megam::PredefCloud
         when MEGAM_PREDEFCLOUDCOLLECTION
           Megam::PredefCloudCollection
-        when MEGAM_CLOUDTOOL
-          Megam::CloudTool
-        when MEGAM_CLOUDTOOLCOLLECTION
-          Megam::CloudToolCollection
-        when MEGAM_CLOUDTOOLSETTING
-          Megam::CloudToolSetting
-        when MEGAM_CLOUDTOOLSETTINGCOLLECTION
-          Megam::CloudToolSettingCollection
-        when MEGAM_CLOUDTEMPLATE
-          Megam::CloudTemplate
-        when MEGAM_CLOUDTEMPLATECOLLECTION
-          Megam::CloudTemplateCollection
-        when MEGAM_CLOUDINSTRUCTION
-          Megam::CloudInstruction
-        when MEGAM_CLOUDINSTRUCTIONGROUP
-          Megam::CloudInstructionGroup
-        when MEGAM_CLOUDINSTRUCTIONCOLLECTION
-          Megam::CloudInstructionCollection
         when MEGAM_SSHKEY
           Megam::SshKey
         when MEGAM_SSHKEYCOLLECTION
@@ -214,11 +164,7 @@ module Megam
         when MEGAM_CSARCOLLECTION
           Megam::CSARCollection
         when MEGAM_DOMAIN
-          Megam::Organizations
-        when MEGAM_ASSEMBLIES
-          Megam::Assemblies
-        when MEGAM_ASSEMBLIESCOLLECTION
-          Megam::AssembliesCollection
+          Megam::Domains
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end

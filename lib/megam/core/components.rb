@@ -15,7 +15,7 @@
 #
 
 module Megam
-  class Assemblies < Megam::ServerAPI
+  class Components < Megam::ServerAPI
     def initialize(email=nil, api_key=nil)
       @id = nil
       @accounts_id = nil
@@ -162,43 +162,14 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.show(one_assemblies_id, tmp_email=nil, tmp_api_key=nil)
+    def self.show(assembly_id, tmp_email=nil, tmp_api_key=nil)
       asm = self.new(tmp_email, tmp_api_key)
-      asm.megam_rest.get_one_assemblies(one_assemblies_id)
+      asm.megam_rest.get_assembly(assembly_id)
     end
 
-    def self.list(tmp_email=nil, tmp_api_key=nil, inflated=false)
+    def self.list(tmp_email=nil, tmp_api_key=nil)
       asm = self.new(tmp_email, tmp_api_key)
       asm.megam_rest.get_assemblies
-=begin      
-      temp_out = out.each do |asmblies|
-        temp_aa = asmblies.assemblies.collect  do  |one_asmblies|
-          if !one_asmblies.empty?
-            Megam::Assembly.show(one_asmblies,tmp_email, tmp_api_key).data[:body].each do |one_asmbly|
-              puts "============ 1"
-              temp_bb = one_asmbly.components.collect do |one_comp|
-                puts "============ 2"
-                if !one_comp.empty?
-                  puts "============ 3"
-                  Megam::Components.show(one_comp,tmp_email, tmp_api_key).data[:body]
-                else
-                  nil
-                end
-                puts "============ 3"
-              end
-              one_asmbly.components.replace(temp_bb)
-            end
-          else
-            nil
-          end
-        end
-        asmblies.assemblies.replace(temp_aa)
-      end
-      puts "=====> Inflated Assembly <======"
-      puts temp_out.to_yaml
-      puts "=====> Assemblies <======"
-=end      
-      
     end
 
     def to_s
