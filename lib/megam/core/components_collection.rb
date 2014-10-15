@@ -35,7 +35,7 @@ module Megam
     def []=(index, arg)
       is_megam_components(arg)
       @components[index] = arg
-      @components_by_name[arg.assembies_name] = index
+      @components_by_name[arg.name] = index
     end
 
     def <<(*args)
@@ -92,7 +92,7 @@ module Megam
       elsif components.kind_of?(String)
       lookup_by = components
       else
-        raise ArgumentError, "Must pass a Megam::Assemblies or String to lookup"
+        raise ArgumentError, "Must pass a Megam::components or String to lookup"
       end
       res = @components_by_name[lookup_by]
       unless res
@@ -132,7 +132,7 @@ module Megam
 
     def is_megam_components(arg)
       unless arg.kind_of?(Megam::Components)
-        raise ArgumentError, "Members must be Megam::Components's"
+        raise ArgumentError, "Members must be Megam::components"
       end
       true
     end
