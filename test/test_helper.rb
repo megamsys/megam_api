@@ -65,7 +65,7 @@ def domain_name
 end
 
 def sandbox_name
-  "Default_Org"
+  "Megam6"
 end
 
 def sandbox_apikey

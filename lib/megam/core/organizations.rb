@@ -19,6 +19,7 @@ module Megam
    def initialize(email=nil, api_key=nil)
      @id = nil
      @name = nil
+     @accounts_id = nil
      @created_at = nil
      super(email, api_key)
    end
@@ -36,7 +37,13 @@ def id(arg=nil)
   end
 end
 
-
+def accounts_id(arg=nil)
+  if arg != nil
+     @accounts_id = arg
+  else
+    @accounts_id
+  end
+end
 
 def name(arg=nil)
   if arg != nil
@@ -64,6 +71,7 @@ end
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["name"] = name
+      index_hash["accounts_id"] = accounts_id
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -76,6 +84,7 @@ def for_json
   result = {
     "id" => id,
     "name" => name,
+    "accounts_id" => accounts_id,
     "created_at" => created_at
   }
   result
@@ -83,35 +92,37 @@ end
 
 # Create a Megam::Organization from JSON (used by the backgroud job workers)
 def self.json_create(o)
-  acct = new
-  acct.id(o["id"]) if o.has_key?("id")
-  acct.name(o["name"]) if o.has_key?("name")
-  acct.created_at(o["created_at"]) if o.has_key?("created_at")
-  acct
+  org = new
+  org.id(o["id"]) if o.has_key?("id")
+  org.name(o["name"]) if o.has_key?("name")
+  org.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
+  org.created_at(o["created_at"]) if o.has_key?("created_at")
+  org
 end
 
 def self.from_hash(o)
-  acct = self.new(o[:email], o[:api_key])
-  acct.from_hash(o)
-  acct
+  org = self.new(o[:email], o[:api_key])
+  org.from_hash(o)
+  org
 end
 
 def from_hash(o)
   @id        = o[:id] if o.has_key?(:id)
   @name     = o[:name] if o.has_key?(:name)
+  @accounts_id = o[:accounts_id] if o.has_key?(:accounts_id)
   @created_at = o[:created_at] if o.has_key?(:created_at)
   self
 end
 
 def self.create(o)
-  acct = from_hash(o)
-  acct.create
+  org = from_hash(o)
+  org.create
 end
 
 # Load a organization by email_p
 def self.show(email,api_key=nil)
-  acct = self.new(email, api_key)
-  acct.megam_rest.get_organizations(email)
+  org = self.new(email, api_key)
+  org.megam_rest.get_organizations(email)
 end
 
 

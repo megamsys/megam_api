@@ -2,8 +2,8 @@ module Megam
   class API
 
     # GET /nodes
-    def get_nodes
-      @options = {:path => '/nodes',:body => ""}.merge(@options)
+    def get_assemblies
+      @options = {:path => '/assemblies',:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -12,8 +12,8 @@ module Megam
       )
     end
 
-    def get_node(node_id)
-      @options = {:path => "/nodes/#{node_id}",:body => ""}.merge(@options)
+    def get_assemblies(asm_id)
+      @options = {:path => "/assemblies/#{asm_id}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -22,9 +22,9 @@ module Megam
       )
     end
 
-    def post_node(new_node)
-      @options = {:path => '/nodes/content',
-        :body => Megam::JSONCompat.to_json(new_node)}.merge(@options)
+    def post_assemblies(new_asm)
+      @options = {:path => '/assemblies/content',
+        :body => Megam::JSONCompat.to_json(new_asm)}.merge(@options)
 
       request(
         :expects  => 201,
@@ -35,8 +35,8 @@ module Megam
 
     #Yet to be tested
     # DELETE /nodes/:node_id
-    def delete_node(node_id)
-      @options = {:path => '/nodes/#{node_id}',
+    def delete_assemblies(asm_id)
+      @options = {:path => '/nodes/#{asm_id}',
         :body => ""}.merge(@options)
 
       request(
