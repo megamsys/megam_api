@@ -29,6 +29,8 @@ module Megam
     MEGAM_ASSEMBLIESCOLLECTION      = "Megam::AssembliesCollection".freeze
     MEGAM_ASSEMBLY                  = "Megam::Assembly".freeze
     MEGAM_ASSEMBLYCOLLECTION        = "Megam::AssemblyCollection".freeze
+    MEGAM_COMPONENTS                = "Megam::Components".freeze
+    MEGAM_COMPONENTSCOLLECTION      = "Megam::ComponentsCollection".freeze
     MEGAM_REQUEST                   = "Megam::Request".freeze
     MEGAM_REQUESTCOLLECTION         = "Megam::RequestCollection".freeze
     MEGAM_ORGANIZATION              = "Megam::Organizations".freeze
@@ -137,6 +139,10 @@ module Megam
           Megam::Assembly
         when MEGAM_ASSEMBLYCOLLECTION
           Megam::AssemblyCollection
+        when MEGAM_COMPONENTS
+          Megam::Components
+        when MEGAM_COMPONENTSCOLLECTION
+          Megam::ComponentsCollection
         when MEGAM_REQUEST
           Megam::Request
         when MEGAM_REQUESTCOLLECTION
