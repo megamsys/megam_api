@@ -35,6 +35,8 @@ module Megam
     MEGAM_REQUESTCOLLECTION         = "Megam::RequestCollection".freeze
     MEGAM_ORGANIZATION              = "Megam::Organizations".freeze
     MEGAM_DOMAIN                    = "Megam::Domains".freeze
+    MEGAM_APPREQUEST                   = "Megam::AppRequest".freeze
+    MEGAM_APPREQUESTCOLLECTION         = "Megam::AppRequestCollection".freeze
 
     MEGAM_PREDEFCLOUD               = "Megam::PredefCloud".freeze
     MEGAM_PREDEFCLOUDCOLLECTION     = "Megam::PredefCloudCollection".freeze
@@ -171,6 +173,10 @@ module Megam
           Megam::CSARCollection
         when MEGAM_DOMAIN
           Megam::Domains
+        when MEGAM_APPREQUEST
+          Megam::AppRequest
+        when MEGAM_APPREQUESTCOLLECTION
+          Megam::AppRequestCollection
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
