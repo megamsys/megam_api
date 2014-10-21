@@ -1,7 +1,7 @@
 module Megam
   class API
 
-   def post_request(new_req)
+   def post_apprequest(new_req)
       @options = {:path => '/apprequests/content',
         :body => Megam::JSONCompat.to_json(new_req)}.merge(@options)
 

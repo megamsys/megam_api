@@ -25,7 +25,7 @@ module Megam
       super(email, api_key)
     end
 
-    def apprequest
+    def app_request
       self
     end
 
@@ -134,12 +134,12 @@ module Megam
       node
     end
 
-    def from_hash(o)
-      @id = o["id"] if o.has_key?("id")
-      @app_id  = o["app_id"] if o.has_key?("app_id")
-      @app_name  = o["app_name"] if o.has_key?("app_name")
-      @action  = o["action"] if o.has_key?("action")     
-      @created_at       = o["created_at"] if o.has_key?("created_at")
+    def from_hash(o)  
+      @id = o[:id] if o.has_key?(:id)
+      @app_id  = o[:app_id] if o.has_key?(:app_id)
+      @app_name  = o[:app_name] if o.has_key?(:app_name)
+      @action  = o[:action] if o.has_key?(:action)     
+      @created_at       = o[:created_at] if o.has_key?(:created_at)      
       self
     end
 
@@ -151,7 +151,7 @@ module Megam
 
     # Create the node via the REST API
     def create
-      megam_rest.post_request(to_hash)
+      megam_rest.post_apprequest(to_hash)
     end   
 
 
