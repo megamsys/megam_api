@@ -1,6 +1,18 @@
 module Megam
   class API
 
+def get_organizations
+
+  @options = {:path => '/organizations',:body => ""}.merge(@options)
+  
+  request(
+        :expects => 200
+        :method => :get
+        :body => @options[:body]
+  
+  )
+ end
+ 
 def get_organizations(name)
 
   @options = {:path => "/organizations/#{name}",
