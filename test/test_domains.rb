@@ -20,7 +20,7 @@ class TestDomains < MiniTest::Unit::TestCase
   tmp_hash = {
     "name" => "dmnname1"}
 
-    response =megams1.post_domains(tmp_hash)
+    response =megams.post_domains(tmp_hash)
     response.body.to_s
     assert_equal(201, response.status)
   end
