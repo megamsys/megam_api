@@ -3,7 +3,7 @@ module Megam
 
 def get_organizations
 
-  @options = {:path => '/organizations',:body => ""}.merge(@options)
+  @options = {:path => '/organizations',:body => ''}.merge(@options)
   
   request(
         :expects => 200,
@@ -13,7 +13,7 @@ def get_organizations
   )
  end
  
-def get_organizations(name)
+def get_organization(name)
 
   @options = {:path => "/organizations/#{name}",
     :body => ''}.merge(@options)
@@ -26,7 +26,7 @@ def get_organizations(name)
 end
 
 
-def post_organizations(new_organization)
+def post_organization(new_organization)
 
       @options = {:path => '/organizations/content',
         :body =>  Megam::JSONCompat.to_json(new_organization)}.merge(@options)
