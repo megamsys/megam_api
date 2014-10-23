@@ -6,8 +6,8 @@ def get_organizations
   @options = {:path => '/organizations',:body => ""}.merge(@options)
   
   request(
-        :expects => 200
-        :method => :get
+        :expects => 200,
+        :method => :get,
         :body => @options[:body]
   
   )
