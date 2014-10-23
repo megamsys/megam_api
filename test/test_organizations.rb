@@ -13,7 +13,7 @@ class TestOrganizations < MiniTest::Unit::TestCase
     response.body.to_s
     assert_equal(200, response.status)
   end
-=begin
+
 
   def test_post_organizations_good
     tmp_hash = {
@@ -22,5 +22,5 @@ class TestOrganizations < MiniTest::Unit::TestCase
     response.body.to_s
     assert_equal(201, response.status)
   end
-=end
+
 end
