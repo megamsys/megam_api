@@ -13,6 +13,8 @@ class TestOrganizations < MiniTest::Unit::TestCase
     assert_equal(200, response.status)
  end
  
+=begin
+  
 
   def test_get_organizations_good
     response =megams.get_organization(sandbox_name)
@@ -28,5 +30,5 @@ class TestOrganizations < MiniTest::Unit::TestCase
     response.body.to_s
     assert_equal(201, response.status)
   end
-
+=end
 end

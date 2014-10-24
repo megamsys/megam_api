@@ -125,7 +125,13 @@ def self.show(email,api_key=nil)
   org.megam_rest.get_organizations(email)
 end
 
-
+ def self.list(tmp_email=nil, tmp_api_key=nil)
+    org = self.new(tmp_email,tmp_api_key)
+      org.megam_rest.get_organizations
+ end
+ 
+ 
+    
 def create
       megam_rest.post_organizations(to_hash)
 end
