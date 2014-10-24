@@ -1,7 +1,7 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-#=begin
+
   def test_post_predefcloud1
     tmp_hash = { :name => "aws_ec2_predef_medium", :spec => {
         :type_name => "aws-ec2",
@@ -52,6 +52,7 @@ class TestApps < MiniTest::Unit::TestCase
   end
 
 #=begin
+
   def test_get_predefclouds
     response = megams.get_predefclouds
     assert_equal(200, response.status)
