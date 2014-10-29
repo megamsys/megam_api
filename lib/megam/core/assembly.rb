@@ -20,7 +20,7 @@ module Megam
       @id = nil
       @name = nil
       @components = []
-      @policies={}
+      @policies=[]
       @inputs = {}
       @operations = nil
       @created_at = nil

@@ -403,6 +403,7 @@ module Megam
       @id                              = o["id"] if o.has_key?("id")
       @name                            = o["name"] if o.has_key?("name")
       @tosca_type                      = o["tosca_type"] if o.has_key?("tosca_type")
+      @requirements                    = o["requirements"] if o.has_key?("requirements")
       @inputs                          = o["inputs"] if o.has_key?("inputs")
       @external_management_resource    = o["external_management_resource"] if o.has_key?("external_management_resource")
       @artifacts                       = o["artifacts"] if o.has_key?("artifacts")
