@@ -34,6 +34,7 @@ module Megam
     MEGAM_REQUEST                   = "Megam::Request".freeze
     MEGAM_REQUESTCOLLECTION         = "Megam::RequestCollection".freeze
     MEGAM_ORGANIZATION              = "Megam::Organizations".freeze
+    MEGAM_ORGANIZATIONSCOLLECTION    = "Megam::OrganizationsCollection".freeze
     MEGAM_DOMAIN                    = "Megam::Domains".freeze
     MEGAM_APPREQUEST                   = "Megam::AppRequest".freeze
     MEGAM_APPREQUESTCOLLECTION         = "Megam::AppRequestCollection".freeze
@@ -167,6 +168,8 @@ module Megam
           Megam::MarketPlaceAddonsCollection
         when MEGAM_ORGANIZATION
           Megam::Organizations
+        when MEGAM_ORGANIZATIONSCOLLECTION
+          Megam::OrganizationsCollection
         when MEGAM_CSAR
           Megam::CSAR
         when MEGAM_CSARCOLLECTION
