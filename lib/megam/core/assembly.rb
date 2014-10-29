@@ -163,6 +163,16 @@ module Megam
       asm.megam_rest.get_one_assembly(assembly_id)
     end
     
+     def self.update(o,tmp_email=nil, tmp_api_key=nil)
+      asm = from_hash(o, tmp_email, tmp_api_key)
+      asm.update
+    end
+
+    # Create the node via the REST API
+
+    def update
+      megam_rest.update_assembly(to_hash)
+    end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
