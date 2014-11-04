@@ -144,23 +144,27 @@ module Megam
     end
 
     def from_hash(o)
-      @id = o["id"] if o.has_key?("id")
-      @node_id  = o["node_id"] if o.has_key?("node_id")
-      @node_name       = o["node_name"] if o.has_key?("node_name")
-      @req_type       = o["req_type"] if o.has_key?("req_type")
-      @command  = o["command"] if o.has_key?("command")
-      @created_at       = o["created_at"] if o.has_key?("created_at")
+      @id = o[:id] if o.has_key?(:id)
+      @node_id  = o[:node_id] if o.has_key?(:node_id)
+      @node_name = o[:node_name] if o.has_key?(:node_name)
+      @req_type = o[:req_type] if o.has_key?(:req_type)
+      @command  = o[:command] if o.has_key?(:command)
+      @created_at = o[:created_at] if o.has_key?(:created_at)
       self
     end
 
 
     def self.create(o,tmp_email=nil, tmp_api_key=nil)
+    puts "Entering megam_api-->"
       acct = from_hash(o,tmp_email, tmp_api_key)
+      puts acct
+      puts "herhehrehrherhehrhehrhehrehrh"
       acct.create
     end
 
     # Create the node via the REST API
     def create
+    puts "entering megam_api"
       megam_rest.post_request(to_hash)
     end
 
