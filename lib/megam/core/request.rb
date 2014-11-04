@@ -157,8 +157,6 @@ module Megam
     def self.create(o,tmp_email=nil, tmp_api_key=nil)
     puts "Entering megam_api-->"
       acct = from_hash(o,tmp_email, tmp_api_key)
-      puts acct
-      puts "herhehrehrherhehrhehrhehrehrh"
       acct.create
     end
 
