@@ -23,6 +23,7 @@ module Megam
       @policies=[]
       @inputs = {}
       @operations = nil
+      @outputs = []
       @created_at = nil
       super(email, api_key)
     end
@@ -78,6 +79,15 @@ module Megam
       @operations
       end
     end
+    
+    def outputs(arg=[])
+      if arg != []
+        @outputs = arg
+      else
+      @outputs
+      end
+    end
+
 
     def created_at(arg=nil)
       if arg != nil
@@ -101,6 +111,7 @@ module Megam
       index_hash["policies"] = policies
       index_hash["inputs"] = inputs
       index_hash["operations"] = operations
+      index_hash["outputs"] = outputs
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -119,6 +130,7 @@ module Megam
         "policies" => policies,
         "inputs" => inputs,
         "operations" => operations,
+        "outputs" => outputs,
         "created_at" => created_at
       }
            
@@ -133,6 +145,7 @@ module Megam
       asm.policies(o["policies"]) if o.has_key?("policies") #this will be an array? can hash store array?
       asm.inputs(o["inputs"]) if o.has_key?("inputs")
       asm.operations(o["operations"]) if o.has_key?("operations")
+      asm.outputs(o["outputs"]) if o.has_key?("outputs")
       asm.created_at(o["created_at"]) if o.has_key?("created_at")
       asm
     end
@@ -150,6 +163,7 @@ module Megam
       @policies          = o["policies"] if o.has_key?("policies")
       @inputs            = o["inputs"] if o.has_key?("inputs")
       @operations        = o["operations"] if o.has_key?("operations")
+      @outputs           = o["outputs"] if o.has_key?("outputs")
       @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
