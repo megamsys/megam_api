@@ -19,6 +19,7 @@ class TestApps < MiniTest::Unit::TestCase
         }],
       "inputs" => "",
       "operations" => "",
+      "output" => [],
       "created_at" => "2014-10-29 13:24:06 +0000"
     }
 
