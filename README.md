@@ -24,13 +24,20 @@ Now you can make requests to the api.
 Requests
 --------
 
-What follows is an overview of commands you can run for the client.
+An overview of the commands you can run can be found in our documentation.
 
-For additional details about any of the commands, see the [API docs](http://www.gomegam.com/docs).
 
-We are glad to help if you have questions, or request for new features.
+### Documentation
 
-[twitter](http://twitter.com/megamsys) [email](<support@megam.co.in>)
+Refer [documentation] (http://www.gomegam.com/docs)
+
+
+
+We are glad to help if you have questions, or request for new features..
+
+[twitter @megamsys](http://twitter.com/megamsys) [email support@megam.co.in](<support@megam.co.in>)
+
+
 
 	
 # License
