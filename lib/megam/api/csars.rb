@@ -24,7 +24,7 @@ module Megam
 
     def post_csar(new_csar)
       @options = {:path => '/csars/content',
-        :body => Megam::JSONCompat.to_json(new_node)}.merge(@options)
+        :body => new_csar}.merge(@options)
 
       request(
         :expects  => 201,

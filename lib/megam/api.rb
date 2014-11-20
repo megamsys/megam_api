@@ -201,7 +201,7 @@ module Megam
     private
 
     def just_color_debug(path)
-      text.msg "--> #{text.color('(#{path})', :cyan,:bold)}"                  # Why " inside "
+      text.msg "--> #{text.color("(#{path})", :cyan,:bold)}"                  # Why " inside "
     end
 
 
@@ -263,7 +263,7 @@ module Megam
 
       data="#{current_date}"+"\n"+"#{cmd_parms[:path]}"+"\n"+"#{body_base64}"
 
-      digest  = OpenSSL::Digest::Digest.new('sha1')
+      digest  = OpenSSL::Digest.new('sha1')
       movingFactor = data.rstrip!
       hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
       final_hmac = @email+':' + hash
