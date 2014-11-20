@@ -45,6 +45,13 @@ module Megam
       end
     end
 
+    def yamldata(arg=nil)
+      if arg != nil
+        @yamldata = arg
+      else
+      @yamldata
+      end
+    end
 
     def link(arg=nil)
       if arg != nil
@@ -108,6 +115,7 @@ module Megam
       csarjslf.id(o["id"]) if o.has_key?("id")
       csarjslf.desc(o["desc"]) if o.has_key?("desc")
       csarjslf.link(o["link"]) if o.has_key?("link")
+      csarjslf.created_at(o["created_at"]) if o.has_key?("created_at")
 
       #success or error
       csarjslf.some_msg[:code] = o["code"] if o.has_key?("code")
@@ -128,6 +136,7 @@ module Megam
       @id        = o["id"] if o.has_key?("id")
       @desc      = o["desc"] if o.has_key?("desc")
       @link      = o["link"] if o.has_key?("link")
+      @yamldata  = o["yamldata"] if o.has_key?("yamldata") 
       @created_at = o["created_at"] if o.has_key?("created_at")
       self
     end
@@ -141,7 +150,7 @@ module Megam
     # Create the csar yaml
     #This won't work, as the body just needs the yaml string.
     def create
-      megam_rest.post_csar(to_hash)
+      megam_rest.post_csar(@yamldata)
     end
 
     # Load the yaml back from the link
