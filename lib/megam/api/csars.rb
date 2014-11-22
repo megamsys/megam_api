@@ -32,6 +32,16 @@ module Megam
         :body     => @options[:body]
       )
     end
+    
+    def push_csar(id)
+      @options = {:path => "/csars/push/#{id}",:body => ""}.merge(@options)
+
+      request(
+        :expects  => 201,
+        :method   => :get,
+        :body     => @options[:body]
+      )
+    end
 
     #Yet to be tested
     # DELETE /marketplacess/:node_id
