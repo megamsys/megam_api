@@ -164,6 +164,12 @@ module Megam
       csarslf = self.new(tmp_email, tmp_api_key)
       csarslf.megam_rest.get_csars
     end
+    
+     #push csar (links)
+    def self.push(tmp_email=nil, tmp_api_key=nil, csar_id)
+      csarslf = self.new(tmp_email, tmp_api_key)
+      csarslf.megam_rest.push_csar(csar_id)
+    end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
