@@ -24,6 +24,7 @@ module Megam
       @inputs = {}
       @operations = nil
       @outputs = []
+      @status = nil
       @created_at = nil
       super(email, api_key)
     end
@@ -88,6 +89,13 @@ module Megam
       end
     end
 
+    def status(arg=nil)
+      if arg != nil
+        @status = arg
+      else
+      @status
+      end
+    end
 
     def created_at(arg=nil)
       if arg != nil
@@ -112,6 +120,7 @@ module Megam
       index_hash["inputs"] = inputs
       index_hash["operations"] = operations
       index_hash["outputs"] = outputs
+      index_hash["status"] = status
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -131,6 +140,7 @@ module Megam
         "inputs" => inputs,
         "operations" => operations,
         "outputs" => outputs,
+        "status" => status,
         "created_at" => created_at
       }
            
@@ -146,6 +156,7 @@ module Megam
       asm.inputs(o["inputs"]) if o.has_key?("inputs")
       asm.operations(o["operations"]) if o.has_key?("operations")
       asm.outputs(o["outputs"]) if o.has_key?("outputs")
+      asm.status(o["status"]) if o.has_key?("status")
       asm.created_at(o["created_at"]) if o.has_key?("created_at")
       asm
     end
@@ -164,6 +175,7 @@ module Megam
       @inputs            = o["inputs"] if o.has_key?("inputs")
       @operations        = o["operations"] if o.has_key?("operations")
       @outputs           = o["outputs"] if o.has_key?("outputs")
+      @status            = o["status"] if o.has_key?("status")
       @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
