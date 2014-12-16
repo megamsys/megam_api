@@ -13,55 +13,56 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 module Megam
-  class CSAR < Megam::ServerAPI
+  class AppRequest < Megam::ServerAPI
     def initialize(email=nil, api_key=nil)
       @id = nil
-      @desc = nil
-      @link = {}
+      @app_id = nil
+      @app_name = nil
+      @action = nil
       @some_msg = {}
       @created_at = nil
       super(email, api_key)
     end
 
-    def csar
+    def app_request
       self
     end
 
+    
     def id(arg=nil)
       if arg != nil
         @id = arg
       else
-        @id
+      @id
       end
     end
 
-    def desc(arg=nil)
+    def app_id(arg=nil)
       if arg != nil
-        @desc = arg
+        @app_id = arg
       else
-      @desc
+      @app_id
       end
     end
-
-    def yamldata(arg=nil)
+    
+    def app_name(arg=nil)
       if arg != nil
-        @yamldata = arg
+        @app_name = arg
       else
-      @yamldata
+      @app_name
       end
     end
 
-    def link(arg=nil)
+    def action(arg=nil)
       if arg != nil
-        @link = arg
+        @action = arg
       else
-      @link
+      @action
       end
     end
-
-
+    
+    
     def created_at(arg=nil)
       if arg != nil
         @created_at = arg
@@ -87,9 +88,9 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
-      index_hash["desc"] = desc
-      index_hash["link"] = link
-      index_hash["some_msg"] = some_msg
+      index_hash["app_id"] = app_id
+      index_hash["app_name"] = app_name
+      index_hash["action"] = action      
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -103,76 +104,60 @@ module Megam
     def for_json
       result = {
         "id" => id,
-        "desc" => desc,
-        "link" => link,
+        "app_id" => app_id,
+        "app_name" => app_name,
+        "action" => action,       
         "created_at" => created_at
       }
       result
     end
 
+    #
     def self.json_create(o)
-      csarjslf = new
-      csarjslf.id(o["id"]) if o.has_key?("id")
-      csarjslf.desc(o["desc"]) if o.has_key?("desc")
-      csarjslf.link(o["link"]) if o.has_key?("link")
-      csarjslf.created_at(o["created_at"]) if o.has_key?("created_at")
-
+      node = new
+      node.id(o["id"]) if o.has_key?("id")
+      node.app_id(o["app_id"]) if o.has_key?("app_id")
+      node.app_name(o["app_name"]) if o.has_key?("app_name")
+      node.action(o["action"]) if o.has_key?("action")     
+      node.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
-      csarjslf.some_msg[:code] = o["code"] if o.has_key?("code")
-      csarjslf.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
-      csarjslf.some_msg[:msg]= o["msg"] if o.has_key?("msg")
-      csarjslf.some_msg[:links] = o["links"] if o.has_key?("links")
-
-      csarjslf
+      node.some_msg[:code] = o["code"] if o.has_key?("code")
+      node.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+      node.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+      node.some_msg[:links] = o["links"] if o.has_key?("links")
+      node
     end
 
     def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      csarhslf = self.new(tmp_email, tmp_api_key)
-      csarhslf.from_hash(o)
-      csarhslf
+      node = self.new(tmp_email, tmp_api_key)
+      node.from_hash(o)
+      node
     end
 
-    def from_hash(o)
-      @id        = o["id"] if o.has_key?("id")
-      @desc      = o["desc"] if o.has_key?("desc")
-      @link      = o["link"] if o.has_key?("link")
-      @yamldata  = o["yamldata"] if o.has_key?("yamldata") 
-      @created_at = o["created_at"] if o.has_key?("created_at")
+    def from_hash(o)  
+      @id = o[:id] if o.has_key?(:id)
+      @app_id  = o[:app_id] if o.has_key?(:app_id)
+      @app_name  = o[:app_name] if o.has_key?(:app_name)
+      @action  = o[:action] if o.has_key?(:action)     
+      @created_at       = o[:created_at] if o.has_key?(:created_at)      
       self
     end
 
-    #This won't work, as the body just needs the yaml string.
+
     def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      csarslf = from_hash(o, tmp_email, tmp_api_key)
-      csarslf.create
+      acct = from_hash(o,tmp_email, tmp_api_key)
+      acct.create
     end
 
-    # Create the csar yaml
-    #This won't work, as the body just needs the yaml string.
+    # Create the node via the REST API
     def create
-      megam_rest.post_csar(@yamldata)
-    end
+      megam_rest.post_apprequest(to_hash)
+    end   
 
-    # Load the yaml back from the link
-    def self.show(tmp_email=nil, tmp_api_key=nil, csarlink_name)
-      csarslf = self.new(tmp_email, tmp_api_key)
-      csarslf.megam_rest.get_csar(csarlink_name)
-    end
-
-    #list all csars (links)
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-      csarslf = self.new(tmp_email, tmp_api_key)
-      csarslf.megam_rest.get_csars
-    end
-    
-     #push csar (links)
-    def self.push(tmp_email=nil, tmp_api_key=nil, csar_id)
-      csarslf = self.new(tmp_email, tmp_api_key)
-      csarslf.megam_rest.push_csar(csar_id)
-    end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
+    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end

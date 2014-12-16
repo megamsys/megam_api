@@ -9,7 +9,6 @@ For more about the Megam' REST API <http://gomegam.com/docs>.[Megam API server](
 
 [![Build Status](https://travis-ci.org/indykish/megam_api.png)](https://travis-ci.org/indykish/megam_api)
 
-We are on beta [register at:](https://www.megam.co)
 
 Usage
 -----
@@ -25,46 +24,32 @@ Now you can make requests to the api.
 Requests
 --------
 
-What follows is an overview of commands you can run for the client.
-
-For additional details about any of the commands, see the [API docs](http://docs.megam.co).
-
-### Nodes
-
-    megam.get_nodes                              # get a list of your nodes
-    megam.get_node(POGO)                         # get info about the node named POGO
-    megam.create_node('name' => POGO, 
-    'type' => 'rails')  			 # create an nodep with a generated name and the default type
-    megam.delete_node(POGO)                      # delete the node named POGO
+An overview of the commands you can run can be found in our documentation.
 
 
-### Predefs
+### Documentation
 
-    megam.get_predefs                             # list all predefs 
-    megam.get_predef('type' => rails)             # list a specific predef named 'rails'
-
-### Accounts
-
-    megam.get_accounts(email)                     # list accounts associated with email
-    megam.post_accounts(email, api_key)           # onboard an account
+Refer [documentation] (http://www.gomegam.com/docs)
 
 
-We are glad to help if you have questions, or request for new features.
 
-[twitter](http://twitter.com/megamsys) [email](<alrin@megam.co.in>)
+We are glad to help if you have questions, or request for new features..
 
-#### TO - DO
+[twitter @megamsys](http://twitter.com/megamsys) [email support@megam.co.in](<support@megam.co.in>)
 
-*  
+
+
 	
 # License
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
 | **Author:**          | Kishorekumar Neelamegam (<nkishore@megam.co.in>)
+|                      | Raj Thilak (<rajthilak@megam.co.in>)
+|                      | Yeshwanth Kumar (<getyesh@megam.co.in>)
 |                      | Subash Sethurajan (<subash.avc@gmail.com>)
 |                      | Thomas Alrin (<alrin@megam.co.in>)
-| **Copyright:**       | Copyright (c) 2012-2013 Megam Systems.
+| **Copyright:**       | Copyright (c) 2012-2014 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");

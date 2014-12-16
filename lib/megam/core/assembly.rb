@@ -15,38 +15,29 @@
 #
 
 module Megam
-  class Assemblies < Megam::ServerAPI
+  class Assembly < Megam::ServerAPI
     def initialize(email=nil, api_key=nil)
       @id = nil
-      @accounts_id = nil
       @name = nil
-      @assemblies = []
-      @assemblies_type = []
+      @components = []
+      @policies=[]
       @inputs = {}
-      @label = nil
-      @cloudsettings = []
+      @operations = nil
+      @outputs = []
+      @status = nil
       @created_at = nil
       super(email, api_key)
     end
 
-    def assemblies
+    def assembly
       self
     end
 
-    
     def id(arg=nil)
       if arg != nil
         @id = arg
       else
       @id
-      end
-    end
-
-    def accounts_id(arg=nil)
-      if arg != nil
-        @accounts_id = arg
-      else
-      @accounts_id
       end
     end
 
@@ -58,20 +49,51 @@ module Megam
       end
     end
 
-    def assemblies(arg=[])
+    def components(arg=[])
       if arg != []
-        @assemblies = arg
+        @components = arg
       else
-      @assemblies
+      @components
       end
     end
 
-    
+    def policies(arg=[])
+      if arg != []
+        @policies = arg
+      else
+      @policies
+      end
+    end
+
     def inputs(arg=[])
       if arg != []
         @inputs = arg
       else
       @inputs
+      end
+    end
+
+    def operations(arg=nil)
+      if arg != nil
+        @operations = arg
+      else
+      @operations
+      end
+    end
+    
+    def outputs(arg=[])
+      if arg != []
+        @outputs = arg
+      else
+      @outputs
+      end
+    end
+
+    def status(arg=nil)
+      if arg != nil
+        @status = arg
+      else
+      @status
       end
     end
 
@@ -93,9 +115,12 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["name"] = name
-      index_hash["accounts_id"] = accounts_id
+      index_hash["components"] = components
+      index_hash["policies"] = policies
       index_hash["inputs"] = inputs
-      index_hash["assemblies"] = assemblies
+      index_hash["operations"] = operations
+      index_hash["outputs"] = outputs
+      index_hash["status"] = status
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -110,11 +135,15 @@ module Megam
       result = {
         "id" => id,
         "name" => name,
-        "accounts_id" => accounts_id,
-        "assemblies" => assemblies,
+        "components" => components,
+        "policies" => policies,
         "inputs" => inputs,
+        "operations" => operations,
+        "outputs" => outputs,
+        "status" => status,
         "created_at" => created_at
       }
+           
       result
     end
 
@@ -122,14 +151,12 @@ module Megam
       asm = new
       asm.id(o["id"]) if o.has_key?("id")
       asm.name(o["name"]) if o.has_key?("name")
-      asm.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
-      asm.assemblies(o["assemblies"]) if o.has_key?("assemblies") #this will be an array? can hash store array?
-
-      oq = o["inputs"]    
-      asm.inputs[:id] = oq["id"] if oq && oq.has_key?("id")
-      asm.inputs[:assemblies_type] = oq["assemblies_type"] if oq && oq.has_key?("assemblies_type")
-      asm.inputs[:label] = oq["label"] if oq && oq.has_key?("label")
-      asm.inputs[:cloudsettings] = oq["cloudsettings"] if oq && oq.has_key?("cloudsettings")
+      asm.components(o["components"]) if o.has_key?("components")
+      asm.policies(o["policies"]) if o.has_key?("policies") #this will be an array? can hash store array?
+      asm.inputs(o["inputs"]) if o.has_key?("inputs")
+      asm.operations(o["operations"]) if o.has_key?("operations")
+      asm.outputs(o["outputs"]) if o.has_key?("outputs")
+      asm.status(o["status"]) if o.has_key?("status")
       asm.created_at(o["created_at"]) if o.has_key?("created_at")
       asm
     end
@@ -143,33 +170,34 @@ module Megam
     def from_hash(o)
       @id                = o["id"] if o.has_key?("id")
       @name              = o["name"] if o.has_key?("name")
-      @accounts_id       = o["accounts_id"] if o.has_key?("accounts_id")
-      @assemblies        = o["assemblies"] if o.has_key?("assemblies")
-      @inputs             = o["inputs"] if o.has_key?("inputs")
-      @label             = o["label"] if o.has_key?("label")
+      @components        = o["components"] if o.has_key?("components")
+      @policies          = o["policies"] if o.has_key?("policies")
+      @inputs            = o["inputs"] if o.has_key?("inputs")
+      @operations        = o["operations"] if o.has_key?("operations")
+      @outputs           = o["outputs"] if o.has_key?("outputs")
+      @status            = o["status"] if o.has_key?("status")
       @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+    
+    def self.show(assembly_id, tmp_email=nil, tmp_api_key=nil)
+      asm = self.new(tmp_email, tmp_api_key)
+      puts "---->>>> "
+      puts #{assembly_id}
+      puts "----------->>>"
+      asm.megam_rest.get_one_assembly(assembly_id)
+    end
+    
+     def self.update(o,tmp_email=nil, tmp_api_key=nil)
       asm = from_hash(o, tmp_email, tmp_api_key)
-      asm.create
+      asm.update
     end
 
     # Create the node via the REST API
-    def create
-      megam_rest.post_assemblies(to_hash)
-    end
 
-    # Load a account by email_p
-    def self.show(one_assemblies_id, tmp_email=nil, tmp_api_key=nil)
-      asm = self.new(tmp_email, tmp_api_key)
-      asm.megam_rest.get_one_assemblies(one_assemblies_id)
-    end
-
-    def self.list(tmp_email=nil, tmp_api_key=nil, inflated=false)
-      asm = self.new(tmp_email, tmp_api_key)
-      asm.megam_rest.get_assemblies
+    def update
+      megam_rest.update_assembly(to_hash)
     end
 
     def to_s

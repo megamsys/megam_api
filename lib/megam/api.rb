@@ -19,6 +19,7 @@ require "megam/api/version"
 require "megam/api/login"
 require "megam/api/accounts"
 require "megam/api/requests"
+require "megam/api/app_requests"
 require "megam/api/predef_clouds"
 require "megam/api/cloud_tool_settings"
 require "megam/api/sshkeys"
@@ -28,6 +29,8 @@ require "megam/api/organizations"
 require "megam/api/domains"
 require "megam/api/csars"
 require "megam/api/assemblies"
+require "megam/api/assembly"
+require "megam/api/components"
 
 require "megam/core/server_api"
 require "megam/core/config"
@@ -51,12 +54,20 @@ require "megam/core/marketplace_collection"
 require "megam/core/marketplace_addon"
 require "megam/core/marketplace_addon_collection"
 require "megam/core/organizations"
+require "megam/core/organizations_collection"
 require "megam/core/domains"
 require "megam/core/assemblies"
 require "megam/core/assemblies_collection"
 require "megam/core/csar"
 require "megam/core/csar_collection"
 require "megam/core/konipai"
+require "megam/core/assembly"
+require "megam/core/assembly_collection"
+require "megam/core/components"
+require "megam/core/components_collection"
+require "megam/core/app_request"
+require "megam/core/app_request_collection"
+
 
 
 
@@ -190,7 +201,7 @@ module Megam
     private
 
     def just_color_debug(path)
-      text.msg "--> #{text.color('(#{path})', :cyan,:bold)}"                  # Why " inside "
+      text.msg "--> #{text.color("(#{path})", :cyan,:bold)}"                  # Why " inside "
     end
 
 
@@ -252,7 +263,7 @@ module Megam
 
       data="#{current_date}"+"\n"+"#{cmd_parms[:path]}"+"\n"+"#{body_base64}"
 
-      digest  = OpenSSL::Digest::Digest.new('sha1')
+      digest  = OpenSSL::Digest.new('sha1')
       movingFactor = data.rstrip!
       hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
       final_hmac = @email+':' + hash
