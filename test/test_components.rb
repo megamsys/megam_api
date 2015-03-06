@@ -45,6 +45,7 @@ class TestApps < MiniTest::Unit::TestCase
         "operation_type" => "",
         "target_resource" => ""
       },
+      "others" => [],
       "created_at" => "2014-10-29 14:06:39 +0000"
     }
     response = megams.update_component(tmp_hash)
