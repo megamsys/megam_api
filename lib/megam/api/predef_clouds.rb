@@ -20,6 +20,16 @@ module Megam
       )
     end
 
+    def delete_predefcloud(predefcloud_name)
+      @options = {:path => "/predefclouds/#{predefcloud_name}",:body => ""}.merge(@options)
+
+      request(
+        :expects  => 200,
+        :method   => :delete,
+        :body     => @options[:body]
+      )
+    end
+
     def post_predefcloud(new_predefcloud)
       @options = {:path => '/predefclouds/content',
         :body => Megam::JSONCompat.to_json(new_predefcloud)}.merge(@options)
