@@ -5,7 +5,6 @@ require "uri"
 require "zlib"
 require 'openssl'
 require 'yaml'                  #COMMON YML
-
 # open it up when needed. This will be needed when a new customer onboarded via pug.
 require "securerandom"
 
