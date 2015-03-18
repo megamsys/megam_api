@@ -220,6 +220,11 @@ module Megam
     pre.megam_rest.get_predefcloud(p_name)
     end
 
+    def self.delete(p_name,tmp_email=nil, tmp_api_key=nil)
+    pre = self.new(tmp_email,tmp_api_key)
+    pre.megam_rest.delete_predefcloud(p_name)
+    end
+
     def to_s
       Megam::Stuff.styled_hash(to_hash)
     #"---> Megam::Account:[error=#{error?}]\n"+
