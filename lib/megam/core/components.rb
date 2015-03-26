@@ -36,6 +36,7 @@ module Megam
       @z = nil
       @wires = []
       @service_inputs = nil
+      @ci_id = nil
       @dbname = nil
       @dbpassword = nil
       @external_management_resource = nil
@@ -208,6 +209,14 @@ module Megam
       @service_inputs
       end
     end
+    
+     def ci_id(arg=nil)
+      if arg != nil
+        @ci_id = arg
+      else
+      @ci_id
+      end
+    end
 
     def dbname(arg=nil)
       if arg != nil
@@ -377,6 +386,7 @@ module Megam
       asm.inputs[:source] = inp["source"] if inp && inp.has_key?("source")
       asm.inputs[:design_inputs] = inp["design_inputs"] if inp && inp.has_key?("design_inputs")
       asm.inputs[:service_inputs] = inp["service_inputs"] if inp && inp.has_key?("service_inputs")
+      asm.inputs[:ci_id] = inp["ci_id"] if inp && inp.has_key?("ci_id")
       # ind = inp["design_inputs"]
       #  asm.inputs["design_inputs"][:did] = ind["did"] if ind && ind.has_key?("did")
       # asm.inputs[:design_inputs][:x] = ind["x"] if ind && ind.has_key?("x")
