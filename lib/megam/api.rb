@@ -30,6 +30,7 @@ require "megam/api/csars"
 require "megam/api/assemblies"
 require "megam/api/assembly"
 require "megam/api/components"
+require_relative "megam/api/event"
 
 require "megam/core/server_api"
 require "megam/core/config"
@@ -66,6 +67,7 @@ require "megam/core/components"
 require "megam/core/components_collection"
 require "megam/core/app_request"
 require "megam/core/app_request_collection"
+require_relative "megam/core/event"
 
 
 
