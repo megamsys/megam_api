@@ -125,7 +125,6 @@ module Megam
 
     # Create the node via the REST API
     def create
-      puts "Creating new event! weehaaa!"
       megam_rest.post_event(to_hash)
     end
 

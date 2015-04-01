@@ -1,12 +1,11 @@
 module Megam
   class API
-    def get_events(id)
+    def get_events
 
     end
 
     def post_event(new_event)
-      puts "Entered the post_event to create a new event too..weehaahoo!"
-      @options = {:path => '',
+      @options = {:path => '/event/content',
         :body => Megam::JSONCompat.to_json(new_event)}.merge(@options)
 
       request(
