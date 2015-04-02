@@ -31,26 +31,26 @@ module Megam
     
     def a_id(arg=nil)
       if arg != nil
-        @id = arg
+        @a_id = arg
       else
-      @id
+      @a_id
       end
     end
 
    
     def a_name(arg=nil)
       if arg != nil
-        @name = arg
+        @a_name = arg
       else
-      @name
+      @a_name
       end
     end
 
    
 
     
-    def command(arg=[])
-      if arg != []
+    def command(arg=nil)
+      if arg != nil
         @command = arg
       else
       @command
@@ -59,9 +59,9 @@ module Megam
 
     def launch_type(arg=nil)
       if arg != nil
-        @type = arg
+        @launch_type = arg
       else
-      @type
+      @launch_type
       end
     end
 
@@ -72,6 +72,7 @@ module Megam
     # Transform the ruby obj ->  to a Hash
     def to_hash
       index_hash = Hash.new
+      index_hash["json_claz"] = self.class.name
       index_hash["a_id"] = a_id
       index_hash["a_name"] = a_name
       index_hash["command"] = command
@@ -97,10 +98,10 @@ module Megam
 
     def self.json_create(o)
       event = new
-      event.id(o["a_id"]) if o.has_key?("a_id")
-      event.name(o["a_name"]) if o.has_key?("a_name")
+      event.a_id(o["a_id"]) if o.has_key?("a_id")
+      event.a_name(o["a_name"]) if o.has_key?("a_name")
       event.command(o["command"]) if o.has_key?("command")
-      event.type(o["launch_type"]) if o.has_key?("launch_type") #this will be an array? can hash store array?
+      event.launch_type(o["launch_type"]) if o.has_key?("launch_type") #this will be an array? can hash store array?
       event
     end
 
@@ -111,14 +112,16 @@ module Megam
     end
 
     def from_hash(o)
-      @a_id                = o["a_id"] if o.has_key?("a_id")
-      @a_name              = o["a_name"] if o.has_key?("a_name")
-      @command      = o["command"] if o.has_key?("command")
-      @launch_type        = o["launch_type"] if o.has_key?("launch_type")
+      @a_id                = o[:a_id] if o.has_key?(:a_id)
+      @a_name              = o[:a_name] if o.has_key?(:a_name)
+      @command      = o[:command] if o.has_key?(:command)
+      @launch_type        = o[:launch_type] if o.has_key?(:launch_type)
+      
      self
     end
 
     def self.create(o,tmp_email=nil, tmp_api_key=nil)
+     
       event = from_hash(o, tmp_email, tmp_api_key)
       event.create
     end
