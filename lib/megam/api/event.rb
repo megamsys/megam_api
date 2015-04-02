@@ -5,7 +5,7 @@ module Megam
     end
 
     def post_event(new_event)
-      @options = {:path => '/event/content',
+      @options = {:path => '/events/content',
         :body => Megam::JSONCompat.to_json(new_event)}.merge(@options)
 
       request(

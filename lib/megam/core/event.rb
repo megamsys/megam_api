@@ -1,4 +1,4 @@
-# Copyright:: Copyright (c) 2012, 2015 Megam Systems
+# Copyright:: Copyright (c) 2013, 2015 Megam Systems
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +17,10 @@
 module Megam
   class Event < Megam::ServerAPI
     def initialize(email=nil, api_key=nil)
-      @id = nil
-      @name = nil
+      @a_id = nil
+      @a_name = nil
       @command = nil
-      @type = nil
+      @launch_type = nil
       super(email, api_key)
     end
 
@@ -29,7 +29,7 @@ module Megam
     end
 
     
-    def id(arg=nil)
+    def a_id(arg=nil)
       if arg != nil
         @id = arg
       else
@@ -38,7 +38,7 @@ module Megam
     end
 
    
-    def name(arg=nil)
+    def a_name(arg=nil)
       if arg != nil
         @name = arg
       else
@@ -57,7 +57,7 @@ module Megam
       end
     end
 
-    def type(arg=nil)
+    def launch_type(arg=nil)
       if arg != nil
         @type = arg
       else
@@ -72,10 +72,10 @@ module Megam
     # Transform the ruby obj ->  to a Hash
     def to_hash
       index_hash = Hash.new
-      index_hash["id"] = id
-      index_hash["name"] = name
+      index_hash["a_id"] = a_id
+      index_hash["a_name"] = a_name
       index_hash["command"] = command
-      index_hash["type"] = type
+      index_hash["launch_type"] = launch_type
       index_hash
     end
 
@@ -87,20 +87,20 @@ module Megam
 
     def for_json
       result = {
-        "id" => id,
-        "name" => name,
+        "a_id" => a_id,
+        "a_name" => a_name,
         "command" => command,
-        "type" => type
+        "launch_type" => launch_type
         }
       result
     end
 
     def self.json_create(o)
       event = new
-      event.id(o["id"]) if o.has_key?("id")
-      event.name(o["name"]) if o.has_key?("name")
+      event.id(o["a_id"]) if o.has_key?("a_id")
+      event.name(o["a_name"]) if o.has_key?("a_name")
       event.command(o["command"]) if o.has_key?("command")
-      event.type(o["type"]) if o.has_key?("type") #this will be an array? can hash store array?
+      event.type(o["launch_type"]) if o.has_key?("launch_type") #this will be an array? can hash store array?
       event
     end
 
@@ -111,10 +111,10 @@ module Megam
     end
 
     def from_hash(o)
-      @id                = o["id"] if o.has_key?("id")
-      @name              = o["name"] if o.has_key?("name")
+      @a_id                = o["a_id"] if o.has_key?("a_id")
+      @a_name              = o["a_name"] if o.has_key?("a_name")
       @command      = o["command"] if o.has_key?("command")
-      @type        = o["type"] if o.has_key?("type")
+      @launch_type        = o["launch_type"] if o.has_key?("launch_type")
      self
     end
 
