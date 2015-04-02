@@ -21,7 +21,7 @@ module Megam
       @name = nil
       @components = []
       @policies=[]
-      @inputs = {}
+      @inputs = []
       @operations = nil
       @outputs = []
       @status = nil
