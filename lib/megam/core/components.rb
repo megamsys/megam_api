@@ -36,6 +36,7 @@ module Megam
       @z = nil
       @wires = []
       @service_inputs = nil
+      @ci_id = nil
       @dbname = nil
       @dbpassword = nil
       @external_management_resource = nil
@@ -47,6 +48,7 @@ module Megam
       @operations = {}
       @operation_type = nil
       @target_resource = nil
+      @others = []
       @created_at = nil
 
       super(email, api_key)
@@ -207,6 +209,14 @@ module Megam
       @service_inputs
       end
     end
+    
+     def ci_id(arg=nil)
+      if arg != nil
+        @ci_id = arg
+      else
+      @ci_id
+      end
+    end
 
     def dbname(arg=nil)
       if arg != nil
@@ -295,6 +305,14 @@ module Megam
       @target_resource
       end
     end
+    
+     def others(arg=nil)
+      if arg != nil
+        @others = arg
+      else
+      @others
+      end
+    end
 
     def created_at(arg=nil)
       if arg != nil
@@ -321,6 +339,7 @@ module Megam
       index_hash["artifacts"] = artifacts
       index_hash["related_components"] = related_components
       index_hash["operations"] = operations
+      index_hash["others"] = others
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -342,6 +361,7 @@ module Megam
         "artifacts" => artifacts,
         "related_components" => related_components,
         "operations" => operations,
+        "others" => others,
         "created_at" => created_at
       }
       result
@@ -366,6 +386,7 @@ module Megam
       asm.inputs[:source] = inp["source"] if inp && inp.has_key?("source")
       asm.inputs[:design_inputs] = inp["design_inputs"] if inp && inp.has_key?("design_inputs")
       asm.inputs[:service_inputs] = inp["service_inputs"] if inp && inp.has_key?("service_inputs")
+      asm.inputs[:ci_id] = inp["ci_id"] if inp && inp.has_key?("ci_id")
       # ind = inp["design_inputs"]
       #  asm.inputs["design_inputs"][:did] = ind["did"] if ind && ind.has_key?("did")
       # asm.inputs[:design_inputs][:x] = ind["x"] if ind && ind.has_key?("x")
@@ -388,7 +409,8 @@ module Megam
       ope = o["operations"]
       asm.operations[:operation_type] = ope["operation_type"] if ope && ope.has_key?("operation_type")
       asm.operations[:target_resource] = ope["target_resource"] if ope && ope.has_key?("target_resource")
-
+      
+      asm.others(o["others"]) if o.has_key?("others")
       asm.created_at(o["created_at"]) if o.has_key?("created_at")
       asm
     end
@@ -409,6 +431,7 @@ module Megam
       @artifacts                       = o["artifacts"] if o.has_key?("artifacts")
       @related_components              = o["related_components"] if o.has_key?("related_components")
       @operations                      = o["operations"] if o.has_key?("operations")
+      @others                          = o["others"] if o.has_key?("others")
       @created_at                      = o["created_at"] if o.has_key?("created_at")
       self
     end
