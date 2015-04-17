@@ -31,6 +31,13 @@ require "megam/api/assemblies"
 require "megam/api/assembly"
 require "megam/api/components"
 require "megam/api/event"
+require "megam/api/availableunits"
+require "megam/api/balances"
+require "megam/api/billinghistories"
+require "megam/api/billings"
+require "megam/api/credithistories"
+require "megam/api/discounts"
+require "megam/api/subscriptions"
 
 require "megam/core/server_api"
 require "megam/core/config"
@@ -69,8 +76,20 @@ require "megam/core/app_request"
 require "megam/core/app_request_collection"
 require "megam/core/event"
 
-
-
+require "megam/core/availableunits_collection"
+require "megam/core/availableunits"
+require "megam/core/balance_collection"
+require "megam/core/balances"
+require "megam/core/billinghistories_collection"
+require "megam/core/billinghistories"
+require "megam/core/billings_collection"
+require "megam/core/billings"
+require "megam/core/credithistories_collection"
+require "megam/core/credithistories"
+require "megam/core/discounts_collection"
+require "megam/core/discounts"
+require "megam/core/subscriptions_collection"
+require "megam/core/subscriptions"
 
 module Megam
   class API

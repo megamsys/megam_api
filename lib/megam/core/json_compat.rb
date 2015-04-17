@@ -34,24 +34,39 @@ module Megam
     MEGAM_REQUEST                   = "Megam::Request".freeze
     MEGAM_REQUESTCOLLECTION         = "Megam::RequestCollection".freeze
     MEGAM_ORGANIZATION              = "Megam::Organizations".freeze
-    MEGAM_ORGANIZATIONSCOLLECTION    = "Megam::OrganizationsCollection".freeze
+    MEGAM_ORGANIZATIONSCOLLECTION   = "Megam::OrganizationsCollection".freeze
     MEGAM_DOMAIN                    = "Megam::Domains".freeze
-    MEGAM_APPREQUEST                   = "Megam::AppRequest".freeze
-    MEGAM_APPREQUESTCOLLECTION         = "Megam::AppRequestCollection".freeze
+    MEGAM_APPREQUEST                = "Megam::AppRequest".freeze
+    MEGAM_APPREQUESTCOLLECTION      = "Megam::AppRequestCollection".freeze
     MEGAM_EVENT                     = "Megam::Event".freeze
 
-    MEGAM_PREDEFCLOUD               = "Megam::PredefCloud".freeze
-    MEGAM_PREDEFCLOUDCOLLECTION     = "Megam::PredefCloudCollection".freeze
-    MEGAM_CLOUDTOOLSETTING          = "Megam::CloudToolSetting".freeze
-    MEGAM_CLOUDTOOLSETTINGCOLLECTION= "Megam::CloudToolSettingCollection".freeze
-    MEGAM_SSHKEY                    = "Megam::SshKey".freeze
-    MEGAM_SSHKEYCOLLECTION          = "Megam::SshKeyCollection".freeze
-    MEGAM_MARKETPLACE               = "Megam::MarketPlace".freeze
-    MEGAM_MARKETPLACECOLLECTION     = "Megam::MarketPlaceCollection".freeze
-    MEGAM_MARKETPLACEADDON          = "Megam::MarketPlaceAddons".freeze
-    MEGAM_MARKETPLACEADDONCOLLECTION= "Megam::MarketPlaceAddonsCollection".freeze
-    MEGAM_CSAR                      = "Megam::CSAR".freeze
-    MEGAM_CSARCOLLECTION            = "Megam::CSARCollection".freeze
+    MEGAM_PREDEFCLOUD                   = "Megam::PredefCloud".freeze
+    MEGAM_PREDEFCLOUDCOLLECTION         = "Megam::PredefCloudCollection".freeze
+    MEGAM_CLOUDTOOLSETTING              = "Megam::CloudToolSetting".freeze
+    MEGAM_CLOUDTOOLSETTINGCOLLECTION    = "Megam::CloudToolSettingCollection".freeze
+    MEGAM_SSHKEY                        = "Megam::SshKey".freeze
+    MEGAM_SSHKEYCOLLECTION              = "Megam::SshKeyCollection".freeze
+    MEGAM_MARKETPLACE                   = "Megam::MarketPlace".freeze
+    MEGAM_MARKETPLACECOLLECTION         = "Megam::MarketPlaceCollection".freeze
+    MEGAM_MARKETPLACEADDON              = "Megam::MarketPlaceAddons".freeze
+    MEGAM_MARKETPLACEADDONCOLLECTION    = "Megam::MarketPlaceAddonsCollection".freeze
+    MEGAM_CSAR                          = "Megam::CSAR".freeze
+    MEGAM_CSARCOLLECTION                = "Megam::CSARCollection".freeze
+    MEGAM_AVAILABLEUNITS                = "Megam::Availableunits".freeze
+    MEGAM_AVAILABLEUNITSCOLLECTION      = "Megam::AvailableunitsCollection".freeze
+    MEGAM_BALANCES                      = "Megam::Balances".freeze
+    MEGAM_BALANCECOLLECTION             = "Megam::BalanceCollection".freeze
+    MEGAM_BILLINGHISTORIES              = "Megam::Billinghistories".freeze
+    MEGAM_BILLINGHISTORIESCOLLECTION    = "Megam::BillinghistoriesCollection".freeze
+    MEGAM_BILLINGS                      = "Megam::Billings".freeze
+    MEGAM_BILLINGSCOLLECTION            = "Megam::BillingsCollection".freeze
+    MEGAM_CREDITHISTORIES               = "Megam::Credithistories".freeze
+    MEGAM_CREDITHISTORIESCOLLECTION     = "Megam::CredithistoriesCollection".freeze
+    MEGAM_DISCOUNTS                     = "Megam::Discounts".freeze
+    MEGAM_DISCOUNTSCOLLECTION           = "Megam::DiscountsCollection".freeze
+    MEGAM_SUBSCRIPTIONS                 = "Megam::Subscriptions".freeze
+    MEGAM_SUBSCRIPTIONSCOLLECTION       = "Megam::SubscriptionsCollection".freeze
+    
 
     class <<self
       # Increase the max nesting for JSON, which defaults
@@ -183,6 +198,34 @@ module Megam
           Megam::AppRequestCollection
         when MEGAM_EVENT
           Megam::Event
+        when MEGAM_AVAILABLEUNITS
+          Megam::Availableunits
+        when MEGAM_AVAILABLEUNITSCOLLECTION
+          Megam::AvailableunitsCollection
+        when MEGAM_BALANCES
+          Megam::Balances
+        when MEGAM_BALANCECOLLECTION
+          Megam::BalanceCollection
+        when MEGAM_BILLINGHISTORIES
+          Megam::Billinghistories
+        when MEGAM_BILLINGHISTORIESCOLLECTION
+          Megam::BillinghistoriesCollection
+        when MEGAM_BILLINGS
+          Megam::Billings
+        when MEGAM_BILLINGSCOLLECTION
+          Megam::BillingsCollection
+        when MEGAM_CREDITHISTORIES
+          Megam::Credithistories
+        when MEGAM_CREDITHISTORIESCOLLECTION
+          Megam::CredithistoriesCollection
+        when MEGAM_DISCOUNTS
+          Megam::Discounts
+        when MEGAM_DISCOUNTSCOLLECTION
+          Megam::DiscountsCollection
+        when MEGAM_SUBSCRIPTIONS
+          Megam::Subscriptions
+        when MEGAM_SUBSCRIPTIONSCOLLECTION
+          Megam::SubscriptionsCollection
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
