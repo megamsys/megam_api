@@ -73,6 +73,7 @@ module Megam
       else
         @user_type
       end
+    end
 
       def email(arg=nil)
         if arg != nil
@@ -80,7 +81,7 @@ module Megam
         else
           @email
         end
-
+      end
 
     def api_key(arg=nil)
       if arg != nil
@@ -96,6 +97,7 @@ module Megam
       else
         @password
       end
+    end
 
       def password_confirmation(arg=nil)
         if arg != nil
@@ -103,6 +105,7 @@ module Megam
         else
           @password_confirmation
         end
+      end
 
     def verification_hash(arg=nil)
       if arg != nil
@@ -110,6 +113,7 @@ module Megam
       else
           @verification_hash
       end
+    end
 
     def app_attributes(arg=nil)
       if arg != nil
@@ -117,6 +121,7 @@ module Megam
       else
             @app_attributes
       end
+    end
 
     def cloud_identity_attributes(arg=nil)
      if arg != nil
@@ -124,7 +129,7 @@ module Megam
         else
           @cloud_identity_attributes
     end
-
+  end
 
     def apps_item_attributes(arg=nil)
        if arg != nil
@@ -132,6 +137,7 @@ module Megam
          else
            @apps_item_attributes
      end
+   end
 
     def password_reset_token(arg=nil)
       if arg != nil
@@ -139,6 +145,7 @@ module Megam
       else
           @password_reset_token
     end
+  end
 
     def password_reset_sent_at(arg=nil)
         if arg != nil
@@ -146,6 +153,8 @@ module Megam
         else
               @password_reset_sent_at
         end
+      end
+
 
     def error?
       crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
@@ -155,7 +164,7 @@ module Megam
     def to_hash
       index_hash = Hash.new
       index_hash["first_name"] = first_name
-      index_hash["last _name"] = second_name
+      index_hash["last _name"] = last_name
       index_hash["phone"] = phone
       index_hash["user_type"] = user_type
       index_hash["email"] = email
@@ -179,19 +188,19 @@ module Megam
 
     def for_json
       result = {
-        "first_name" => first_name
-        "last _name" => second_name
-        "phone" => phone
-        "user_type" => user_type
-        "email" => email
-        "api_token" => api_token
-        "password" => password
-        "password_confirmation" => password_confirmation
-        "verification_hash" => verification_hash
-        "app_attributes" => app_attributes
-        "cloud_indentity_attributes" => cloud_indentity_attributes
-        "app_item_attributes" => app_item_attributes
-        "password_reset_token" => password_reset_token
+        "first_name" => first_name,
+        "last_name" => last_name,
+        "phone" => phone,
+        "user_type" => user_type,
+        "email" => email,
+        "api_token" => api_token,
+        "password" => password,
+        "password_confirmation" => password_confirmation,
+        "verification_hash" => verification_hash,
+        "app_attributes" => app_attributes,
+        "cloud_indentity_attributes" => cloud_indentity_attributes,
+        "app_item_attributes" => app_item_attributes,
+        "password_reset_token" => password_reset_token,
         "password_reset_sent_at" => password_reset_sent_at
       }
       result
@@ -224,21 +233,20 @@ module Megam
     end
 
     def from_hash(o)
-      @id        = o[:id] if o.has_key?(:id)
-      @first_name=o[:first_name] id o.has_key?(:first_name)
-      @last_name=o[:last_name] id o.has_key?(:last_name)
-      @phone=o[:phone] id o.has_key?(:phone)
-      @user_type=o[:user_type] id o.has_key?(:user_type)
-      @email=o[:email] id o.has_key?(:email)
-      @api_token=o[:api_token] id o.has_key?(:api_token)
-      @password=o[:password] id o.has_key?(:password)
-      @password_confirmation=o[:password_confirmation] id o.has_key?(:password_confirmation)
-      @verification_hash=o[:verification_hash] id o.has_key?(:verification_hash)
-      @app_attributes=o[:app_attributes] id o.has_key?(:app_attributes)
-      @cloud_indentity_attributes=o[:cloud_indentity_attributes] id o.has_key?(:cloud_indentity_attributes)
-      @app_item_attributes=o[:app_item_attributes] id o.has_key?(:app_item_attributes)
-      @password_reset_token=o[:password_reset_token] id o.has_key?(:password_reset_token)
-      @password_reset_sent_at=o[:password_reset_sent_at] id o.has_key?(:password_reset_sent_at)
+      @first_name=o[:first_name] if o.has_key?(:first_name)
+      @last_name=o[:last_name] if o.has_key?(:last_name)
+      @phone=o[:phone] if o.has_key?(:phone)
+      @user_type=o[:user_type] if o.has_key?(:user_type)
+      @email=o[:email] if o.has_key?(:email)
+      @api_token=o[:api_token] if o.has_key?(:api_token)
+      @password=o[:password] if o.has_key?(:password)
+      @password_confirmation=o[:password_confirmation] if o.has_key?(:password_confirmation)
+      @verification_hash=o[:verification_hash] if o.has_key?(:verification_hash)
+      @app_attributes=o[:app_attributes] if o.has_key?(:app_attributes)
+      @cloud_indentity_attributes=o[:cloud_indentity_attributes] if o.has_key?(:cloud_indentity_attributes)
+      @app_item_attributes=o[:app_item_attributes] if o.has_key?(:app_item_attributes)
+      @password_reset_token=o[:password_reset_token] if o.has_key?(:password_reset_token)
+      @password_reset_sent_at=o[:password_reset_sent_at] if o.has_key?(:password_reset_sent_at)
       self
     end
 
