@@ -39,6 +39,7 @@ module Megam
     MEGAM_APPREQUEST                   = "Megam::AppRequest".freeze
     MEGAM_APPREQUESTCOLLECTION         = "Megam::AppRequestCollection".freeze
     MEGAM_EVENT                     = "Megam::Event".freeze
+    MEGAM_PROFILE                   = "Megam::Profile".freeze
 
     MEGAM_PREDEFCLOUD               = "Megam::PredefCloud".freeze
     MEGAM_PREDEFCLOUDCOLLECTION     = "Megam::PredefCloudCollection".freeze
@@ -183,6 +184,8 @@ module Megam
           Megam::AppRequestCollection
         when MEGAM_EVENT
           Megam::Event
+        when MEGAM_PROFILE
+          Megam::Profile
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
