@@ -69,9 +69,9 @@ def sandbox_name
 end
 
 def sandbox_apikey
-   "IamAtlas{74}NobodyCanSeeME#07"
+   "i-yIxmyhBeeMxUTUJdv1hA=="
 end
 
 def sandbox_email
-  "megam@mypaas.io"
+  "morpheyesh@gmail.com"
 end
