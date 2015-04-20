@@ -13,9 +13,9 @@ def get_profile
   )
  end
 
-def get_profile(name)
+def get_profile(email)
 
-  @options = {:path => "/profile/#{name}",
+  @options = {:path => "/profile/#{email}",
     :body => ''}.merge(@options)
 
   request(

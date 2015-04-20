@@ -16,7 +16,6 @@
 module Megam
   class Profile < Megam::ServerAPI
     def initialize(email=nil, api_key=nil)
-      puts "Entered megam_api.weehaa!!"
       @first_name = nil
       @last_name = nil
       #@admin = true
@@ -83,7 +82,7 @@ module Megam
         end
       end
 
-    def api_key(arg=nil)
+    def api_token(arg=nil)
       if arg != nil
         @api_key = arg
       else
@@ -251,21 +250,18 @@ module Megam
     end
 
     def self.create(o)
-      puts "entered..woohoo!!"
       profile = from_hash(o)
       profile.create
     end
 
     # Load a profile by email_p
     def self.show(email,api_token=nil)
-      puts "entered show! woohoo!"
       profile = self.new(email, api_token)
       profile.megam_rest.get_profile(email)
     end
 
     # Create the node via the REST API
     def create
-      puts "entered..woohoo!!"
       megam_rest.post_profile(to_hash)
     end
 
