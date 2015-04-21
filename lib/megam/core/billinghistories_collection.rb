@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Megam
-  class BillingHistoriesCollection
+  class BillinghistoriesCollection
     include Enumerable
 
     attr_reader :iterator
@@ -87,7 +87,7 @@ module Megam
 
     def lookup(billinghistories)
       lookup_by = nil
-      if billinghistories.kind_of?(Megam::PredefCloud)
+      if billinghistories.kind_of?(Megam::Billinghistories)
       lookup_by = billinghistories.name
       elsif billinghistories.kind_of?(String)
       lookup_by = billinghistories
@@ -154,7 +154,7 @@ module Megam
     private
 
     def is_megam_billinghistories(arg)
-      unless arg.kind_of?(Megam::BillingHistories)
+      unless arg.kind_of?(Megam::Billinghistories)
         raise ArgumentError, "Members must be Megam::billinghistories's"
       end
       true

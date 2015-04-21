@@ -87,7 +87,7 @@ module Megam
 
     def lookup(billings)
       lookup_by = nil
-      if billings.kind_of?(Megam::Billing)
+      if billings.kind_of?(Megam::Billings)
       lookup_by = billings.repo_name
       elsif billings.kind_of?(String)
       lookup_by = billings
@@ -130,7 +130,7 @@ module Megam
     private
 
     def is_megam_billings(arg)
-      unless arg.kind_of?(Megam::Billing)
+      unless arg.kind_of?(Megam::Billings)
         raise ArgumentError, "Members must be Megam::Billings"
       end
       true

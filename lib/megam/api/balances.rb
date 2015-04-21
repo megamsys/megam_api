@@ -30,6 +30,17 @@ module Megam
         :body     => @options[:body]
       )
     end
+    
+     def update_balance(new_balance)
+      @options = {:path => '/balances/update',
+        :body => Megam::JSONCompat.to_json(new_balance)}.merge(@options)
+
+      request(
+        :expects  => 201,
+        :method   => :post,
+        :body     => @options[:body]
+      )
+    end
 
   end
 end

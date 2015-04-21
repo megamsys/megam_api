@@ -55,7 +55,7 @@ module Megam
     MEGAM_AVAILABLEUNITS                = "Megam::Availableunits".freeze
     MEGAM_AVAILABLEUNITSCOLLECTION      = "Megam::AvailableunitsCollection".freeze
     MEGAM_BALANCES                      = "Megam::Balances".freeze
-    MEGAM_BALANCECOLLECTION             = "Megam::BalanceCollection".freeze
+    MEGAM_BALANCESCOLLECTION            = "Megam::BalancesCollection".freeze
     MEGAM_BILLINGHISTORIES              = "Megam::Billinghistories".freeze
     MEGAM_BILLINGHISTORIESCOLLECTION    = "Megam::BillinghistoriesCollection".freeze
     MEGAM_BILLINGS                      = "Megam::Billings".freeze
@@ -204,8 +204,8 @@ module Megam
           Megam::AvailableunitsCollection
         when MEGAM_BALANCES
           Megam::Balances
-        when MEGAM_BALANCECOLLECTION
-          Megam::BalanceCollection
+        when MEGAM_BALANCESCOLLECTION
+          Megam::BalancesCollection
         when MEGAM_BILLINGHISTORIES
           Megam::Billinghistories
         when MEGAM_BILLINGHISTORIESCOLLECTION

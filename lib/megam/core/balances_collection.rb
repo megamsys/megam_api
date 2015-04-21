@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Megam
-  class BalanceCollection
+  class BalancesCollection
     include Enumerable
 
     attr_reader :iterator

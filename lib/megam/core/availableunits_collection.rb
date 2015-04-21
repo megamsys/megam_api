@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Megam
-  class AvailableUnitsCollection
+  class AvailableunitsCollection
     include Enumerable
 
     attr_reader :iterator
@@ -87,12 +87,12 @@ module Megam
 
     def lookup(availableunits)
       lookup_by = nil
-      if availableunits.kind_of?(Megam::AvailableUnits)
+      if availableunits.kind_of?(Megam::Availableunits)
       lookup_by = availableunits.name
       elsif availableunits.kind_of?(String)
       lookup_by = availableunits
       else
-        raise ArgumentError, "Must pass a Megam::AvailableUnits or String to lookup"
+        raise ArgumentError, "Must pass a Megam::Availableunits or String to lookup"
       end
       res =@availableunits_by_name[lookup_by]
       unless res
@@ -130,7 +130,7 @@ module Megam
     private
 
     def is_megam_availableunits(arg)
-      unless arg.kind_of?(Megam::AvailableUnits)
+      unless arg.kind_of?(Megam::Availableunits)
         raise ArgumentError, "Members must be Megam::availableunits's"
       end
       true

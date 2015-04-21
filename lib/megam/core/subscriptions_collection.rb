@@ -116,30 +116,6 @@ module Megam
       for_json.to_json(*a)
     end
 
-=begin
-{
-"json_claz":"Megam::PredefCloudCollection",
-"results":[{
-"id":"NOD362554470640386048",
-"name":"ec2_rails",
-"account_id":"ACT362544229488001024",
-"json_claz":"Megam::PredefCloud",
-"spec":{
-"type_name":"sensor-type",
-"groups":"sens-group",
-"image":"sens-image",
-"flavor":"sens-flvr"
-},
-"access":{
-"ssh_key":"sens-ssh",
-"identity_file":"sens-identity-file",
-"ssh_user":"sens-sshuser"
-},
-"ideal":"",
-"performance":""
-}]
-}
-=end
     def self.json_create(o)
       collection = self.new()
       o["results"].each do |subscriptions_list|
