@@ -78,7 +78,7 @@ require "megam/core/event"
 
 require "megam/core/availableunits_collection"
 require "megam/core/availableunits"
-require "megam/core/balance_collection"
+require "megam/core/balances_collection"
 require "megam/core/balances"
 require "megam/core/billinghistories_collection"
 require "megam/core/billinghistories"
