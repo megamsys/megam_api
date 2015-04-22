@@ -18,25 +18,24 @@ class TestProfile < MiniTest::Unit::TestCase
   end
 
 
+=end
   def test_post_profile_good
     tmp_hash = {
-     "first_name" => "yeshwanth",
+     "first_name" => "yeshwanthzzz",
       "last_name" => "kumar",
       "email" => "new@test.com",
-      "api_token" => "IamAtlas{74}NobdyCanSeeME#07",
+      "api_token" => "IamAtlas{74}NobdyCanSedfefdeME#07",
         "password" => "test",
-        "password_confirmation" => "test2",
+        "password_confirmation" => "test2wdw",
         "password_reset_token" => "dummy"}
     response =megams.post_profile(tmp_hash)
     response.body.to_s
     assert_equal(201, response.status)
   end
-
-=end
+=begin
 def test_get_profile_good
-    response =megams.get_profile("proper@account.com")
+    response =megams.get_profile("new@test.com")
      assert_equal(200, response.status)
  end
-
-
+=end
 end

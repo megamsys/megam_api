@@ -16,6 +16,7 @@
 module Megam
   class Profile < Megam::ServerAPI
     def initialize(email=nil, api_key=nil)
+      
       @first_name = nil
       @last_name = nil
       #@admin = true
@@ -30,7 +31,6 @@ module Megam
       @verification_hash = nil
       @app_attributes = nil
       @cloud_identity_attributes = nil
-      @apps_item_attributes = nil
       @password_reset_token = nil
       @password_reset_sent_at = nil
       super(email, api_key)
@@ -130,13 +130,7 @@ module Megam
     end
   end
 
-    def apps_item_attributes(arg=nil)
-       if arg != nil
-             @apps_item_attributes = arg
-         else
-           @apps_item_attributes
-     end
-   end
+   
 
     def password_reset_token(arg=nil)
       if arg != nil
@@ -163,19 +157,18 @@ module Megam
     def to_hash
       index_hash = Hash.new
       index_hash["first_name"] = first_name
-      index_hash["last _name"] = last_name
-      index_hash["phone"] = phone
-      index_hash["user_type"] = user_type
+      index_hash["last_name"] = last_name
+      #index_hash["phone"] = phone
+      #index_hash["user_type"] = user_type
       index_hash["email"] = email
       index_hash["api_token"] = api_token
       index_hash["password"] = password
       index_hash["password_confirmation"] = password_confirmation
-      index_hash["verification_hash"] = verification_hash
-      index_hash["app_attributes"] = app_attributes
-      index_hash["cloud_indentity_attributes"] = cloud_indentity_attributes
-      index_hash["app_item_attributes"] = app_item_attributes
+      #index_hash["verification_hash"] = verification_hash
+      #index_hash["app_attributes"] = app_attributes
+      #index_hash["cloud_identity_attributes"] = cloud_identity_attributes
       index_hash["password_reset_token"] = password_reset_token
-      index_hash["password_reset_sent_at"] = password_reset_sent_at
+      #index_hash["password_reset_sent_at"] = password_reset_sent_at
       index_hash
     end
 
@@ -197,8 +190,7 @@ module Megam
         "password_confirmation" => password_confirmation,
         "verification_hash" => verification_hash,
         "app_attributes" => app_attributes,
-        "cloud_indentity_attributes" => cloud_indentity_attributes,
-        "app_item_attributes" => app_item_attributes,
+        "cloud_identity_attributes" => cloud_identity_attributes,
         "password_reset_token" => password_reset_token,
         "password_reset_sent_at" => password_reset_sent_at
       }
@@ -218,8 +210,7 @@ module Megam
       profile.password_confirmation(o["password_confirmation"]) if o.has_key?("password_confirmation")
       profile.verification_hash(o["verification_hash"]) if o.has_key?("verification_hash")
       profile.app_attributes(o["app_attributes"]) if o.has_key?("app_attributes")
-      profile.cloud_indentity_attributes(o["cloud_indentity_attributes"]) if o.has_key?("cloud_indentity_attributes")
-      profile.app_item_attributes(o["app_item_attributes"]) if o.has_key?("app_item_attributes")
+      profile.cloud_identity_attributes(o["cloud_identity_attributes"]) if o.has_key?("cloud_identity_attributes")
       profile.password_reset_token(o["password_reset_token"]) if o.has_key?("password_reset_token")
       profile.password_reset_sent_at(o["password_reset_sent_at"]) if o.has_key?("password_reset_sent_at")
       profile
@@ -242,14 +233,13 @@ module Megam
       @password_confirmation=o[:password_confirmation] if o.has_key?(:password_confirmation)
       @verification_hash=o[:verification_hash] if o.has_key?(:verification_hash)
       @app_attributes=o[:app_attributes] if o.has_key?(:app_attributes)
-      @cloud_indentity_attributes=o[:cloud_indentity_attributes] if o.has_key?(:cloud_indentity_attributes)
-      @app_item_attributes=o[:app_item_attributes] if o.has_key?(:app_item_attributes)
+      @cloud_identity_attributes=o[:cloud_identity_attributes] if o.has_key?(:cloud_identity_attributes)
       @password_reset_token=o[:password_reset_token] if o.has_key?(:password_reset_token)
       @password_reset_sent_at=o[:password_reset_sent_at] if o.has_key?(:password_reset_sent_at)
       self
     end
 
-    def self.create(o)
+    def self.create(o, tmp_email=nil, tmp_apitoken=nil)
       profile = from_hash(o)
       profile.create
     end
