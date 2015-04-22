@@ -35,14 +35,14 @@ module Megam
     def []=(index, arg)
       is_megam_billinghistories(arg)
       @billinghistories[index] = arg
-      @billinghistories_by_name[arg.name] = index
+      @billinghistories_by_name[arg.accounts_id] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
         is_megam_billinghistories(a)
         @billinghistories << a
-        @billinghistories_by_name[a.name] =@billinghistories.length - 1
+        @billinghistories_by_name[a.accounts_id] =@billinghistories.length - 1
       end
       self
     end
@@ -61,11 +61,11 @@ module Megam
         @billinghistories_by_name.each_key do |key|
         @billinghistories_by_name[key] += 1 if@billinghistories_by_name[key] > @insert_after_idx
         end
-        @billinghistories_by_name[billinghistories.name] = @insert_after_idx + 1
+        @billinghistories_by_name[billinghistories.accounts_id] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
       @billinghistories << billinghistories
-      @billinghistories_by_name[billinghistories.name] =@billinghistories.length - 1
+      @billinghistories_by_name[billinghistories.accounts_id] =@billinghistories.length - 1
       end
     end
 
@@ -88,7 +88,7 @@ module Megam
     def lookup(billinghistories)
       lookup_by = nil
       if billinghistories.kind_of?(Megam::Billinghistories)
-      lookup_by = billinghistories.name
+      lookup_by = billinghistories.accounts_id
       elsif billinghistories.kind_of?(String)
       lookup_by = billinghistories
       else
@@ -105,7 +105,7 @@ module Megam
     def to_hash
       index_hash = Hash.new
       self.each do |billinghistories|
-        index_hash[billinghistories.name] = billinghistories.to_s
+        index_hash[billinghistories.accounts_id] = billinghistories.to_s
       end
       index_hash
     end
@@ -116,30 +116,6 @@ module Megam
       for_json.to_json(*a)
     end
 
-=begin
-{
-"json_claz":"Megam::PredefCloudCollection",
-"results":[{
-"id":"NOD362554470640386048",
-"name":"ec2_rails",
-"account_id":"ACT362544229488001024",
-"json_claz":"Megam::PredefCloud",
-"spec":{
-"type_name":"sensor-type",
-"groups":"sens-group",
-"image":"sens-image",
-"flavor":"sens-flvr"
-},
-"access":{
-"ssh_key":"sens-ssh",
-"identity_file":"sens-identity-file",
-"ssh_user":"sens-sshuser"
-},
-"ideal":"",
-"performance":""
-}]
-}
-=end
     def self.json_create(o)
       collection = self.new()
       o["results"].each do |billinghistories_list|

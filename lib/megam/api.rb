@@ -38,6 +38,7 @@ require "megam/api/billings"
 require "megam/api/credithistories"
 require "megam/api/discounts"
 require "megam/api/subscriptions"
+require "megam/api/profile"
 
 require "megam/core/server_api"
 require "megam/core/config"
@@ -75,6 +76,7 @@ require "megam/core/components_collection"
 require "megam/core/app_request"
 require "megam/core/app_request_collection"
 require "megam/core/event"
+require "megam/core/profile"
 
 require "megam/core/availableunits_collection"
 require "megam/core/availableunits"
@@ -234,7 +236,7 @@ module Megam
         X_Megam_DATE => encoded_api_header[:date],
       }).merge(@options[:headers])
 
- 
+
       if @options[:scheme] == "https"
 
       if !File.exist?(File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")))
