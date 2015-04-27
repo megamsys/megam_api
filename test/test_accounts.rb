@@ -15,14 +15,14 @@ class TestAccounts < MiniTest::Unit::TestCase
 
   def test_post_profile_good
     tmp_hash = {
-      "id" => "00009900",
-      "first_name" => "yeshwanthzzz",
-      "last_name" => "kumar",
-      "email" => "new@test.com",
+      "id" => "000099090909000",
+      "first_name" => "Darth",
+      "last_name" => "Vader",
+      "email" => "coolvader@enterprise.com",
+      "phone" => "19090909090",
       "api_key" => "IamAtlas{74}NobdyCanSedfefdeME#07",
-      "authority" => "admin"
       "password" => "test",
-      "phone" => "988888888",
+      "authority" => "admin",
       "password_reset_key" => "",
       "created_at" => "2014-10-29 13:24:06 +0000"
       }
