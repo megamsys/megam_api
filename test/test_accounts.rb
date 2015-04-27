@@ -12,6 +12,25 @@ class TestAccounts < MiniTest::Unit::TestCase
     response.body.to_s
     assert_equal(200, response.status)
   end
+
+  def test_post_profile_good
+    tmp_hash = {
+      "id" => "00009900",
+      "first_name" => "yeshwanthzzz",
+      "last_name" => "kumar",
+      "email" => "new@test.com",
+      "api_key" => "IamAtlas{74}NobdyCanSedfefdeME#07",
+      "authority" => "admin"
+      "password" => "test",
+      "phone" => "988888888",
+      "password_reset_key" => "",
+      "created_at" => "2014-10-29 13:24:06 +0000"
+      }
+    response =megams.post_accounts(tmp_hash)
+    response.body.to_s
+    assert_equal(201, response.status)
+  end
+
 =begin
   def test_get_accounts_bad
     assert_raises(Megam::API::Errors::NotFound) do

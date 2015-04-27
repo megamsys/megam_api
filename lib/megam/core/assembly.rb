@@ -80,7 +80,7 @@ module Megam
       @operations
       end
     end
-    
+
     def outputs(arg=[])
       if arg != []
         @outputs = arg
@@ -143,7 +143,7 @@ module Megam
         "status" => status,
         "created_at" => created_at
       }
-           
+
       result
     end
 
@@ -180,22 +180,18 @@ module Megam
       self
     end
 
-    
+
     def self.show(assembly_id, tmp_email=nil, tmp_api_key=nil)
       asm = self.new(tmp_email, tmp_api_key)
-      puts "---->>>> "
-      puts #{assembly_id}
-      puts "----------->>>"
       asm.megam_rest.get_one_assembly(assembly_id)
     end
-    
+
      def self.update(o,tmp_email=nil, tmp_api_key=nil)
       asm = from_hash(o, tmp_email, tmp_api_key)
       asm.update
     end
 
     # Create the node via the REST API
-
     def update
       megam_rest.update_assembly(to_hash)
     end
