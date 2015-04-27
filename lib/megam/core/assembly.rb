@@ -19,6 +19,7 @@ module Megam
     def initialize(email=nil, api_key=nil)
       @id = nil
       @name = nil
+      @tosca_type = nil
       @components = []
       @policies=[]
       @inputs = []
@@ -46,6 +47,14 @@ module Megam
         @name = arg
       else
       @name
+      end
+    end
+    
+    def tosca_type(arg=nil)
+      if arg != nil
+        @tosca_type = arg
+      else
+      @tosca_type
       end
     end
 
@@ -115,6 +124,7 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["name"] = name
+      index_hash["tosca_type"] = tosca_type
       index_hash["components"] = components
       index_hash["policies"] = policies
       index_hash["inputs"] = inputs
@@ -135,6 +145,7 @@ module Megam
       result = {
         "id" => id,
         "name" => name,
+        "tosca_type" => tosca_type,
         "components" => components,
         "policies" => policies,
         "inputs" => inputs,
@@ -151,6 +162,7 @@ module Megam
       asm = new
       asm.id(o["id"]) if o.has_key?("id")
       asm.name(o["name"]) if o.has_key?("name")
+      asm.tosca_type(o["tosca_type"]) if o.has_key?("tosca_type")
       asm.components(o["components"]) if o.has_key?("components")
       asm.policies(o["policies"]) if o.has_key?("policies") #this will be an array? can hash store array?
       asm.inputs(o["inputs"]) if o.has_key?("inputs")
@@ -170,6 +182,7 @@ module Megam
     def from_hash(o)
       @id                = o["id"] if o.has_key?("id")
       @name              = o["name"] if o.has_key?("name")
+      @tosca_type        = o["tosca_type"] if o.has_key?("tosca_type")
       @components        = o["components"] if o.has_key?("components")
       @policies          = o["policies"] if o.has_key?("policies")
       @inputs            = o["inputs"] if o.has_key?("inputs")
@@ -182,10 +195,7 @@ module Megam
 
     
     def self.show(assembly_id, tmp_email=nil, tmp_api_key=nil)
-      asm = self.new(tmp_email, tmp_api_key)
-      puts "---->>>> "
-      puts #{assembly_id}
-      puts "----------->>>"
+      asm = self.new(tmp_email, tmp_api_key)  
       asm.megam_rest.get_one_assembly(assembly_id)
     end
     
