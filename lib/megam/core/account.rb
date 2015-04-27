@@ -19,7 +19,12 @@ module Megam
       @id = nil
       @email = nil
       @api_key = nil
+      @first_name = nil
+      @last_name = nil
+      @phone = nil
+      @password = nil
       @authority = nil
+      @password_reset_key = nil
       @created_at = nil
       @some_msg = {}
       super(email, api_key)
@@ -54,11 +59,51 @@ module Megam
       end
     end
 
+    def first_name(arg=nil)
+      if arg != nil
+        @first_name = arg
+      else
+      @first_name
+      end
+    end
+
+    def last_name(arg=nil)
+      if arg != nil
+        @last_name = arg
+      else
+      @last_name
+      end
+    end
+
+    def phone(arg=nil)
+      if arg != nil
+        @phone = arg
+      else
+      @phone
+      end
+    end
+
+    def password(arg=nil)
+      if arg != nil
+        @password = arg
+      else
+      @password
+      end
+    end
+
     def authority(arg=nil)
       if arg != nil
         @authority = arg
       else
       @authority
+      end
+    end
+
+    def password_reset_key(arg=nil)
+      if arg != nil
+        @password_reset_key = arg
+      else
+        @password_reset_key
       end
     end
 
@@ -89,6 +134,11 @@ module Megam
       index_hash["id"] = id
       index_hash["email"] = email
       index_hash["api_key"] = api_key
+      index_hash["first_name"] = first_name
+      index_hash["last_name"] = last_name
+      index_hash["phone"] = phone
+      index_hash["password"] = password
+      index_hash["password_reset_key"] = password_reset_key
       index_hash["authority"] = authority
       index_hash["created_at"] = created_at
       index_hash["some_msg"] = some_msg
@@ -106,6 +156,13 @@ module Megam
         "id" => id,
         "email" => email,
         "api_key" => api_key,
+        "first_name" => first_name,
+        "last_name" => last_name,
+        "phone" => phone,
+        "password" => password,
+        "password_reset_key" => password_reset_key
+        "authority" => authority,
+        "created_at" => created_at
         "authority" => authority,
         "created_at" => created_at
       }
@@ -119,6 +176,11 @@ module Megam
       acct.email(o["email"]) if o.has_key?("email")
       acct.api_key(o["api_key"]) if o.has_key?("api_key")
       acct.authority(o["authority"]) if o.has_key?("authority")
+      acct.first_name(o["first_name"]) if o.has_key?("first_name")
+      acct.last_name(o["last_name"]) if o.has_key?("last_name")
+      acct.phone(o["phone"]) if o.has_key?("phone")
+      acct.password(o["password"]) if o.has_key?("password")
+      acct.password_reset_key(o["password_reset_key"]) if o.has_key?("password_reset_key")
       acct.created_at(o["created_at"]) if o.has_key?("created_at")
       acct.some_msg[:code] = o["code"] if o.has_key?("code")
       acct.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -134,10 +196,15 @@ module Megam
     end
 
     def from_hash(o)
-      @id        = o[:id] if o.has_key?(:id)
-      @email     = o[:email] if o.has_key?(:email)
-      @api_key   = o[:api_key] if o.has_key?(:api_key)
-      @authority = o[:authority] if o.has_key?(:authority)
+      @id         = o[:id] if o.has_key?(:id)
+      @email      = o[:email] if o.has_key?(:email)
+      @api_key    = o[:api_key] if o.has_key?(:api_key)
+      @authority  = o[:authority] if o.has_key?(:authority)
+      @first_name = o[:first_name] if o.has_key?(:first_name)
+      @last_name  = o[:last_name] if o.has_key?(:last_name)
+      @phone      = o[:phone] if o.has_key?(:phone)
+      @password   = o[:password] if o.has_key?(:password)
+      @password_reset_key = o[:password_reset_key] if o.has_key?(:password_reset_key)
       @created_at = o[:created_at] if o.has_key?(:created_at)
       self
     end
@@ -147,16 +214,28 @@ module Megam
       acct.create
     end
 
+    # Create the node via the REST API
+    def create
+      megam_rest.post_accounts(to_hash)
+    end
+
+
     # Load a account by email_p
     def self.show(email,api_key=nil)
       acct = self.new(email, api_key)
       acct.megam_rest.get_accounts(email)
     end
 
-    # Create the node via the REST API
-    def create
-      megam_rest.post_accounts(to_hash)
-    end
+
+    def self.update(o,tmp_email=nil, tmp_api_key=nil)
+     acct = from_hash(o, tmp_email, tmp_api_key)
+     acct.update
+   end
+
+   # Create the node via the REST API
+   def update
+     megam_rest.update_accounts(to_hash)
+   end
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
