@@ -160,9 +160,7 @@ module Megam
         "last_name" => last_name,
         "phone" => phone,
         "password" => password,
-        "password_reset_key" => password_reset_key
-        "authority" => authority,
-        "created_at" => created_at
+        "password_reset_key" => password_reset_key,
         "authority" => authority,
         "created_at" => created_at
       }

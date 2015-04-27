@@ -25,7 +25,7 @@ module Megam
         :body     => @options[:body]
         )
       end
-    end
+    
 
     # The body content needs to be a json.
     def update_accounts(new_account)
