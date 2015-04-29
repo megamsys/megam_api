@@ -39,8 +39,6 @@ module Megam
     MEGAM_APPREQUEST                = "Megam::AppRequest".freeze
     MEGAM_APPREQUESTCOLLECTION      = "Megam::AppRequestCollection".freeze
     MEGAM_EVENT                     = "Megam::Event".freeze
-    MEGAM_PROFILE                   = "Megam::Profile".freeze
-
     MEGAM_PREDEFCLOUD                   = "Megam::PredefCloud".freeze
     MEGAM_PREDEFCLOUDCOLLECTION         = "Megam::PredefCloudCollection".freeze
     MEGAM_CLOUDTOOLSETTING              = "Megam::CloudToolSetting".freeze
@@ -67,7 +65,7 @@ module Megam
     MEGAM_DISCOUNTSCOLLECTION           = "Megam::DiscountsCollection".freeze
     MEGAM_SUBSCRIPTIONS                 = "Megam::Subscriptions".freeze
     MEGAM_SUBSCRIPTIONSCOLLECTION       = "Megam::SubscriptionsCollection".freeze
-    
+
 
     class <<self
       # Increase the max nesting for JSON, which defaults
@@ -226,9 +224,7 @@ module Megam
         when MEGAM_SUBSCRIPTIONS
           Megam::Subscriptions
         when MEGAM_SUBSCRIPTIONSCOLLECTION
-          Megam::SubscriptionsCollection
-        when MEGAM_PROFILE
-          Megam::Profile
+          Megam::SubscriptionsCollection        
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
