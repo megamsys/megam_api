@@ -11,6 +11,7 @@ class TestApps < MiniTest::Unit::TestCase
       "id" => "ASM1139235178976247808",
       "json_claz" => "Megam::Assembly",
       "name" => "calcines",
+      "tosca_type" => "",
       "components" => ["COM1139235178934304768",""],
       "policies" => [{
           "name" => "bind policy",

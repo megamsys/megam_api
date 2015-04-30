@@ -167,8 +167,8 @@ module Megam
       asm.megam_rest.get_one_assemblies(one_assemblies_id)
     end
 
-    def self.list(tmp_email=nil, tmp_api_key=nil, inflated=false)
-      asm = self.new(tmp_email, tmp_api_key)
+    def self.list(params)
+      asm = self.new(params["email"], params["api_key"])
       asm.megam_rest.get_assemblies
     end
 
