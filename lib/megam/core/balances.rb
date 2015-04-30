@@ -166,16 +166,16 @@ module Megam
     # Load all balances -
     # returns a BalanceCollection
     # don't return self. check if the Megam::BalanceCollection is returned.
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-      balance = self.new(tmp_email,tmp_api_key)
+    def self.list(params)
+      balance = self.new(params["email"], params["api_key"])
       balance.megam_rest.get_balances
     end
 
     # Show a particular balance by name,
     # Megam::Balance
-    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-      pre = self.new(tmp_email,tmp_api_key)
-      pre.megam_rest.get_balance(p_name)
+     def self.show(params)
+      pre = self.new(params["email"], params["api_key"])
+      pre.megam_rest.get_balance(params["email"])
     end
 
     def self.delete(p_name,tmp_email=nil, tmp_api_key=nil)

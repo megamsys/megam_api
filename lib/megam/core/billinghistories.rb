@@ -31,7 +31,6 @@ module Megam
       self
     end
 
-    
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -136,7 +135,7 @@ module Megam
     #
     def self.json_create(o)
       bal = new
-      bal.id(o["id"]) if o.has_key?("id")     
+      bal.id(o["id"]) if o.has_key?("id")
       bal.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
       bal.assembly_id(o["assembly_id"]) if o.has_key?("assembly_id")
       bal.bill_type(o["bill_type"]) if o.has_key?("bill_type")
@@ -181,21 +180,21 @@ module Megam
     # Load all billing histories -
     # returns a BillingHistoriesCollection
     # don't return self. check if the Megam::BillingHistoriesCollection is returned.
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-    billhistory = self.new(tmp_email,tmp_api_key)
+    def self.list(params)
+      billhistory = self.new(params["email"], params["api_key"])
       billhistory.megam_rest.get_billinghistories
     end
 
     # Show a particular billing history by name,
     # Megam::BillingHistory
     def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-    pre = self.new(tmp_email,tmp_api_key)
-    pre.megam_rest.get_billinghistory(p_name)
+      pre = self.new(tmp_email,tmp_api_key)
+      pre.megam_rest.get_billinghistory(p_name)
     end
 
     def self.delete(p_name,tmp_email=nil, tmp_api_key=nil)
-    pre = self.new(tmp_email,tmp_api_key)
-    pre.megam_rest.delete_billinghistory(p_name)
+      pre = self.new(tmp_email,tmp_api_key)
+      pre.megam_rest.delete_billinghistory(p_name)
     end
 
     def to_s
