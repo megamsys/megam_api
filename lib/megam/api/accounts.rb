@@ -24,20 +24,20 @@ module Megam
         :method   => :post,
         :body     => @options[:body]
         )
-      end
+    end
     
-
-    # The body content needs to be a json.
-    def update_accounts(new_account)
+    def update_accounts(update_account)
       @options = {:path => '/accounts/update',
-        :body => Megam::JSONCompat.to_json(new_account)}.merge(@options)
-
-        request(
-        :expects  => 201,
-        :method   => :post,
-        :body     => @options[:body]
-        )
-      end
+     :body => Megam::JSONCompat.to_json(update_account)}.merge(@options)
+     
+     request(
+      :expects => 201, 
+      :method => :post,
+      :body => @options[:body]
+      )
     end
 
+    
+
+  end
 end

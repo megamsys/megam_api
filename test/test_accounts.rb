@@ -6,14 +6,14 @@ class TestAccounts < MiniTest::Unit::TestCase
   $normal = "normal-tom"
   $tom_email = "tom@gomegam.com"
   $bob_email = "bob@gomegam.com"
-
+=begin
   def test_get_accounts_good
     response =megams.get_accounts(sandbox_email)
     response.body.to_s
     assert_equal(200, response.status)
   end
 
-  def test_post_profile_good
+  def test_post_accounts_good
     tmp_hash = {
       "id" => "000099090909000",
       "first_name" => "Darth",
@@ -30,6 +30,24 @@ class TestAccounts < MiniTest::Unit::TestCase
     response.body.to_s
     assert_equal(201, response.status)
   end
+=end
+  def test_update_accounts_good
+    tmp_hash = {
+      "id" => "w3423",
+      "first_name" => "Darth",
+      "last_name" => "Vader",
+      "email" => "super@test.com",
+      "phone" => "19090909090011111111",
+      "api_key" => "IamAtlas{74}NobdyCanSedfefdeME#07",
+      "password" => "tset",
+      "authority" => "admin",
+      "password_reset_key" => "",
+      "created_at" => "2014-10-29 13:24:06 +0000"
+      }
+   response = megams.update_accounts(tmp_hash)
+   response.body.to_s
+   assert_equal(201, response.status)
+ end
 
 =begin
   def test_get_accounts_bad
