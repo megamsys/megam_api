@@ -225,8 +225,9 @@ module Megam
     end
 
 
-    def self.update(o,tmp_email=nil, tmp_api_key=nil)
-     acct = from_hash(o, tmp_email, tmp_api_key)
+    def self.update(o)
+      puts "called uda"
+     acct = from_hash(o)
      acct.update
    end
 
