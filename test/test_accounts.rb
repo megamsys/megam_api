@@ -21,7 +21,6 @@ class TestAccounts < MiniTest::Unit::TestCase
       "email" => "coolvader@enterprise.com",
       "phone" => "19090909090",
       "api_key" => "IamAtlas{74}NobdyCanSedfefdeME#07",
-      "password" => "test",
       "authority" => "admin",
       "password_reset_key" => "",
       "created_at" => "2014-10-29 13:24:06 +0000"
