@@ -246,13 +246,13 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.show(tmp_email=nil, tmp_api_key=nil, name)
-      app = self.new(tmp_email, tmp_api_key)
-      app.megam_rest.get_marketplaceapp(name)
+    def self.show(params)
+      app = self.new(params["email"], params["api_key"])
+      app.megam_rest.get_marketplaceapp(params["id"])
     end
 
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-      app = self.new(tmp_email, tmp_api_key)
+    def self.list(params)
+      app = self.new(params["email"], params["api_key"])
       app.megam_rest.get_marketplaceapps
     end
 

@@ -158,8 +158,8 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(params)
+      acct = from_hash(params,params["email"], params["api_key"])
       acct.create
     end
 
@@ -171,8 +171,8 @@ module Megam
     # Load all credithistories -
     # returns a credithistoriesCollection
     # don't return self. check if the Megam::ccredithistoriesCollection is returned.
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-      cts = self.new(tmp_email, tmp_api_key)
+    def self.list(params)
+      cts = self.new(params["email"], params["api_key"])
       cts.megam_rest.get_credithistories
     end
 

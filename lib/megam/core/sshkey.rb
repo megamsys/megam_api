@@ -155,8 +155,8 @@ module Megam
     # Load all sshkeys -
     # returns a sshkeysCollection
     # don't return self. check if the Megam::SshKeyCollection is returned.
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-    sshKey = self.new(tmp_email,tmp_api_key)
+    def self.list(params)
+    sshKey = self.new(params["email"], params["api_key"])
       sshKey.megam_rest.get_sshkeys
     end
 
