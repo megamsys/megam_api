@@ -153,8 +153,8 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(params)
+      acct = from_hash(params,params["email"], params["api_key"])
       acct.create
     end
 
@@ -183,8 +183,8 @@ module Megam
       pre.megam_rest.delete_balance(p_name)
     end
 
-    def self.update(o,tmp_email=nil, tmp_api_key=nil)
-      asm = from_hash(o, tmp_email, tmp_api_key)
+    def self.update(params)
+      asm = from_hash(params, params["email"], params["api_key"])
       asm.update
     end
 
