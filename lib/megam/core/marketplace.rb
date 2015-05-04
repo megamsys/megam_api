@@ -119,13 +119,11 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["name"] = name
-      index_hash["appdetails"] = appdetails
-      index_hash["features"] = features
+      index_hash["catalog"] = catalog
       index_hash["plans"] = plans
-      index_hash["applinks"] = applinks
-      index_hash["attach"] = attach
-      index_hash["predefnode"] = predefnode
-      index_hash["approved"] = approved
+      index_hash["cattype"] = cattype
+      index_hash["predef"] = predef
+      index_hash["status"] = status
       index_hash["some_msg"] = some_msg
       index_hash["created_at"] = created_at
       index_hash
@@ -141,13 +139,11 @@ module Megam
       result = {
         "id" => id,
         "name" => name,
-        "appdetails" => appdetails,
-        "features" => features,
+        "catalog" => catalog,
         "plans" => plans,
-        "applinks" => applinks,
-        "attach" => attach,
-        "predefnode" => predefnode,
-        "approved" => approved,
+        "cattype" => cattype,
+        "predef" => predef,
+        "status" => status,
         "created_at" => created_at
       }
       result
@@ -157,39 +153,18 @@ module Megam
       app = new
       app.id(o["id"]) if o.has_key?("id")
       app.name(o["name"]) if o.has_key?("name")
-      app.logo(o["logo"]) if o.has_key?("logo")
-      app.catagory(o["catagory"]) if o.has_key?("catagory")
-      app.attach(o["attach"]) if o.has_key?("attach")
-      app.predefnode(o["predefnode"]) if o.has_key?("predefnode")
-      app.approved(o["approved"]) if o.has_key?("approved")
+      
+      ct = o["catalog"]
+      app.catalog[:logo] = ct["logo"] if ct && ct.has_key?("logo")      
+      app.catalog[:category] = ct["category"] if ct && ct.has_key?("category")
+      app.catalog[:description] = ct["description"] if ct && ct.has_key?("description")
+            
+      app.plans(o["plans"]) if o.has_key?("plans") 
+      app.cattype(o["cattype"]) if o.has_key?("cattype")
+      app.predef(o["predef"]) if o.has_key?("predef")
+      app.status(o["status"]) if o.has_key?("status")
       app.created_at(o["created_at"]) if o.has_key?("created_at")
-      app.plans(o["plans"]) if o.has_key?("plans")
-      #requests
-      oq = o["features"]
-      app.features[:feature1] = oq["feature1"] if oq && oq.has_key?("feature1")
-      app.features[:feature2] = oq["feature2"] if oq && oq.has_key?("feature2")
-      app.features[:feature3] = oq["feature3"] if oq && oq.has_key?("feature3")
-      app.features[:feature4] = oq["feature4"] if oq && oq.has_key?("feature4")
-
-      oa = o["appdetails"]
-      app.appdetails[:logo] = oa["logo"] if oa && oa.has_key?("logo")
-      app.appdetails[:category] = oa["category"] if oa && oa.has_key?("category")
-      app.appdetails[:description] = oa["description"] if oa && oa.has_key?("description")
-
-      #op = o["plan"]
-      #app.plan[:price] = op["price"] if op && op.has_key?("price")
-      #app.plan[:description] = op["description"] if op && op.has_key?("description")
-      #app.plan[:plantype]= op["plantype"] if op && op.has_key?("plantype")
-
-      ol = o["applinks"]
-      app.applinks[:free_support] = ol["free_support"] if ol && ol.has_key?("free_support")
-      app.applinks[:paid_support] = ol["paid_support"] if ol && ol.has_key?("paid_support")
-      app.applinks[:home_link] = ol["home_link"] if ol && ol.has_key?("home_link")
-      app.applinks[:info_link] = ol["info_link"] if ol && ol.has_key?("info_link")
-      app.applinks[:content_link] = ol["content_link"] if ol && ol.has_key?("content_link")
-      app.applinks[:wiki_link] = ol["wiki_link"] if ol && ol.has_key?("wiki_link")
-      app.applinks[:source_link] = ol["source_link"] if ol && ol.has_key?("source_link")
-
+          
       #success or error
       app.some_msg[:code] = o["code"] if o.has_key?("code")
       app.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -206,16 +181,14 @@ module Megam
     end
 
     def from_hash(o)
-      @name = o["name"] if o.has_key?("name")
-      @id        = o["id"] if o.has_key?("id")
-      @appdetails    = o["appdetails"] if o.has_key?("appdetails")
-      @features    = o["features"] if o.has_key?("features")
-      @plans   = o["plans"] if o.has_key?("plans")
-      @applinks   = o["applinks"] if o.has_key?("applinks")
-      @attach   = o["attach"] if o.has_key?("attach")
-      @predefnode   = o["predefnode"] if o.has_key?("predefnode")
-      @approved   = o["approved"] if o.has_key?("approved")
-      @created_at        = o["created_at"] if o.has_key?("created_at")
+      @name           = o["name"] if o.has_key?("name")
+      @id             = o["id"] if o.has_key?("id")
+      @catalog        = o["catalog"] if o.has_key?("catalog")
+      @plans          = o["plans"] if o.has_key?("plans")
+      @cattype        = o["cattype"] if o.has_key?("cattype")
+      @predef         = o["predef"] if o.has_key?("predef")
+      @status         = o["status"] if o.has_key?("status")
+      @created_at     = o["created_at"] if o.has_key?("created_at")
       self
     end
 
