@@ -15,7 +15,6 @@ end
 
 require "megam/api/errors"
 require "megam/api/version"
-require "megam/api/login"
 require "megam/api/accounts"
 require "megam/api/requests"
 require "megam/api/cat_requests"
