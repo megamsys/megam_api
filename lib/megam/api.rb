@@ -18,7 +18,7 @@ require "megam/api/version"
 require "megam/api/login"
 require "megam/api/accounts"
 require "megam/api/requests"
-require "megam/api/app_requests"
+require "megam/api/cat_requests"
 require "megam/api/predef_clouds"
 require "megam/api/cloud_tool_settings"
 require "megam/api/sshkeys"
@@ -72,8 +72,8 @@ require "megam/core/assembly"
 require "megam/core/assembly_collection"
 require "megam/core/components"
 require "megam/core/components_collection"
-require "megam/core/app_request"
-require "megam/core/app_request_collection"
+require "megam/core/cat_request"
+require "megam/core/cat_request_collection"
 require "megam/core/event"
 
 require "megam/core/availableunits_collection"
@@ -118,9 +118,6 @@ module Megam
       :nonblock => false,
       :scheme => 'http'
     }
-
-    API_VERSION1 = "/v1"
-
 
 
     def text

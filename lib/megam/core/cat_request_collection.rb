@@ -14,35 +14,35 @@
 # limitations under the License.
 #
 module Megam
-  class AppRequestCollection
+  class CatRequestCollection
     include Enumerable
 
     attr_reader :iterator
     def initialize
-      @apprequests = Array.new
-      @apprequests_by_name = Hash.new
+      @catrequests = Array.new
+      @catrequests_by_name = Hash.new
       @insert_after_idx = nil
     end
 
     def all_requests
-      @apprequests
+      @catrequests
     end
 
     def [](index)
-      @apprequests[index]
+      @catrequests[index]
     end
 
     def []=(index, arg)
       is_megam_request(arg)
-      @apprequests[index] = arg
-      @apprequests_by_name[arg.app_id] = index
+      @catrequests[index] = arg
+      @catrequests_by_name[arg.app_id] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
         is_megam_request(a)
-        @apprequests << a
-        @apprequests_by_name[a.app_id] = @apprequests.length - 1
+        @catrequests << a
+        @catrequests_by_name[a.app_id] = @catrequests.length - 1
       end
       self
     end
@@ -56,49 +56,49 @@ module Megam
         # in the middle of executing a run, so any requests inserted now should
         # be placed after the most recent addition done by the currently executing
         # request
-        @apprequests.insert(@insert_after_idx + 1, request)
+        @catrequests.insert(@insert_after_idx + 1, request)
         # update name -> location mappings and register new request
-        @apprequests_by_name.each_key do |key|
-        @apprequests_by_name[key] += 1 if @apprequests_by_name[key] > @insert_after_idx
+        @catrequests_by_name.each_key do |key|
+        @catrequests_by_name[key] += 1 if @catrequests_by_name[key] > @insert_after_idx
         end
-        @apprequests_by_name[request.app_id] = @insert_after_idx + 1
+        @catrequests_by_name[request.app_id] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
-      @apprequests << request
-      @apprequests_by_name[request.app_id] = @apprequests.length - 1
+      @catrequests << request
+      @catrequests_by_name[request.app_id] = @catrequests.length - 1
       end
     end
 
     def each
-      @apprequests.each do |request|
+      @catrequests.each do |request|
         yield request
       end
     end
 
     def each_index
-      @apprequests.each_index do |i|
+      @catrequests.each_index do |i|
         yield i
       end
     end
 
     def empty?
-      @apprequests.empty?
+      @catrequests.empty?
     end
 
     def lookup(request)
       lookup_by = nil
-      if request.kind_of?(Megam::AppRequest)
+      if request.kind_of?(Megam::CatRequest)
       lookup_by = request.app_id
       elsif request.kind_of?(String)
       lookup_by = request
       else
-        raise ArgumentError, "Must pass a Megam::AppRequest or String to lookup"
+        raise ArgumentError, "Must pass a Megam::CatRequest or String to lookup"
       end
-      res = @apprequests_by_name[lookup_by]
+      res = @catrequests_by_name[lookup_by]
       unless res
         raise ArgumentError, "Cannot find a request matching #{lookup_by} (did you define it first?)"
       end
-      @apprequests[res]
+      @catrequests[res]
     end
 
     # Transform the ruby obj ->  to a Hash
@@ -131,8 +131,8 @@ module Megam
     private
 
     def is_megam_request(arg)
-      unless arg.kind_of?(Megam::AppRequest)
-        raise ArgumentError, "Members must be Megam::AppRequest's"
+      unless arg.kind_of?(Megam::CatRequest)
+        raise ArgumentError, "Members must be Megam::CatRequest's"
       end
       true
     end

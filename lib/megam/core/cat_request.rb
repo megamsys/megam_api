@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 module Megam
-  class AppRequest < Megam::ServerAPI
+  class CatRequest < Megam::ServerAPI
     def initialize(email=nil, api_key=nil)
       @id = nil
       @app_id = nil
@@ -25,7 +25,7 @@ module Megam
       super(email, api_key)
     end
 
-    def app_request
+    def cat_request
       self
     end
 
@@ -151,7 +151,7 @@ module Megam
 
     # Create the node via the REST API
     def create
-      megam_rest.post_apprequest(to_hash)
+      megam_rest.post_catrequest(to_hash)
     end   
 
 

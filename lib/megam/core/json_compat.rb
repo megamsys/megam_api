@@ -22,49 +22,49 @@ module Megam
 
     JSON_CLAZ = "json_claz".freeze
 
-    MEGAM_AUTH                      = "Megam::Auth".freeze
-    MEGAM_ERROR                     = "Megam::Error".freeze
-    MEGAM_ACCOUNT                   = "Megam::Account".freeze
-    MEGAM_ASSEMBLIES                = "Megam::Assemblies".freeze
-    MEGAM_ASSEMBLIESCOLLECTION      = "Megam::AssembliesCollection".freeze
-    MEGAM_ASSEMBLY                  = "Megam::Assembly".freeze
-    MEGAM_ASSEMBLYCOLLECTION        = "Megam::AssemblyCollection".freeze
-    MEGAM_COMPONENTS                = "Megam::Components".freeze
-    MEGAM_COMPONENTSCOLLECTION      = "Megam::ComponentsCollection".freeze
-    MEGAM_REQUEST                   = "Megam::Request".freeze
-    MEGAM_REQUESTCOLLECTION         = "Megam::RequestCollection".freeze
-    MEGAM_ORGANIZATION              = "Megam::Organizations".freeze
-    MEGAM_ORGANIZATIONSCOLLECTION   = "Megam::OrganizationsCollection".freeze
-    MEGAM_DOMAIN                    = "Megam::Domains".freeze
-    MEGAM_APPREQUEST                = "Megam::AppRequest".freeze
-    MEGAM_APPREQUESTCOLLECTION      = "Megam::AppRequestCollection".freeze
-    MEGAM_EVENT                     = "Megam::Event".freeze
-    MEGAM_PREDEFCLOUD                   = "Megam::PredefCloud".freeze
-    MEGAM_PREDEFCLOUDCOLLECTION         = "Megam::PredefCloudCollection".freeze
-    MEGAM_CLOUDTOOLSETTING              = "Megam::CloudToolSetting".freeze
-    MEGAM_CLOUDTOOLSETTINGCOLLECTION    = "Megam::CloudToolSettingCollection".freeze
-    MEGAM_SSHKEY                        = "Megam::SshKey".freeze
-    MEGAM_SSHKEYCOLLECTION              = "Megam::SshKeyCollection".freeze
-    MEGAM_MARKETPLACE                   = "Megam::MarketPlace".freeze
-    MEGAM_MARKETPLACECOLLECTION         = "Megam::MarketPlaceCollection".freeze
-    MEGAM_MARKETPLACEADDON              = "Megam::MarketPlaceAddons".freeze
-    MEGAM_MARKETPLACEADDONCOLLECTION    = "Megam::MarketPlaceAddonsCollection".freeze
-    MEGAM_CSAR                          = "Megam::CSAR".freeze
-    MEGAM_CSARCOLLECTION                = "Megam::CSARCollection".freeze
-    MEGAM_AVAILABLEUNITS                = "Megam::Availableunits".freeze
-    MEGAM_AVAILABLEUNITSCOLLECTION      = "Megam::AvailableunitsCollection".freeze
-    MEGAM_BALANCES                      = "Megam::Balances".freeze
-    MEGAM_BALANCESCOLLECTION            = "Megam::BalancesCollection".freeze
-    MEGAM_BILLINGHISTORIES              = "Megam::Billinghistories".freeze
-    MEGAM_BILLINGHISTORIESCOLLECTION    = "Megam::BillinghistoriesCollection".freeze
-    MEGAM_BILLINGS                      = "Megam::Billings".freeze
-    MEGAM_BILLINGSCOLLECTION            = "Megam::BillingsCollection".freeze
-    MEGAM_CREDITHISTORIES               = "Megam::Credithistories".freeze
-    MEGAM_CREDITHISTORIESCOLLECTION     = "Megam::CredithistoriesCollection".freeze
-    MEGAM_DISCOUNTS                     = "Megam::Discounts".freeze
-    MEGAM_DISCOUNTSCOLLECTION           = "Megam::DiscountsCollection".freeze
-    MEGAM_SUBSCRIPTIONS                 = "Megam::Subscriptions".freeze
-    MEGAM_SUBSCRIPTIONSCOLLECTION       = "Megam::SubscriptionsCollection".freeze
+    MEGAM_ACCOUNT                     = "Megam::Account".freeze
+    MEGAM_ASSEMBLIES                  = "Megam::Assemblies".freeze
+    MEGAM_ASSEMBLIESCOLLECTION        = "Megam::AssembliesCollection".freeze
+    MEGAM_ASSEMBLY                    = "Megam::Assembly".freeze
+    MEGAM_ASSEMBLYCOLLECTION          = "Megam::AssemblyCollection".freeze
+    MEGAM_AUTH                        = "Megam::Auth".freeze
+    MEGAM_AVAILABLEUNITS              = "Megam::Availableunits".freeze
+    MEGAM_AVAILABLEUNITSCOLLECTION    = "Megam::AvailableunitsCollection".freeze
+    MEGAM_BALANCES                    = "Megam::Balances".freeze
+    MEGAM_BALANCESCOLLECTION          = "Megam::BalancesCollection".freeze
+    MEGAM_BILLINGHISTORIES            = "Megam::Billinghistories".freeze
+    MEGAM_BILLINGHISTORIESCOLLECTION  = "Megam::BillinghistoriesCollection".freeze
+    MEGAM_BILLINGS                    = "Megam::Billings".freeze
+    MEGAM_BILLINGSCOLLECTION          = "Megam::BillingsCollection".freeze
+    MEGAM_CATREQUEST                  = "Megam::CatRequest".freeze
+    MEGAM_CATREQUESTCOLLECTION        = "Megam::CatRequestCollection".freeze
+    MEGAM_CLOUDTOOLSETTING            = "Megam::CloudToolSetting".freeze
+    MEGAM_CLOUDTOOLSETTINGCOLLECTION  = "Megam::CloudToolSettingCollection".freeze
+    MEGAM_COMPONENTS                  = "Megam::Components".freeze
+    MEGAM_COMPONENTSCOLLECTION        = "Megam::ComponentsCollection".freeze
+    MEGAM_CREDITHISTORIES             = "Megam::Credithistories".freeze
+    MEGAM_CREDITHISTORIESCOLLECTION   = "Megam::CredithistoriesCollection".freeze
+    MEGAM_CSAR                        = "Megam::CSAR".freeze
+    MEGAM_CSARCOLLECTION              = "Megam::CSARCollection".freeze
+    MEGAM_DOMAIN                      = "Megam::Domains".freeze
+    MEGAM_DISCOUNTS                   = "Megam::Discounts".freeze
+    MEGAM_DISCOUNTSCOLLECTION         = "Megam::DiscountsCollection".freeze
+    MEGAM_ERROR                       = "Megam::Error".freeze
+    MEGAM_EVENT                       = "Megam::Event".freeze
+    MEGAM_MARKETPLACE                 = "Megam::MarketPlace".freeze
+    MEGAM_MARKETPLACECOLLECTION       = "Megam::MarketPlaceCollection".freeze
+    MEGAM_MARKETPLACEADDON            = "Megam::MarketPlaceAddons".freeze
+    MEGAM_MARKETPLACEADDONCOLLECTION  = "Megam::MarketPlaceAddonsCollection".freeze
+    MEGAM_ORGANIZATION                = "Megam::Organizations".freeze
+    MEGAM_ORGANIZATIONSCOLLECTION     = "Megam::OrganizationsCollection".freeze
+    MEGAM_PREDEFCLOUD                 = "Megam::PredefCloud".freeze
+    MEGAM_PREDEFCLOUDCOLLECTION       = "Megam::PredefCloudCollection".freeze
+    MEGAM_REQUEST                     = "Megam::Request".freeze
+    MEGAM_REQUESTCOLLECTION           = "Megam::RequestCollection".freeze
+    MEGAM_SSHKEY                      = "Megam::SshKey".freeze
+    MEGAM_SSHKEYCOLLECTION            = "Megam::SshKeyCollection".freeze
+    MEGAM_SUBSCRIPTIONS               = "Megam::Subscriptions".freeze
+    MEGAM_SUBSCRIPTIONSCOLLECTION     = "Megam::SubscriptionsCollection".freeze
 
 
     class <<self
@@ -191,10 +191,10 @@ module Megam
           Megam::CSARCollection
         when MEGAM_DOMAIN
           Megam::Domains
-        when MEGAM_APPREQUEST
-          Megam::AppRequest
-        when MEGAM_APPREQUESTCOLLECTION
-          Megam::AppRequestCollection
+        when MEGAM_CATREQUEST
+          Megam::CatRequest
+        when MEGAM_CATREQUESTCOLLECTION
+          Megam::CatRequestCollection
         when MEGAM_EVENT
           Megam::Event
         when MEGAM_AVAILABLEUNITS
@@ -224,7 +224,7 @@ module Megam
         when MEGAM_SUBSCRIPTIONS
           Megam::Subscriptions
         when MEGAM_SUBSCRIPTIONSCOLLECTION
-          Megam::SubscriptionsCollection        
+          Megam::SubscriptionsCollection
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
