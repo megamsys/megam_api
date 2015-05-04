@@ -20,14 +20,12 @@ module Megam
     def initialize(email=nil, api_key=nil)
       @id = nil
       @name = nil
-      @appdetails = {}
-      @features={}
+      @catalog = {}
       @plans=nil
-      @applinks={}
-      @attach =nil
-      @predefnode=nil
+      @cattype =nil
+      @predef =nil
       @some_msg = {}
-      @approved = nil
+      @status = nil
       @created_at = nil
       super(email, api_key)
     end
@@ -45,11 +43,11 @@ module Megam
       end
     end
 
-    def appdetails(arg=nil)
+    def catalog(arg=nil)
       if arg != nil
-        @appdetails = arg
+        @catalog = arg
       else
-      @appdetails
+      @catalog
       end
     end
 
@@ -61,13 +59,6 @@ module Megam
       end
     end
 
-    def features(arg=nil)
-      if arg != nil
-        @features = arg
-      else
-      @features
-      end
-    end
 
     def plans(arg=nil)
       if arg != nil
@@ -77,35 +68,28 @@ module Megam
       end
     end
 
-    def applinks(arg=nil)
+
+    def predef(arg=nil)
       if arg != nil
-        @applinks = arg
+        @predef = arg
       else
-      @applinks
+      @predef
       end
     end
 
-    def predefnode(arg=nil)
+    def cattype(arg=nil)
       if arg != nil
-        @predefnode = arg
+        @cattype = arg
       else
-      @predefnode
+      @cattype
       end
     end
 
-    def attach(arg=nil)
+    def status(arg=nil)
       if arg != nil
-        @attach = arg
+        @status = arg
       else
-      @attach
-      end
-    end
-
-    def approved(arg=nil)
-      if arg != nil
-        @approved = arg
-      else
-      @approved
+      @status
       end
     end
 

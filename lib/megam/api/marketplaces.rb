@@ -19,12 +19,12 @@ module Megam
         :expects  => 200,
         :method   => :get,
         :body     => @options[:body]
-      )     
+      )
     end
 
-    def post_marketplaceapp(new_node)
+    def post_marketplaceapp(catitem)
       @options = {:path => '/marketplaces/content',
-        :body => Megam::JSONCompat.to_json(new_node)}.merge(@options)
+        :body => Megam::JSONCompat.to_json(catitem)}.merge(@options)
 
       request(
         :expects  => 201,
@@ -35,8 +35,8 @@ module Megam
 
     #Yet to be tested
     # DELETE /marketplacess/:node_id
-    def delete_marketplaceapp(node_id)
-      @options = {:path => '/marketplaces/#{node_id}',
+    def delete_marketplaceapp(catitem_id)
+      @options = {:path => '/marketplaces/#{catitem_id}',
         :body => ""}.merge(@options)
 
       request(
