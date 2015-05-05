@@ -20,35 +20,15 @@ module Megam
       @id = nil
       @name =nil
       @tosca_type = nil
-      @requirements = {}
-      @host = nil
-      @dummy = nil
-      @inputs = {}
-      @domain = nil
-      @port = nil
-      @username = nil
-      @password = nil
-      @version = nil
-      @source = nil
-      @design_inputs = nil
-      @x = nil
-      @y = nil
-      @z = nil
-      @wires = []
-      @service_inputs = nil
-      @ci_id = nil
-      @dbname = nil
-      @dbpassword = nil
-      @external_management_resource = nil
+      @inputs = []
+      @outputs = []      
       @artifacts = {}
       @artifact_type = nil
       @content = nil
-      @artifact_requirements = nil
+      @artifact_requirements = []
       @related_components = nil
-      @operations = {}
-      @operation_type = nil
-      @target_resource = nil
-      @others = []
+      @operations = []
+      @status = nil
       @created_at = nil
 
       super(email, api_key)
@@ -81,31 +61,7 @@ module Megam
       @tosca_type
       end
     end
-
-    def requirements(arg=nil)
-      if arg != nil
-        @requirements = arg
-      else
-      @requirements
-      end
-    end
-
-    def host(arg=nil)
-      if arg != nil
-        @host = arg
-      else
-      @host
-      end
-    end
-
-    def dummy(arg=nil)
-      if arg != nil
-        @dummy = arg
-      else
-      @dummy
-      end
-    end
-
+    
     def inputs(arg=[])
       if arg != []
         @inputs = arg
@@ -113,132 +69,12 @@ module Megam
       @inputs
       end
     end
-
-    def domain(arg=nil)
-      if arg != nil
-        @domain = arg
-      else
-      @domain
-      end
-    end
-
-    def port(arg=nil)
-      if arg != nil
-        @port = arg
-      else
-      @port
-      end
-    end
-
-    def username(arg=nil)
-      if arg != nil
-        @username = arg
-      else
-      @username
-      end
-    end
-
-    def password(arg=nil)
-      if arg != nil
-        @password = arg
-      else
-      @password
-      end
-    end
-
-    def version(arg=nil)
-      if arg != nil
-        @version = arg
-      else
-      @version
-      end
-    end
-
-    def source(arg=nil)
-      if arg != nil
-        @source = arg
-      else
-      @source
-      end
-    end
-
-    def design_inputs(arg=nil)
-      if arg != nil
-        @design_inputs = arg
-      else
-      @design_inputs
-      end
-    end
-
-    def x(arg=nil)
-      if arg != nil
-        @x = arg
-      else
-      @x
-      end
-    end
-
-    def y(arg=nil)
-      if arg != nil
-        @y = arg
-      else
-      @y
-      end
-    end
-
-    def z(arg=nil)
-      if arg != nil
-        @z = arg
-      else
-      @z
-      end
-    end
-
-    def wires(arg=nil)
-      if arg != nil
-        @wires = arg
-      else
-      @wires
-      end
-    end
-
-    def service_inputs(arg=nil)
-      if arg != nil
-        @service_inputs = arg
-      else
-      @service_inputs
-      end
-    end
     
-     def ci_id(arg=nil)
-      if arg != nil
-        @ci_id = arg
+    def outputs(arg=[])
+      if arg != []
+        @outputs = arg
       else
-      @ci_id
-      end
-    end
-
-    def dbname(arg=nil)
-      if arg != nil
-        @dbname = arg
-      else
-      @dbname
-      end
-    end
-
-    def dbpassword(arg=nil)
-      if arg != nil
-        @dbpassword = arg
-      else
-      @dbpassword
-      end
-    end
-
-    def external_management_resource(arg=nil)
-      if arg != nil
-        @external_management_resource = arg
-      else
-      @external_management_resource
+      @outputs
       end
     end
 
@@ -266,8 +102,8 @@ module Megam
       end
     end
 
-    def artifact_requirements(arg=nil)
-      if arg != nil
+    def artifact_requirements(arg=[])
+      if arg != []
         @artifact_requirements = arg
       else
       @artifact_requirements
@@ -282,35 +118,19 @@ module Megam
       end
     end
 
-    def operations(arg=nil)
-      if arg != nil
+    def operations(arg=[])
+      if arg != []
         @operations = arg
       else
       @operations
       end
     end
-
-    def operation_type(arg=nil)
-      if arg != nil
-        @operation_type = arg
-      else
-      @operation_type
-      end
-    end
-
-    def target_resource(arg=nil)
-      if arg != nil
-        @target_resource = arg
-      else
-      @target_resource
-      end
-    end
     
-     def others(arg=nil)
+     def status(arg=nil)
       if arg != nil
-        @others = arg
+        @status = arg
       else
-      @others
+      @status
       end
     end
 
@@ -333,13 +153,12 @@ module Megam
       index_hash["id"] = id
       index_hash["name"] = name
       index_hash["tosca_type"] = tosca_type
-      index_hash["requirements"] = requirements
       index_hash["inputs"] = inputs
-      index_hash["external_management_resource"] = external_management_resource
+      index_hash["outputs"] = outputs
       index_hash["artifacts"] = artifacts
       index_hash["related_components"] = related_components
       index_hash["operations"] = operations
-      index_hash["others"] = others
+      index_hash["status"] = status
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -355,13 +174,12 @@ module Megam
         "id" => id,
         "name" => name,
         "tosca_type" => tosca_type,
-        "requirements" => requirements,
         "inputs" => inputs,
-        "external_management_resource" => external_management_resource,
+        "outputs" => outputs,
         "artifacts" => artifacts,
         "related_components" => related_components,
         "operations" => operations,
-        "others" => others,
+        "status" => status,
         "created_at" => created_at
       }
       result
@@ -372,32 +190,8 @@ module Megam
       asm.id(o["id"]) if o.has_key?("id")
       asm.name(o["name"]) if o.has_key?("name")
       asm.tosca_type(o["tosca_type"]) if o.has_key?("tosca_type")
-
-      oq = o["requirements"]
-      asm.requirements[:host] = oq["host"] if oq && oq.has_key?("host")
-      asm.requirements[:dummy] = oq["dummy"] if oq && oq.has_key?("dummy")
-
-      inp = o["inputs"]
-      asm.inputs[:domain] = inp["domain"] if inp && inp.has_key?("domain")
-      asm.inputs[:port] = inp["port"] if inp && inp.has_key?("port")
-      asm.inputs[:username] = inp["username"] if inp && inp.has_key?("username")
-      asm.inputs[:password] = inp["password"] if inp && inp.has_key?("password")
-      asm.inputs[:version] = inp["version"] if inp && inp.has_key?("version")
-      asm.inputs[:source] = inp["source"] if inp && inp.has_key?("source")
-      asm.inputs[:design_inputs] = inp["design_inputs"] if inp && inp.has_key?("design_inputs")
-      asm.inputs[:service_inputs] = inp["service_inputs"] if inp && inp.has_key?("service_inputs")
-      asm.inputs[:ci_id] = inp["ci_id"] if inp && inp.has_key?("ci_id")
-      # ind = inp["design_inputs"]
-      #  asm.inputs["design_inputs"][:did] = ind["did"] if ind && ind.has_key?("did")
-      # asm.inputs[:design_inputs][:x] = ind["x"] if ind && ind.has_key?("x")
-      # asm.inputs[:design_inputs][:y] = ind["y"] if ind && ind.has_key?("y")
-      #  asm.inputs[:design_inputs][:z] = ind["z"] if ind && ind.has_key?("z")
-      #  asm.inputs[:design_inputs][:wires] = ind["wires"] if ind && ind.has_key?("wires")
-      #  ins = o["inputs"]["service_inputs"]
-      #  asm.inputs[:service_inputs][:dbname] = ins["dbname"] if ins && ins.has_key?("dbname")
-      # asm.inputs[:service_inputs][:dbpassword] = ins["dbpassword"] if ins && ins.has_key?("dbpassword")
-
-      asm.external_management_resource(o["external_management_resource"]) if o.has_key?("external_management_resource")
+      asm.inputs(o["inputs"]) if o.has_key?("inputs")
+      asm.outputs(o["outputs"]) if o.has_key?("outputs")
 
       ar = o["artifacts"]
       asm.artifacts[:artifact_type] = ar["artifact_type"] if ar && ar.has_key?("artifact_type")
@@ -405,12 +199,8 @@ module Megam
       asm.artifacts[:artifact_requirements] = ar["artifact_requirements"] if ar && ar.has_key?("artifact_requirements")
 
       asm.related_components(o["related_components"]) if o.has_key?("related_components")
-
-      ope = o["operations"]
-      asm.operations[:operation_type] = ope["operation_type"] if ope && ope.has_key?("operation_type")
-      asm.operations[:target_resource] = ope["target_resource"] if ope && ope.has_key?("target_resource")
-      
-      asm.others(o["others"]) if o.has_key?("others")
+      asm.operations(o["operations"]) if o.has_key?("operations")      
+      asm.status(o["status"]) if o.has_key?("status")
       asm.created_at(o["created_at"]) if o.has_key?("created_at")
       asm
     end
@@ -425,13 +215,12 @@ module Megam
       @id                              = o["id"] if o.has_key?("id")
       @name                            = o["name"] if o.has_key?("name")
       @tosca_type                      = o["tosca_type"] if o.has_key?("tosca_type")
-      @requirements                    = o["requirements"] if o.has_key?("requirements")
       @inputs                          = o["inputs"] if o.has_key?("inputs")
-      @external_management_resource    = o["external_management_resource"] if o.has_key?("external_management_resource")
+      @outputs                         = o["outputs"] if o.has_key?("outputs")
       @artifacts                       = o["artifacts"] if o.has_key?("artifacts")
       @related_components              = o["related_components"] if o.has_key?("related_components")
       @operations                      = o["operations"] if o.has_key?("operations")
-      @others                          = o["others"] if o.has_key?("others")
+      @status                          = o["status"] if o.has_key?("status")
       @created_at                      = o["created_at"] if o.has_key?("created_at")
       self
     end
