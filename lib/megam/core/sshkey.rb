@@ -1,4 +1,3 @@
-
 # Copyright:: Copyright (c) 2012, 2014 Megam Systems
 # License:: Apache License, Version 2.0
 #
@@ -19,8 +18,8 @@ module Megam
     def initialize(email=nil, api_key=nil)
       @id = nil
       @name = nil
-      @accounts_id = nil      
-      @path=nil      
+      @accounts_id = nil
+      @path=nil
       @created_at = nil
       @some_msg = {}
       super(email, api_key)
@@ -30,7 +29,6 @@ module Megam
       self
     end
 
-    
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -54,7 +52,6 @@ module Megam
       @accounts_id
       end
     end
-    
 
     def path(arg=nil)
       if arg != nil
@@ -62,7 +59,7 @@ module Megam
       else
       @path
       end
-    end  
+    end
 
     def created_at(arg=nil)
       if arg != nil
@@ -91,7 +88,7 @@ module Megam
       index_hash["id"] = id
       index_hash["name"] = name
       index_hash["accounts_id"] = accounts_id
-      index_hash["path"] = path     
+      index_hash["path"] = path
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -107,7 +104,7 @@ module Megam
         "id" => id,
         "name" => name,
         "accounts_id" => accounts_id,
-        "path" => path,        
+        "path" => path,
         "created_at" => created_at
       }
       result
@@ -117,8 +114,8 @@ module Megam
     def self.json_create(o)
       sshKey = new
       sshKey.id(o["id"]) if o.has_key?("id")
-      sshKey.name(o["name"]) if o.has_key?("name")     
-      sshKey.path(o["path"]) if o.has_key?("path")     
+      sshKey.name(o["name"]) if o.has_key?("name")
+      sshKey.path(o["path"]) if o.has_key?("path")
       sshKey.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       sshKey.some_msg[:code] = o["code"] if o.has_key?("code")
@@ -136,14 +133,14 @@ module Megam
 
     def from_hash(o)
       @id        = o[:id] if o.has_key?(:id)
-      @name = o[:name] if o.has_key?(:name)      
-      @path   = o[:path] if o.has_key?(:path)   
+      @name = o[:name] if o.has_key?(:name)
+      @path   = o[:path] if o.has_key?(:path)
       @created_at   = o[:created_at] if o.has_key?(:created_at)
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(params)
+      acct = from_hash(params, params["email"], params["api_key"])
       acct.create
     end
 
@@ -156,15 +153,15 @@ module Megam
     # returns a sshkeysCollection
     # don't return self. check if the Megam::SshKeyCollection is returned.
     def self.list(params)
-    sshKey = self.new(params["email"], params["api_key"])
+      sshKey = self.new(params["email"], params["api_key"])
       sshKey.megam_rest.get_sshkeys
     end
 
     # Show a particular sshKey by name,
     # Megam::SshKey
-    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-    pre = self.new(tmp_email,tmp_api_key)
-    pre.megam_rest.get_sshkey(p_name)
+    def self.show(params)
+      pre = self.new(params["email"], params["api_key"])
+      pre.megam_rest.get_sshkey(params["name"])
     end
 
     def to_s

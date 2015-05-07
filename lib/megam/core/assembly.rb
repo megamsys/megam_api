@@ -207,13 +207,13 @@ module Megam
     end
 
 
-    def self.show(assembly_id, tmp_email=nil, tmp_api_key=nil)
-      asm = self.new(tmp_email, tmp_api_key)
-      asm.megam_rest.get_one_assembly(assembly_id)
+    def self.show(params)
+      asm = self.new(params["email"], params["api_key"])
+      asm.megam_rest.get_one_assembly(params["id"])
     end
 
-     def self.update(o,tmp_email=nil, tmp_api_key=nil)
-      asm = from_hash(o, tmp_email, tmp_api_key)
+     def self.update(params)
+      asm = from_hash(params, params["email"], params["api_key"])
       asm.update
     end
 

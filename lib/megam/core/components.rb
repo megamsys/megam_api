@@ -225,19 +225,19 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      asm = from_hash(o, tmp_email, tmp_api_key)
+    def self.create(params)
+      asm = from_hash(params, params["email"], params["api_key"])
       asm.create
     end
 
     # Load a account by email_p
-    def self.show(comp_id, tmp_email=nil, tmp_api_key=nil)
-      asm = self.new(tmp_email, tmp_api_key)
-      asm.megam_rest.get_components(comp_id)
+    def self.show(params)
+      asm = self.new(params["email"], params["api_key"])
+      asm.megam_rest.get_components(params["id"])
     end
 
-    def self.update(o,tmp_email=nil, tmp_api_key=nil)
-      asm = from_hash(o, tmp_email, tmp_api_key)
+    def self.update(params)
+      asm = from_hash(params, params["email"], params["api_key"])
       asm.update
     end
 
