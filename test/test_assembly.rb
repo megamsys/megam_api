@@ -18,8 +18,8 @@ class TestApps < MiniTest::Unit::TestCase
           "ptype" => "colocated",
           "members" => ["calcines.megam.co/MattieGarcia","calcines.megam.co/parsnip"]
         }],
-      "inputs" => "",
-      "operations" => "",
+      "inputs" => [],
+      "operations" => [],
       "output" => [],
       "status" => "Launching",
       "created_at" => "2014-10-29 13:24:06 +0000"

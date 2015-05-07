@@ -21,10 +21,7 @@ module Megam
       @accounts_id = nil
       @name = nil
       @assemblies = []
-      @assemblies_type = []
-      @inputs = {}
-      @label = nil
-      @cloudsettings = []
+      @inputs = []
       @created_at = nil
       super(email, api_key)
     end
@@ -124,12 +121,7 @@ module Megam
       asm.name(o["name"]) if o.has_key?("name")
       asm.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
       asm.assemblies(o["assemblies"]) if o.has_key?("assemblies") #this will be an array? can hash store array?
-
-      oq = o["inputs"]    
-      asm.inputs[:id] = oq["id"] if oq && oq.has_key?("id")
-      asm.inputs[:assemblies_type] = oq["assemblies_type"] if oq && oq.has_key?("assemblies_type")
-      asm.inputs[:label] = oq["label"] if oq && oq.has_key?("label")
-      asm.inputs[:cloudsettings] = oq["cloudsettings"] if oq && oq.has_key?("cloudsettings")
+      asm.inputs(o["inputs"]) if o.has_key?("inputs")     
       asm.created_at(o["created_at"]) if o.has_key?("created_at")
       asm
     end
@@ -146,13 +138,12 @@ module Megam
       @accounts_id       = o["accounts_id"] if o.has_key?("accounts_id")
       @assemblies        = o["assemblies"] if o.has_key?("assemblies")
       @inputs             = o["inputs"] if o.has_key?("inputs")
-      @label             = o["label"] if o.has_key?("label")
       @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      asm = from_hash(o, tmp_email, tmp_api_key)
+    def self.create(params)
+      asm = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key])
       asm.create
     end
 

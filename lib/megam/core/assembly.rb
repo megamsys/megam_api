@@ -21,9 +21,10 @@ module Megam
       @name = nil
       @tosca_type = nil
       @components = []
+      @requirements = []
       @policies=[]
       @inputs = []
-      @operations = nil
+      @operations = []
       @outputs = []
       @status = nil
       @created_at = nil
@@ -63,6 +64,14 @@ module Megam
         @components = arg
       else
       @components
+      end
+    end
+    
+    def requirements(arg=[])
+      if arg != []
+        @requirements = arg
+      else
+      @requirements
       end
     end
 
@@ -126,6 +135,7 @@ module Megam
       index_hash["name"] = name
       index_hash["tosca_type"] = tosca_type
       index_hash["components"] = components
+      index_hash["requirements"] = requirements
       index_hash["policies"] = policies
       index_hash["inputs"] = inputs
       index_hash["operations"] = operations
@@ -147,6 +157,7 @@ module Megam
         "name" => name,
         "tosca_type" => tosca_type,
         "components" => components,
+        "requirements" => requirements,
         "policies" => policies,
         "inputs" => inputs,
         "operations" => operations,
@@ -164,6 +175,7 @@ module Megam
       asm.name(o["name"]) if o.has_key?("name")
       asm.tosca_type(o["tosca_type"]) if o.has_key?("tosca_type")
       asm.components(o["components"]) if o.has_key?("components")
+      asm.requirements(o["requirements"]) if o.has_key?("requirements")
       asm.policies(o["policies"]) if o.has_key?("policies") #this will be an array? can hash store array?
       asm.inputs(o["inputs"]) if o.has_key?("inputs")
       asm.operations(o["operations"]) if o.has_key?("operations")
@@ -184,6 +196,7 @@ module Megam
       @name              = o["name"] if o.has_key?("name")
       @tosca_type        = o["tosca_type"] if o.has_key?("tosca_type")
       @components        = o["components"] if o.has_key?("components")
+      @requirements      = o["requirements"] if o.has_key?("requirements")
       @policies          = o["policies"] if o.has_key?("policies")
       @inputs            = o["inputs"] if o.has_key?("inputs")
       @operations        = o["operations"] if o.has_key?("operations")
@@ -194,13 +207,13 @@ module Megam
     end
 
 
-    def self.show(assembly_id, tmp_email=nil, tmp_api_key=nil)
-      asm = self.new(tmp_email, tmp_api_key)
-      asm.megam_rest.get_one_assembly(assembly_id)
+    def self.show(params)
+      asm = self.new(params["email"], params["api_key"])
+      asm.megam_rest.get_one_assembly(params["id"])
     end
 
-     def self.update(o,tmp_email=nil, tmp_api_key=nil)
-      asm = from_hash(o, tmp_email, tmp_api_key)
+     def self.update(params)
+      asm = from_hash(params, params["email"], params["api_key"])
       asm.update
     end
 
