@@ -216,7 +216,7 @@ module Megam
       @phone      = o[:phone] if o.has_key?(:phone)
       @password   = o[:password] if o.has_key?(:password)
       @password_reset_key = o[:password_reset_key] if o.has_key?(:password_reset_key)
-      @password_reset_key = o[:password_reset_sent_at] if o.has_key?(:password_reset_sent_at)
+      @password_reset_sent_at = o[:password_reset_sent_at] if o.has_key?(:password_reset_sent_at)
       @created_at = o[:created_at] if o.has_key?(:created_at)
       self
     end
@@ -240,7 +240,6 @@ module Megam
 
 
     def self.update(o)
-      puts "called uda"
      acct = from_hash(o)
      acct.update
    end
