@@ -26,7 +26,7 @@ module Megam
       @artifact_type = nil
       @content = nil
       @artifact_requirements = []
-      @related_components = nil
+      @related_components = []
       @operations = []
       @status = nil
       @created_at = nil
@@ -110,8 +110,8 @@ module Megam
       end
     end
 
-    def related_components(arg=nil)
-      if arg != nil
+    def related_components(arg=[])
+      if arg != []
         @related_components = arg
       else
       @related_components
