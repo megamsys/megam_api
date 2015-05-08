@@ -25,6 +25,7 @@ module Megam
       @password = nil
       @authority = nil
       @password_reset_key = nil
+      @password_reset_sent_at = nil
       @created_at = nil
       @some_msg = {}
       super(email, api_key)
@@ -107,6 +108,15 @@ module Megam
       end
     end
 
+ def password_reset_sent_at(arg=nil)
+      if arg != nil
+        @password_reset_sent_at = arg
+      else
+        @password_reset_sent_at
+      end
+    end
+
+
     def created_at(arg=nil)
       if arg != nil
         @created_at = arg
@@ -139,6 +149,7 @@ module Megam
       index_hash["phone"] = phone
       index_hash["password"] = password
       index_hash["password_reset_key"] = password_reset_key
+      index_hash["password_reset_sent_at"] = password_reset_sent_at
       index_hash["authority"] = authority
       index_hash["created_at"] = created_at
       index_hash["some_msg"] = some_msg
@@ -161,6 +172,7 @@ module Megam
         "phone" => phone,
         "password" => password,
         "password_reset_key" => password_reset_key,
+        "password_reset_sent_at" => password_reset_sent_at,
         "authority" => authority,
         "created_at" => created_at
       }
@@ -179,6 +191,7 @@ module Megam
       acct.phone(o["phone"]) if o.has_key?("phone")
       acct.password(o["password"]) if o.has_key?("password")
       acct.password_reset_key(o["password_reset_key"]) if o.has_key?("password_reset_key")
+      acct.password_reset_key(o["password_reset_sent_at"]) if o.has_key?("password_reset_sent_at")
       acct.created_at(o["created_at"]) if o.has_key?("created_at")
       acct.some_msg[:code] = o["code"] if o.has_key?("code")
       acct.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -203,6 +216,7 @@ module Megam
       @phone      = o[:phone] if o.has_key?(:phone)
       @password   = o[:password] if o.has_key?(:password)
       @password_reset_key = o[:password_reset_key] if o.has_key?(:password_reset_key)
+      @password_reset_sent_at = o[:password_reset_sent_at] if o.has_key?(:password_reset_sent_at)
       @created_at = o[:created_at] if o.has_key?(:created_at)
       self
     end
@@ -226,7 +240,6 @@ module Megam
 
 
     def self.update(o)
-      puts "called uda"
      acct = from_hash(o)
      acct.update
    end
