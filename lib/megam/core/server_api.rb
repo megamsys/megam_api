@@ -25,8 +25,8 @@ module Megam
 
     # Create a Megam REST object. The supplied email and api_key is used as the base for
     # all subsequent requests. For example, when initialized with an email, api_key  url
-    # https://api.megam.co, a call to +get+ with 'nodes' will make an
-    # HTTP GET request to http://api.megam.co/nodes using the email, api_key
+    # https://api.megam.io, a call to +get+ with 'accounts' will make an
+    # HTTP GET request to https://api.megam.io/accounts using the email, api_key
     def initialize(email=nil, api_key=nil)
       @email = email
       @api_key = api_key
