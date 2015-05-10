@@ -96,7 +96,7 @@ module Megam
     #text is used to print stuff in the terminal (message, log, info, warn etc.)
     attr_accessor :text
 
-    API_MEGAM_CO = "api.megam.co".freeze
+    API_MEGAM_IO = "api.megam.io".freeze
     API_VERSION2 = "/v2".freeze
 
     X_Megam_DATE = "X-Megam-DATE".freeze
@@ -244,7 +244,7 @@ module Megam
       else
         Megam::Log.debug("Certificate found")
         Excon.defaults[:ssl_verify_peer] = true
-                Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
+        Excon.defaults[:ssl_ca_file] = File.expand_path(File.join("#{ENV['MEGAM_HOME']}", "#{@common["api"]["pub_key"]}")) || File.expand_path(File.join(File.dirname(__FILE__), "..", "certs", "cacert.pem"))
       end
       end
 
