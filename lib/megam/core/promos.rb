@@ -147,8 +147,9 @@ module Megam
     # Show a particular promo by name,
     # Megam::Promos
      def self.show(params)
+       puts "[x] Called show"
       pre = self.new(params["email"], params["api_key"])
-      pre.megam_rest.get_promos(params["email"])
+      pre.megam_rest.get_promos(params["code"])
     end
 
   
