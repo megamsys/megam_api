@@ -158,15 +158,29 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
-      acct.create
+    def self.create(params)
+      puts "creating discounts entry...hold tight"
+      puts params.inspect
+      discount = from_hash(params)
+      discount.create
     end
 
     # Create the discounts via the REST API
     def create
+      puts "YES. CREATING....JUST A SEC"
+      puts to_hash
       megam_rest.post_discounts(to_hash)
     end
+    
+      def self.update(o)
+     discount = from_hash(o)
+     discount.update
+   end
+
+   # Create the node via the REST API
+   def update
+     megam_rest.update_discounts(to_hash)
+   end
 
     # Load all discounts -
     # returns a discountsCollection

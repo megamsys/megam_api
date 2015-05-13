@@ -30,6 +30,19 @@ module Megam
         :body     => @options[:body]
       )
     end
+    
+    
+    def update_discounts(update_discount)
+      @options = {:path => '/discounts/update',
+      :body => Megam::JSONCompat.to_json(update_discount)}.merge(@options)
+
+   request(
+        :expects  => 201,
+        :method   => :post,
+        :body     => @options[:body]
+      )
+
+    end
 
   end
 end
