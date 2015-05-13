@@ -37,6 +37,7 @@ require "megam/api/billings"
 require "megam/api/credithistories"
 require "megam/api/discounts"
 require "megam/api/subscriptions"
+require "megam/api/promos"
 
 require "megam/core/server_api"
 require "megam/core/config"
@@ -75,6 +76,7 @@ require "megam/core/cat_request"
 require "megam/core/cat_request_collection"
 require "megam/core/event"
 
+
 require "megam/core/availableunits_collection"
 require "megam/core/availableunits"
 require "megam/core/balances_collection"
@@ -89,6 +91,7 @@ require "megam/core/discounts_collection"
 require "megam/core/discounts"
 require "megam/core/subscriptions_collection"
 require "megam/core/subscriptions"
+require "megam/core/promos"
 
 module Megam
   class API

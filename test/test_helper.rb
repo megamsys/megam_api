@@ -69,9 +69,9 @@ def sandbox_name
 end
 
 def sandbox_apikey
-   "uAqN7PFR5MyCoV6XR7xjrQ=="
+   "er0zMGyO2-IN9VovVccYgA=="
 end
 
 def sandbox_email
-  "dvader082@gmail.com"
+  "morpheyesh@gmail.com"
 end

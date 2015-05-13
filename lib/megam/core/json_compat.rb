@@ -65,8 +65,9 @@ module Megam
     MEGAM_SSHKEYCOLLECTION            = "Megam::SshKeyCollection".freeze
     MEGAM_SUBSCRIPTIONS               = "Megam::Subscriptions".freeze
     MEGAM_SUBSCRIPTIONSCOLLECTION     = "Megam::SubscriptionsCollection".freeze
-
-
+    MEGAM_PROMOS                      = "Megam::Promos".freeze
+    
+    
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -225,6 +226,8 @@ module Megam
           Megam::Subscriptions
         when MEGAM_SUBSCRIPTIONSCOLLECTION
           Megam::SubscriptionsCollection
+        when MEGAM_PROMOS
+          Megam::Promos
         else
         raise JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
         end
