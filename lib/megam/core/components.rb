@@ -237,7 +237,7 @@ module Megam
     end
 
     def self.update(params)
-      asm = from_hash(params, params["email"], params["api_key"])
+      asm = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key])
       asm.update
     end
 
