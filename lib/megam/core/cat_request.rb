@@ -145,7 +145,7 @@ module Megam
 
 
     def self.create(o)
-      acct = from_hash(o, o["email"], o[api_key])
+      acct = from_hash(o, o["email"], o["api_key"])
       acct.create
     end
 
