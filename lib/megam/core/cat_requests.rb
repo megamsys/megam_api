@@ -14,11 +14,12 @@
 # limitations under the License.
 #
 module Megam
-  class CatRequest < Megam::ServerAPI
+  class CatRequests < Megam::ServerAPI
+
     def initialize(email=nil, api_key=nil)
       @id = nil
-      @app_id = nil
-      @app_name = nil
+      @cat_id = nil
+      @name = nil
       @action = nil
       @some_msg = {}
       @created_at = nil
@@ -29,7 +30,7 @@ module Megam
       self
     end
 
-    
+
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -38,19 +39,19 @@ module Megam
       end
     end
 
-    def app_id(arg=nil)
+    def cat_id(arg=nil)
       if arg != nil
-        @app_id = arg
+        @cat_id = arg
       else
-      @app_id
+      @cat_id
       end
     end
-    
-    def app_name(arg=nil)
+
+    def name(arg=nil)
       if arg != nil
-        @app_name = arg
+        @name = arg
       else
-      @app_name
+      @name
       end
     end
 
@@ -61,8 +62,8 @@ module Megam
       @action
       end
     end
-    
-    
+
+
     def created_at(arg=nil)
       if arg != nil
         @created_at = arg
@@ -88,9 +89,9 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
-      index_hash["app_id"] = app_id
-      index_hash["app_name"] = app_name
-      index_hash["action"] = action      
+      index_hash["cat_id"] = cat_id
+      index_hash["name"] = name
+      index_hash["action"] = action
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -104,9 +105,9 @@ module Megam
     def for_json
       result = {
         "id" => id,
-        "app_id" => app_id,
-        "app_name" => app_name,
-        "action" => action,       
+        "cat_id" => cat_id,
+        "name" => name,
+        "action" => action,
         "created_at" => created_at
       }
       result
@@ -116,9 +117,9 @@ module Megam
     def self.json_create(o)
       node = new
       node.id(o["id"]) if o.has_key?("id")
-      node.app_id(o["app_id"]) if o.has_key?("app_id")
-      node.app_name(o["app_name"]) if o.has_key?("app_name")
-      node.action(o["action"]) if o.has_key?("action")     
+      node.cat_id(o["cat_id"]) if o.has_key?("cat_id")
+      node.name(o["name"]) if o.has_key?("name")
+      node.action(o["action"]) if o.has_key?("action")
       node.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       node.some_msg[:code] = o["code"] if o.has_key?("code")
@@ -134,30 +135,29 @@ module Megam
       node
     end
 
-    def from_hash(o)  
+    def from_hash(o)
       @id = o[:id] if o.has_key?(:id)
-      @app_id  = o[:app_id] if o.has_key?(:app_id)
-      @app_name  = o[:app_name] if o.has_key?(:app_name)
-      @action  = o[:action] if o.has_key?(:action)     
-      @created_at       = o[:created_at] if o.has_key?(:created_at)      
+      @cat_id  = o[:cat_id] if o.has_key?(:cat_id)
+      @name  = o[:name] if o.has_key?(:name)
+      @action  = o[:action] if o.has_key?(:action)
+      @created_at       = o[:created_at] if o.has_key?(:created_at)
       self
     end
 
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(o)
+      acct = from_hash(o, o["email"], o["api_key"])
       acct.create
     end
 
     # Create the node via the REST API
     def create
       megam_rest.post_catrequest(to_hash)
-    end   
+    end
 
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
-    #"---> Megam::Account:[error=#{error?}]\n"+
     end
 
   end
