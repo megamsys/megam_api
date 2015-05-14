@@ -136,7 +136,7 @@ module Megam
       @id        = o["id"] if o.has_key?("id")
       @desc      = o["desc"] if o.has_key?("desc")
       @link      = o["link"] if o.has_key?("link")
-      @yamldata  = o["yamldata"] if o.has_key?("yamldata") 
+      @yamldata  = o["yamldata"] if o.has_key?("yamldata")
       @created_at = o["created_at"] if o.has_key?("created_at")
       self
     end
@@ -164,7 +164,7 @@ module Megam
       csarslf = self.new(tmp_email, tmp_api_key)
       csarslf.megam_rest.get_csars
     end
-    
+
      #push csar (links)
     def self.push(tmp_email=nil, tmp_api_key=nil, csar_id)
       csarslf = self.new(tmp_email, tmp_api_key)

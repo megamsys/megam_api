@@ -72,8 +72,8 @@ require "megam/core/assembly"
 require "megam/core/assembly_collection"
 require "megam/core/components"
 require "megam/core/components_collection"
-require "megam/core/cat_request"
-require "megam/core/cat_request_collection"
+require "megam/core/cat_requests"
+require "megam/core/cat_requests_collection"
 require "megam/core/event"
 
 

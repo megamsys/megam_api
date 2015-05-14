@@ -36,8 +36,8 @@ module Megam
     MEGAM_BILLINGHISTORIESCOLLECTION  = "Megam::BillinghistoriesCollection".freeze
     MEGAM_BILLINGS                    = "Megam::Billings".freeze
     MEGAM_BILLINGSCOLLECTION          = "Megam::BillingsCollection".freeze
-    MEGAM_CATREQUEST                  = "Megam::CatRequest".freeze
-    MEGAM_CATREQUESTCOLLECTION        = "Megam::CatRequestCollection".freeze
+    MEGAM_CATREQUESTS                 = "Megam::CatRequests".freeze
+    MEGAM_CATREQUESTSCOLLECTION       = "Megam::CatRequestsCollection".freeze
     MEGAM_CLOUDTOOLSETTING            = "Megam::CloudToolSetting".freeze
     MEGAM_CLOUDTOOLSETTINGCOLLECTION  = "Megam::CloudToolSettingCollection".freeze
     MEGAM_COMPONENTS                  = "Megam::Components".freeze
@@ -66,8 +66,8 @@ module Megam
     MEGAM_SUBSCRIPTIONS               = "Megam::Subscriptions".freeze
     MEGAM_SUBSCRIPTIONSCOLLECTION     = "Megam::SubscriptionsCollection".freeze
     MEGAM_PROMOS                      = "Megam::Promos".freeze
-    
-    
+
+
     class <<self
       # Increase the max nesting for JSON, which defaults
       # to 19, and isn't enough for some (for example, a Node within a Node)
@@ -192,10 +192,10 @@ module Megam
           Megam::CSARCollection
         when MEGAM_DOMAIN
           Megam::Domains
-        when MEGAM_CATREQUEST
-          Megam::CatRequest
-        when MEGAM_CATREQUESTCOLLECTION
-          Megam::CatRequestCollection
+        when MEGAM_CATREQUESTS
+          Megam::CatRequests
+        when MEGAM_CATREQUESTSCOLLECTION
+          Megam::CatRequestsCollection
         when MEGAM_EVENT
           Megam::Event
         when MEGAM_AVAILABLEUNITS

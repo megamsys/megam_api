@@ -153,18 +153,18 @@ module Megam
       app = new
       app.id(o["id"]) if o.has_key?("id")
       app.name(o["name"]) if o.has_key?("name")
-      
+
       ct = o["catalog"]
-      app.catalog[:logo] = ct["logo"] if ct && ct.has_key?("logo")      
+      app.catalog[:logo] = ct["logo"] if ct && ct.has_key?("logo")
       app.catalog[:category] = ct["category"] if ct && ct.has_key?("category")
       app.catalog[:description] = ct["description"] if ct && ct.has_key?("description")
-            
-      app.plans(o["plans"]) if o.has_key?("plans") 
+
+      app.plans(o["plans"]) if o.has_key?("plans")
       app.cattype(o["cattype"]) if o.has_key?("cattype")
       app.predef(o["predef"]) if o.has_key?("predef")
       app.status(o["status"]) if o.has_key?("status")
       app.created_at(o["created_at"]) if o.has_key?("created_at")
-          
+
       #success or error
       app.some_msg[:code] = o["code"] if o.has_key?("code")
       app.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")

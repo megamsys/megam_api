@@ -3,8 +3,8 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 class TestApps < MiniTest::Unit::TestCase
   
   @@tmp_hash = {
-    "app_id" => "ASM1136003656177549312",
-    "app_name" => "HermanWard.megam.co", #APP or Bolt
+    "cat_id" => "ASM1136003656177549312",
+    "name" => "HermanWard.megam.co", #APP or Bolt
     "action" => "start"
   }
 

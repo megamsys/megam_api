@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 module Megam
-  class CatRequestCollection
+  class CatRequestsCollection
     include Enumerable
 
     attr_reader :iterator
@@ -35,14 +35,14 @@ module Megam
     def []=(index, arg)
       is_megam_request(arg)
       @catrequests[index] = arg
-      @catrequests_by_name[arg.app_id] = index
+      @catrequests_by_name[arg.cat_id] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
         is_megam_request(a)
         @catrequests << a
-        @catrequests_by_name[a.app_id] = @catrequests.length - 1
+        @catrequests_by_name[a.cat_id] = @catrequests.length - 1
       end
       self
     end
@@ -61,11 +61,11 @@ module Megam
         @catrequests_by_name.each_key do |key|
         @catrequests_by_name[key] += 1 if @catrequests_by_name[key] > @insert_after_idx
         end
-        @catrequests_by_name[request.app_id] = @insert_after_idx + 1
+        @catrequests_by_name[request.cat_id] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
       @catrequests << request
-      @catrequests_by_name[request.app_id] = @catrequests.length - 1
+      @catrequests_by_name[request.cat_id] = @catrequests.length - 1
       end
     end
 
@@ -87,12 +87,12 @@ module Megam
 
     def lookup(request)
       lookup_by = nil
-      if request.kind_of?(Megam::CatRequest)
-      lookup_by = request.app_id
+      if request.kind_of?(Megam::CatRequests)
+      lookup_by = request.cat_id
       elsif request.kind_of?(String)
       lookup_by = request
       else
-        raise ArgumentError, "Must pass a Megam::CatRequest or String to lookup"
+        raise ArgumentError, "Must pass a Megam::CatRequests or String to lookup"
       end
       res = @catrequests_by_name[lookup_by]
       unless res
@@ -105,7 +105,7 @@ module Megam
     def to_hash
       index_hash = Hash.new
       self.each do |request|
-        index_hash[request.app_id] = request.to_s
+        index_hash[request.cat_id] = request.to_s
       end
       index_hash
     end
@@ -131,8 +131,8 @@ module Megam
     private
 
     def is_megam_request(arg)
-      unless arg.kind_of?(Megam::CatRequest)
-        raise ArgumentError, "Members must be Megam::CatRequest's"
+      unless arg.kind_of?(Megam::CatRequests)
+        raise ArgumentError, "Members must be Megam::CatRequests's"
       end
       true
     end
