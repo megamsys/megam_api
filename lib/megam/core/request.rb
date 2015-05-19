@@ -17,9 +17,9 @@ module Megam
   class Request < Megam::ServerAPI
     def initialize(email=nil, api_key=nil)
       @id = nil
-      @node_id = nil
-      @node_name = nil
-      @req_type = nil
+      @cat_id = nil
+      @name = nil
+      @cattype = nil
       @command =nil
       @some_msg = {}
       @created_at = nil
@@ -39,26 +39,26 @@ module Megam
       end
     end
 
-    def node_id(arg=nil)
+    def cat_id(arg=nil)
       if arg != nil
-        @node_id = arg
+        @cat_id = arg
       else
-      @node_id
+      @cat_id
       end
     end
 
-    def node_name(arg=nil)
+    def name(arg=nil)
       if arg != nil
-        @node_name = arg
+        @name = arg
       else
-      @node_name
+      @name
       end
     end
-    def req_type(arg=nil)
+    def cattype(arg=nil)
       if arg != nil
-        @req_type = arg
+        @cattype = arg
       else
-      @req_type
+      @cattype
       end
     end
     def created_at(arg=nil)
@@ -94,9 +94,9 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
-      index_hash["node_id"] = node_id
-      index_hash["node_name"] = node_name
-      index_hash["req_type"] = req_type
+      index_hash["cat_id"] = cat_id
+      index_hash["name"] = name
+      index_hash["cattype"] = cattype
       index_hash["command"] = command
       index_hash["created_at"] = created_at
       index_hash
@@ -111,9 +111,9 @@ module Megam
     def for_json
       result = {
         "id" => id,
-        "node_id" => node_id,
-        "node_name" => node_name,
-        "req_type" => req_type,
+        "cat_id" => cat_id,
+        "name" => name,
+        "cattype" => cattype,
         "command" => command,
         "created_at" => created_at
       }
@@ -124,9 +124,9 @@ module Megam
     def self.json_create(o)
       node = new
       node.id(o["id"]) if o.has_key?("id")
-      node.node_id(o["node_id"]) if o.has_key?("node_id")
-      node.node_name(o["node_name"]) if o.has_key?("node_name")
-      node.req_type(o["req_type"]) if o.has_key?("req_type")
+      node.cat_id(o["cat_id"]) if o.has_key?("cat_id")
+      node.name(o["name"]) if o.has_key?("name")
+      node.cattype(o["cattype"]) if o.has_key?("cattype")
       node.command(o["command"]) if o.has_key?("command")
       node.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
@@ -145,18 +145,18 @@ module Megam
 
     def from_hash(o)
       @id = o[:id] if o.has_key?(:id)
-      @node_id  = o[:node_id] if o.has_key?(:node_id)
-      @node_name = o[:node_name] if o.has_key?(:node_name)
-      @req_type = o[:req_type] if o.has_key?(:req_type)
+      @cat_id  = o[:cat_id] if o.has_key?(:cat_id)
+      @name = o[:name] if o.has_key?(:name)
+      @cattype = o[:cattype] if o.has_key?(:cattype)
       @command  = o[:command] if o.has_key?(:command)
       @created_at = o[:created_at] if o.has_key?(:created_at)
       self
     end
 
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
+    def self.create(params)
     puts "Entering megam_api-->"
-      acct = from_hash(o,tmp_email, tmp_api_key)
+      acct = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key])
       acct.create
     end
 
@@ -167,8 +167,8 @@ module Megam
     end
 
     
-     def self.show(tmp_email=nil, tmp_api_key=nil)
-      prede = self.new(tmp_email, tmp_api_key)
+     def self.show(params)
+      prede = self.new(params["email"] || params[:email], params["api_key"] || params[:api_key])
       prede.megam_rest.get_requests
     end
 
