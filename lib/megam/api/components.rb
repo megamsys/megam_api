@@ -15,7 +15,7 @@ module Megam
         :body => Megam::JSONCompat.to_json(new_asm)}.merge(@options)
 
       request(
-        :expects  => 201,
+        :expects  => [200, 201],
         :method   => :post,
         :body     => @options[:body]
       )
