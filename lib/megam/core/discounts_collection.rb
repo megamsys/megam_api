@@ -35,14 +35,14 @@ module Megam
     def []=(index, arg)
       is_megam_discounts(arg)
       @discounts[index] = arg
-      @discounts_by_name[arg.repo_name] = index
+      @discounts_by_name[arg.code] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
         is_megam_discounts(a)
         @discounts << a
-        @discounts_by_name[a.repo_name] =@discounts.length - 1
+        @discounts_by_name[a.code] =@discounts.length - 1
       end
       self
     end
@@ -61,11 +61,11 @@ module Megam
         @discounts_by_name.each_key do |key|
         @discounts_by_name[key] += 1 if@discounts_by_name[key] > @insert_after_idx
         end
-        @discounts_by_name[discounts.repo_name] = @insert_after_idx + 1
+        @discounts_by_name[discounts.code] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
       @discounts << discounts
-      @discounts_by_name[discounts.repo_name] =@discounts.length - 1
+      @discounts_by_name[discounts.code] =@discounts.length - 1
       end
     end
 
@@ -88,7 +88,7 @@ module Megam
     def lookup(discounts)
       lookup_by = nil
       if discounts.kind_of?(Megam::Discounts)
-      lookup_by = discounts.repo_name
+      lookup_by = discounts.code
       elsif discounts.kind_of?(String)
       lookup_by = discounts
       else
@@ -105,7 +105,7 @@ module Megam
     def to_hash
       index_hash = Hash.new
       self.each do |discounts|
-        index_hash[discounts.repo_name] = discounts.to_s
+        index_hash[discounts.code] = discounts.to_s
       end
       index_hash
     end

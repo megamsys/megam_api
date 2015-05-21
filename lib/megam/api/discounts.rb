@@ -1,8 +1,9 @@
 module Megam
   class API
     def get_discounts
+      puts "Entered get discount--weehaa!"
       @options = {:path => '/discounts',:body => ""}.merge(@options)
-
+  puts @options
       request(
         :expects  => 200,
         :method   => :get,
@@ -10,16 +11,7 @@ module Megam
       )
     end
 
-    def get_discounts(id)
-      @options = {:path => "/discounts/#{id}",:body => ""}.merge(@options)
-
-      request(
-        :expects  => 200,
-        :method   => :get,
-        :body     => @options[:body]
-      )
-    end
-
+    
     def post_discounts(new_discount)
       @options = {:path => '/discounts/content',
         :body => Megam::JSONCompat.to_json(new_discount)}.merge(@options)
