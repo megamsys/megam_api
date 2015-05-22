@@ -159,16 +159,14 @@ module Megam
     end
 
     def self.create(params)
-      puts "creating discounts entry...hold tight"
-      puts params.inspect
-      discount = from_hash(params)
+     
+      discount = from_hash(params, params[:email], params[:api_key])
       discount.create
     end
 
     # Create the discounts via the REST API
     def create
-      puts "YES. CREATING....JUST A SEC"
-      puts to_hash
+      
       megam_rest.post_discounts(to_hash)
     end
     
@@ -185,8 +183,9 @@ module Megam
     # Load all discounts -
     # returns a discountsCollection
     # don't return self. check if the Megam::discountsCollection is returned.
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-      cts = self.new(tmp_email, tmp_api_key)
+    def self.list(params)
+      cts = self.new(params[:email], params[:api_key])
+      
       cts.megam_rest.get_discounts
     end
 
