@@ -1,37 +1,88 @@
-Megam Ruby Client
+Megam api for ruby
 ==================
 
 [![Gem Version](https://badge.fury.io/rb/megam_api.svg)](http://badge.fury.io/rb/megam_api)
 
-Megam Ruby Client is used to interact with the Megam API Server.
+Megam api is used to talk to console.megam.io
 
-For more about the Megam' REST API <http://gomegam.com/docs>.[Megam API server](https://github.com/indykish/megam_play.git)
+For more about the REST API <http://docs.megam.io/v1.0/docs/assemblies>
 
-[![Build Status](https://travis-ci.org/indykish/megam_api.png)](https://travis-ci.org/indykish/megam_api)
+[![Build Status](https://travis-ci.org/megamsys/megam_api.png)](https://travis-ci.org/megamsys/megam_api)
 
 
 Usage
 -----
 
-Start by creating a connection to Megam with your credentials:
+```shell
+
+gem install megam_api
+
+```
+
+* Let us show an account with email = "your_email_id"
+
+```ruby
 
     require 'megam_api'
 
-    megam = Megam::API.new(:headers => {:api_key => API_KEY, :email => EMAIL})
+    require 'meggy/meg'
+    require 'megam/core/server_api'
+    require 'command_line_reporter'
 
-Now you can make requests to the api.
+    class Meggy
+      class Meg
+        class AccountShow < Meg
+          include CommandLineReporter
 
-Requests
---------
+          banner "meg account show"
+          def run
+            begin
+              Megam::Config[:email] = Meggy::Config[:email]
+              Megam::Config[:api_key] = Meggy::Config[:api_key]
+              @excon_res = Megam::Account.show(Megam::Config[:email])
+              acct_res = @excon_res.data[:body]
+              report(acct_res)
+            rescue Megam::API::Errors::ErrorWithResponse => ewr
+              res = ewr.response.data[:body].some_msg
+              text.error(res[:msg])
+              text.msg("#{text.color("Retry Again", :white, :bold)}")
+              text.info(res[:links])
+            end
+          end
 
-An overview of the commands you can run can be found in our documentation.
+          def report(acct_res)
+            table :border => true do
+              row :header => true, :color => 'green' do
+                column 'Account', :width => 15
+                column 'Information', :width => 32, :align => 'left'
+              end
+              row do
+                column 'email'
+                column acct_res.email
+              end
+              row do
+                column 'api_key'
+                column acct_res.api_key
+              end
+              row do
+                column 'authority'
+                column acct_res.authority
+              end
+              row do
+                column 'created_at'
+                column acct_res.created_at
+              end
+            end
+          end
 
+        end
+      end
+    end
+```
 
-### Documentation
+* See [meggy](https://github.com/megamsys/meggy.git) where the files like `Meg` are there.
 
-Refer [documentation] (http://www.gomegam.com/docs)
-
-
+For more implementation details [see meggy](https://github.com/megamsys/meggy.git)
 
 We are glad to help if you have questions, or request for new features..
 
@@ -39,16 +90,16 @@ We are glad to help if you have questions, or request for new features..
 
 
 
-	
+
 # License
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | Kishorekumar Neelamegam (<nkishore@megam.co.in>)
-|                      | Raj Thilak (<rajthilak@megam.co.in>)
-|                      | Yeshwanth Kumar (<getyesh@megam.co.in>)
+| **Author:**          | Kishorekumar Neelamegam (<nkishore@megam.io>)
+|                      | Raj Thilak (<rajthilak@megam.io>)
+|                      | Yeshwanth Kumar (<getyesh@megam.io>)
 |                      | Subash Sethurajan (<subash.avc@gmail.com>)
-|                      | Thomas Alrin (<alrin@megam.co.in>)
+|                      | Thomas Alrin (<thomasalrin@megam.io>)
 | **Copyright:**       | Copyright (c) 2012-2014 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
@@ -63,4 +114,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
