@@ -100,6 +100,26 @@ module Megam
       end
       @discounts[res]
     end
+     
+            #THIS RETURNS NIL WHEN A PARTICULAR PROMO TYPE IS NOT PRESENT - 
+            #DID NOT DISTURB THE ACTUAL LOOKUP  
+     def lookup_p(discounts)
+      lookup_by = nil
+      if discounts.kind_of?(Megam::Discounts)
+      lookup_by = discounts.code
+      elsif discounts.kind_of?(String)
+      lookup_by = discounts
+      else
+        raise ArgumentError, "Must pass a Megam::discounts or String to lookup"
+      end
+      res =@discounts_by_name[lookup_by]
+      unless res
+          return nil
+       end
+      @discounts[res]
+    end
+    
+    
 
     # Transform the ruby obj ->  to a Hash
     def to_hash
