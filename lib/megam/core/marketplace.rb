@@ -158,7 +158,8 @@ module Megam
       app.catalog[:logo] = ct["logo"] if ct && ct.has_key?("logo")
       app.catalog[:category] = ct["category"] if ct && ct.has_key?("category")
       app.catalog[:description] = ct["description"] if ct && ct.has_key?("description")
-
+      app.catalog[:port] = ct["port"] if ct && ct.has_key?("port")
+      
       app.plans(o["plans"]) if o.has_key?("plans")
       app.cattype(o["cattype"]) if o.has_key?("cattype")
       app.predef(o["predef"]) if o.has_key?("predef")
