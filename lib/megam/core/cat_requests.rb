@@ -19,6 +19,7 @@ module Megam
     def initialize(email=nil, api_key=nil)
       @id = nil
       @cat_id = nil
+      @cattype = nil
       @name = nil
       @action = nil
       @some_msg = {}
@@ -46,6 +47,16 @@ module Megam
       @cat_id
       end
     end
+
+
+    def cattype(arg=nil)
+      if arg != nil
+        @cattype = arg
+      else
+      @cattype
+      end
+    end
+
 
     def name(arg=nil)
       if arg != nil
@@ -90,6 +101,7 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["cat_id"] = cat_id
+      index_hash["cattype"] = cattype
       index_hash["name"] = name
       index_hash["action"] = action
       index_hash["created_at"] = created_at
@@ -106,6 +118,7 @@ module Megam
       result = {
         "id" => id,
         "cat_id" => cat_id,
+        "cattype" => cattype,
         "name" => name,
         "action" => action,
         "created_at" => created_at
@@ -118,6 +131,7 @@ module Megam
       node = new
       node.id(o["id"]) if o.has_key?("id")
       node.cat_id(o["cat_id"]) if o.has_key?("cat_id")
+      node.cattype(o["cattype"]) if o.has_key?("cattype")
       node.name(o["name"]) if o.has_key?("name")
       node.action(o["action"]) if o.has_key?("action")
       node.created_at(o["created_at"]) if o.has_key?("created_at")
@@ -138,6 +152,7 @@ module Megam
     def from_hash(o)
       @id = o[:id] if o.has_key?(:id)
       @cat_id  = o[:cat_id] if o.has_key?(:cat_id)
+      @cattype  = o[:cattype] if o.has_key?(:cattype)
       @name  = o[:name] if o.has_key?(:name)
       @action  = o[:action] if o.has_key?(:action)
       @created_at       = o[:created_at] if o.has_key?(:created_at)
