@@ -26,7 +26,7 @@ module Megam
     end
 
     def megam_rest
-      Megam::API.new(Megam::Config[:email], Megam::Config[:api_key])
+      Megam::API.new(Megam::Config[:email], Megam::Config[:api_key], Megam::Config[:host])
     end
 
     def some_msg(arg=nil)

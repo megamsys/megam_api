@@ -17,7 +17,7 @@ require 'hashie'
 
 module Megam
   class MarketPlace < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @name = nil
       @catalog = {}
@@ -27,7 +27,7 @@ module Megam
       @some_msg = {}
       @status = nil
       @created_at = nil
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def market_place
@@ -175,8 +175,8 @@ module Megam
       app
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      app = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      app = self.new(tmp_email, tmp_api_key, tmp_host)
       app.from_hash(o)
       app
     end
@@ -194,7 +194,7 @@ module Megam
     end
 
     def self.create(params)
-      acct = from_hash(params, params["email"], params["api_key"])
+      acct = from_hash(params, params["email"], params["api_key"], params["host"])
       acct.create
     end
 
@@ -205,12 +205,12 @@ module Megam
 
     # Load a account by email_p
     def self.show(params)
-      app = self.new(params["email"], params["api_key"])
+      app = self.new(params["email"], params["api_key"], params["host"])
       app.megam_rest.get_marketplaceapp(params["id"])
     end
 
     def self.list(params)
-      app = self.new(params["email"], params["api_key"])
+      app = self.new(params["email"], params["api_key"], params["host"])
       app.megam_rest.get_marketplaceapps
     end
 

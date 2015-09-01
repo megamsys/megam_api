@@ -16,7 +16,7 @@
 #
 module Megam
   class PredefCloud < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @name = nil
       @accounts_id = nil
@@ -26,7 +26,7 @@ module Megam
       #@performance = nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def predef_cloud
@@ -178,8 +178,8 @@ module Megam
       predefcd
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      predefcd = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      predefcd = self.new(tmp_email, tmp_api_key, tmp_host)
       predefcd.from_hash(o)
       predefcd
     end
@@ -195,8 +195,8 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key, tmp_host)
       acct.create
     end
 
@@ -208,20 +208,20 @@ module Megam
     # Load all predefs -
     # returns a PredefsCollection
     # don't return self. check if the Megam::PredefCollection is returned.
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-    predef = self.new(tmp_email,tmp_api_key)
+    def self.list(tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+    predef = self.new(tmp_email,tmp_api_key,tmp_host)
       predef.megam_rest.get_predefclouds
     end
 
     # Show a particular predef by name,
     # Megam::Predef
-    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-    pre = self.new(tmp_email,tmp_api_key)
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+    pre = self.new(tmp_email,tmp_api_key,tmp_host)
     pre.megam_rest.get_predefcloud(p_name)
     end
 
-    def self.delete(p_name,tmp_email=nil, tmp_api_key=nil)
-    pre = self.new(tmp_email,tmp_api_key)
+    def self.delete(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+    pre = self.new(tmp_email,tmp_api_key,tmp_host)
     pre.megam_rest.delete_predefcloud(p_name)
     end
 

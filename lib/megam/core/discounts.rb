@@ -16,7 +16,7 @@
 module Megam
   class Discounts < Megam::ServerAPI
     
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @accounts_id = nil
       @bill_type = nil
@@ -24,7 +24,7 @@ module Megam
       @status = nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def cloud_tool_setting
@@ -142,8 +142,8 @@ module Megam
       cts
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      cts = self.new(tmp_email,tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      cts = self.new(tmp_email,tmp_api_key,tmp_host)
       cts.from_hash(o)
       cts
     end
@@ -160,7 +160,7 @@ module Megam
 
     def self.create(params)
      
-      discount = from_hash(params, params[:email], params[:api_key])
+      discount = from_hash(params, params[:email], params[:api_key], params[:host])
       discount.create
     end
 
@@ -184,15 +184,15 @@ module Megam
     # returns a discountsCollection
     # don't return self. check if the Megam::discountsCollection is returned.
     def self.list(params)
-      cts = self.new(params[:email], params[:api_key])
+      cts = self.new(params[:email], params[:api_key], params[:host])
       
       cts.megam_rest.get_discounts
     end
 
     # Show a particular discounts by name,
     # Megam::discounts
-    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-      pre = self.new(tmp_email, tmp_api_key)
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      pre = self.new(tmp_email, tmp_api_key, tmp_host)
       pre.megam_rest.get_discounts(p_name)
     end
 

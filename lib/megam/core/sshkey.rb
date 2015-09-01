@@ -15,14 +15,14 @@
 #
 module Megam
   class SshKey < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @name = nil
       @accounts_id = nil
       @path=nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def sshkey
@@ -125,8 +125,8 @@ module Megam
       sshKey
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      sshKey = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      sshKey = self.new(tmp_email, tmp_api_key, tmp_host)
       sshKey.from_hash(o)
       sshKey
     end
@@ -140,7 +140,7 @@ module Megam
     end
 
     def self.create(params)
-      acct = from_hash(params, params["email"], params["api_key"])
+      acct = from_hash(params, params["email"], params["api_key"], params["host"])
       acct.create
     end
 
@@ -153,14 +153,14 @@ module Megam
     # returns a sshkeysCollection
     # don't return self. check if the Megam::SshKeyCollection is returned.
     def self.list(params)
-      sshKey = self.new(params["email"], params["api_key"])
+      sshKey = self.new(params["email"], params["api_key"], params["host"])
       sshKey.megam_rest.get_sshkeys
     end
 
     # Show a particular sshKey by name,
     # Megam::SshKey
     def self.show(params)
-      pre = self.new(params["email"], params["api_key"])
+      pre = self.new(params["email"], params["api_key"], params["host"])
       pre.megam_rest.get_sshkey(params["name"])
     end
 

@@ -16,13 +16,13 @@
 
 module Megam
   class CSAR < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @desc = nil
       @link = {}
       @some_msg = {}
       @created_at = nil
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def csar
@@ -126,8 +126,8 @@ module Megam
       csarjslf
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      csarhslf = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      csarhslf = self.new(tmp_email, tmp_api_key, tmp_host)
       csarhslf.from_hash(o)
       csarhslf
     end
@@ -142,8 +142,8 @@ module Megam
     end
 
     #This won't work, as the body just needs the yaml string.
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      csarslf = from_hash(o, tmp_email, tmp_api_key)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      csarslf = from_hash(o, tmp_email, tmp_api_key, tmp_host)
       csarslf.create
     end
 
@@ -154,20 +154,20 @@ module Megam
     end
 
     # Load the yaml back from the link
-    def self.show(tmp_email=nil, tmp_api_key=nil, csarlink_name)
-      csarslf = self.new(tmp_email, tmp_api_key)
+    def self.show(tmp_email=nil, tmp_api_key=nil, tmp_host=nil, csarlink_name)
+      csarslf = self.new(tmp_email, tmp_api_key, tmp_host)
       csarslf.megam_rest.get_csar(csarlink_name)
     end
 
     #list all csars (links)
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-      csarslf = self.new(tmp_email, tmp_api_key)
+    def self.list(tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      csarslf = self.new(tmp_email, tmp_api_key, tmp_host)
       csarslf.megam_rest.get_csars
     end
 
      #push csar (links)
-    def self.push(tmp_email=nil, tmp_api_key=nil, csar_id)
-      csarslf = self.new(tmp_email, tmp_api_key)
+    def self.push(tmp_email=nil, tmp_api_key=nil, tmp_host=nil, csar_id)
+      csarslf = self.new(tmp_email, tmp_api_key, tmp_host)
       csarslf.megam_rest.push_csar(csar_id)
     end
 

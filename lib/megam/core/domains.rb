@@ -16,11 +16,11 @@
 
 module Megam
   class Domains < Megam::ServerAPI
-   def initialize(email=nil, api_key=nil)
+   def initialize(email=nil, api_key=nil, host=nil)
      @id = nil
      @name = nil
      @created_at = nil
-     super(email, api_key)
+     super(email, api_key, host)
    end
 
 
@@ -91,7 +91,7 @@ def self.json_create(o)
 end
 
 def self.from_hash(o)
-  dmn = self.new(o[:email], o[:api_key])
+  dmn = self.new(o[:email], o[:api_key], o[:host])
   dmn.from_hash(o)
   dmn
 end
@@ -109,8 +109,8 @@ def self.create(o)
 end
 
 # Load a Domain by email_p
-def self.show(email,api_key=nil)
-  dmn = self.new(email, api_key)
+def self.show(email,api_key,host=nil)
+  dmn = self.new(email, api_key, host)
   dmn.megam_rest.get_domains(email)
 end
 

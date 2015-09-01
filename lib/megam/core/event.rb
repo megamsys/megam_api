@@ -16,12 +16,12 @@
 
 module Megam
   class Event < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @a_id = nil
       @a_name = nil
       @command = nil
       @launch_type = nil
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def event
@@ -105,8 +105,8 @@ module Megam
       event
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      event = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      event = self.new(tmp_email, tmp_api_key, tmp_host)
       event.from_hash(o)
       event
     end
@@ -120,9 +120,8 @@ module Megam
      self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-     
-      event = from_hash(o, tmp_email, tmp_api_key)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)     
+      event = from_hash(o, tmp_email, tmp_api_key, tmp_host)
       event.create
     end
 
@@ -133,8 +132,8 @@ module Megam
 
    
 
-    def self.list(tmp_email=nil, tmp_api_key=nil, inflated=false)
-      event = self.new(tmp_email, tmp_api_key)
+    def self.list(tmp_email=nil, tmp_api_key=nil, tmp_host=nil, inflated=false)
+      event = self.new(tmp_email, tmp_api_key, tmp_host)
       event.megam_rest.get_events
     end
 
