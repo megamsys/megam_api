@@ -16,7 +16,7 @@
 module Megam
   class Subscriptions < Megam::ServerAPI
     
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @accounts_id = nil
       @assembly_id = nil
@@ -24,7 +24,7 @@ module Megam
       @end_date = nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def subscriptions
@@ -142,8 +142,8 @@ module Megam
       cts
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      cts = self.new(tmp_email,tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      cts = self.new(tmp_email,tmp_api_key,tmp_host)
       cts.from_hash(o)
       cts
     end
@@ -158,8 +158,8 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key, tmp_host)
       acct.create
     end
 
@@ -171,15 +171,15 @@ module Megam
     # Load all subscriptions -
     # returns a subscriptionsCollection
     # don't return self. check if the Megam::subscriptionsCollection is returned.
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-      cts = self.new(tmp_email, tmp_api_key)
+    def self.list(tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      cts = self.new(tmp_email, tmp_api_key, tmp_host)
       cts.megam_rest.get_subscriptions
     end
 
     # Show a particular subscriptions by name,
     # Megam::subscriptions
-    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-      pre = self.new(tmp_email, tmp_api_key)
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      pre = self.new(tmp_email, tmp_api_key, tmp_host)
       pre.megam_rest.get_subscriptions(p_name)
     end
 

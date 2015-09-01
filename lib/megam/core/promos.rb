@@ -15,13 +15,13 @@
 ##
 module Megam
   class Promos < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil     
       @code = nil
       @amount = nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def promos
@@ -115,8 +115,8 @@ module Megam
       promos
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      promos = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      promos = self.new(tmp_email, tmp_api_key, tmp_host)
       promos.from_hash(o)
       promos
     end
@@ -130,7 +130,7 @@ module Megam
     end
 
     def self.create(params)
-      promo = from_hash(params,params["email"], params["api_key"])
+      promo = from_hash(params,params["email"], params["api_key"], params["host"])
       promo.create
     end
 
@@ -140,7 +140,7 @@ module Megam
     end
 
     def self.list(params)
-      promos = self.new(params["email"], params["api_key"])
+      promos = self.new(params["email"], params["api_key"], params["host"])
       promos.megam_rest.get_promos
     end
 

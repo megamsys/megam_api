@@ -129,8 +129,9 @@ module Megam
     # 2. The options as passed via the instantiation of API will override global options. The ones that are passed are :email and :api_key and will
     # be  merged into a class variable @options
     # 3. Upon merge of the options, the api_key, email as available in the @options is deleted.
-    def initialize(options = {})
+    def initialize(options = {})  
       @options = OPTIONS.merge(options)
+      puts @options
       @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
       @email = @options.delete(:email)
       fail ArgumentError, 'You must specify [:email, :api_key]' if @email.nil? || @api_key.nil?

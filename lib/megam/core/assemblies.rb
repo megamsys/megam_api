@@ -16,14 +16,14 @@
 
 module Megam
   class Assemblies < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @accounts_id = nil
       @name = nil
       @assemblies = []
       @inputs = []
       @created_at = nil
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def assemblies
@@ -126,8 +126,8 @@ module Megam
       asm
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      asm = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      asm = self.new(tmp_email, tmp_api_key, tmp_host)
       asm.from_hash(o)
       asm
     end
@@ -143,7 +143,7 @@ module Megam
     end
 
     def self.create(params)
-      asm = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key])
+      asm = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key], params["host"] || params[:host])
       asm.create
     end
 
@@ -153,13 +153,13 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.show(one_assemblies_id, tmp_email=nil, tmp_api_key=nil)
-      asm = self.new(tmp_email, tmp_api_key)
+    def self.show(one_assemblies_id, tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      asm = self.new(tmp_email, tmp_api_key, tmp_host)
       asm.megam_rest.get_one_assemblies(one_assemblies_id)
     end
 
     def self.list(params)
-      asm = self.new(params["email"], params["api_key"])
+      asm = self.new(params["email"], params["api_key"], params["host"])
       asm.megam_rest.get_assemblies
     end
 

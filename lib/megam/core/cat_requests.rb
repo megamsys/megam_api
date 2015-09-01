@@ -16,7 +16,7 @@
 module Megam
   class CatRequests < Megam::ServerAPI
 
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @cat_id = nil
       @cattype = nil
@@ -24,7 +24,7 @@ module Megam
       @action = nil
       @some_msg = {}
       @created_at = nil
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def cat_request
@@ -143,8 +143,8 @@ module Megam
       node
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      node = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      node = self.new(tmp_email, tmp_api_key, tmp_host)
       node.from_hash(o)
       node
     end
@@ -161,7 +161,7 @@ module Megam
 
 
     def self.create(o)
-      acct = from_hash(o, o["email"], o["api_key"])
+      acct = from_hash(o, o["email"], o["api_key"], o["host"])
       acct.create
     end
 

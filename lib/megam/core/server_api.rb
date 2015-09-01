@@ -21,15 +21,17 @@ module Megam
 
     attr_reader :email
     attr_reader :api_key
+    attr_reader :host
 
 
     # Create a Megam REST object. The supplied email and api_key is used as the base for
     # all subsequent requests. For example, when initialized with an email, api_key  url
     # https://api.megam.io, a call to +get+ with 'accounts' will make an
     # HTTP GET request to https://api.megam.io/accounts using the email, api_key
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @email = email
       @api_key = api_key
+      @host = host
     end
 
     # Build a megam api client
@@ -37,7 +39,7 @@ module Megam
     # === Parameters
     # api:: The Megam::API client
     def megam_rest
-      options = { :email =>email || Megam::Config[:email], :api_key => api_key || Megam::Config[:api_key]}
+      options = { :email =>email || Megam::Config[:email], :api_key => api_key || Megam::Config[:api_key], :host => host || Megam::Config[:host]}
       Megam::API.new(options)
     end
 

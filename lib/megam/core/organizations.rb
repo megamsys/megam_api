@@ -16,54 +16,49 @@
 
 module Megam
   class Organizations < Megam::ServerAPI
-   def initialize(email=nil, api_key=nil)
-     @id = nil
-     @name = nil
-     @accounts_id = nil
-     @created_at = nil
-     super(email, api_key)
-   end
+    def initialize(email=nil, api_key=nil, host=nil)
+      @id = nil
+      @name = nil
+      @accounts_id = nil
+      @created_at = nil
+      super(email, api_key, host)
+    end
 
+    def organization
+      self
+    end
 
-def organization
-  self
-end
+    def id(arg=nil)
+      if arg != nil
+        @id = arg
+      else
+      @id
+      end
+    end
 
-def id(arg=nil)
-  if arg != nil
-    @id = arg
-  else
-  @id
-  end
-end
+    def accounts_id(arg=nil)
+      if arg != nil
+        @accounts_id = arg
+      else
+      @accounts_id
+      end
+    end
 
-def accounts_id(arg=nil)
-  if arg != nil
-     @accounts_id = arg
-  else
-    @accounts_id
-  end
-end
+    def name(arg=nil)
+      if arg != nil
+        @name = arg
+      else
+      @name
+      end
+    end
 
-def name(arg=nil)
-  if arg != nil
-     @name = arg
-  else
-    @name
-  end
-end
-
-
-
-def created_at(arg=nil)
-  if arg != nil
-    @created_at = arg
-  else
-  @created_at
-  end
-end
-
-
+    def created_at(arg=nil)
+      if arg != nil
+        @created_at = arg
+      else
+      @created_at
+      end
+    end
 
     # Transform the ruby obj ->  to a Hash
     def to_hash
@@ -101,7 +96,7 @@ end
     end
 
     def self.from_hash(o)
-      org = self.new(o[:email], o[:api_key])
+      org = self.new(o[:email], o[:api_key], o[:host])
       org.from_hash(o)
       org
     end
@@ -129,7 +124,6 @@ end
       org = from_hash(o)
       org.megam_rest.get_organizations
     end
-
 
     def create
       megam_rest.post_organizations(to_hash)

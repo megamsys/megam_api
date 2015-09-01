@@ -15,7 +15,7 @@
 ##
 module Megam
   class Balances < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @accounts_id = nil
       @name = nil
@@ -23,7 +23,7 @@ module Megam
       @created_at = nil
       @updated_at = nil
       @some_msg = {}
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def balances
@@ -137,8 +137,8 @@ module Megam
       balances
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      balances = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      balances = self.new(tmp_email, tmp_api_key, tmp_host)
       balances.from_hash(o)
       balances
     end
@@ -154,7 +154,7 @@ module Megam
     end
 
     def self.create(params)
-      acct = from_hash(params,params["email"], params["api_key"])
+      acct = from_hash(params,params["email"], params["api_key"], params["host"])
       acct.create
     end
 
@@ -167,24 +167,24 @@ module Megam
     # returns a BalanceCollection
     # don't return self. check if the Megam::BalanceCollection is returned.
     def self.list(params)
-      balance = self.new(params["email"], params["api_key"])
+      balance = self.new(params["email"], params["api_key"], params["host"])
       balance.megam_rest.get_balances
     end
 
     # Show a particular balance by name,
     # Megam::Balance
      def self.show(params)
-      pre = self.new(params["email"], params["api_key"])
+      pre = self.new(params["email"], params["api_key"], params["host"])
       pre.megam_rest.get_balance(params["email"])
     end
 
-    def self.delete(p_name,tmp_email=nil, tmp_api_key=nil)
-      pre = self.new(tmp_email,tmp_api_key)
+    def self.delete(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      pre = self.new(tmp_email,tmp_api_key,tmp_host)
       pre.megam_rest.delete_balance(p_name)
     end
 
     def self.update(params)
-      asm = from_hash(params, params["email"], params["api_key"])
+      asm = from_hash(params, params["email"], params["api_key"], params["host"])
       asm.update
     end
 

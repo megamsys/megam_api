@@ -15,14 +15,14 @@
 ##
 module Megam
   class Availableunits < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @name = nil
       @duration = nil
       @charges_per_duration = nil     
       @created_at = nil
       @some_msg = {}
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def availableunits
@@ -127,8 +127,8 @@ module Megam
       aunit
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      aunit = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      aunit = self.new(tmp_email, tmp_api_key, tmp_host)
       aunit.from_hash(o)
       aunit
     end
@@ -142,8 +142,8 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil, tmp_host)
+      acct = from_hash(o,tmp_email, tmp_api_key, tmp_host)
       acct.create
     end
 
@@ -155,20 +155,20 @@ module Megam
     # Load all available units -
     # returns a AvailableUnitsCollection
     # don't return self. check if the Megam::AvailableUnitsCollection is returned.
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-    aunit = self.new(tmp_email,tmp_api_key)
+    def self.list(tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+    aunit = self.new(tmp_email,tmp_api_key,tmp_host)
       aunit.megam_rest.get_availableunits
     end
 
     # Show a particular available units by name,
     # Megam::Availables
-    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-    pre = self.new(tmp_email,tmp_api_key)
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+    pre = self.new(tmp_email,tmp_api_key, tmp_host)
     pre.megam_rest.get_availableunit(p_name)
     end
 
-    def self.delete(p_name,tmp_email=nil, tmp_api_key=nil)
-    pre = self.new(tmp_email,tmp_api_key)
+    def self.delete(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+    pre = self.new(tmp_email,tmp_api_key,tmp_host)
     pre.megam_rest.delete_availableunit(p_name)
     end
 

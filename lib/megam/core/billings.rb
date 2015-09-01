@@ -16,7 +16,7 @@
 module Megam
   class Billings < Megam::ServerAPI
     
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @accounts_id = nil
       @line1 = nil
@@ -28,7 +28,7 @@ module Megam
       @bill_type = nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def billings
@@ -190,8 +190,8 @@ module Megam
       cts
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      cts = self.new(tmp_email,tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      cts = self.new(tmp_email,tmp_api_key,tmp_host)
       cts.from_hash(o)
       cts
     end
@@ -209,8 +209,8 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil,tmp_host=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key, tmp_host)
       acct.create
     end
 
@@ -222,15 +222,15 @@ module Megam
     # Load all billings -
     # returns a billingsCollection
     # don't return self. check if the Megam::billingsCollection is returned.
-    def self.list(tmp_email=nil, tmp_api_key=nil)
-      cts = self.new(tmp_email, tmp_api_key)
+    def self.list(tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      cts = self.new(tmp_email, tmp_api_key, tmp_host)
       cts.megam_rest.get_billings
     end
 
     # Show a particular billings by name,
     # Megam::billings
-    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-      pre = self.new(tmp_email, tmp_api_key)
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      pre = self.new(tmp_email, tmp_api_key, tmp_host)
       pre.megam_rest.get_billing(p_name)
     end
 

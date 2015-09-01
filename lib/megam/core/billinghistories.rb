@@ -15,7 +15,7 @@
 ##
 module Megam
   class Billinghistories < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @accounts_id = nil
       @assembly_id = nil
@@ -24,7 +24,7 @@ module Megam
       @currency_type = nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def billinghistories
@@ -150,8 +150,8 @@ module Megam
       bal
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      bal = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      bal = self.new(tmp_email, tmp_api_key, tmp_host)
       bal.from_hash(o)
       bal
     end
@@ -167,8 +167,8 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key, tmp_host)
       acct.create
     end
 
@@ -181,19 +181,19 @@ module Megam
     # returns a BillingHistoriesCollection
     # don't return self. check if the Megam::BillingHistoriesCollection is returned.
     def self.list(params)
-      billhistory = self.new(params["email"], params["api_key"])
+      billhistory = self.new(params["email"], params["api_key"], params["host"])
       billhistory.megam_rest.get_billinghistories
     end
 
     # Show a particular billing history by name,
     # Megam::BillingHistory
-    def self.show(p_name,tmp_email=nil, tmp_api_key=nil)
-      pre = self.new(tmp_email,tmp_api_key)
+    def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      pre = self.new(tmp_email,tmp_api_key, tmp_host)
       pre.megam_rest.get_billinghistory(p_name)
     end
 
-    def self.delete(p_name,tmp_email=nil, tmp_api_key=nil)
-      pre = self.new(tmp_email,tmp_api_key)
+    def self.delete(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      pre = self.new(tmp_email,tmp_api_key, tmp_host)
       pre.megam_rest.delete_billinghistory(p_name)
     end
 

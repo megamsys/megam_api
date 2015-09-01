@@ -16,7 +16,7 @@
 
 module Megam
   class Assembly < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @name = nil
       @tosca_type = nil
@@ -28,7 +28,7 @@ module Megam
       @outputs = []
       @status = nil
       @created_at = nil
-      super(email, api_key)
+      super(email, api_key, host)
     end
 
     def assembly
@@ -185,8 +185,8 @@ module Megam
       asm
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      asm = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      asm = self.new(tmp_email, tmp_api_key, tmp_host)
       asm.from_hash(o)
       asm
     end
@@ -208,12 +208,12 @@ module Megam
 
 
     def self.show(params)
-      asm = self.new(params["email"], params["api_key"])
+      asm = self.new(params["email"], params["api_key"], params["host"])
       asm.megam_rest.get_one_assembly(params["id"])
     end
 
      def self.update(params)
-      asm = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key])
+      asm = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key], params["host"] || params[:host])
       asm.update
     end
 

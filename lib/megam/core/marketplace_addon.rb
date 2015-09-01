@@ -16,7 +16,7 @@
 module Megam
   class MarketPlaceAddons< Megam::ServerAPI
 
-    def initialize(email=nil, api_key=nil)
+    def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @node_id = nil
       @node_name = nil
@@ -25,7 +25,7 @@ module Megam
       @config_id = nil
       @created_at = nil
       @some_msg = {}
-      super(email,api_key)
+      super(email,api_key,host)
     end
 
     def market_place_addons
@@ -153,8 +153,8 @@ module Megam
       addon
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil)
-      addon = self.new(tmp_email, tmp_api_key)
+    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      addon = self.new(tmp_email, tmp_api_key, tmp_host)
       addon.from_hash(o)
       addon
     end
@@ -170,8 +170,8 @@ module Megam
       self
     end
 
-    def self.create(o,tmp_email=nil, tmp_api_key=nil)
-      acct = from_hash(o,tmp_email, tmp_api_key)
+    def self.create(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      acct = from_hash(o,tmp_email, tmp_api_key, tmp_host)
       acct.create
     end
 
@@ -181,8 +181,8 @@ module Megam
     end
 
     # Load a account by email_p
-    def self.list(node_name,tmp_email=nil, tmp_api_key=nil)
-      addon = self.new(tmp_email, tmp_api_key)
+    def self.list(node_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
+      addon = self.new(tmp_email, tmp_api_key, tmp_host)
       addon.megam_rest.get_addons(node_name)
       #self
     end
