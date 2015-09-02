@@ -22,6 +22,7 @@ module Megam
       @cattype = nil
       @name = nil
       @action = nil
+      @category = nil
       @some_msg = {}
       @created_at = nil
       super(email, api_key, host)
@@ -74,6 +75,15 @@ module Megam
       end
     end
 
+    def category(arg=nil)
+      if arg != nil
+        @category = arg
+      else
+      @category
+      end
+    end
+
+
 
     def created_at(arg=nil)
       if arg != nil
@@ -104,6 +114,7 @@ module Megam
       index_hash["cattype"] = cattype
       index_hash["name"] = name
       index_hash["action"] = action
+      index_hash["category"] = category
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -121,6 +132,7 @@ module Megam
         "cattype" => cattype,
         "name" => name,
         "action" => action,
+        "category" => category,
         "created_at" => created_at
       }
       result
@@ -134,6 +146,7 @@ module Megam
       node.cattype(o["cattype"]) if o.has_key?("cattype")
       node.name(o["name"]) if o.has_key?("name")
       node.action(o["action"]) if o.has_key?("action")
+      node.action(o["category"]) if o.has_key?("category")
       node.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       node.some_msg[:code] = o["code"] if o.has_key?("code")
@@ -155,7 +168,8 @@ module Megam
       @cattype  = o[:cattype] if o.has_key?(:cattype)
       @name  = o[:name] if o.has_key?(:name)
       @action  = o[:action] if o.has_key?(:action)
-      @created_at       = o[:created_at] if o.has_key?(:created_at)
+      @category  = o[:category] if o.has_key?(:category)
+      @created_at = o[:created_at] if o.has_key?(:created_at)
       self
     end
 
