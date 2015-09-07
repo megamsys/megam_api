@@ -21,6 +21,8 @@ module Megam
       @name = nil
       @cattype = nil
       @command =nil
+      @action = nil
+      @category = nil
       @some_msg = {}
       @created_at = nil
       super(email, api_key, host)
@@ -30,7 +32,7 @@ module Megam
       self
     end
 
-    
+
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -61,6 +63,25 @@ module Megam
       @cattype
       end
     end
+
+    def action(arg=nil)
+      if arg != nil
+        @action = arg
+      else
+      @action
+      end
+    end
+
+
+    def category(arg=nil)
+      if arg != nil
+        @category = arg
+      else
+      @category
+      end
+    end
+
+
     def created_at(arg=nil)
       if arg != nil
         @created_at = arg
@@ -97,6 +118,8 @@ module Megam
       index_hash["cat_id"] = cat_id
       index_hash["name"] = name
       index_hash["cattype"] = cattype
+      index_hash["action"] = action
+      index_hash["category"] = category
       index_hash["command"] = command
       index_hash["created_at"] = created_at
       index_hash
@@ -114,6 +137,8 @@ module Megam
         "cat_id" => cat_id,
         "name" => name,
         "cattype" => cattype,
+        "action" => action,
+        "category" => category,
         "command" => command,
         "created_at" => created_at
       }
@@ -127,6 +152,8 @@ module Megam
       node.cat_id(o["cat_id"]) if o.has_key?("cat_id")
       node.name(o["name"]) if o.has_key?("name")
       node.cattype(o["cattype"]) if o.has_key?("cattype")
+      node.action(o["action"]) if o.has_key?("action")
+      node.category(o["category"]) if o.has_key?("category")
       node.command(o["command"]) if o.has_key?("command")
       node.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
@@ -148,6 +175,8 @@ module Megam
       @cat_id  = o[:cat_id] if o.has_key?(:cat_id)
       @name = o[:name] if o.has_key?(:name)
       @cattype = o[:cattype] if o.has_key?(:cattype)
+      @action = o[:action] if o.has_key?(:action)
+      @category = o[:category] if o.has_key?(:category)
       @command  = o[:command] if o.has_key?(:command)
       @created_at = o[:created_at] if o.has_key?(:created_at)
       self
@@ -166,7 +195,7 @@ module Megam
       megam_rest.post_request(to_hash)
     end
 
-    
+
      def self.show(params)
       prede = self.new(params["email"] || params[:email], params["api_key"] || params[:api_key], params["host"] || params[:host])
       prede.megam_rest.get_requests
