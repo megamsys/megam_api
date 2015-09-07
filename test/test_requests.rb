@@ -1,7 +1,7 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-  #=begin
+=begin
   def test_get_requests
     response = megams.get_requests
     assert_equal(200, response.status)
@@ -66,19 +66,30 @@ class TestApps < MiniTest::Unit::TestCase
     "appreq" => {},
     "boltreq" => {}
   }
+=end
+
+@@tmp_hash = {
+
+"cat_id" => "ASM",
+"cattype" => "app",
+"name" => "yeshapp",
+"action" => "delete",
+"category" => "normal" #normal(create, delete), state, control, policy
+}
+
 
   def test_request_node_delete
 
     response = megams.post_request(@@tmp_hash)
     assert_equal(201, response.status)
   end
-
+=begin
   def test_request_node_stop
     @@tmp_hash["req_type"] = "stop"
     @@tmp_hash["command"]["cloudtool"]["chef"]["plugin"] = "ec2 server stop"
     response = megams.post_request(@@tmp_hash)
     assert_equal(201, response.status)
   end
-#=end
+=end
 
 end

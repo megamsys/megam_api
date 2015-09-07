@@ -36,8 +36,6 @@ module Megam
     MEGAM_BILLINGHISTORIESCOLLECTION  = "Megam::BillinghistoriesCollection".freeze
     MEGAM_BILLINGS                    = "Megam::Billings".freeze
     MEGAM_BILLINGSCOLLECTION          = "Megam::BillingsCollection".freeze
-    MEGAM_CATREQUESTS                 = "Megam::CatRequests".freeze
-    MEGAM_CATREQUESTSCOLLECTION       = "Megam::CatRequestsCollection".freeze
     MEGAM_CLOUDTOOLSETTING            = "Megam::CloudToolSetting".freeze
     MEGAM_CLOUDTOOLSETTINGCOLLECTION  = "Megam::CloudToolSettingCollection".freeze
     MEGAM_COMPONENTS                  = "Megam::Components".freeze
@@ -57,8 +55,6 @@ module Megam
     MEGAM_MARKETPLACEADDONCOLLECTION  = "Megam::MarketPlaceAddonsCollection".freeze
     MEGAM_ORGANIZATION                = "Megam::Organizations".freeze
     MEGAM_ORGANIZATIONSCOLLECTION     = "Megam::OrganizationsCollection".freeze
-    MEGAM_PREDEFCLOUD                 = "Megam::PredefCloud".freeze
-    MEGAM_PREDEFCLOUDCOLLECTION       = "Megam::PredefCloudCollection".freeze
     MEGAM_REQUEST                     = "Megam::Request".freeze
     MEGAM_REQUESTCOLLECTION           = "Megam::RequestCollection".freeze
     MEGAM_SSHKEY                      = "Megam::SshKey".freeze
@@ -166,10 +162,6 @@ module Megam
           Megam::Request
         when MEGAM_REQUESTCOLLECTION
           Megam::RequestCollection
-        when MEGAM_PREDEFCLOUD
-          Megam::PredefCloud
-        when MEGAM_PREDEFCLOUDCOLLECTION
-          Megam::PredefCloudCollection
         when MEGAM_SSHKEY
           Megam::SshKey
         when MEGAM_SSHKEYCOLLECTION
@@ -192,10 +184,6 @@ module Megam
           Megam::CSARCollection
         when MEGAM_DOMAIN
           Megam::Domains
-        when MEGAM_CATREQUESTS
-          Megam::CatRequests
-        when MEGAM_CATREQUESTSCOLLECTION
-          Megam::CatRequestsCollection
         when MEGAM_EVENT
           Megam::Event
         when MEGAM_AVAILABLEUNITS

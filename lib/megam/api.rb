@@ -14,8 +14,6 @@ require 'megam/api/errors'
 require 'megam/api/version'
 require 'megam/api/accounts'
 require 'megam/api/requests'
-require 'megam/api/cat_requests'
-require 'megam/api/predef_clouds'
 require 'megam/api/cloud_tool_settings'
 require 'megam/api/sshkeys'
 require 'megam/api/marketplaces'
@@ -47,8 +45,6 @@ require 'megam/core/error'
 require 'megam/core/account'
 require 'megam/core/request'
 require 'megam/core/request_collection'
-require 'megam/core/predefcloud'
-require 'megam/core/predefcloud_collection'
 require 'megam/core/cloudtoolsetting'
 require 'megam/core/cloudtoolsetting_collection'
 require 'megam/core/sshkey'
@@ -69,8 +65,6 @@ require 'megam/core/assembly'
 require 'megam/core/assembly_collection'
 require 'megam/core/components'
 require 'megam/core/components_collection'
-require 'megam/core/cat_requests'
-require 'megam/core/cat_requests_collection'
 require 'megam/core/event'
 
 require 'megam/core/availableunits_collection'
@@ -129,7 +123,7 @@ module Megam
     # 2. The options as passed via the instantiation of API will override global options. The ones that are passed are :email and :api_key and will
     # be  merged into a class variable @options
     # 3. Upon merge of the options, the api_key, email as available in the @options is deleted.
-    def initialize(options = {})  
+    def initialize(options = {})
       @options = OPTIONS.merge(options)
       puts @options
       @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
