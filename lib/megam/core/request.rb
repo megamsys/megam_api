@@ -184,7 +184,6 @@ module Megam
 
 
     def self.create(params)
-    puts "Entering megam_api-->"
       acct = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key], params["host"] || params[:host])
       acct.create
     end
