@@ -20,12 +20,11 @@ module Megam
     def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @name = nil
-      @catalog = {}
-      @plans=nil
-      @cattype =nil
-      @predef =nil
-      @some_msg = {}
-      @status = nil
+      @cattype = nil
+      @order = nil
+      @image = nil
+      @url = nil
+      @plans= nil
       @created_at = nil
       super(email, api_key, host)
     end
@@ -43,14 +42,6 @@ module Megam
       end
     end
 
-    def catalog(arg=nil)
-      if arg != nil
-        @catalog = arg
-      else
-      @catalog
-      end
-    end
-
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -59,21 +50,11 @@ module Megam
       end
     end
 
-
     def plans(arg=nil)
       if arg != nil
         @plans = arg
       else
       @plans
-      end
-    end
-
-
-    def predef(arg=nil)
-      if arg != nil
-        @predef = arg
-      else
-      @predef
       end
     end
 
@@ -85,11 +66,27 @@ module Megam
       end
     end
 
-    def status(arg=nil)
+    def order(arg=nil)
       if arg != nil
-        @status = arg
+        @order = arg
       else
-      @status
+      @order
+      end
+    end
+
+    def image(arg=nil)
+      if arg != nil
+        @image = arg
+      else
+      @image
+      end
+    end
+
+    def url(arg=nil)
+      if arg != nil
+        @url = arg
+      else
+      @url
       end
     end
 
@@ -119,12 +116,11 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["name"] = name
-      index_hash["catalog"] = catalog
-      index_hash["plans"] = plans
       index_hash["cattype"] = cattype
-      index_hash["predef"] = predef
-      index_hash["status"] = status
-      index_hash["some_msg"] = some_msg
+      index_hash["order"] = order
+      index_hash["image"] = image
+      index_hash["url"] = url
+      index_hash["plans"] = plans
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -139,11 +135,11 @@ module Megam
       result = {
         "id" => id,
         "name" => name,
-        "catalog" => catalog,
-        "plans" => plans,
         "cattype" => cattype,
-        "predef" => predef,
-        "status" => status,
+        "order" => order,
+        "image" => image,
+        "url" => url,
+        "plans" => plans,
         "created_at" => created_at
       }
       result
@@ -153,24 +149,12 @@ module Megam
       app = new
       app.id(o["id"]) if o.has_key?("id")
       app.name(o["name"]) if o.has_key?("name")
-
-      ct = o["catalog"]
-      app.catalog[:logo] = ct["logo"] if ct && ct.has_key?("logo")
-      app.catalog[:category] = ct["category"] if ct && ct.has_key?("category")
-      app.catalog[:description] = ct["description"] if ct && ct.has_key?("description")
-      app.catalog[:port] = ct["port"] if ct && ct.has_key?("port")
-      
-      app.plans(o["plans"]) if o.has_key?("plans")
       app.cattype(o["cattype"]) if o.has_key?("cattype")
-      app.predef(o["predef"]) if o.has_key?("predef")
-      app.status(o["status"]) if o.has_key?("status")
+      app.order(o["order"]) if o.has_key?("order")
+      app.image(o["image"]) if o.has_key?("image")
+      app.url(o["url"]) if o.has_key?("url")
+      app.plans(o["plans"]) if o.has_key?("plans")
       app.created_at(o["created_at"]) if o.has_key?("created_at")
-
-      #success or error
-      app.some_msg[:code] = o["code"] if o.has_key?("code")
-      app.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
-      app.some_msg[:msg]= o["msg"] if o.has_key?("msg")
-      app.some_msg[:links] = o["links"] if o.has_key?("links")
 
       app
     end
@@ -184,11 +168,11 @@ module Megam
     def from_hash(o)
       @name           = o["name"] if o.has_key?("name")
       @id             = o["id"] if o.has_key?("id")
-      @catalog        = o["catalog"] if o.has_key?("catalog")
-      @plans          = o["plans"] if o.has_key?("plans")
       @cattype        = o["cattype"] if o.has_key?("cattype")
-      @predef         = o["predef"] if o.has_key?("predef")
-      @status         = o["status"] if o.has_key?("status")
+      @order          = o["order"] if o.has_key?("order")
+      @image          = o["image"] if o.has_key?("image")
+      @url            = o["url"] if o.has_key?("url")
+      @plans          = o["plans"] if o.has_key?("plans")
       @created_at     = o["created_at"] if o.has_key?("created_at")
       self
     end
