@@ -69,9 +69,11 @@ def sandbox_name
 end
 
 def sandbox_apikey
-   "AOMtgPx0unVpnbWwwiHAkw=="
+"7bwpJHv1bvnfF-lAFZwWZQ=="  #{}"IamAtlas{74}NobdyCanSedfefdeME#07"
 end
 
 def sandbox_email
-  "ffr@qwet.com"
+#  "darth@vader.com"
+#"coolvader@iamswag.com"
+"cloud2@cloud.com"
 end

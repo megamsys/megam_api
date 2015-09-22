@@ -19,6 +19,7 @@ module Megam
     def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @accounts_id = nil
+      @org_id = nil
       @name = nil
       @assemblies = []
       @inputs = []
@@ -30,7 +31,7 @@ module Megam
       self
     end
 
-    
+
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -44,6 +45,14 @@ module Megam
         @accounts_id = arg
       else
       @accounts_id
+      end
+    end
+
+    def org_id(arg=nil)
+      if arg != nil
+        @org_id = arg
+      else
+      @org_id
       end
     end
 
@@ -63,7 +72,7 @@ module Megam
       end
     end
 
-    
+
     def inputs(arg=[])
       if arg != []
         @inputs = arg
@@ -89,6 +98,7 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
+      index_hash["org_id"] = org_id
       index_hash["name"] = name
       index_hash["accounts_id"] = accounts_id
       index_hash["inputs"] = inputs
@@ -108,6 +118,7 @@ module Megam
         "id" => id,
         "name" => name,
         "accounts_id" => accounts_id,
+        "org_id" => org_id,
         "assemblies" => assemblies,
         "inputs" => inputs,
         "created_at" => created_at
@@ -120,8 +131,9 @@ module Megam
       asm.id(o["id"]) if o.has_key?("id")
       asm.name(o["name"]) if o.has_key?("name")
       asm.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
+      asm.org_id(o["org_id"]) if o.has_key?("org_id")
       asm.assemblies(o["assemblies"]) if o.has_key?("assemblies") #this will be an array? can hash store array?
-      asm.inputs(o["inputs"]) if o.has_key?("inputs")     
+      asm.inputs(o["inputs"]) if o.has_key?("inputs")
       asm.created_at(o["created_at"]) if o.has_key?("created_at")
       asm
     end
@@ -136,6 +148,7 @@ module Megam
       @id                = o["id"] if o.has_key?("id")
       @name              = o["name"] if o.has_key?("name")
       @accounts_id       = o["accounts_id"] if o.has_key?("accounts_id")
+      @org_id       = o["org_id"] if o.has_key?("org_id")
       @assemblies        = o["assemblies"] if o.has_key?("assemblies")
       @inputs             = o["inputs"] if o.has_key?("inputs")
       @created_at        = o["created_at"] if o.has_key?("created_at")
