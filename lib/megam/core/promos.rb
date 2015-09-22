@@ -16,7 +16,7 @@
 module Megam
   class Promos < Megam::ServerAPI
     def initialize(email=nil, api_key=nil, host=nil)
-      @id = nil     
+      @id = nil
       @code = nil
       @amount = nil
       @created_at = nil
@@ -60,7 +60,7 @@ module Megam
       end
     end
 
-   
+
 
     def some_msg(arg=nil)
       if arg != nil
@@ -140,7 +140,7 @@ module Megam
     end
 
     def self.list(params)
-      promos = self.new(params["email"], params["api_key"], params["host"])
+      promos = self.new(params["email"], params["api_key"],  params["host"])
       promos.megam_rest.get_promos
     end
 
@@ -148,11 +148,11 @@ module Megam
     # Megam::Promos
      def self.show(params)
        puts "[x] Called show"
-      pre = self.new(params["email"], params["api_key"])
+      pre = self.new(params["email"], params["api_key"], params["host"])
       pre.megam_rest.get_promos(params["code"])
     end
 
-  
+
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
