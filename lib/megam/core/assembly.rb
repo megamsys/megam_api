@@ -18,6 +18,7 @@ module Megam
   class Assembly < Megam::ServerAPI
     def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
+      @asms_id = nil
       @name = nil
       @tosca_type = nil
       @components = []
@@ -43,6 +44,14 @@ module Megam
       end
     end
 
+    def asms_id(arg=nil)
+      if arg != nil
+        @asmd_id = arg
+      else
+      @asms_id
+      end
+    end
+
     def name(arg=nil)
       if arg != nil
         @name = arg
@@ -50,7 +59,7 @@ module Megam
       @name
       end
     end
-    
+
     def tosca_type(arg=nil)
       if arg != nil
         @tosca_type = arg
@@ -66,7 +75,7 @@ module Megam
       @components
       end
     end
-    
+
     def requirements(arg=[])
       if arg != []
         @requirements = arg
@@ -132,6 +141,7 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
+      index_hash["asms_id"] = asms_id
       index_hash["name"] = name
       index_hash["tosca_type"] = tosca_type
       index_hash["components"] = components
@@ -172,6 +182,7 @@ module Megam
     def self.json_create(o)
       asm = new
       asm.id(o["id"]) if o.has_key?("id")
+      asm.asms_id(o["asms_id"]) if o.has_key?("asms_id")
       asm.name(o["name"]) if o.has_key?("name")
       asm.tosca_type(o["tosca_type"]) if o.has_key?("tosca_type")
       asm.components(o["components"]) if o.has_key?("components")
@@ -193,6 +204,7 @@ module Megam
 
     def from_hash(o)
       @id                = o["id"] if o.has_key?("id")
+      @asms_id           = o["asmd_id"] if o.has_key?("asms_id")
       @name              = o["name"] if o.has_key?("name")
       @tosca_type        = o["tosca_type"] if o.has_key?("tosca_type")
       @components        = o["components"] if o.has_key?("components")
