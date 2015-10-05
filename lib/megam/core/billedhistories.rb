@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Megam
-  class Billinghistories < Megam::ServerAPI
+  class Billedhistories < Megam::ServerAPI
     def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @accounts_id = nil
@@ -27,7 +27,7 @@ module Megam
       super(email, api_key, host)
     end
 
-    def billinghistories
+    def billedhistories
       self
     end
 
@@ -174,7 +174,7 @@ module Megam
 
     # Create the billing histories via the REST API
     def create
-      megam_rest.post_billinghistories(to_hash)
+      megam_rest.post_billedhistories(to_hash)
     end
 
     # Load all billing histories -
@@ -182,19 +182,19 @@ module Megam
     # don't return self. check if the Megam::BillingHistoriesCollection is returned.
     def self.list(params)
       billhistory = self.new(params["email"], params["api_key"], params["host"])
-      billhistory.megam_rest.get_billinghistories
+      billhistory.megam_rest.get_billedhistories
     end
 
     # Show a particular billing history by name,
     # Megam::BillingHistory
     def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
       pre = self.new(tmp_email,tmp_api_key, tmp_host)
-      pre.megam_rest.get_billinghistory(p_name)
+      pre.megam_rest.get_billedhistory(p_name)
     end
 
     def self.delete(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
       pre = self.new(tmp_email,tmp_api_key, tmp_host)
-      pre.megam_rest.delete_billinghistory(p_name)
+      pre.megam_rest.delete_billedhistory(p_name)
     end
 
     def to_s
