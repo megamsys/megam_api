@@ -46,7 +46,7 @@ module Megam
 
     def asms_id(arg=nil)
       if arg != nil
-        @asmd_id = arg
+        @asms_id = arg
       else
       @asms_id
       end
