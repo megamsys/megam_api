@@ -33,6 +33,7 @@ require 'megam/api/credithistories'
 require 'megam/api/discounts'
 require 'megam/api/subscriptions'
 require 'megam/api/promos'
+require 'megam/api/invoices'
 
 require 'megam/core/server_api'
 require 'megam/core/config'
@@ -82,6 +83,8 @@ require 'megam/core/discounts'
 require 'megam/core/subscriptions_collection'
 require 'megam/core/subscriptions'
 require 'megam/core/promos'
+require 'megam/core/invoices_collection'
+require 'megam/core/invoices'
 
 module Megam
   class API

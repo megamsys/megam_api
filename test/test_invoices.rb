@@ -1,30 +1,31 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-#=begin
-  def test_post_billedhistories
-    tmp_hash = { :accounts_id => "ACT1262792663065821184",
-                 :assembly_id => "ASM89687",
+=begin
+  def test_post_invoices
+    tmp_hash = { :from_date => "2015-10-09",
+                 :to_date => "2015-11-30",
+                 :month => "oct",
                  :bill_type => "paypal",
                  :billing_amount => "45",
                  :currency_type => "USD"
     }
 
-    response = megams.post_billedhistories(tmp_hash)
+    response = megams.post_invoices(tmp_hash)
     assert_equal(201, response.status)
   end
-#=end
+=end
 
 =begin
-  def test_get_billedhistories
-    response = megams.get_billedhistories
+  def test_get_invoices
+    response = megams.get_invoices
     assert_equal(200, response.status)
   end
 =end
-=begin
-  def test_get_billedhistories
-    response = megams.get_billedhistory("iaas_default")
+#=begin
+  def test_get_invoice
+    response = megams.get_invoice("iaas_default")
     assert_equal(200, response.status)
   end
-=end
+#=end
 end
