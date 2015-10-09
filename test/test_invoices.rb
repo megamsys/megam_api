@@ -24,7 +24,7 @@ class TestApps < MiniTest::Unit::TestCase
 =end
 #=begin
   def test_get_invoice
-    response = megams.get_invoice("iaas_default")
+    response = megams.get_invoice("INVS1264211919892512768")
     assert_equal(200, response.status)
   end
 #=end
