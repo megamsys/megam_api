@@ -215,12 +215,12 @@ module Megam
     # Megam::BillingHistory
     def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
       pre = self.new(tmp_email,tmp_api_key, tmp_host)
-      pre.megam_rest.get_invoices(p_name)
+      pre.megam_rest.get_invoice(p_name)
     end
 
     def self.delete(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
       pre = self.new(tmp_email,tmp_api_key, tmp_host)
-      pre.megam_rest.delete_invoices(p_name)
+      pre.megam_rest.delete_invoice(p_name)
     end
 
     def to_s
