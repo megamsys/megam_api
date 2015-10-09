@@ -18,17 +18,14 @@ module Megam
   class Assembly < Megam::ServerAPI
     def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
-      @asms_id = nil
       @name = nil
       @tosca_type = nil
       @components = []
-      @requirements = []
       @policies=[]
       @inputs = []
-      @operations = []
       @outputs = []
       @status = nil
-      @created_at = nil
+
       super(email, api_key, host)
     end
 
@@ -41,14 +38,6 @@ module Megam
         @id = arg
       else
       @id
-      end
-    end
-
-    def asms_id(arg=nil)
-      if arg != nil
-        @asms_id = arg
-      else
-      @asms_id
       end
     end
 
@@ -76,14 +65,6 @@ module Megam
       end
     end
 
-    def requirements(arg=[])
-      if arg != []
-        @requirements = arg
-      else
-      @requirements
-      end
-    end
-
     def policies(arg=[])
       if arg != []
         @policies = arg
@@ -97,14 +78,6 @@ module Megam
         @inputs = arg
       else
       @inputs
-      end
-    end
-
-    def operations(arg=nil)
-      if arg != nil
-        @operations = arg
-      else
-      @operations
       end
     end
 
@@ -124,14 +97,6 @@ module Megam
       end
     end
 
-    def created_at(arg=nil)
-      if arg != nil
-        @created_at = arg
-      else
-      @created_at
-      end
-    end
-
     def error?
       crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
     end
@@ -141,17 +106,13 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
-      index_hash["asms_id"] = asms_id
       index_hash["name"] = name
       index_hash["tosca_type"] = tosca_type
       index_hash["components"] = components
-      index_hash["requirements"] = requirements
       index_hash["policies"] = policies
       index_hash["inputs"] = inputs
-      index_hash["operations"] = operations
       index_hash["outputs"] = outputs
       index_hash["status"] = status
-      index_hash["created_at"] = created_at
       index_hash
     end
 
@@ -167,13 +128,10 @@ module Megam
         "name" => name,
         "tosca_type" => tosca_type,
         "components" => components,
-        "requirements" => requirements,
         "policies" => policies,
         "inputs" => inputs,
-        "operations" => operations,
         "outputs" => outputs,
-        "status" => status,
-        "created_at" => created_at
+        "status" => status
       }
 
       result
@@ -182,17 +140,13 @@ module Megam
     def self.json_create(o)
       asm = new
       asm.id(o["id"]) if o.has_key?("id")
-      asm.asms_id(o["asms_id"]) if o.has_key?("asms_id")
       asm.name(o["name"]) if o.has_key?("name")
       asm.tosca_type(o["tosca_type"]) if o.has_key?("tosca_type")
       asm.components(o["components"]) if o.has_key?("components")
-      asm.requirements(o["requirements"]) if o.has_key?("requirements")
       asm.policies(o["policies"]) if o.has_key?("policies") #this will be an array? can hash store array?
       asm.inputs(o["inputs"]) if o.has_key?("inputs")
-      asm.operations(o["operations"]) if o.has_key?("operations")
       asm.outputs(o["outputs"]) if o.has_key?("outputs")
       asm.status(o["status"]) if o.has_key?("status")
-      asm.created_at(o["created_at"]) if o.has_key?("created_at")
       asm
     end
 
@@ -204,17 +158,13 @@ module Megam
 
     def from_hash(o)
       @id                = o["id"] if o.has_key?("id")
-      @asms_id           = o["asmd_id"] if o.has_key?("asms_id")
       @name              = o["name"] if o.has_key?("name")
       @tosca_type        = o["tosca_type"] if o.has_key?("tosca_type")
       @components        = o["components"] if o.has_key?("components")
-      @requirements      = o["requirements"] if o.has_key?("requirements")
       @policies          = o["policies"] if o.has_key?("policies")
       @inputs            = o["inputs"] if o.has_key?("inputs")
-      @operations        = o["operations"] if o.has_key?("operations")
       @outputs           = o["outputs"] if o.has_key?("outputs")
       @status            = o["status"] if o.has_key?("status")
-      @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
 

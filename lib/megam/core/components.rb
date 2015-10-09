@@ -21,7 +21,7 @@ module Megam
       @name =nil
       @tosca_type = nil
       @inputs = []
-      @outputs = []      
+      @outputs = []
       @artifacts = {}
       @artifact_type = nil
       @content = nil
@@ -29,7 +29,11 @@ module Megam
       @related_components = []
       @operations = []
       @status = nil
-      @created_at = nil
+      @repo = {}
+      @type = nil
+      @source = nil
+      @oneclick = nil
+      @url = nil
 
       super(email, api_key, host)
     end
@@ -61,7 +65,7 @@ module Megam
       @tosca_type
       end
     end
-    
+
     def inputs(arg=[])
       if arg != []
         @inputs = arg
@@ -69,7 +73,7 @@ module Megam
       @inputs
       end
     end
-    
+
     def outputs(arg=[])
       if arg != []
         @outputs = arg
@@ -125,7 +129,7 @@ module Megam
       @operations
       end
     end
-    
+
      def status(arg=nil)
       if arg != nil
         @status = arg
@@ -134,14 +138,45 @@ module Megam
       end
     end
 
-    def created_at(arg=nil)
-      if arg != nil
-        @created_at = arg
-      else
-      @created_at
-      end
-    end
+    def repo(arg=nil)
+     if arg != nil
+       @repo = arg
+     else
+     @repo
+     end
+   end
 
+   def type(arg=nil)
+    if arg != nil
+      @type = arg
+    else
+    @type
+    end
+  end
+
+  def source(arg=nil)
+   if arg != nil
+     @source = arg
+   else
+   @source
+   end
+ end
+
+ def oneclick(arg=nil)
+  if arg != nil
+    @oneclick = arg
+  else
+  @oneclick
+  end
+ end
+
+ def url(arg=nil)
+  if arg != nil
+    @url = arg
+  else
+  @url
+  end
+end
     def error?
       crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
     end
@@ -159,7 +194,6 @@ module Megam
       index_hash["related_components"] = related_components
       index_hash["operations"] = operations
       index_hash["status"] = status
-      index_hash["created_at"] = created_at
       index_hash
     end
 
@@ -179,8 +213,7 @@ module Megam
         "artifacts" => artifacts,
         "related_components" => related_components,
         "operations" => operations,
-        "status" => status,
-        "created_at" => created_at
+        "status" => status
       }
       result
     end
@@ -199,9 +232,14 @@ module Megam
       asm.artifacts[:artifact_requirements] = ar["artifact_requirements"] if ar && ar.has_key?("artifact_requirements")
 
       asm.related_components(o["related_components"]) if o.has_key?("related_components")
-      asm.operations(o["operations"]) if o.has_key?("operations")      
+      asm.operations(o["operations"]) if o.has_key?("operations")
       asm.status(o["status"]) if o.has_key?("status")
-      asm.created_at(o["created_at"]) if o.has_key?("created_at")
+
+      ro = o["repo"]
+      asm.repo[:type] = ro["type"] if ro && ro.has_key?("type")
+      asm.repo[:source] = ro["source"] if ro && ro.has_key?("source")
+      asm.repo[:oneclick = ro["oneclick"] if ro && ro.has_key?("oneclick")
+      asm.repo[:url] = ro["url"] if ro && ro.has_key?("url")
       asm
     end
 
@@ -221,7 +259,7 @@ module Megam
       @related_components              = o["related_components"] if o.has_key?("related_components")
       @operations                      = o["operations"] if o.has_key?("operations")
       @status                          = o["status"] if o.has_key?("status")
-      @created_at                      = o["created_at"] if o.has_key?("created_at")
+      @repo                            = o["repo"] if o.has_key?("repo")
       self
     end
 
