@@ -16,15 +16,17 @@
 
 module Megam
   class Assembly < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil, host=nil)
+    def initialize(email = nil, api_key = nil, host = nil)
       @id = nil
+      @asms_id = nil
       @name = nil
-      @tosca_type = nil
       @components = []
-      @policies=[]
+      @tosca_type = nil
+      @policies = []
       @inputs = []
       @outputs = []
       @status = nil
+      @created_at = nil
 
       super(email, api_key, host)
     end
@@ -33,86 +35,104 @@ module Megam
       self
     end
 
-    def id(arg=nil)
-      if arg != nil
+    def id(arg = nil)
+      if !arg.nil?
         @id = arg
       else
-      @id
+        @id
       end
     end
 
-    def name(arg=nil)
+    def asms_id(arg=nil)
       if arg != nil
+        @asms_id = arg
+      else
+      @asms_id
+      end
+    end
+
+    def name(arg = nil)
+      if !arg.nil?
         @name = arg
       else
-      @name
+        @name
       end
     end
 
-    def tosca_type(arg=nil)
-      if arg != nil
+    def tosca_type(arg = nil)
+      if !arg.nil?
         @tosca_type = arg
       else
-      @tosca_type
+        @tosca_type
       end
     end
 
-    def components(arg=[])
+    def components(arg = [])
       if arg != []
         @components = arg
       else
-      @components
+        @components
       end
     end
 
-    def policies(arg=[])
+    def policies(arg = [])
       if arg != []
         @policies = arg
       else
-      @policies
+        @policies
       end
     end
 
-    def inputs(arg=[])
+    def inputs(arg = [])
       if arg != []
         @inputs = arg
       else
-      @inputs
+        @inputs
       end
     end
 
-    def outputs(arg=[])
+    def outputs(arg = [])
       if arg != []
         @outputs = arg
       else
-      @outputs
+        @outputs
       end
     end
 
-    def status(arg=nil)
-      if arg != nil
+    def status(arg = nil)
+      if !arg.nil?
         @status = arg
       else
-      @status
+        @status
       end
     end
 
+    def created_at(arg = nil)
+      if !arg.nil?
+        @created_at = arg
+      else
+        @created_at
+       end
+      end
+
     def error?
-      crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
+      crocked = true if some_msg.key?(:msg_type) && some_msg[:msg_type] == 'error'
     end
 
     # Transform the ruby obj ->  to a Hash
     def to_hash
-      index_hash = Hash.new
-      index_hash["json_claz"] = self.class.name
-      index_hash["id"] = id
-      index_hash["name"] = name
-      index_hash["tosca_type"] = tosca_type
-      index_hash["components"] = components
-      index_hash["policies"] = policies
-      index_hash["inputs"] = inputs
-      index_hash["outputs"] = outputs
-      index_hash["status"] = status
+      index_hash = {}
+      index_hash['json_claz'] = self.class.name
+      index_hash['id'] = id
+       index_hash["asms_id"] = asms_id
+      index_hash['name'] = name
+      index_hash['components'] = components
+      index_hash['tosca_type'] = tosca_type
+      index_hash['policies'] = policies
+      index_hash['inputs'] = inputs
+      index_hash['outputs'] = outputs
+      index_hash['status'] = status
+      index_hash['created_at'] = created_at
       index_hash
     end
 
@@ -124,14 +144,15 @@ module Megam
 
     def for_json
       result = {
-        "id" => id,
-        "name" => name,
-        "tosca_type" => tosca_type,
-        "components" => components,
-        "policies" => policies,
-        "inputs" => inputs,
-        "outputs" => outputs,
-        "status" => status
+        'id' => id,
+        'name' => name,
+        'components' => components,
+        'tosca_type' => tosca_type,
+        'policies' => policies,
+        'inputs' => inputs,
+        'outputs' => outputs,
+        'status' => status,
+        'created_at' => created_at
       }
 
       result
@@ -139,45 +160,48 @@ module Megam
 
     def self.json_create(o)
       asm = new
-      asm.id(o["id"]) if o.has_key?("id")
-      asm.name(o["name"]) if o.has_key?("name")
-      asm.tosca_type(o["tosca_type"]) if o.has_key?("tosca_type")
-      asm.components(o["components"]) if o.has_key?("components")
-      asm.policies(o["policies"]) if o.has_key?("policies") #this will be an array? can hash store array?
-      asm.inputs(o["inputs"]) if o.has_key?("inputs")
-      asm.outputs(o["outputs"]) if o.has_key?("outputs")
-      asm.status(o["status"]) if o.has_key?("status")
+      asm.id(o['id']) if o.key?('id')
+      asm.asms_id(o["asms_id"]) if o.has_key?("asms_id")
+      asm.name(o['name']) if o.key?('name')
+      asm.components(o['components']) if o.key?('components')
+      asm.tosca_type(o['tosca_type']) if o.key?('tosca_type')
+      asm.policies(o['policies']) if o.key?('policies') # this will be an array? can hash store array?
+      asm.inputs(o['inputs']) if o.key?('inputs')
+      asm.outputs(o['outputs']) if o.key?('outputs')
+      asm.status(o['status']) if o.key?('status')
+      asm.created_at(o['created_at']) if o.key?('created_at')
       asm
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-      asm = self.new(tmp_email, tmp_api_key, tmp_host)
+    def self.from_hash(o, tmp_email = nil, tmp_api_key = nil, tmp_host = nil)
+      asm = new(tmp_email, tmp_api_key, tmp_host)
       asm.from_hash(o)
       asm
     end
 
     def from_hash(o)
-      @id                = o["id"] if o.has_key?("id")
-      @name              = o["name"] if o.has_key?("name")
-      @tosca_type        = o["tosca_type"] if o.has_key?("tosca_type")
-      @components        = o["components"] if o.has_key?("components")
-      @policies          = o["policies"] if o.has_key?("policies")
-      @inputs            = o["inputs"] if o.has_key?("inputs")
-      @outputs           = o["outputs"] if o.has_key?("outputs")
-      @status            = o["status"] if o.has_key?("status")
+      @id                = o['id'] if o.key?('id')
+       @asms_id         = o["asms_id"] if o.has_key?("asms_id")
+      @name              = o['name'] if o.key?('name')
+      @components        = o['components'] if o.key?('components')
+      @tosca_type        = o['tosca_type'] if o.key?('tosca_type')
+      @policies          = o['policies'] if o.key?('policies')
+      @inputs            = o['inputs'] if o.key?('inputs')
+      @outputs           = o['outputs'] if o.key?('outputs')
+      @status            = o['status'] if o.key?('status')
+      @created_at        = o['created_at'] if o.key?('created_at')
       self
     end
 
-
     def self.show(params)
-      asm = self.new(params["email"], params["api_key"], params["host"])
-      asm.megam_rest.get_one_assembly(params["id"])
+      asm = new(params['email'], params['api_key'], params['host'])
+      asm.megam_rest.get_one_assembly(params['id'])
     end
 
-     def self.update(params)
-      asm = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key], params["host"] || params[:host])
+    def self.update(params)
+      asm = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
       asm.update
-    end
+   end
 
     # Create the node via the REST API
     def update
@@ -187,6 +211,5 @@ module Megam
     def to_s
       Megam::Stuff.styled_hash(to_hash)
     end
-
   end
 end
