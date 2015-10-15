@@ -32,9 +32,10 @@ module Megam
     MEGAM_AVAILABLEUNITSCOLLECTION    = "Megam::AvailableunitsCollection".freeze
     MEGAM_BALANCES                    = "Megam::Balances".freeze
     MEGAM_BALANCESCOLLECTION          = "Megam::BalancesCollection".freeze
-    MEGAM_BILLEDHISTORIES            = "Megam::Billedhistories".freeze
-    MEGAM_BILLEDHISTORIESCOLLECTION  = "Megam::BilledhistoriesCollection".freeze
-    MEGAM_BILLINGS                    = "Megam::Billings".freeze
+    MEGAM_BILLEDHISTORIES             = "Megam::Billedhistories".freeze
+    MEGAM_BILLEDHISTORIESCOLLECTION   = "Megam::BilledhistoriesCollection".freeze
+    MEGAM_INVOICESCOLLECTION          = "Megam::InvoicesCollection".freeze
+    MEGAM_INVOICES                    = "Megam::Invoices".freeze
     MEGAM_BILLINGSCOLLECTION          = "Megam::BillingsCollection".freeze
     MEGAM_CLOUDTOOLSETTING            = "Megam::CloudToolSetting".freeze
     MEGAM_CLOUDTOOLSETTINGCOLLECTION  = "Megam::CloudToolSettingCollection".freeze
@@ -198,6 +199,10 @@ module Megam
           Megam::Billedhistories
         when MEGAM_BILLEDHISTORIESCOLLECTION
           Megam::BilledhistoriesCollection
+        when MEGAM_INVOICES
+           Megam::Invoices
+      when MEGAM_INVOICESCOLLECTION
+           Megam::InvoicesCollection
         when MEGAM_BILLINGS
           Megam::Billings
         when MEGAM_BILLINGSCOLLECTION
