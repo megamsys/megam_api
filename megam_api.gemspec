@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.license = "Apache V2"
   s.extra_rdoc_files = ["README.md", "LICENSE" ]
   s.summary = %q{Ruby Client for the Megam}
-  s.description = %q{Ruby Client for the Megam CMP. Performs REST calls to Megam Gateway -  http://github.com/megamsys/megam_gateway.git}
+  s.description = %q{Ruby Client for the Megam cloud platform. Performs REST calls to Megam Gateway -  http://github.com/megamsys/megam_gateway.git}
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
