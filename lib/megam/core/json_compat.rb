@@ -50,7 +50,7 @@ module Megam
     MEGAM_DISCOUNTSCOLLECTION         = "Megam::DiscountsCollection".freeze
     MEGAM_ERROR                       = "Megam::Error".freeze
     MEGAM_SENSORS                       = "Megam::Sensors".freeze
-    MEGAM_SENSORSCOLLECTION       = "Megam::SensorsCollection".freeze
+    MEGAM_SENSORSCOLLECTION           = "Megam::SensorsCollection".freeze
     MEGAM_MARKETPLACE                 = "Megam::MarketPlace".freeze
     MEGAM_MARKETPLACECOLLECTION       = "Megam::MarketPlaceCollection".freeze
     MEGAM_MARKETPLACEADDON            = "Megam::MarketPlaceAddons".freeze

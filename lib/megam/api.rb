@@ -133,6 +133,7 @@ module Megam
     end
 
     def request(params, &block)
+    
       just_color_debug("#{@options[:path]}")
       start = Time.now
       Megam::Log.debug('START')
