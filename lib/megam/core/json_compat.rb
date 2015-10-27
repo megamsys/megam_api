@@ -49,7 +49,8 @@ module Megam
     MEGAM_DISCOUNTS                   = "Megam::Discounts".freeze
     MEGAM_DISCOUNTSCOLLECTION         = "Megam::DiscountsCollection".freeze
     MEGAM_ERROR                       = "Megam::Error".freeze
-    MEGAM_EVENT                       = "Megam::Event".freeze
+    MEGAM_SENSORS                       = "Megam::Sensors".freeze
+    MEGAM_SENSORSCOLLECTION       = "Megam::SensorsCollection".freeze
     MEGAM_MARKETPLACE                 = "Megam::MarketPlace".freeze
     MEGAM_MARKETPLACECOLLECTION       = "Megam::MarketPlaceCollection".freeze
     MEGAM_MARKETPLACEADDON            = "Megam::MarketPlaceAddons".freeze
@@ -185,8 +186,10 @@ module Megam
           Megam::CSARCollection
         when MEGAM_DOMAIN
           Megam::Domains
-        when MEGAM_EVENT
-          Megam::Event
+        when MEGAM_SENSORS
+          Megam::Sensors
+        when MEGAM_SENSORSCOLLECTION
+          Megam::SensorsCollection
         when MEGAM_AVAILABLEUNITS
           Megam::Availableunits
         when MEGAM_AVAILABLEUNITSCOLLECTION
