@@ -36,8 +36,6 @@ module Megam
       end
     end
 
-
-
     def sensor_type(arg = nil)
       if !arg.nil?
         @sensor_type = arg
@@ -98,8 +96,8 @@ module Megam
       asm = new
       asm.id(o['id']) if o.key?('id')
       asm.sensor_type(o['sensor_type']) if o.key?('sensor_type')
-          asm.payload(o['payload']) if o.key?('payload')
-          asm.created_at(o['created_at']) if o.key?('created_at')
+      asm.payload(o['payload']) if o.key?('payload')
+      asm.created_at(o['created_at']) if o.key?('created_at')
       asm
     end
 
@@ -110,10 +108,10 @@ module Megam
     end
 
     def from_hash(o)
-      @id                              = o['id'] if o.key?('id')
-      @sensor_type                      = o['sensor_type'] if o.key?('sensor_type')
-      @payload                      = o['payload'] if o.key?('payload')
-      @created_at                      = o['created_at'] if o.key?('created_at')
+      @id = o['id'] if o.key?('id')
+      @sensor_type = o['sensor_type'] if o.key?('sensor_type')
+      @payload = o['payload'] if o.key?('payload')
+      @created_at = o['created_at'] if o.key?('created_at')
       self
     end
 
@@ -125,7 +123,12 @@ module Megam
     # Load a account by email_p
     def self.show(params)
       asm = new(params['email'], params['api_key'], params['host'])
-      asm.megam_rest.get_components(params['id'])
+      asm.megam_rest.get_sensor(params['id'])
+    end
+
+    def self.list(params)
+      sensors = self.new(params["email"], params["api_key"], params["host"])
+      sensors.megam_rest.get_sensors
     end
 
     def self.update(params)
@@ -135,7 +138,7 @@ module Megam
 
     # Create the node via the REST API
     def update
-      megam_rest.update_component(to_hash)
+      megam_rest.update_(to_hash)
     end
 
     def to_s
