@@ -91,7 +91,6 @@ module Megam
     # text is used to print stuff in the terminal (message, log, info, warn etc.)
     attr_accessor :text
 
-    API_MEGAM_IO = 'api.megam.io'.freeze
     API_VERSION2 = '/v2'.freeze
 
     X_Megam_DATE = 'X-Megam-DATE'.freeze
@@ -128,10 +127,9 @@ module Megam
     # 3. Upon merge of the options, the api_key, email as available in the @options is deleted.
     def initialize(options = {})
       @options = OPTIONS.merge(options)
-      puts @options
       @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
       @email = @options.delete(:email)
-      fail ArgumentError, 'You must specify [:email, :api_key]' if @email.nil? || @api_key.nil?
+      fail Megam::API::Errors::AuthKeysMissing if @email.nil? || @api_key.nil?
     end
 
     def request(params, &block)
@@ -213,7 +211,7 @@ module Megam
       @options[:path] = API_VERSION2 + @options[:path]
       encoded_api_header = encode_header(@options)
       @options[:headers] = HEADERS.merge(X_Megam_HMAC => encoded_api_header[:hmac],
-                                         X_Megam_DATE => encoded_api_header[:date]).merge(@options[:headers])
+      X_Megam_DATE => encoded_api_header[:date]).merge(@options[:headers])
 
       Megam::Log.debug('HTTP Request Data:')
       Megam::Log.debug("> HTTP #{@options[:scheme]}://#{@options[:host]}")
@@ -252,5 +250,5 @@ module Megam
       final_hmac = @email + ':' + hash
       header_params = { hmac: final_hmac, date: current_date }
     end
- end
+  end
 end

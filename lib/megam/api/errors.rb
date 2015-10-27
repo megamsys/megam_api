@@ -10,8 +10,8 @@ module Megam
           super message
           @response = response
         end
-        
-      
+
+
       end
 
       class Unauthorized < ErrorWithResponse; end
@@ -21,6 +21,8 @@ module Megam
       class Locked < ErrorWithResponse; end
       class Socket < ErrorWithResponse; end
       class RequestFailed < ErrorWithResponse; end
+
+      class AuthKeysMissing < ArgumentError; end
 
     end
   end

@@ -32,7 +32,7 @@ module Megam
       if arg != nil
         @id = arg
       else
-      @id
+        @id
       end
     end
 
@@ -40,7 +40,7 @@ module Megam
       if arg != nil
         @code = arg
       else
-      @code
+        @code
       end
     end
 
@@ -48,7 +48,7 @@ module Megam
       if arg != nil
         @amount = arg
       else
-      @amount
+        @amount
       end
     end
 
@@ -56,7 +56,7 @@ module Megam
       if arg != nil
         @created_at = arg
       else
-      @created_at
+        @created_at
       end
     end
 
@@ -66,7 +66,7 @@ module Megam
       if arg != nil
         @some_msg = arg
       else
-      @some_msg
+        @some_msg
       end
     end
 
@@ -146,12 +146,10 @@ module Megam
 
     # Show a particular promo by name,
     # Megam::Promos
-     def self.show(params)
-       puts "[x] Called show"
+    def self.show(params)
       pre = self.new(params["email"], params["api_key"], params["host"])
       pre.megam_rest.get_promos(params["code"])
     end
-
 
 
     def to_s
