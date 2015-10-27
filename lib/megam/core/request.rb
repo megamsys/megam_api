@@ -190,7 +190,6 @@ module Megam
 
     # Create the node via the REST API
     def create
-    puts "entering megam_api"
       megam_rest.post_request(to_hash)
     end
 
