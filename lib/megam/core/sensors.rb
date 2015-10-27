@@ -15,7 +15,7 @@
 #
 
 module Megam
-  class Sensor < Megam::ServerAPI
+  class Sensors < Megam::ServerAPI
     def initialize(email = nil, api_key = nil, host = nil)
       @id = nil
       @sensor_type = nil
@@ -24,7 +24,7 @@ module Megam
       super(email, api_key, host)
     end
 
-    def sensor
+    def sensors
       self
     end
 
@@ -53,126 +53,6 @@ module Megam
         @payload
       end
     end
-
-=begin
-    def accounts_id(arg = nil)
-      if !arg.nil?
-        @accounts_id = arg
-      else
-        @accounts_id
-      end
-    end
-
-    def assemblies_id(arg = nil)
-      if !arg.nil?
-        @assemblies_id = arg
-      else
-        @assemblies_id
-      end
-    end
-
-    def assembly_id(arg = nil)
-      if !arg.nil?
-        @assembly_id = arg
-      else
-        @assembly_id
-      end
-    end
-
-    def components_id(arg = nil)
-      if !arg.nil?
-       @components_id = arg
-     else
-       @components_id
-     end
-   end
-
-      def state(arg = nil)
-        if !arg.nil?
-          @state = arg
-        else
-          @state
-        end
-      end
-
-
-    def metrics(arg = [])
-      if arg != []
-        @metrics = arg
-      else
-        @metrics
-      end
-    end
-
-    def source(arg = nil)
-      if !arg.nil?
-        @source = arg
-      else
-        @source
-      end
-   end
-
-   def one(arg = nil)
-     if !arg.nil?
-       @one = arg
-     else
-       @one
-     end
-   end
-
-  def docker(arg = nil)
-    if !arg.nil?
-      @docker = arg
-    else
-      @docker
-    end
-  end
-
-  def ceph(arg = nil)
-    if !arg.nil?
-      @ceph = arg
-    else
-      @ceph
-    end
-  end
-
-def node(arg = nil)
-  if !arg.nil?
-    @node = arg
-  else
-    @node
-  end
-end
-
-def message(arg = nil)
-  if !arg.nil?
-    @message = arg
-  else
-    @message
-  end
-end
-
-def audit_period_begining(arg = nil)
-  if !arg.nil?
-    @audit_period_begining = arg
-  else
-    @audit_period_begining
-  end
-end
-
-def audit_period_ending(arg = nil)
-  if !arg.nil?
-    @audit_period_ending = arg
-  else
-    @audit_period_ending
-  end
-end
-
-
-
-=end
-
-
 
     def created_at(arg = nil)
       if !arg.nil?

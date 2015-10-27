@@ -3,20 +3,20 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 class TestApps < MiniTest::Unit::TestCase
 
 =begin
-  def test_get_assemblies
-   response = megams.get_assemblies
+  def test_get_sensors
+   response = megams.get_sensors
    assert_equal(200, response.status)
  end
 =end
-=begin
- def test_get_assembly
-   response = megams.get_one_assemblies("AMS1257720849197301760")
-   assert_equal(200, response.status)
- end
-=end
-
 #=begin
- def test_post_sensor
+ def test_get_sensor
+   response = megams.get_sensor("SNR1270695834413039616")
+   assert_equal(200, response.status)
+ end
+#=end
+
+=begin
+ def test_post_sensors
    tmp_hash =  {
 
         "sensor_type" => "compute.instance.launch",
@@ -43,8 +43,8 @@ class TestApps < MiniTest::Unit::TestCase
      }
 
      }
-   response = megams.post_sensor(tmp_hash)
+   response = megams.post_sensors(tmp_hash)
    assert_equal(200, response.status)
 end
-#=end
+=end
 end

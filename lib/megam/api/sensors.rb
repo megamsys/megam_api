@@ -1,7 +1,7 @@
 module Megam
   class API
     def get_sensors
-      @options = {:path => '/sensor',:body => ""}.merge(@options)
+      @options = {:path => '/sensors',:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -11,7 +11,7 @@ module Megam
     end
 
     def get_sensor(id)
-      @options = {:path => "/sensor/#{id}",:body => ""}.merge(@options)
+      @options = {:path => "/sensors/#{id}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -20,9 +20,9 @@ module Megam
       )
     end
 
-    def post_sensor(new_sensor)
-      @options = {:path => '/sensor/content',
-        :body => Megam::JSONCompat.to_json(new_sensor)}.merge(@options)
+    def post_sensors(new_sensors)
+      @options = {:path => '/sensors/content',
+        :body => Megam::JSONCompat.to_json(new_sensors)}.merge(@options)
 
       request(
         :expects  => 201,

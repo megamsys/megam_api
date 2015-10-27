@@ -14,98 +14,98 @@
 ## limitations under the License.
 ##
 module Megam
-  class SensorCollection
+  class SensorsCollection
     include Enumerable
 
     attr_reader :iterator
     def initialize
-      @sensor = Array.new
-      @sensor_by_name = Hash.new
+      @sensors = []
+      @sensors_by_name = {}
       @insert_after_idx = nil
     end
 
     def all_sensor
-      @sensor
+      @sensors
     end
 
     def [](index)
-      @sensor[index]
+      @sensors[index]
     end
 
     def []=(index, arg)
-      is_megam_sensor(arg)
-      @sensor[index] = arg
-      @sensor_by_name[arg.accounts_id] = index
+      is_megam_sensors(arg)
+      @sensors[index] = arg
+      @sensors_by_name[arg.id] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
-        is_megam_sensor(a)
-        @sensor << a
-        @sensor_by_name[a.accounts_id] =@sensor.length - 1
+        is_megam_sensors(a)
+        @sensors << a
+        @sensors_by_name[a.id] = @sensors.length - 1
       end
       self
     end
 
-    # 'push' is an alias method to <<
+    # 'push' is an alias method to <<s
     alias_method :push, :<<
 
-    def insert(sensor)
-      is_megam_sensor(sensor)
+    def insert(sensors)
+      is_megam_sensors(sensors)
       if @insert_after_idx
         # in the middle of executing a run, so any predefs inserted now should
         # be placed after the most recent addition done by the currently executing
-        # sensor
-        @sensor.insert(@insert_after_idx + 1, sensor)
-        # update name -> location mappings and register new sensor
-        @sensor_by_name.each_key do |key|
-        @sensor_by_name[key] += 1 if@sensor_by_name[key] > @insert_after_idx
+        # sensors
+        @sensors.insert(@insert_after_idx + 1, sensors)
+        # update name -> location mappings and register new sensors
+        @sensors_by_name.each_key do |key|
+          @sensors_by_name[key] += 1 if@sensors_by_name[key] > @insert_after_idx
         end
-        @sensor_by_name[sensor.accounts_id] = @insert_after_idx + 1
+        @sensors_by_name[sensors.id] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
-      @sensor << sensor
-      @sensor_by_name[sensor.accounts_id] =@sensor.length - 1
+        @sensors << sensors
+        @sensors_by_name[sensors.id] = @sensors.length - 1
       end
     end
 
     def each
-      @sensor.each do |sensor|
-        yield sensor
+      @sensors.each do |sensors|
+        yield sensors
       end
     end
 
     def each_index
-      @sensor.each_index do |i|
+      @sensors.each_index do |i|
         yield i
       end
     end
 
     def empty?
-      @sensor.empty?
+      @sensors.empty?
     end
 
-    def lookup(sensor)
+    def lookup(sensors)
       lookup_by = nil
-      if sensor.kind_of?(Megam::sensor)
-      lookup_by = sensor.accounts_id
-    elsif sensor.kind_of?(String)
-      lookup_by = sensor
+      if sensors.is_a?(Megam.sensors)
+        lookup_by = sensors.id
+      elsif sensors.is_a?(String)
+        lookup_by = sensors
       else
-        raise ArgumentError, "Must pass a Megam::sensor or String to lookup"
+        fail ArgumentError, 'Must pass a Megam::sensors or String to lookup'
       end
-      res =@sensor_by_name[lookup_by]
+      res = @sensors_by_name[lookup_by]
       unless res
-        raise ArgumentError, "Cannot find a sensor matching #{lookup_by} (did you define it first?)"
+        fail ArgumentError, "Cannot find a sensors matching #{lookup_by} (did you define it first?)"
       end
-      @sensor[res]
+      @sensors[res]
     end
 
     # Transform the ruby obj ->  to a Hash
     def to_hash
-      index_hash = Hash.new
-      self.each do |sensor|
-        index_hash[sensor.accounts_id] = sensor.to_s
+      index_hash = {}
+      each do |sensors|
+        index_hash[sensors.id] = sensors.to_s
       end
       index_hash
     end
@@ -117,11 +117,11 @@ module Megam
     end
 
     def self.json_create(o)
-      collection = self.new()
-      o["results"].each do |sensor_list|
-        sensor_array = sensor_list.kind_of?(Array) ? sensor_list : [ sensor_list ]
-        sensor_array.each do |sensor|
-          collection.insert(sensor)
+      collection = new
+      o['results'].each do |sensors_list|
+        sensors_array = sensors_list.is_a?(Array) ? sensors_list : [sensors_list]
+        sensors_array.each do |sensors|
+          collection.insert(sensors)
         end
       end
       collection
@@ -129,9 +129,9 @@ module Megam
 
     private
 
-    def is_megam_sensor(arg)
-      unless arg.kind_of?(Megam::Sensor)
-        raise ArgumentError, "Members must be Megam::sensor's"
+    def is_megam_sensors(arg)
+      unless arg.is_a?(Megam::Sensors)
+        fail ArgumentError, "Members must be Megam::sensors's"
       end
       true
     end
@@ -139,6 +139,5 @@ module Megam
     def to_s
       Megam::Stuff.styled_hash(to_hash)
     end
-
   end
 end
