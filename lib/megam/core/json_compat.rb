@@ -20,52 +20,52 @@ module Megam
   class JSONCompat
     JSON_MAX_NESTING = 1000
 
-    JSON_CLAZ = "json_claz".freeze
 
-    MEGAM_ACCOUNT                     = "Megam::Account".freeze
-    MEGAM_ASSEMBLIES                  = "Megam::Assemblies".freeze
-    MEGAM_ASSEMBLIESCOLLECTION        = "Megam::AssembliesCollection".freeze
-    MEGAM_ASSEMBLY                    = "Megam::Assembly".freeze
-    MEGAM_ASSEMBLYCOLLECTION          = "Megam::AssemblyCollection".freeze
-    MEGAM_AUTH                        = "Megam::Auth".freeze
-    MEGAM_AVAILABLEUNITS              = "Megam::Availableunits".freeze
-    MEGAM_AVAILABLEUNITSCOLLECTION    = "Megam::AvailableunitsCollection".freeze
-    MEGAM_BALANCES                    = "Megam::Balances".freeze
-    MEGAM_BALANCESCOLLECTION          = "Megam::BalancesCollection".freeze
-    MEGAM_BILLEDHISTORIES             = "Megam::Billedhistories".freeze
-    MEGAM_BILLEDHISTORIESCOLLECTION   = "Megam::BilledhistoriesCollection".freeze
-    MEGAM_INVOICESCOLLECTION          = "Megam::InvoicesCollection".freeze
-    MEGAM_INVOICES                    = "Megam::Invoices".freeze
-    MEGAM_BILLINGSCOLLECTION          = "Megam::BillingsCollection".freeze
-    MEGAM_CLOUDTOOLSETTING            = "Megam::CloudToolSetting".freeze
-    MEGAM_CLOUDTOOLSETTINGCOLLECTION  = "Megam::CloudToolSettingCollection".freeze
-    MEGAM_COMPONENTS                  = "Megam::Components".freeze
-    MEGAM_COMPONENTSCOLLECTION        = "Megam::ComponentsCollection".freeze
-    MEGAM_CREDITHISTORIES             = "Megam::Credithistories".freeze
-    MEGAM_CREDITHISTORIESCOLLECTION   = "Megam::CredithistoriesCollection".freeze
-    MEGAM_CSAR                        = "Megam::CSAR".freeze
-    MEGAM_CSARCOLLECTION              = "Megam::CSARCollection".freeze
-    MEGAM_DOMAIN                      = "Megam::Domains".freeze
-    MEGAM_DISCOUNTS                   = "Megam::Discounts".freeze
-    MEGAM_DISCOUNTSCOLLECTION         = "Megam::DiscountsCollection".freeze
-    MEGAM_ERROR                       = "Megam::Error".freeze
-    MEGAM_SENSORS                       = "Megam::Sensors".freeze
-    MEGAM_SENSORSCOLLECTION           = "Megam::SensorsCollection".freeze
-    MEGAM_MARKETPLACE                 = "Megam::MarketPlace".freeze
-    MEGAM_MARKETPLACECOLLECTION       = "Megam::MarketPlaceCollection".freeze
-    MEGAM_MARKETPLACEADDON            = "Megam::MarketPlaceAddons".freeze
-    MEGAM_MARKETPLACEADDONCOLLECTION  = "Megam::MarketPlaceAddonsCollection".freeze
-    MEGAM_ORGANIZATION                = "Megam::Organizations".freeze
-    MEGAM_ORGANIZATIONSCOLLECTION     = "Megam::OrganizationsCollection".freeze
-    MEGAM_REQUEST                     = "Megam::Request".freeze
-    MEGAM_REQUESTCOLLECTION           = "Megam::RequestCollection".freeze
-    MEGAM_SSHKEY                      = "Megam::SshKey".freeze
-    MEGAM_SSHKEYCOLLECTION            = "Megam::SshKeyCollection".freeze
-    MEGAM_SUBSCRIPTIONS               = "Megam::Subscriptions".freeze
-    MEGAM_SUBSCRIPTIONSCOLLECTION     = "Megam::SubscriptionsCollection".freeze
-    MEGAM_PROMOS                      = "Megam::Promos".freeze
+    JSON_CLAZ = 'json_claz'.freeze
 
-
+    MEGAM_ACCOUNT                     = 'Megam::Account'.freeze
+    MEGAM_ASSEMBLIES                  = 'Megam::Assemblies'.freeze
+    MEGAM_ASSEMBLIESCOLLECTION        = 'Megam::AssembliesCollection'.freeze
+    MEGAM_ASSEMBLY                    = 'Megam::Assembly'.freeze
+    MEGAM_ASSEMBLYCOLLECTION          = 'Megam::AssemblyCollection'.freeze
+    MEGAM_AUTH                        = 'Megam::Auth'.freeze
+    MEGAM_AVAILABLEUNITS              = 'Megam::Availableunits'.freeze
+    MEGAM_AVAILABLEUNITSCOLLECTION    = 'Megam::AvailableunitsCollection'.freeze
+    MEGAM_BALANCES                    = 'Megam::Balances'.freeze
+    MEGAM_BALANCESCOLLECTION          = 'Megam::BalancesCollection'.freeze
+    MEGAM_BILLEDHISTORIES             = 'Megam::Billedhistories'.freeze
+    MEGAM_BILLEDHISTORIESCOLLECTION   = 'Megam::BilledhistoriesCollection'.freeze
+    MEGAM_INVOICESCOLLECTION          = 'Megam::InvoicesCollection'.freeze
+    MEGAM_INVOICES                    = 'Megam::Invoices'.freeze
+    MEGAM_BILLINGS                    = 'Megam::Billings'.freeze  
+    MEGAM_BILLINGSCOLLECTION          = 'Megam::BillingsCollection'.freeze
+    MEGAM_CLOUDTOOLSETTING            = 'Megam::CloudToolSetting'.freeze
+    MEGAM_CLOUDTOOLSETTINGCOLLECTION  = 'Megam::CloudToolSettingCollection'.freeze
+    MEGAM_COMPONENTS                  = 'Megam::Components'.freeze
+    MEGAM_COMPONENTSCOLLECTION        = 'Megam::ComponentsCollection'.freeze
+    MEGAM_CREDITHISTORIES             = 'Megam::Credithistories'.freeze
+    MEGAM_CREDITHISTORIESCOLLECTION   = 'Megam::CredithistoriesCollection'.freeze
+    MEGAM_CSAR                        = 'Megam::CSAR'.freeze
+    MEGAM_CSARCOLLECTION              = 'Megam::CSARCollection'.freeze
+    MEGAM_DOMAIN                      = 'Megam::Domains'.freeze
+    MEGAM_DISCOUNTS                   = 'Megam::Discounts'.freeze
+    MEGAM_DISCOUNTSCOLLECTION         = 'Megam::DiscountsCollection'.freeze
+    MEGAM_ERROR                       = 'Megam::Error'.freeze
+    MEGAM_SENSORS                       = 'Megam::Sensors'.freeze
+    MEGAM_SENSORSCOLLECTION = 'Megam::SensorsCollection'.freeze
+    MEGAM_MARKETPLACE                 = 'Megam::MarketPlace'.freeze
+    MEGAM_MARKETPLACECOLLECTION       = 'Megam::MarketPlaceCollection'.freeze
+    MEGAM_MARKETPLACEADDON            = 'Megam::MarketPlaceAddons'.freeze
+    MEGAM_MARKETPLACEADDONCOLLECTION  = 'Megam::MarketPlaceAddonsCollection'.freeze
+    MEGAM_ORGANIZATION                = 'Megam::Organizations'.freeze
+    MEGAM_ORGANIZATIONSCOLLECTION     = 'Megam::OrganizationsCollection'.freeze
+    MEGAM_REQUEST                     = 'Megam::Request'.freeze
+    MEGAM_REQUESTCOLLECTION           = 'Megam::RequestCollection'.freeze
+    MEGAM_SSHKEY                      = 'Megam::SshKey'.freeze
+    MEGAM_SSHKEYCOLLECTION            = 'Megam::SshKeyCollection'.freeze
+    MEGAM_SUBSCRIPTIONS               = 'Megam::Subscriptions'.freeze
+    MEGAM_SUBSCRIPTIONSCOLLECTION     = 'Megam::SubscriptionsCollection'.freeze
+    MEGAM_PROMOS                      = 'Megam::Promos'.freeze
 
     class <<self
       # Increase the max nesting for JSON, which defaults
