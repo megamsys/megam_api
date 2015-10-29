@@ -1,12 +1,26 @@
+require File.expand_path("#{File.dirname(__FILE__)}/common_deployable")
+require File.expand_path("#{File.dirname(__FILE__)}/components")
+require File.expand_path("#{File.dirname(__FILE__)}/outputs")
+
 module Megam
   class  Mixins
     class Assemblys
       attr_reader :components, :policies, :outputs, :mixins
 
       def initialize(params)
-        @mixins = MixinDeployable.new(params)
+	params = Hash[params.map{ |k, v| [k.to_sym, v] }]
+        @mixins = CommonDeployable.new(params)
         @outputs = Outputs.new(params)
-        add_components(params)
+        @components = add_components(params)
+        @policies = []
+      end
+
+      def to_hash
+        result = @mixins.to_hash
+        result[:components]  = @components if @components
+        result[:outputs] = @outputs.to_array  if @outputs
+        result[:policies] = @policies if @policies
+        [result]
       end
 
       private
@@ -18,16 +32,11 @@ module Megam
       def add_components(params)
         unless components_enabled?
           @components = Components.new(params)
+	else
+	  @components = []
         end
       end
 
-      def to_hash
-        result = @mixins.to_hash
-        result = result.merge(@components.to_hash) if @components
-        result = result.merge(@outputs.to_hash)  if @outputs
-        result = result.merge(@policies.to_hash) if @policies
-        result
-      end
     end
   end
 end

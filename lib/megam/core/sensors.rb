@@ -116,14 +116,14 @@ module Megam
     end
 
     def self.create(params)
-      asm = from_hash(params, params['email'], params['api_key'], params['host'])
-      asm.create
+      sensors = from_hash(params, params['email'], params['api_key'], params['host'])
+      sensors.create
     end
 
     # Load a account by email_p
     def self.show(params)
-      asm = new(params['email'], params['api_key'], params['host'])
-      asm.megam_rest.get_sensor(params['id'])
+      sensors = new(params['email'], params['api_key'], params['host'])
+      sensors.megam_rest.get_sensor(params['id'])
     end
 
     def self.list(params)
@@ -132,13 +132,22 @@ module Megam
     end
 
     def self.update(params)
-      asm = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
-      asm.update
+      sensors = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
+      sensors.update
+    end
+
+    def self.list(o)
+        app = self.new(o["email"], o["api_key"], o["host"])
+      app.megam_rest.get_sensors
     end
 
     # Create the node via the REST API
     def update
       megam_rest.update_(to_hash)
+    end
+
+    def create
+      megam_rest.post_sensors(to_hash)
     end
 
     def to_s

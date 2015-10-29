@@ -21,8 +21,8 @@ end
 
 def megams_new(options={})
 s_options = SANDBOX_HOST_OPTIONS.merge({
-  :email => "rr@e.com",
-  :api_key => "7DDsX3Nw6tFkOMHAM1Es8w=="
+  :email => "coolvader@iamswag.com",
+  :api_key => "IamAtlas{74}NobdyCanSedfefdeME#07"
 })
   options = s_options.merge(options)
   mg=Megam::API.new(options)
@@ -69,11 +69,11 @@ def sandbox_name
 end
 
 def sandbox_apikey
-"7DDsX3Nw6tFkOMHAM1Es8w=="  #{}"IamAtlas{74}NobdyCanSedfefdeME#07"
+ "mIF3GMz1t-atEeVmtilxSw=="
 end
 
 def sandbox_email
 #  "darth@vader.com"
-#"coolvader@iamswag.com"
-"rr@e.com"
+"qwe@qwe.co"
+#"rr@e.com"
 end

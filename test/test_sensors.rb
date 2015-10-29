@@ -8,14 +8,14 @@ class TestApps < MiniTest::Unit::TestCase
    assert_equal(200, response.status)
  end
 =end
-#=begin
+=begin
  def test_get_sensor
    response = megams.get_sensor("SNR1270695834413039616")
    assert_equal(200, response.status)
  end
-#=end
+=end
 
-=begin
+#=begin
  def test_post_sensors
    tmp_hash =  {
 
@@ -46,5 +46,5 @@ class TestApps < MiniTest::Unit::TestCase
    response = megams.post_sensors(tmp_hash)
    assert_equal(200, response.status)
 end
-=end
+#=end
 end

@@ -1,25 +1,16 @@
+require File.expand_path("#{File.dirname(__FILE__)}/megam_attributes")
 module Megam
   class Mixins
     class Components
       attr_reader :mixins, :repo, :related_components, :operations, :artifacts
 
       def initialize(params)
-        @mixins = MixinDeployable.new(params)
+        @mixins = CommonDeployable.new(params)
         @artifacts = Outputs.new(params)
         add_repo(params)
         add_operations(params)
         add_related_components(params)
         add_artifacts(params)
-      end
-
-      def to_hash
-        result = @mixins.to_hash
-        result = result.merge(@repo.to_hash) if @repo
-        result = result.merge(@operation.to_hash) if @operations
-        result = result.merge(@outputs.to_hash) if @outputs
-        result = result.merge(@artifacts.to_hash) if @artifacts
-        result[:related_components] = related_components
-        result
       end
 
       private
@@ -44,8 +35,7 @@ module Megam
     end
 
     class Repo
-      include Megam::Mixins::MegamAttributes
-
+       include Nilavu::MegamAttributes
       ATTRIBUTES = [
         :type,
         :source,
@@ -58,8 +48,7 @@ module Megam
     end
 
     class Operations
-      include Megam::Mixins::MegamAttributes
-
+      include Nilavu::MegamAttributes
       ATTRIBUTES = []
 
       CI = "ci".freeze
@@ -82,8 +71,7 @@ module Megam
     end
 
     class Artifacts
-      include Megam::Mixins::MegamAttributes
-
+      include Nilavu::MegamAttributes
       ATTRIBUTES = [
         :type,
         :content,

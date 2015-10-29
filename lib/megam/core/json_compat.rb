@@ -20,6 +20,7 @@ module Megam
   class JSONCompat
     JSON_MAX_NESTING = 1000
 
+
     JSON_CLAZ = 'json_claz'.freeze
 
     MEGAM_ACCOUNT                     = 'Megam::Account'.freeze
