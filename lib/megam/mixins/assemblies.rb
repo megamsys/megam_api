@@ -1,10 +1,12 @@
+require File.expand_path("#{File.dirname(__FILE__)}/common_deployable")
+
 module Megam
   class Mixins
     class Assemblies
       attr_reader :assemblys
 
       def initialize(params)
-        @assemblys = AssemblysDeployable.new(params)
+        @assemblys = CommonDeployable.new(params)
       end
 
       def to_hash
