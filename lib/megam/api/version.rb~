@@ -1,9 +1,0 @@
-module Megam
-  class API
-<<<<<<< HEAD
-    VERSION = "0.78"
-=======
-    VERSION = "0.77"
->>>>>>> origin/0.9
-  end
-end
