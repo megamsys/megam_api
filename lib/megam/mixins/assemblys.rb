@@ -1,4 +1,5 @@
 require File.expand_path("#{File.dirname(__FILE__)}/common_deployable")
+require File.expand_path("#{File.dirname(__FILE__)}/components")
 require File.expand_path("#{File.dirname(__FILE__)}/outputs")
 
 module Megam
@@ -9,20 +10,17 @@ module Megam
       def initialize(params)
 	params = Hash[params.map{ |k, v| [k.to_sym, v] }]
         @mixins = CommonDeployable.new(params)
-	puts "============================ASSEMBLYS -> Initialize ==> @mixins========================"
-	puts @mixins.inspect
         @outputs = Outputs.new(params)
-        add_components(params)
+        @components = add_components(params)
+        @policies = []
       end
 
       def to_hash
         result = @mixins.to_hash
-	puts "==================To hash================="
-	puts @mixins.class
-        result[:components]  = @components.to_array if @components
+        result[:components]  = @components if @components
         result[:outputs] = @outputs.to_array  if @outputs
         result[:policies] = @policies if @policies
-        result
+        [result]
       end
 
       private

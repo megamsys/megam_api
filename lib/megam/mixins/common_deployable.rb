@@ -24,7 +24,7 @@ module Megam
         @assemblyname = ""
         @tosca_type = ""
         @status = "launching"
-	bld_toscatype(params[:mkp])
+	bld_toscatype(params)
         @inputs = InputGroupData.new(params)
         set_attributes(params)
       end
@@ -35,32 +35,20 @@ module Megam
           :name => assemblyname,
           :status => status,
           :tosca_type => tosca_type,
-          :controls => inputs.sort!.to_hash  }
+          :inputs => inputs.to_hash  
         }
       end
 
   def bld_toscatype(mkp)
     tosca_suffix = DEFAULT_TOSCA_SUFFIX
-    tosca_suffix = "#{mkp[:name]}" unless mkp[:cattype] != 'TORPEDO'.freeze
-    @tosca_type = DEFAULT_TOSCA_PREFIX + ".#{mkp[:cattype].downcase}.#{mkp[:name].downcase}"
+    tosca_suffix = "#{mkp[:mkp_name]}" unless mkp[:cattype] != 'TORPEDO'.freeze
+    @tosca_type = DEFAULT_TOSCA_PREFIX + ".#{mkp[:cattype].downcase}.#{mkp[:mkp_name].downcase}"
   end
-
-  def bld_inputs(params)
-    mkp = params[:mkp]
-    @inputs << { 'key' => 'domain', 'value' => params[:domain] } if params.key?(:domain)
-    @inputs << { 'key' => 'sshkey', 'value' => "#{params[:email]}_#{params[:ssh_keypair_name]}" } if params[:ssh_keypair_name]
-    @inputs << { 'key' => 'provider', 'value' => params[:provider] } if params.key?(:provider)
-    @inputs << { 'key' => 'endpoint', 'value' => params[:endpoint] } if params.key?(:endpoint)
-    @inputs << { 'key' => 'cpu', 'value' => params[:cpu] } if params.key?(:cpu)
-    @inputs << { 'key' => 'ram', 'value' => params[:ram] } if params.key?(:ram)
-    @inputs << { 'key' => 'version', 'value' => params[:version] } #if mkp[:cattype] == Assemblies::TORPEDO
-  end
-
-    end
+ end
 
     class InputGroupData
       include Nilavu::MegamAttributes
-
+      attr_reader :domain, :sshkey, :provider, :cpu, :ram, :hdd, :version, :display_name, :password
       ATTRIBUTES = [
         :domain,
         :sshkey,
@@ -72,8 +60,12 @@ module Megam
         :display_name,
       :password]
 
+	def attributes
+		ATTRIBUTES
+	end
+
       def initialize(params)
-        to_hash(params)
+        set_attributes(params)
       end
     end
   end
