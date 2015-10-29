@@ -7,27 +7,23 @@ module Megam
       ATTRIBUTES = [
         :name,
         :tosca_type,
-        :status,
-      :inputs]
+        :status]
 
       def initialize(params)
         @name = ""
         @tosca_type = ""
         @status = "launching"
-        @inputs = []
+        @inputs = InputGroupData.new(params)
         set_attributes(params)
       end
 
-      def add_input(input)
-        inputs << input
-      end
 
       def to_hash
-        controls.sort! {|x,y| x.line_number <=> y.line_number}
+
         h = {
           :name => name,
           :status => status,
-          :controls => controls.collect { |c| c.to_hash }
+          :controls => inputs.sort!.to_hash  }
         }
       end
     end
