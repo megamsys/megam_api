@@ -7,7 +7,7 @@ require 'time'
 
 SANDBOX_HOST_OPTIONS = {
       :scheme => 'http',
-  :host => '127.0.0.1',
+  :host => '103.56.92.41',
       :nonblock => false,
   :port => 9000
    #:port => 443

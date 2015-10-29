@@ -12,7 +12,8 @@ module Megam
         add_artifacts(params)
       end
 
-      def to_hash
+      def to_array
+=begin
         result = @mixins.to_hash
         result = result.merge(@repo.to_hash) if @repo
         result = result.merge(@operation.to_hash) if @operations
@@ -20,6 +21,8 @@ module Megam
         result = result.merge(@artifacts.to_hash) if @artifacts
         result[:related_components] = related_components
         result
+=end
+array = []
       end
 
       private
