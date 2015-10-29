@@ -24,18 +24,38 @@ module Megam
         @assemblyname = ""
         @tosca_type = ""
         @status = "launching"
+<<<<<<< HEAD
+        @inputs = []
+	puts "=============> CommonDeployable ATTRIBUTES <============="
+	puts ATTRIBUTES.inspect
 	bld_toscatype(params[:mkp])
+	#bld_inputs(params)
+	puts "=============> CommonDeployable INPUTS <============="
+	puts @inputs.inspect
+=======
         @inputs = InputGroupData.new(params)
+>>>>>>> origin/0.9
         set_attributes(params)
       end
 
 
       def to_hash
+<<<<<<< HEAD
+        #controls.sort! {|x,y| x.line_number <=> y.line_number}
+=======
+
+>>>>>>> origin/0.9
         h = {
           :name => assemblyname,
           :status => status,
+<<<<<<< HEAD
           :tosca_type => tosca_type,
+          :inputs => inputs
+
+          #:controls => controls.collect { |c| c.to_hash }
+=======
           :controls => inputs.sort!.to_hash  }
+>>>>>>> origin/0.9
         }
       end
 
