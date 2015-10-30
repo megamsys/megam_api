@@ -22,6 +22,7 @@ module Megam
       @tosca_type = nil
       @inputs = []
       @outputs = []
+      @envs = []
       @artifacts = {}
       @artifact_type = nil
       @content = nil
@@ -82,6 +83,14 @@ module Megam
         @outputs
       end
     end
+
+    def envs(arg = [])
+      if arg != []
+        @envs = arg
+      else
+        @envs
+   end
+ end
 
     def artifacts(arg = nil)
       if !arg.nil?
@@ -200,6 +209,7 @@ module Megam
       index_hash['tosca_type'] = tosca_type
       index_hash['inputs'] = inputs
       index_hash['outputs'] = outputs
+      index_hash['envs'] = envs
       index_hash['artifacts'] = artifacts
       index_hash['related_components'] = related_components
       index_hash['operations'] = operations
@@ -222,6 +232,7 @@ module Megam
         'tosca_type' => tosca_type,
         'inputs' => inputs,
         'outputs' => outputs,
+        'envs' => envs,
         'artifacts' => artifacts,
         'related_components' => related_components,
         'operations' => operations,
@@ -239,7 +250,7 @@ module Megam
       asm.tosca_type(o['tosca_type']) if o.key?('tosca_type')
       asm.inputs(o['inputs']) if o.key?('inputs')
       asm.outputs(o['outputs']) if o.key?('outputs')
-
+      asm.envs(o['envs']) if o.key?('envs')
       ar = o['artifacts']
       asm.artifacts[:artifact_type] = ar['artifact_type'] if ar && ar.key?('artifact_type')
       asm.artifacts[:content] = ar['content'] if ar && ar.key?('content')
@@ -270,6 +281,7 @@ module Megam
       @tosca_type                      = o['tosca_type'] if o.key?('tosca_type')
       @inputs                          = o['inputs'] if o.key?('inputs')
       @outputs                         = o['outputs'] if o.key?('outputs')
+      @envs                            = o['envs'] if o.key?('envs')
       @artifacts                       = o['artifacts'] if o.key?('artifacts')
       @related_components              = o['related_components'] if o.key?('related_components')
       @operations                      = o['operations'] if o.key?('operations')

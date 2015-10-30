@@ -4,7 +4,7 @@ class TestApps < MiniTest::Unit::TestCase
 =begin
   def test_post_assembly
     tmp_hash = { "name" => "calcines",
-      "components" => ["COM1139235178934304768",""],
+      "components" => ["COM1270769168056188928",""],
       "tosca_type" => "",
     "policies" => [{
         "name" => "bind policy",
@@ -24,7 +24,7 @@ class TestApps < MiniTest::Unit::TestCase
 =end
 #=begin
   def test_get_assembly
-    response = megams.get_one_assembly("ASM1265658284040388608")
+    response = megams.get_one_assembly("ASY1271842787775610880")
     assert_equal(200, response.status)
   end
 #=end

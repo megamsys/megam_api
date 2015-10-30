@@ -29,11 +29,15 @@ class TestApps < MiniTest::Unit::TestCase
         "status" => "",
         "related_components" => ["VernonDennis.megam.co"],
         "outputs" => [],
-        "artifacts" => [{
+        "envs" => [{
+            "key" => "REDIS_HOST",
+            "value" => "tempp.megambox.com"
+        }],
+        "artifacts" => {
         "artifact_type" => "tosca_type",
         "content" => "",
         "artifact_requirements" => []
-        }],
+        },
         "operations" => [{
           "operation_type" => "CI",
           "description" => "continuous Integration",

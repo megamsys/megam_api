@@ -1,25 +1,36 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
+#=begin
   def test_get_component
-    response = megams.get_components("COM1265658284082331648")
+    response = megams.get_components("COM1271871641852444672")
     assert_equal(200, response.status)
   end
+#=end
 =begin
   def test_update_component
     tmp_hash = {
-      "id" => "COM1139245887592202240",
+      "id" => "COM1271850006541893632",
       "name" => "NettieMoore",
       "tosca_type" => "tosca.web.redis",
       "inputs" => [],
       "outputs" => [],
+      "envs" => [
+      {
+           "key" => "REDIS_HOST",
+           "value" => "tempp.megambox.com"
+       },
+    ],
       "artifacts" => {
         "artifact_type" => "tosca type",
         "content" => "",
         "artifact_requirements" => []
       },
-      "related_components" => "AntonioMcCormick.megam.co/TimothyHenderson",
+      "related_components" => ["AntonioMcCormick.megam.co/TimothyHenderson"],
       "operations" => [],
+      "repo" => {
+        "rtype" => "image", "source" => "github", "oneclick" => "yes", "url" => "imagename"},
+
       "status" => "",
       "created_at" => "2014-10-29 14:06:39 +0000"
     }
