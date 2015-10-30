@@ -10,7 +10,7 @@ module Megam
       end
 
        def to_hash
-        {:assemblys => assembly.to_hash}
+        assembly.to_hash
       end
     end
   end
