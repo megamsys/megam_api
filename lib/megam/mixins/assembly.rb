@@ -4,7 +4,7 @@ require File.expand_path("#{File.dirname(__FILE__)}/outputs")
 
 module Megam
   class  Mixins
-    class Assemblys
+    class Assembly
       attr_reader :components, :policies, :outputs, :mixins
 
       def initialize(params)
@@ -20,7 +20,7 @@ module Megam
         result[:components]  = @components if @components
         result[:outputs] = @outputs.to_array  if @outputs
         result[:policies] = @policies if @policies
-        [result]
+        result
       end
 
       private
