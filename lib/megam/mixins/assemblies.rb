@@ -9,8 +9,8 @@ module Megam
         @assembly = Assembly.new(params)
       end
 
-      def to_array
-        [assembly.to_hash]
+       def to_hash
+        {:assemblys => assembly.to_hash}
       end
     end
   end

@@ -36,7 +36,7 @@ require 'megam/api/promos'
 require 'megam/api/invoices'
 
 require 'megam/mixins/assemblies'
-require 'megam/mixins/assemby'
+require 'megam/mixins/assembly'
 require 'megam/mixins/common_deployable'
 require 'megam/mixins/components'
 require 'megam/mixins/megam_attributes'
