@@ -24,6 +24,10 @@ module Megam
       @order = nil
       @image = nil
       @url = nil
+      @host = nil
+      @port = nil
+      @username = nil
+      @password = nil
       @plans= nil
       @created_at = nil
       super(email, api_key, host)
@@ -90,6 +94,38 @@ module Megam
       end
     end
 
+    def host(arg=nil)
+      if arg != nil
+        @host = arg
+      else
+        @host
+      end
+    end
+
+    def port(arg=nil)
+      if arg != nil
+       @port = arg
+     else
+        @port
+      end
+    end
+
+    def username(arg=nil)
+      if arg != nil
+        @username = arg
+      else
+        @username
+      end
+    end
+
+    def password(arg=nil)
+     if arg != nil
+       @password = arg
+     else
+       @password
+     end
+   end
+
     def created_at(arg=nil)
       if arg != nil
         @created_at = arg
@@ -120,6 +156,10 @@ module Megam
       index_hash["order"] = order
       index_hash["image"] = image
       index_hash["url"] = url
+      index_hash["host"] = host
+      index_hash["port"] = port
+      index_hash["username"] = username
+      index_hash["password"] = password
       index_hash["plans"] = plans
       index_hash["created_at"] = created_at
       index_hash
@@ -139,6 +179,9 @@ module Megam
         "order" => order,
         "image" => image,
         "url" => url,
+        "host" => host,
+        "port" => port,
+        "username" => username,
         "plans" => plans,
         "created_at" => created_at
       }
@@ -153,6 +196,10 @@ module Megam
       app.order(o["order"]) if o.has_key?("order")
       app.image(o["image"]) if o.has_key?("image")
       app.url(o["url"]) if o.has_key?("url")
+      app.host(o["hash"]) if o.has_key?("host")
+      app.port(o["port"]) if o.has_key?("port")
+      app.username(o["username"]) if o.has_key?("username")
+      app.password(o["password"]) if o.has_key?("password")
       app.plans(o["plans"]) if o.has_key?("plans")
       app.created_at(o["created_at"]) if o.has_key?("created_at")
 
@@ -172,6 +219,10 @@ module Megam
       @order          = o["order"] if o.has_key?("order")
       @image          = o["image"] if o.has_key?("image")
       @url            = o["url"] if o.has_key?("url")
+      @host           = o["host"] if o.has_key?("host")
+      @port           = o["port"]  if o.has_key?("port")
+      @username       = o["username"] if o.has_key?("username")
+      @password       = o["password"] if o.has_key?("password")
       @plans          = o["plans"] if o.has_key?("plans")
       @created_at     = o["created_at"] if o.has_key?("created_at")
       self
