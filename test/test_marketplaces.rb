@@ -12,11 +12,8 @@ class TestMarketplaces < MiniTest::Unit::TestCase
       "status" => "ACTIVE",
       "order" => "",
       "image" => "",
-      "url" => "url",
-      "host" => "host",
-      "port" => "port",
-      "username" => "username",
-      "password" => "password",
+      "url" => "",
+      "envs" => []
      }
 
     response = megams.post_marketplaceapp(tmp_hash)

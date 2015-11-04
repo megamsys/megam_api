@@ -1,7 +1,7 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-=begin
+#=begin
   def test_post_assembly
     tmp_hash = { "name" => "calcines",
       "components" => ["COM1270769168056188928",""],
@@ -21,13 +21,13 @@ class TestApps < MiniTest::Unit::TestCase
     response = megams.post_assembly(tmp_hash)
     assert_equal(201, response.status)
   end
-=end
-#=begin
+#=end
+=begin
   def test_get_assembly
-    response = megams.get_one_assembly("ASY1271842787775610880")
+    response = megams.get_one_assembly("ASY1273588307275677696")
     assert_equal(200, response.status)
   end
-#=end
+=end
 =begin
   def test_update_assembly
     tmp_hash =  {
