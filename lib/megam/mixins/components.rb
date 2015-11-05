@@ -45,7 +45,7 @@ module Megam
       def add_operations(params)
         operations = []
         operations.push(create_operation(Operations::CI, Operations::CI_DESCRIPTON,  params)) unless params[:scm_name].strip.empty?
-        operations.push(create_operation(Operations::BIND, Operations::BIND_DESCRIPTON, params))
+        operations.push(create_operation(Operations::BIND, Operations::BIND_DESCRIPTON, params)) if params.key?(:bind_type)
       end
 
       def create_operation(type, desc, params)
