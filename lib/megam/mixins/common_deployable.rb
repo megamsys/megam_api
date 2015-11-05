@@ -4,47 +4,43 @@ module Megam
   class Mixins
     class CommonDeployable
       include Nilavu::MegamAttributes
-      attr_reader :assemblyname, :componentname, :status, :inputs, :tosca_type
+      attr_reader :status, :inputs, :tosca_type
 
-  DEFAULT_TOSCA_PREFIX = 'tosca'.freeze
-  # this is a mutable string, if nothing exists then we use ubuntu
-  DEFAULT_TOSCA_SUFFIX = 'ubuntu'.freeze
+      DEFAULT_TOSCA_PREFIX = 'tosca'.freeze
+      # this is a mutable string, if nothing exists then we use ubuntu
+      DEFAULT_TOSCA_SUFFIX = 'ubuntu'.freeze
 
       ATTRIBUTES = [
-        :assemblyname,
-        :componentname,
         :tosca_type,
         :status,
         :inputs]
 
-	def attributes
-		ATTRIBUTES
-	end
+      def attributes
+        ATTRIBUTES
+      end
+
       def initialize(params)
-        @assemblyname = ""
         @tosca_type = ""
         @status = "launching"
-	bld_toscatype(params)
+        bld_toscatype(params)
         @inputs = InputGroupData.new(params)
         set_attributes(params)
       end
 
-
       def to_hash
         h = {
-          :name => assemblyname,
           :status => status,
           :tosca_type => tosca_type,
-          :inputs => inputs.to_hash  
+          :inputs => inputs.to_hash
         }
       end
 
-  def bld_toscatype(mkp)
-    tosca_suffix = DEFAULT_TOSCA_SUFFIX
-    tosca_suffix = "#{mkp[:mkp_name]}" unless mkp[:cattype] != 'TORPEDO'.freeze
-    @tosca_type = DEFAULT_TOSCA_PREFIX + ".#{mkp[:cattype].downcase}.#{mkp[:mkp_name].downcase}"
-  end
- end
+      def bld_toscatype(params)
+        tosca_suffix = DEFAULT_TOSCA_SUFFIX
+        tosca_suffix = "#{params[:mkp_name]}" unless params[:cattype] != 'TORPEDO'.freeze
+        @tosca_type = DEFAULT_TOSCA_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}"
+      end
+    end
 
     class InputGroupData
       include Nilavu::MegamAttributes
@@ -58,11 +54,11 @@ module Megam
         :hdd,
         :version,
         :display_name,
-      :password]
+        :password]
 
-	def attributes
-		ATTRIBUTES
-	end
+      def attributes
+        ATTRIBUTES
+      end
 
       def initialize(params)
         set_attributes(params)
