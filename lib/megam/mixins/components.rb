@@ -38,17 +38,17 @@ module Megam
       end
 
       def add_related_components(params)
-        related_components = [ "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}"]
+	related_components = []
+        related_components << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.key?(:bind_type)
       end
 
       def add_operations(params)
         operations = []
-        operations.push(create_operation(Operations::CI, Operations::CI_DESCRIPTON, [:type, :token, :username], params))
-        operations.push(create_operation(Operations::BIND, Operations::BIND_DESCRIPTON, [:type, :token, :username], params))
-        operations
+        operations.push(create_operation(Operations::CI, Operations::CI_DESCRIPTON,  params)) unless params[:scm_name].strip.empty?
+        operations.push(create_operation(Operations::BIND, Operations::BIND_DESCRIPTON, params))
       end
 
-      def create_operation(type, desc,properties, params)
+      def create_operation(type, desc, params)
         Operations.new(params, type, desc).tohash
       end
 
@@ -59,7 +59,7 @@ module Megam
 
     class Repo
       include Nilavu::MegamAttributes
-      attr_reader :type, :source
+      attr_reader :type, :source, :url
       ATTRIBUTES = [
         :type,
         :source,
@@ -73,14 +73,15 @@ module Megam
       def initialize(params)
         set_attributes(params)
         @type = params[:type]
-        @source = params[:source]
+        @source = params[:scm_name]
+	@url = params[:source]
       end
 
       def tohash
         {  :rtype => @type,
-          :source => "",
+          :source => @source,
           :oneclick => nil,
-          :url => @source
+          :url => @url
         }
       end
 
@@ -88,11 +89,11 @@ module Megam
 
     class Operations
       include Nilavu::MegamAttributes
-      attr_reader :type, :desc
+      attr_reader :type, :desc, :prop
 
       ATTRIBUTES = []
 
-      CI = "ci".freeze
+      CI = "CI".freeze
       CI_DESCRIPTON = "always up to date code. sweet."
 
       BIND = "bind".freeze
@@ -100,7 +101,8 @@ module Megam
       def initialize(params,type, desc)
         @type = type
         @desc = desc
-        set_attributes(params)
+        #set_attributes(params)
+	@prop = prop(params)
       end
 
       def attributes
@@ -110,9 +112,16 @@ module Megam
       def tohash
         {   :operation_type => @type,
           :description => @desc,
-          :properties => to_hash
+          :properties => @prop
         }
       end
+	def prop(params)
+    op = []
+    op << { 'key' => 'type', 'value' => params[:scm_name] }
+    op << { 'key' => 'token', 'value' => params[:scmtoken] || '' }
+    op << { 'key' => 'username', 'value' => params[:scmowner] || '' }
+      op
+	end
     end
 
     class Artifacts
