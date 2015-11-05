@@ -59,7 +59,7 @@ module Megam
 
     class Repo
       include Nilavu::MegamAttributes
-      attr_reader :type, :source, :url
+      attr_reader :type, :source, :url, :oneclick
       ATTRIBUTES = [
         :type,
         :source,
@@ -75,12 +75,13 @@ module Megam
         @type = params[:type]
         @source = params[:scm_name]
 	@url = params[:source]
+	@oneclick = params[:oneclick]
       end
 
       def tohash
         {  :rtype => @type,
           :source => @source,
-          :oneclick => nil,
+          :oneclick => @oneclick,
           :url => @url
         }
       end
@@ -115,6 +116,7 @@ module Megam
           :properties => @prop
         }
       end
+#Key_name mismatch. Key_name is to be changed.
 	def prop(params)
     op = []
     op << { 'key' => 'type', 'value' => params[:scm_name] }
