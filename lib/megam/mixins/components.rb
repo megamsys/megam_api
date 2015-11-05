@@ -27,6 +27,10 @@ module Megam
         result
       end
 
+	def to_a
+		[to_hash]
+	end
+
       private
 
       def add_repo(params)

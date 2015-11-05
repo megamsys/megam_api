@@ -33,7 +33,7 @@ module Megam
 
       def add_components(params)
         if components_enabled?(params)
-          @components = Components.new(params).to_hash
+          @components = Components.new(params).to_a
         else
           @components = []
         end
