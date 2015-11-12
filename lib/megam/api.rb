@@ -14,10 +14,8 @@ require 'megam/api/errors'
 require 'megam/api/version'
 require 'megam/api/accounts'
 require 'megam/api/requests'
-# require 'megam/api/cloud_tool_settings'
 require 'megam/api/sshkeys'
 require 'megam/api/marketplaces'
-require 'megam/api/marketplace_addons'
 require 'megam/api/organizations'
 require 'megam/api/domains'
 require 'megam/api/csars'
@@ -54,14 +52,10 @@ require 'megam/core/error'
 require 'megam/core/account'
 require 'megam/core/request'
 require 'megam/core/request_collection'
-# require 'megam/core/cloudtoolsetting'
-# require 'megam/core/cloudtoolsetting_collection'
 require 'megam/core/sshkey'
 require 'megam/core/sshkey_collection'
 require 'megam/core/marketplace'
 require 'megam/core/marketplace_collection'
-require 'megam/core/marketplace_addon'
-require 'megam/core/marketplace_addon_collection'
 require 'megam/core/organizations'
 require 'megam/core/organizations_collection'
 require 'megam/core/domains'
@@ -141,7 +135,7 @@ module Megam
     end
 
     def request(params, &block)
-    
+
       just_color_debug("#{@options[:path]}")
       start = Time.now
       Megam::Log.debug('START')
