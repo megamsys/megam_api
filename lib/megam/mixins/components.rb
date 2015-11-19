@@ -18,18 +18,18 @@ module Megam
 
       def to_hash
         result = @mixins.to_hash
-        result[:name]  = @name if @name
-        result[:artifacts]  = @artifacts if @artifacts
-        result[:repo]  = @repo if @repo
-        result[:operations]  = @operations if @operations
-        result[:outputs] = @outputs.to_array  if @outputs
+        result[:name] = @name if @name
+        result[:artifacts] = @artifacts if @artifacts
+        result[:repo] = @repo if @repo
+        result[:operations] = @operations if @operations
+        result[:outputs] = @outputs.to_array if @outputs
         result[:related_components] = @related_components if @related_components
         result
       end
 
-	def to_a
-		[to_hash]
-	end
+      def to_a
+        [to_hash]
+      end
 
       private
 
@@ -38,13 +38,13 @@ module Megam
       end
 
       def add_related_components(params)
-	related_components = []
+        related_components = []
         related_components << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.key?(:bind_type)
       end
 
       def add_operations(params)
         operations = []
-        operations.push(create_operation(Operations::CI, Operations::CI_DESCRIPTON,  params)) unless (params[:scm_name] && params[:scm_name].strip.empty?)
+        operations.push(create_operation(Operations::CI, Operations::CI_DESCRIPTON, params)) unless params[:scm_name] && params[:scm_name].strip.empty?
         operations.push(create_operation(Operations::BIND, Operations::BIND_DESCRIPTON, params)) if params.key?(:bind_type)
       end
 
@@ -74,18 +74,17 @@ module Megam
         set_attributes(params)
         @type = params[:type]
         @source = params[:scm_name]
-	@url = params[:source]
-	@oneclick = params[:oneclick]
+        @url = params[:source]
+        @oneclick = params[:oneclick]
       end
 
       def tohash
-        {  :rtype => @type,
-          :source => @source,
-          :oneclick => @oneclick,
-          :url => @url
+        {  rtype: @type,
+           source: @source,
+           oneclick: @oneclick,
+           url: @url
         }
       end
-
     end
 
     class Operations
@@ -94,16 +93,16 @@ module Megam
 
       ATTRIBUTES = []
 
-      CI = "CI".freeze
-      CI_DESCRIPTON = "always up to date code. sweet."
+      CI = 'CI'.freeze
+      CI_DESCRIPTON = 'always up to date code. sweet.'
 
-      BIND = "bind".freeze
-      BIND_DESCRIPTON = "bind. sweet."
-      def initialize(params,type, desc)
+      BIND = 'bind'.freeze
+      BIND_DESCRIPTON = 'bind. sweet.'
+      def initialize(params, type, desc)
         @type = type
         @desc = desc
-        #set_attributes(params)
-	@prop = prop(params)
+        # set_attributes(params)
+        @prop = prop(params)
       end
 
       def attributes
@@ -111,19 +110,20 @@ module Megam
       end
 
       def tohash
-        {   :operation_type => @type,
-          :description => @desc,
-          :properties => @prop
+        {   operation_type: @type,
+            description: @desc,
+            properties: @prop
         }
       end
-#Key_name mismatch. Key_name is to be changed.
-	def prop(params)
-    op = []
-    op << { 'key' => 'type', 'value' => params[:scm_name] }
-    op << { 'key' => 'token', 'value' => params[:scmtoken] || '' }
-    op << { 'key' => 'username', 'value' => params[:scmowner] || '' }
-      op
-	end
+
+      # Key_name mismatch. Key_name is to be changed.
+      def prop(params)
+        op = []
+        op << { 'key' => 'type', 'value' => params[:scm_name] }
+        op << { 'key' => 'token', 'value' => params[:scmtoken] || '' }
+        op << { 'key' => 'username', 'value' => params[:scmowner] || '' }
+        op
+      end
     end
 
     class Artifacts
@@ -142,9 +142,9 @@ module Megam
       end
 
       def tohash
-        {   :artifact_type => "",
-          :content => "",
-          :requirements => []
+        {   artifact_type: '',
+            content: '',
+            requirements: []
         }
       end
     end

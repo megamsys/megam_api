@@ -19,6 +19,5 @@ module Megam
     def to_array
       array = []
     end
-
   end
 end

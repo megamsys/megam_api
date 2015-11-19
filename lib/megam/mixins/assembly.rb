@@ -3,11 +3,11 @@ require File.expand_path("#{File.dirname(__FILE__)}/components")
 require File.expand_path("#{File.dirname(__FILE__)}/outputs")
 
 module Megam
-  class  Mixins
+  class Mixins
     class Assembly
       attr_reader :name, :components, :policies, :outputs, :mixins
       def initialize(params)
-        params = Hash[params.map{ |k, v| [k.to_sym, v] }]
+        params = Hash[params.map { |k, v| [k.to_sym, v] }]
         @name = params[:assemblyname]
         @mixins = CommonDeployable.new(params)
         @outputs = Outputs.new(params)
@@ -17,9 +17,9 @@ module Megam
 
       def to_hash
         result = @mixins.to_hash
-        result[:name]  = @name if @name
-        result[:components]  = @components if @components
-        result[:outputs] = @outputs.to_array  if @outputs
+        result[:name] = @name if @name
+        result[:components] = @components if @components
+        result[:outputs] = @outputs.to_array if @outputs
         result[:policies] = @policies if @policies
         result
       end
@@ -38,7 +38,6 @@ module Megam
           @components = []
         end
       end
-
     end
   end
 end
