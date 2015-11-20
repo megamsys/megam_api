@@ -20,8 +20,8 @@ module Megam
       end
 
       def initialize(params)
-        @tosca_type = ""
-        @status = "launching"
+        @tosca_type = ''
+        @status = 'launching'
         bld_toscatype(params)
         @inputs = InputGroupData.new(params)
         set_attributes(params)
@@ -29,9 +29,9 @@ module Megam
 
       def to_hash
         h = {
-          :status => status,
-          :tosca_type => tosca_type,
-          :inputs => inputs.to_hash
+          status: status,
+          tosca_type: tosca_type,
+          inputs: inputs.to_hash
         }
       end
 

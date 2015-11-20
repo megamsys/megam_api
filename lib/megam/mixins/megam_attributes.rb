@@ -1,14 +1,14 @@
 module Nilavu
   module MegamAttributes
     ATTRIBUTES = []
-    KEY = "key".freeze
-    VALUE = "value".freeze
+    KEY = 'key'.freeze
+    VALUE = 'value'.freeze
     attr_accessor *ATTRIBUTES
     def attributes
       NotImplementedError
     end
 
-    def initialize(control_data={})
+    def initialize(control_data = {})
       set_attributes(control_data)
     end
 
