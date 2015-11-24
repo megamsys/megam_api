@@ -4,6 +4,8 @@ module Megam
   class Environments
     include Nilavu::MegamAttributes
 
+      attr_reader :envs
+
     ATTRIBUTES = [
     ]
     def attributes
