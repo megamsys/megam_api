@@ -23,7 +23,7 @@ module Megam
         result[:components] = @components if @components
         result[:outputs] = @outputs.to_array if @outputs
         result[:policies] = @policies if @policies
-        result[:envs] = @envs if @envs
+        result[:envs] = @envs.to_array if @envs
         result
       end
 
