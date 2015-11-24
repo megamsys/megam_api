@@ -1,7 +1,6 @@
 require File.expand_path("#{File.dirname(__FILE__)}/common_deployable")
 require File.expand_path("#{File.dirname(__FILE__)}/components")
 require File.expand_path("#{File.dirname(__FILE__)}/outputs")
-require File.expand_path("#{File.dirname(__FILE__)}/environments")
 
 module Megam
   class Mixins
@@ -12,7 +11,7 @@ module Megam
         @name = params[:assemblyname]
         @mixins = CommonDeployable.new(params)
         @outputs = Outputs.new(params)
-        @envs = Environments.new(params)
+        @envs = params[:envs]
         @components = add_components(params)
         @policies = []
       end
@@ -23,7 +22,7 @@ module Megam
         result[:components] = @components if @components
         result[:outputs] = @outputs.to_array if @outputs
         result[:policies] = @policies if @policies
-        result[:envs] = @envs.to_array if @envs
+        result[:envs] = @envs if @envs
         result
       end
 
