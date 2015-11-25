@@ -12,7 +12,7 @@ module Megam
         @name = params[:assemblyname]
         @mixins = CommonDeployable.new(params)
         @outputs = Outputs.new(params)
-        @envs = Environments.new(params)
+        @envs = Environments.new(params[:envs])
         @components = add_components(params)
         @policies = []
       end
