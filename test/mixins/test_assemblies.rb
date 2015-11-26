@@ -4,7 +4,6 @@ gem 'minitest' # ensure we are using the gem version
 require 'minitest/autorun'
 
 require File.expand_path("#{File.dirname(__FILE__)}/../../lib/megam/mixins/assemblies")
-require File.expand_path("#{File.dirname(__FILE__)}/../../lib/megam/mixins/environments")
 class TestMixinsAssemblies < MiniTest::Unit::TestCase
 
 #=begin
