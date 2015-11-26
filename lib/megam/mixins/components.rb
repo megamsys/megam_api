@@ -5,7 +5,7 @@ require File.expand_path("#{File.dirname(__FILE__)}/outputs")
 module Megam
   class Mixins
     class Components
-      attr_reader :mixins, :name, :repo, :related_components, :operations, :artifacts, :outputs
+      attr_reader :mixins, :name, :repo, :related_components, :operations, :artifacts, :envs, :outputs
       def initialize(params)
         @mixins = CommonDeployable.new(params)
         @name = params[:componentname]
@@ -14,6 +14,7 @@ module Megam
         @related_components = add_related_components(params)
         @artifacts = add_artifacts(params)
         @repo = add_repo(params)
+        @envs = params[:envs]
       end
 
       def to_hash
@@ -24,6 +25,7 @@ module Megam
         result[:operations] = @operations if @operations
         result[:outputs] = @outputs.to_array if @outputs
         result[:related_components] = @related_components if @related_components
+        result[:envs] = @envs if @envs
         result
       end
 
