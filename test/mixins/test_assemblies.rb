@@ -4,6 +4,7 @@ gem 'minitest' # ensure we are using the gem version
 require 'minitest/autorun'
 
 require File.expand_path("#{File.dirname(__FILE__)}/../../lib/megam/mixins/assemblies")
+require File.expand_path("#{File.dirname(__FILE__)}/../../lib/megam/mixins/components")
 class TestMixinsAssemblies < MiniTest::Unit::TestCase
 
 #=begin
@@ -12,8 +13,8 @@ class TestMixinsAssemblies < MiniTest::Unit::TestCase
     tmp_hash = {"utf8"=>"✓", "mkp_name" => "ubuntu", "cattype":"TORPEDO", "version":"14.04", "assemblyname"=>"biblical", "domain"=>"megambox.com", "ram"=>"896", "cpu"=>"0.5", "SSH_USEOLD_name"=>"tom", "SSH_NEW_name"=>"", "sshoption"=>"SSH_USEOLD", "provider"=>"one", "componentname"=>"ovid", "commit"=>" Create ", "controller"=>"marketplaces", "action"=>"create", "email"=>"8@8.com", "api_key"=>"-NQi-aSKHcmKntCsXb03jw==", "host"=>"192.168.1.105", "org_id"=>"ORG1270367691894554624", "ssh_keypair_name"=>"tom", "name"=>"tom", "path"=>"8@8.com_tom"}
 
     envs_hash = {"utf8"=>"✓", "authenticity_token"=>"EXNN8YBO01ebNv8RSbc3psdo+soP5Cxee8UXdi0qEdm78hkwKVIBaPzPh0IQBXcNtL6efvSkCbMkT1nca80zkA==", "version"=>"1.5.0", "mkp_name"=>"HotelManangement", "cattype"=>"ANALYTICS", "envs"=>[{"key":"spark_master","value":"<spark_master>"},{"key":"oja_assembly_id","value":"<oja_assembly_id>"},{"key":"file2","value":"<file2>"},{"key":"oja_email","value":"<oja_email>"},{"key":"oja_component_id","value":"<oja_component_id>"},{"key":"file1","value":"<file1>"},{"key":"oja_apikey","value":"<oja_apikey>"}], "assemblyname"=>"sweet", "domain"=>"megambox.com", "ram"=>"896", "cpu"=>"0.5", "SSH_USEOLD_name"=>"megam_sss", "SSH_NEW_name"=>"", "sshoption"=>"SSH_USEOLD", "provider"=>"one", "componentname"=>"minute", "commit"=>" Create "}
-#{"utf8"=>"✓", "version"=>"14.04", "mkp_name"=>"ubuntu", "cattype"=>"TORPEDO", "assemblyname"=>"implanting", "domain"=>"megambox.com", "ram"=>"896", "cpu"=>"0.5", "SSH_USEOLD_name"=>"tom", "SSH_NEW_name"=>"", "sshoption"=>"SSH_USEOLD", "provider"=>"one", "componentname"=>"sad", "commit"=>" Create "}
 
+#{"utf8"=>"✓", "version"=>"14.04", "mkp_name"=>"ubuntu", "cattype"=>"TORPEDO", "assemblyname"=>"implanting", "domain"=>"megambox.com", "ram"=>"896", "cpu"=>"0.5", "SSH_USEOLD_name"=>"tom", "SSH_NEW_name"=>"", "sshoption"=>"SSH_USEOLD", "provider"=>"one", "componentname"=>"sad", "commit"=>" Create "}
 
 #assemblies: [{"status"=>"launching", "tosca_type"=>"tosca.torpedo.ubuntu", "inputs"=>[{"key"=>"domain", "value"=>"megambox.com"}, {"key"=>"provider", "value"=>"one"}, {"key"=>"cpu", "value"=>"0.5"}, {"key"=>"ram", "value"=>"896"}, {"key"=>"version", "value"=>"14.04"}], "name"=>"implanting", "components"=>[], "outputs"=>[], "policies"=>[]}]
 

@@ -38,7 +38,7 @@ module Megam
       def bld_toscatype(params)
         tosca_suffix = DEFAULT_TOSCA_SUFFIX
         tosca_suffix = "#{params[:mkp_name]}" unless params[:cattype] != 'TORPEDO'.freeze
-        @tosca_type = DEFAULT_TOSCA_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}"
+        @tosca_type = DEFAULT_TOSCA_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
       end
     end
 
