@@ -8,7 +8,7 @@ module Megam
       attr_reader :mixins, :name, :repo, :related_components, :operations, :artifacts, :envs, :outputs
       def initialize(params)
         @mixins = CommonDeployable.new(params)
-        @name = params[:componentname]
+        @name = params[:componentname] if params[:componentname]
         @outputs = Outputs.new(params)
         @operations = add_operations(params)
         @related_components = add_related_components(params)
@@ -41,12 +41,12 @@ module Megam
 
       def add_related_components(params)
         related_components = []
-        related_components << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.key?(:bind_type)
+        related_components << "#{params[:bind_type]}" if params.key?(:bind_type)
       end
 
       def add_operations(params)
         operations = []
-        operations.push(create_operation(Operations::CI, Operations::CI_DESCRIPTON, params)) unless params[:scm_name] && params[:scm_name].strip.empty?
+        operations.push(create_operation(Operations::CI, Operations::CI_DESCRIPTON, params)) if params[:scm_name] && params[:scm_name].strip.empty?
         operations.push(create_operation(Operations::BIND, Operations::BIND_DESCRIPTON, params)) if params.key?(:bind_type)
       end
 
