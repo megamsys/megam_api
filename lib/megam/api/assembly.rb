@@ -21,5 +21,16 @@ module Megam
         body: @options[:body]
       )
    end
+   
+   def upgrade_assembly(asm_id)
+      @options = { path: "/assembly/upgrade/#{asm_id}", body: '' }.merge(@options)
+
+      request(
+        expects: [200, 201],
+        method: :get,
+        body: @options[:body]
+      )
+   end
+   
   end
 end
