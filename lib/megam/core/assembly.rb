@@ -39,7 +39,7 @@ module Megam
       if !arg.nil?
         @id = arg
       else
-      @id
+        @id
       end
     end
 
@@ -55,7 +55,7 @@ module Megam
       if !arg.nil?
         @name = arg
       else
-      @name
+        @name
       end
     end
 
@@ -63,7 +63,7 @@ module Megam
       if !arg.nil?
         @tosca_type = arg
       else
-      @tosca_type
+        @tosca_type
       end
     end
 
@@ -71,7 +71,7 @@ module Megam
       if arg != []
         @components = arg
       else
-      @components
+        @components
       end
     end
 
@@ -79,7 +79,7 @@ module Megam
       if arg != []
         @policies = arg
       else
-      @policies
+        @policies
       end
     end
 
@@ -87,7 +87,7 @@ module Megam
       if arg != []
         @inputs = arg
       else
-      @inputs
+        @inputs
       end
     end
 
@@ -95,7 +95,7 @@ module Megam
       if arg != []
         @outputs = arg
       else
-      @outputs
+        @outputs
       end
     end
 
@@ -103,7 +103,7 @@ module Megam
       if !arg.nil?
         @status = arg
       else
-      @status
+        @status
       end
     end
 
@@ -111,9 +111,9 @@ module Megam
       if !arg.nil?
         @created_at = arg
       else
-      @created_at
+        @created_at
+       end
       end
-    end
 
     def error?
       crocked = true if some_msg.key?(:msg_type) && some_msg[:msg_type] == 'error'
@@ -124,7 +124,7 @@ module Megam
       index_hash = {}
       index_hash['json_claz'] = self.class.name
       index_hash['id'] = id
-      index_hash["asms_id"] = asms_id
+       index_hash["asms_id"] = asms_id
       index_hash['name'] = name
       index_hash['components'] = components
       index_hash['tosca_type'] = tosca_type
@@ -181,7 +181,7 @@ module Megam
 
     def from_hash(o)
       @id                = o['id'] if o.key?('id')
-      @asms_id         = o["asms_id"] if o.has_key?("asms_id")
+       @asms_id         = o["asms_id"] if o.has_key?("asms_id")
       @name              = o['name'] if o.key?('name')
       @components        = o['components'] if o.key?('components')
       @tosca_type        = o['tosca_type'] if o.key?('tosca_type')
@@ -201,17 +201,17 @@ module Megam
     def self.update(params)
       asm = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
       asm.update
-    end
+   end
 
-    def self.upgrade(params)
-      asm = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
-      asm.megam_rest.upgrade_assembly(params['id'])
-    end
+   def self.upgrade(params)
+     asm = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
+     asm.megam_rest.upgrade_assembly(params['id'])
+   end
 
     # Create the node via the REST API
     def update
       megam_rest.update_assembly(to_hash)
-    end
+    end   
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
