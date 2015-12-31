@@ -21,8 +21,8 @@ module Megam
         body: @options[:body]
       )
    end
-   
-   def upgrade_assembly(asm_id)
+
+    def upgrade_assembly(asm_id)
       @options = { path: "/assembly/upgrade/#{asm_id}", body: '' }.merge(@options)
 
       request(
@@ -31,6 +31,6 @@ module Megam
         body: @options[:body]
       )
    end
-   
+
   end
 end
