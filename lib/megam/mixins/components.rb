@@ -121,9 +121,10 @@ module Megam
       # Key_name mismatch. Key_name is to be changed.
       def prop(params)
         op = []
-        op << { 'key' => 'type', 'value' => params[:scm_name] }
-        op << { 'key' => 'token', 'value' => params[:scmtoken] || '' }
-        op << { 'key' => 'username', 'value' => params[:scmowner] || '' }
+        op << { 'key' => 'type', 'value' => params[:scm_name] } if params.key?(:scm_name)
+        op << { 'key' => 'token', 'value' => params[:scmtoken] } if params.key?(:scmtoken)
+        op << { 'key' => 'username', 'value' => params[:scmowner] } if params.key?(:scmowner)
+        op << { 'key' => 'related_component', 'value' => params[:bind_type] } if params.key?(:bind_type)
         op
       end
     end
