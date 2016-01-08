@@ -47,9 +47,10 @@ module Megam
       end
 
       def add_operations(params)
-        @operations = []
-        @operations.push(create_operation(Operations::CI, Operations::CI_DESCRIPTON, params)) if params[:scm_name] && params[:scm_name].strip.empty?
-        @operations.push(create_operation(Operations::BIND, Operations::BIND_DESCRIPTON, params)) if params.key?(:bind_type)
+        operations = []
+        operations.push(create_operation(Operations::CI, Operations::CI_DESCRIPTON, params)) if params.key?(:scm_name) && params.key?(:scmtoken)
+        operations.push(create_operation(Operations::BIND, Operations::BIND_DESCRIPTON, params)) if params.key?(:bind_type)
+        operations
       end
 
       def create_operation(type, desc, params)
@@ -93,10 +94,17 @@ module Megam
 
     class Operations
       include Nilavu::MegamAttributes
-      attr_reader :type, :desc, :prop
+      attr_reader :type, :desc, :prop, :status
 
-      ATTRIBUTES = []
+      ATTRIBUTES = [
+        :type,
+        :desc,
+        :prop,
+	      :status]
 
+      def attributes
+        ATTRIBUTES
+      end
       CI = 'CI'.freeze
       CI_DESCRIPTON = 'always up to date code. sweet.'
       NOTBOUND = "notbound".freeze
