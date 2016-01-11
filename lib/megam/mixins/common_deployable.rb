@@ -24,7 +24,8 @@ module Megam
         @status = 'launching'
         bld_toscatype(params)
         set_attributes(params)
-        @inputs = InputGroupData.new(params)        
+        @inputs = InputGroupData.new(params)
+
       end
 
       def to_hash
@@ -63,6 +64,7 @@ module Megam
       def initialize(params)
         set_attributes(params)
       end
+
     end
   end
 end
