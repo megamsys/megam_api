@@ -26,6 +26,7 @@ module Megam
     end
 
     email nil
+    password nil
     api_key nil
 
     # Set these to enable SSL authentication / mutual-authentication
