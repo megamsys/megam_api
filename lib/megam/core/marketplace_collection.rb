@@ -17,7 +17,6 @@ module Megam
   class MarketPlaceCollection
     include Enumerable
 
-    
     attr_reader :iterator
     def initialize
       @apps = Array.new
@@ -66,7 +65,7 @@ module Megam
         @insert_after_idx += 1
       else
       @apps << app
-      @apps_by_name[app.name] = @apps.length - 1 
+      @apps_by_name[app.name] = @apps.length - 1
       end
     end
 
@@ -101,7 +100,7 @@ module Megam
       end
       @apps[res]
     end
-    
+
      # Transform the ruby obj ->  to a Hash
     def to_hash
       index_hash = Hash.new
@@ -131,8 +130,8 @@ module Megam
 
     private
 
-    
-    
+
+
     def is_megam_app(arg)
       unless arg.kind_of?(Megam::MarketPlace)
         raise ArgumentError, "Members must be Megam::MarketPlace's"
