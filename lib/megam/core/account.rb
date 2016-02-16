@@ -15,7 +15,7 @@
 #
 module Megam
   class Account < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil, host=nil)
+    def initialize(email=nil, api_key=nil, host=nil, password=nil)
       @id = nil
       @email = nil
       @api_key = nil
@@ -28,7 +28,7 @@ module Megam
       @password_reset_sent_at = nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key, host)
+      super(email, api_key, host, password)
     end
 
     #used by resque workers and any other background job
@@ -231,13 +231,19 @@ module Megam
       megam_rest.post_accounts(to_hash)
     end
 
-
+=begin
     # Load a account by email_p
-    def self.show(email,api_key,host=nil)
-      acct = self.new(email, api_key, host)
+    def self.show(email,api_key,host=nil,password=nil)
+      acct = self.new(email, api_key, host, password)
       acct.megam_rest.get_accounts(email)
     end
+=end
 
+    # Load a account by email_p
+    def self.show(o)
+      acct = self.new(o[:email], o[:api_key], o[:host], o[:password])
+      acct.megam_rest.get_accounts(o[:email])
+    end
 
     def self.update(o)
      acct = from_hash(o)

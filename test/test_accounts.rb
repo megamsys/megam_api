@@ -6,6 +6,12 @@ class TestAccounts < MiniTest::Unit::TestCase
   $normal = "normal-tom"
   $tom_email = "tom@gomegam.com"
   $bob_email = "bob@gomegam.com"
+
+def test_signin_auth
+    response =megams.get_accounts("test@megam.io")
+    response.body.to_s
+    assert_equal(200, response.status)
+end
 =begin
   def test_get_accounts_good
     response =megams.get_accounts(sandbox_email)
@@ -13,6 +19,7 @@ class TestAccounts < MiniTest::Unit::TestCase
     assert_equal(200, response.status)
   end
 =end
+=begin
   def test_post_accounts_good
     tmp_hash = {
       "id" => "000099090909000",
@@ -31,6 +38,7 @@ class TestAccounts < MiniTest::Unit::TestCase
     response.body.to_s
     assert_equal(201, response.status)
   end
+=end
 
 =begin
   def test_update_accounts_good
