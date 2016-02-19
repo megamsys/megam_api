@@ -16,15 +16,17 @@
 
 module Megam
   class Assemblies < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil, host=nil)
+    def initialize(o)
       @id = nil
       @accounts_id = nil
       @org_id = nil
       @name = nil
+      @password = nil
       @assemblies = []
       @inputs = []
       @created_at = nil
-      super(email, api_key, host)
+      #super(email, api_key, host)
+      super({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => o[:password], :org_id => o[:org_id]})
     end
 
     def assemblies
@@ -48,11 +50,11 @@ module Megam
       end
     end
 
-    def org_id(arg=nil)
+    def password(arg=nil)
       if arg != nil
-        @org_id = arg
+        @password = arg
       else
-      @org_id
+      @password
       end
     end
 
@@ -138,8 +140,8 @@ module Megam
       asm
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-      asm = self.new(tmp_email, tmp_api_key, tmp_host)
+    def self.from_hash(o)
+      asm = self.new({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => nil, :org_id => o[:org_id]})
       asm.from_hash(o)
       asm
     end
@@ -156,7 +158,7 @@ module Megam
     end
 
     def self.create(params)
-      asm = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key], params["host"] || params[:host])
+      asm = from_hash(params)
       asm.create
     end
 
@@ -165,14 +167,22 @@ module Megam
       megam_rest.post_assemblies(to_hash)
     end
 
+=begin
     # Load a account by email_p
-    def self.show(one_assemblies_id, tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-      asm = self.new(tmp_email, tmp_api_key, tmp_host)
+    def self.show(one_assemblies_id, tmp_email=nil, tmp_api_key=nil, tmp_host=nil, tmp_org_id=nil)
+      asm = self.new(tmp_email, tmp_api_key, tmp_host, tmp_org_id)
       asm.megam_rest.get_one_assemblies(one_assemblies_id)
+    end
+=end
+
+    # Load a account by email_p
+    def self.show(o)
+      asm = self.new({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => nil, :org_id => o[:org_id]})
+      asm.megam_rest.get_one_assemblies(o[:assemblies_id])
     end
 
     def self.list(params)
-      asm = self.new(params["email"], params["api_key"], params["host"])
+      asm = self.new({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => nil, :org_id => o[:org_id]})
       asm.megam_rest.get_assemblies
     end
 
