@@ -203,13 +203,19 @@ module Megam
       asm.update
    end
 
+   def self.upgrade(params)
+     asm = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
+     asm.megam_rest.upgrade_assembly(params['id'])
+   end
+
     # Create the node via the REST API
     def update
       megam_rest.update_assembly(to_hash)
-    end
+    end   
 
     def to_s
       Megam::Stuff.styled_hash(to_hash)
     end
   end
 end
+

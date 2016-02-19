@@ -3,12 +3,13 @@ require File.expand_path("#{File.dirname(__FILE__)}/components")
 require File.expand_path("#{File.dirname(__FILE__)}/outputs")
 
 module Megam
-  class  Mixins
+  class Mixins
     class Assembly
-      attr_reader :components, :policies, :outputs, :mixins
-
+      attr_reader :id, :name, :components, :policies, :outputs, :envs, :mixins
       def initialize(params)
-	params = Hash[params.map{ |k, v| [k.to_sym, v] }]
+        params = Hash[params.map { |k, v| [k.to_sym, v] }]
+        @id = params[:id] || params[:assemblyID] || ''
+        @name = params[:assemblyname]
         @mixins = CommonDeployable.new(params)
         @outputs = Outputs.new(params)
         @components = add_components(params)
@@ -17,26 +18,28 @@ module Megam
 
       def to_hash
         result = @mixins.to_hash
-        result[:components]  = @components if @components
-        result[:outputs] = @outputs.to_array  if @outputs
+        result[:id] = @id if @id
+        result[:name] = @name if @name
+        result[:components] = @components if @components
+        result[:outputs] = @outputs.to_array if @outputs
         result[:policies] = @policies if @policies
         result
       end
 
       private
+
       # If @components_enabled for type
-      def components_enabled?
-        true # enable if its not a TORPEDO
+      def components_enabled?(params)
+        true if params[:cattype] != 'TORPEDO'.freeze
       end
 
       def add_components(params)
-        unless components_enabled?
-          @components = Components.new(params)
-	else
-	  @components = []
+        if components_enabled?(params)
+          @components = Components.new(params).to_a
+        else
+          @components = []
         end
       end
-
     end
   end
 end

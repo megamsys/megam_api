@@ -1,20 +1,18 @@
 module Nilavu
   module MegamAttributes
     ATTRIBUTES = []
-	KEY = "key".freeze
-	VALUE = "value".freeze
+    KEY = 'key'.freeze
+    VALUE = 'value'.freeze
     attr_accessor *ATTRIBUTES
+    def attributes
+      NotImplementedError
+    end
 
-	def attributes
-		NotImplementedError
-	end
-    def initialize(control_data={})
+    def initialize(control_data = {})
       set_attributes(control_data)
     end
 
     def set_attributes(control_data)
-      #control_data.symbolize_keys!
-      #control_data = Hash[control_data.map{ |k, v| [k.to_sym, v] }]
       attributes.each { |a| instance_variable_set("@#{a}", control_data[a]) unless control_data[a].nil? }
     end
 

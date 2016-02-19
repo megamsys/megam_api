@@ -25,11 +25,8 @@ module Megam
       configuration.inspect
     end
 
-    megam_api_server_url   "http://localhost:9000"
-
-    megam_api_version      "v2"
-
     email nil
+    password nil
     api_key nil
 
     # Set these to enable SSL authentication / mutual-authentication

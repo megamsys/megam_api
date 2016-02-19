@@ -53,7 +53,7 @@ class TestApps < MiniTest::Unit::TestCase
        "tosca_type" => "tosca.torpedo.coreos",
         "inputs" => [{
           "key" => "Domain",
-          "value" => "megmbox.com"
+          "value" => ""
         },
         {
           "key" => "sshKey",
