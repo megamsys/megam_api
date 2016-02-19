@@ -1,7 +1,6 @@
 module Megam
   class API
 
-    # GET /nodes
     def get_marketplaceapps
       @options = {:path => '/marketplaces',:body => ""}.merge(@options)
 
