@@ -98,6 +98,7 @@ module Megam
     X_Megam_DATE = 'X-Megam-DATE'.freeze
     X_Megam_HMAC = 'X-Megam-HMAC'.freeze
     X_Megam_OTTAI = 'X-Megam-OTTAI'.freeze
+    X_Megam_ORG = 'X-Megam-ORG'.freeze
 
     HEADERS = {
       'Accept' => 'application/json',
@@ -112,6 +113,7 @@ module Megam
       host: '127.0.0.1',
       nonblock: false,
       scheme: 'http'
+      port: 9000
     }
 
     def text
@@ -215,8 +217,8 @@ module Megam
       @options[:path] = API_VERSION2 + @options[:path]
       encoded_api_header = encode_header(@options)
       @options[:headers] = HEADERS.merge(X_Megam_HMAC => encoded_api_header[:hmac],
-      X_Megam_DATE => encoded_api_header[:date]).merge(@options[:headers])
-      @options[:headers] = @options[:headers].merge('X-Megam-PUTTUSAVI' => "true", 'X-Megam-PASSWORD' => "#{@password}") unless (@password == "" || @password.nil?)
+      X_Megam_DATE => encoded_api_header[:date], X_Megam_ORG => "ORG123").merge(@options[:headers])
+      @options[:headers] = @options[:headers].merge('X-Megam-PUTTUSAVI' => "true") unless (@password == "" || @password.nil?)
       Megam::Log.debug('HTTP Request Data:')
       Megam::Log.debug("> HTTP #{@options[:scheme]}://#{@options[:host]}")
       @options.each do |key, value|
