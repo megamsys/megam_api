@@ -252,10 +252,10 @@ module Megam
 
       digest  = OpenSSL::Digest.new('sha1')
       movingFactor = data.rstrip!
-      if @password == "" || @password.nil?
+      if @password == "" || !(@api_key.nil?)
       hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
       else
-      hash = OpenSSL::HMAC.hexdigest(digest, @password, movingFactor)
+      hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
       end
       final_hmac = @email + ':' + hash
       header_params = { hmac: final_hmac, date: current_date }

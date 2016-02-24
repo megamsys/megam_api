@@ -41,7 +41,7 @@ def megams(options={})
 s_options = SANDBOX_HOST_OPTIONS.merge({
   :email => "test@megam.io",
   :api_key => "",
-  :password => "megam"
+  :password => "bWVnYW0="
 
 })
 
