@@ -7,7 +7,7 @@ require 'time'
 
 SANDBOX_HOST_OPTIONS = {
       :scheme => 'http',
-  :host => '192.168.1.243',
+  :host => '192.168.1.105',
       :nonblock => false,
   :port => 9000
    #:port => 443
@@ -21,7 +21,7 @@ end
 
 def megams_new(options={})
 s_options = SANDBOX_HOST_OPTIONS.merge({
-  :email => "coolvader@iamswag.com",
+  :email => "test@megam.io",
   :api_key => "IamAtlas{74}NobdyCanSedfefdeME#07"
 })
   options = s_options.merge(options)
@@ -41,7 +41,7 @@ def megams(options={})
 s_options = SANDBOX_HOST_OPTIONS.merge({
   :email => "test@megam.io",
   :api_key => "",
-  :password => "$2a$10$ebE.KJITo19bkJ/s8gMFpuXkMh2Tu5vL4eVcgJN7THYD1/zjcmxq3"
+  :password => "bWVnYW0="
 
 })
 
@@ -80,11 +80,11 @@ def sandbox_name
 end
 
 def sandbox_apikey
- "IamAtlas{74}NobdyCanSedfefdeME#07"
+ "faketour"
 end
 
 def sandbox_email
 #  "darth@vader.com"
 #"qwe@qwe.co"
-"coolvader@iamswag.com"
+"tour@megam.io"
 end

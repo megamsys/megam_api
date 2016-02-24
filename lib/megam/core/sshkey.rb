@@ -18,8 +18,9 @@ module Megam
     def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @name = nil
-      @accounts_id = nil
-      @path=nil
+      @org_id = nil
+      @privatekey=nil
+      @publickey=nil
       @created_at = nil
       @some_msg = {}
       super(email, api_key, host)
@@ -45,21 +46,30 @@ module Megam
       end
     end
 
-    def accounts_id(arg=nil)
+    def org_id(arg=nil)
       if arg != nil
-        @accounts_id= arg
+        @org_id= arg
       else
-      @accounts_id
+      @org_id
       end
     end
 
-    def path(arg=nil)
+    def privatekey(arg=nil)
       if arg != nil
-        @path= arg
+        @privatekey = arg
       else
-      @path
+      @privatekey
       end
     end
+
+    def publickey(arg=nil)
+      if arg != nil
+        @publickey = arg
+      else
+      @publikey
+      end
+    end
+
 
     def created_at(arg=nil)
       if arg != nil
@@ -87,8 +97,9 @@ module Megam
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
       index_hash["name"] = name
-      index_hash["accounts_id"] = accounts_id
-      index_hash["path"] = path
+      index_hash["org_id"] = org_id
+      index_hash["privatekey"] = privatekey
+      index_hash["publickey"] = publickey
       index_hash["created_at"] = created_at
       index_hash
     end
@@ -103,8 +114,9 @@ module Megam
       result = {
         "id" => id,
         "name" => name,
-        "accounts_id" => accounts_id,
-        "path" => path,
+        "org_id" => org_id,
+        "privatekey" => privatekey,
+        "publickey" => publickey,
         "created_at" => created_at
       }
       result
@@ -115,7 +127,8 @@ module Megam
       sshKey = new
       sshKey.id(o["id"]) if o.has_key?("id")
       sshKey.name(o["name"]) if o.has_key?("name")
-      sshKey.path(o["path"]) if o.has_key?("path")
+      sshKey.privatekey(o["privatekey"]) if o.has_key?("privatekey")
+      sshKey.publickey(o["publickey"]) if o.has_key?("publickey")
       sshKey.created_at(o["created_at"]) if o.has_key?("created_at")
       #success or error
       sshKey.some_msg[:code] = o["code"] if o.has_key?("code")
@@ -134,7 +147,9 @@ module Megam
     def from_hash(o)
       @id        = o[:id] if o.has_key?(:id)
       @name = o[:name] if o.has_key?(:name)
-      @path   = o[:path] if o.has_key?(:path)
+      @org_id = o[:org_id] if o.has_key?(:org_id)
+      @privatekey = o[:privatekey] if o.has_key?(:privatekey)
+      @publickey = o[:publickey] if o.has_key?(:publickey)
       @created_at   = o[:created_at] if o.has_key?(:created_at)
       self
     end
