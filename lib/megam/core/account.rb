@@ -181,7 +181,7 @@ module Megam
 
     # Create a Megam::Account from JSON (used by the backgroud job workers)
     def self.json_create(o)
-      acct = new
+      acct = new({})
       acct.id(o["id"]) if o.has_key?("id")
       acct.email(o["email"]) if o.has_key?("email")
       acct.api_key(o["api_key"]) if o.has_key?("api_key")

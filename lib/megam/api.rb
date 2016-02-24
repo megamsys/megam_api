@@ -187,7 +187,7 @@ module Megam
         Megam::Log.debug("#{response.body}")
 
         begin
-          unless response.headers[X_Megam_OTTAI]
+          unless response.headers[X_Megam_OTTAI]           
             response.body = Megam::JSONCompat.from_json(response.body.chomp)
             Megam::Log.debug('RESPONSE: Ruby Object')
           else
@@ -251,11 +251,11 @@ module Megam
       data = "#{current_date}" + "\n" + "#{cmd_parms[:path]}" + "\n" + "#{body_base64}"
 
       digest  = OpenSSL::Digest.new('sha1')
-      movingFactor = data.rstrip!
-      if @password == "" || !(@api_key.nil?)
-      hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
+      movingFactor = data.rstrip!     
+      if !(@password.nil?)
+        hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
       else
-      hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
+        hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
       end
       final_hmac = @email + ':' + hash
       header_params = { hmac: final_hmac, date: current_date }

@@ -113,7 +113,7 @@ module Megam
 
     #
     def self.json_create(o)
-      aunit = new
+      aunit = new({})
       aunit.id(o["id"]) if o.has_key?("id")
       aunit.name(o["name"]) if o.has_key?("name")     
       aunit.duration(o["duration"]) if o.has_key?("duration")

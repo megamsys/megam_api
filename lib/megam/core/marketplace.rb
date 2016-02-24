@@ -17,28 +17,29 @@ require 'hashie'
 
 module Megam
   class MarketPlace < Megam::ServerAPI
-    def initialize(email = nil, api_key = nil, host = nil)
+    def initialize(o)
       @id = nil
-      @name = nil
+      @settings_name = nil
       @cattype = nil
-      @order = nil
+      @flavor = nil
       @image = nil
+      @catorder = nil
       @url = nil
       @envs = []
       @plans = nil
       @created_at = nil
-      super(email, api_key, host)
+      super(o)
     end
 
     def market_place
       self
     end
 
-    def name(arg = nil)
+    def settings_name(arg = nil)
       if !arg.nil?
-        @name = arg
+        @settings_name = arg
       else
-        @name
+        @settings_name
       end
     end
 
@@ -66,11 +67,19 @@ module Megam
       end
     end
 
-    def order(arg = nil)
+    def flavor(arg = nil)
       if !arg.nil?
-        @order = arg
+        @flavor = arg
       else
-        @order
+        @flavor
+      end
+    end
+    
+    def catorder(arg = nil)
+      if !arg.nil?
+        @catorder = arg
+      else
+        @catorder
       end
     end
 
@@ -124,10 +133,11 @@ module Megam
       index_hash = {}
       index_hash['json_claz'] = self.class.name
       index_hash['id'] = id
-      index_hash['name'] = name
+      index_hash['settings_name'] = settings_name
       index_hash['cattype'] = cattype
-      index_hash['order'] = order
+      index_hash['flavor'] = flavor
       index_hash['image'] = image
+      index_hash['catorder'] = catorder
       index_hash['url'] = url
       index_hash['envs'] = envs
       index_hash['plans'] = plans
@@ -144,10 +154,11 @@ module Megam
     def for_json
       result = {
         'id' => id,
-        'name' => name,
+        'settings_name' => settings_name,
         'cattype' => cattype,
-        'order' => order,
+        'flavor' => flavor,
         'image' => image,
+        'catorder' => catorder,
         'url' => url,
         'envs' => envs,
         'plans' => plans,
@@ -157,12 +168,13 @@ module Megam
     end
 
     def self.json_create(o)
-      app = new
+      app = new({})
       app.id(o['id']) if o.key?('id')
-      app.name(o['name']) if o.key?('name')
+      app.settings_name(o['settings_name']) if o.key?('settings_name')
       app.cattype(o['cattype']) if o.key?('cattype')
-      app.order(o['order']) if o.key?('order')
+      app.flavor(o['flavor']) if o.key?('flavor')
       app.image(o['image']) if o.key?('image')
+      app.catorder(o['catorder']) if o.key?('catorder')
       app.url(o['url']) if o.key?('url')
       app.envs(o['envs']) if o.key?('envs')
       app.plans(o['plans']) if o.key?('plans')
@@ -171,18 +183,19 @@ module Megam
       app
     end
 
-    def self.from_hash(o, tmp_email = nil, tmp_api_key = nil, tmp_host = nil)
-      app = new(tmp_email, tmp_api_key, tmp_host)
+    def self.from_hash(o)
+      app = new(o)
       app.from_hash(o)
       app
     end
 
     def from_hash(o)
-      @name           = o['name'] if o.key?('name')
+      @settings_name  = o['settings_name'] if o.key?('settings_name')
       @id             = o['id'] if o.key?('id')
       @cattype        = o['cattype'] if o.key?('cattype')
-      @order          = o['order'] if o.key?('order')
+      @flavor         = o['flavor'] if o.key?('flavor')
       @image          = o['image'] if o.key?('image')
+      @catorder            = o['catorder'] if o.key?('catorder')
       @url            = o['url'] if o.key?('url')
       @envs           = o['envs'] if o.key?('envs')
       @plans          = o['plans'] if o.key?('plans')
@@ -191,7 +204,7 @@ module Megam
     end
 
     def self.create(params)
-      acct = from_hash(params, params['email'], params['api_key'], params['host'])
+      acct = from_hash(params)
       acct.create
     end
 
@@ -202,12 +215,12 @@ module Megam
 
     # Load a account by email_p
     def self.show(params)
-      app = new(params['email'], params['api_key'], params['host'])
+      app = new(params)
       app.megam_rest.get_marketplaceapp(params['id'])
     end
 
     def self.list(params)
-      app = new(params['email'], params['api_key'], params['host'])
+      app = new(params)
       app.megam_rest.get_marketplaceapps
     end
 

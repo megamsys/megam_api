@@ -16,7 +16,7 @@
 
 module Megam
   class Assembly < Megam::ServerAPI
-    def initialize(email = nil, api_key = nil, host = nil)
+    def initialize(o)
       @id = nil
       @asms_id = nil
       @name = nil
@@ -28,7 +28,7 @@ module Megam
       @status = nil
       @created_at = nil
 
-      super(email, api_key, host)
+      super(o)
     end
 
     def assembly
@@ -124,7 +124,7 @@ module Megam
       index_hash = {}
       index_hash['json_claz'] = self.class.name
       index_hash['id'] = id
-       index_hash["asms_id"] = asms_id
+      index_hash["asms_id"] = asms_id
       index_hash['name'] = name
       index_hash['components'] = components
       index_hash['tosca_type'] = tosca_type
@@ -159,7 +159,7 @@ module Megam
     end
 
     def self.json_create(o)
-      asm = new
+      asm = new({})
       asm.id(o['id']) if o.key?('id')
       asm.asms_id(o["asms_id"]) if o.has_key?("asms_id")
       asm.name(o['name']) if o.key?('name')
@@ -173,15 +173,15 @@ module Megam
       asm
     end
 
-    def self.from_hash(o, tmp_email = nil, tmp_api_key = nil, tmp_host = nil)
-      asm = new(tmp_email, tmp_api_key, tmp_host)
+    def self.from_hash(o)
+      asm = new(o)
       asm.from_hash(o)
       asm
     end
 
     def from_hash(o)
       @id                = o['id'] if o.key?('id')
-       @asms_id         = o["asms_id"] if o.has_key?("asms_id")
+      @asms_id           = o["asms_id"] if o.has_key?("asms_id")
       @name              = o['name'] if o.key?('name')
       @components        = o['components'] if o.key?('components')
       @tosca_type        = o['tosca_type'] if o.key?('tosca_type')
@@ -194,17 +194,17 @@ module Megam
     end
 
     def self.show(params)
-      asm = new(params['email'], params['api_key'], params['host'])
+      asm = new(params)
       asm.megam_rest.get_one_assembly(params['id'])
     end
 
     def self.update(params)
-      asm = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
+      asm = from_hash(params)
       asm.update
    end
 
    def self.upgrade(params)
-     asm = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
+     asm = from_hash(params)
      asm.megam_rest.upgrade_assembly(params['id'])
    end
 

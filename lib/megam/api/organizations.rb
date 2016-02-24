@@ -1,57 +1,51 @@
 module Megam
   class API
+    def get_organizations
 
-def get_organizations
+      @options = {:path => '/organizations',:body => ''}.merge(@options)
 
-  @options = {:path => '/organizations',:body => ''}.merge(@options)
-
-  request(
+      request(
         :expects => 200,
         :method => :get,
         :body => @options[:body]
 
   )
- end
+    end
 
-def get_organization(id)
+    def get_organization(id)
 
-  @options = {:path => "/organizations/#{id}",
+      @options = {:path => "/organizations/#{id}",
     :body => ''}.merge(@options)
 
-  request(
+      request(
     :expects  => 200,
     :method   => :get,
     :body     => @options[:body]
   )
-end
+    end
 
-
-def post_organization(new_organization)
+    def post_organization(new_organization)
 
       @options = {:path => '/organizations/content',
         :body =>  Megam::JSONCompat.to_json(new_organization)}.merge(@options)
 
-
-              request(
+      request(
                 :expects  => 201,
                 :method   => :post,
                 :body     => @options[:body]
                 )
-            end
-
-
+    end
 
     def update_organization(new_organization)
 
-        @options = {:path => '/organizations/update',
+      @options = {:path => '/organizations/update',
             :body =>  Megam::JSONCompat.to_json(new_organization)}.merge(@options)
 
-
-          request(
+      request(
               :expects  => 201,
               :method   => :post,
               :body     => @options[:body]
             )
-        end
-      end
+    end
+  end
 end
