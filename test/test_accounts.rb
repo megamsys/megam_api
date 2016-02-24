@@ -25,16 +25,16 @@ end
       "id" => "000099090909000",
       "first_name" => "Darth",
       "last_name" => "Vader",
-      "email" => "coolvader@iamswag.com",
+      "email" => "test@megam.io.com",
       "phone" => "19090909090",
       "api_key" => "IamAtlas{74}NobdyCanSedfefdeME#07",
       "authority" => "admin",
-      "password" => "",
+      "password" => "megam",
       "password_reset_key" => "",
       "password_reset_sent_at" => "",
       "created_at" => "2014-10-29 13:24:06 +0000"
       }
-    response =megams.post_accounts(tmp_hash)
+    response =megams_new.post_accounts(tmp_hash)
     response.body.to_s
     assert_equal(201, response.status)
   end
