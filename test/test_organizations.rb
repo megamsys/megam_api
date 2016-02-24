@@ -18,9 +18,7 @@ class TestOrganizations < MiniTest::Unit::TestCase
     tmp_hash = {
      "name" => "org.megam1"}
     response =megams.post_organization(tmp_hash)
-    puts "printing--------------------->>>>"
     puts response.body.to_s
-    puts "printingzzzzzzzzzzzzzzzzzzzzzzzz>>>>>"
     #response.body.to_s
     #assert_equal(201, response.status)
   end

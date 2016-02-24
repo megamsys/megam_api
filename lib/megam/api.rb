@@ -134,6 +134,7 @@ module Megam
       @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
       @email = @options.delete(:email)
       @password = @options.delete(:password)
+      @org_id = @options.delete(:org_id)
       fail Megam::API::Errors::AuthKeysMissing if (@email.nil? && @api_key.nil?) || (@email.nil? && @password.nil?)
     end
 
@@ -217,7 +218,7 @@ module Megam
       @options[:path] = API_VERSION2 + @options[:path]
       encoded_api_header = encode_header(@options)
       @options[:headers] = HEADERS.merge(X_Megam_HMAC => encoded_api_header[:hmac],
-      X_Megam_DATE => encoded_api_header[:date], X_Megam_ORG => "ORG123").merge(@options[:headers])
+      X_Megam_DATE => encoded_api_header[:date], X_Megam_ORG => "#{@org_id}").merge(@options[:headers])
       @options[:headers] = @options[:headers].merge('X-Megam-PUTTUSAVI' => "true") unless (@password == "" || @password.nil?)
       Megam::Log.debug('HTTP Request Data:')
       Megam::Log.debug("> HTTP #{@options[:scheme]}://#{@options[:host]}")

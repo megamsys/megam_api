@@ -80,11 +80,11 @@ def sandbox_name
 end
 
 def sandbox_apikey
- "IamAtlas{74}NobdyCanSedfefdeME#07"
+ "faketour"
 end
 
 def sandbox_email
 #  "darth@vader.com"
 #"qwe@qwe.co"
-"coolvader@iamswag.com"
+"tour@megam.io"
 end
