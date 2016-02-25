@@ -124,7 +124,7 @@ module Megam
 
     #
     def self.json_create(o)
-      sshKey = new
+      sshKey = new({})
       sshKey.id(o["id"]) if o.has_key?("id")
       sshKey.name(o["name"]) if o.has_key?("name")
       sshKey.privatekey(o["privatekey"]) if o.has_key?("privatekey")
