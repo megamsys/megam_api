@@ -25,14 +25,12 @@ module Megam
       @assemblies = []
       @inputs = []
       @created_at = nil
-      #super(email, api_key, host)
-      super({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => o[:password], :org_id => o[:org_id]})
+      super(o)
     end
 
     def assemblies
       self
     end
-
 
     def id(arg=nil)
       if arg != nil
@@ -47,6 +45,14 @@ module Megam
         @accounts_id = arg
       else
       @accounts_id
+      end
+    end
+    
+    def org_id(arg=nil)
+      if arg != nil
+        @org_id = arg
+      else
+      @org_id
       end
     end
 
@@ -73,7 +79,6 @@ module Megam
       @assemblies
       end
     end
-
 
     def inputs(arg=[])
       if arg != []
@@ -129,7 +134,7 @@ module Megam
     end
 
     def self.json_create(o)
-      asm = new
+      asm = new({})
       asm.id(o["id"]) if o.has_key?("id")
       asm.name(o["name"]) if o.has_key?("name")
       asm.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
@@ -141,7 +146,7 @@ module Megam
     end
 
     def self.from_hash(o)
-      asm = self.new({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => nil, :org_id => o[:org_id]})
+      asm = self.new(o)
       asm.from_hash(o)
       asm
     end
@@ -150,9 +155,9 @@ module Megam
       @id                = o["id"] if o.has_key?("id")
       @name              = o["name"] if o.has_key?("name")
       @accounts_id       = o["accounts_id"] if o.has_key?("accounts_id")
-      @org_id       = o["org_id"] if o.has_key?("org_id")
+      @org_id            = o["org_id"] if o.has_key?("org_id")
       @assemblies        = o["assemblies"] if o.has_key?("assemblies")
-      @inputs             = o["inputs"] if o.has_key?("inputs")
+      @inputs            = o["inputs"] if o.has_key?("inputs")
       @created_at        = o["created_at"] if o.has_key?("created_at")
       self
     end
@@ -167,22 +172,14 @@ module Megam
       megam_rest.post_assemblies(to_hash)
     end
 
-=begin
-    # Load a account by email_p
-    def self.show(one_assemblies_id, tmp_email=nil, tmp_api_key=nil, tmp_host=nil, tmp_org_id=nil)
-      asm = self.new(tmp_email, tmp_api_key, tmp_host, tmp_org_id)
-      asm.megam_rest.get_one_assemblies(one_assemblies_id)
-    end
-=end
-
     # Load a account by email_p
     def self.show(o)
-      asm = self.new({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => nil, :org_id => o[:org_id]})
+      asm = self.new(o)
       asm.megam_rest.get_one_assemblies(o[:assemblies_id])
     end
 
     def self.list(params)
-      asm = self.new({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => nil, :org_id => o[:org_id]})
+      asm = self.new(params)
       asm.megam_rest.get_assemblies
     end
 
