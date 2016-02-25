@@ -7,6 +7,7 @@ class TestAccounts < MiniTest::Unit::TestCase
   $tom_email = "tom@gomegam.com"
   $bob_email = "bob@gomegam.com"
 #=begin
+
 def test_signin_auth
     response =megams.get_accounts("test@megam.io")
     response.body.to_s
@@ -19,6 +20,8 @@ end
     assert_equal(200, response.status)
   end
 
+
+#=begin
 
   def test_post_accounts_good
     tmp_hash = {
