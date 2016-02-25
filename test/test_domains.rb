@@ -9,20 +9,21 @@ class TestDomains < MiniTest::Unit::TestCase
 
 #=begin
   def test_get_domains_good
-    response =megams.get_domains(domain_name)
-    response.body.to_s
+    response =megams.get_domains
+
     assert_equal(200, response.status)
   end
 
 #=end
-
+#=begin
   def test_post_domains_good
   tmp_hash = {
-    "name" => "dmnname1"}
+    "name" => "defaultOrg"
+  }
 
     response =megams.post_domains(tmp_hash)
     response.body.to_s
     assert_equal(201, response.status)
   end
-
+#=end
 end

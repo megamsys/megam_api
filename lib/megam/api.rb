@@ -59,6 +59,7 @@ require 'megam/core/marketplace_collection'
 require 'megam/core/organizations'
 require 'megam/core/organizations_collection'
 require 'megam/core/domains'
+require 'megam/core/domain_collection'
 require 'megam/core/assemblies'
 require 'megam/core/assemblies_collection'
 require 'megam/core/csar'
@@ -187,7 +188,7 @@ module Megam
         Megam::Log.debug("#{response.body}")
 
         begin
-          unless response.headers[X_Megam_OTTAI]           
+          unless response.headers[X_Megam_OTTAI]
             response.body = Megam::JSONCompat.from_json(response.body.chomp)
             Megam::Log.debug('RESPONSE: Ruby Object')
           else
@@ -251,7 +252,7 @@ module Megam
       data = "#{current_date}" + "\n" + "#{cmd_parms[:path]}" + "\n" + "#{body_base64}"
 
       digest  = OpenSSL::Digest.new('sha1')
-      movingFactor = data.rstrip!     
+      movingFactor = data.rstrip!
       if !(@password.nil?)
         hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
       else

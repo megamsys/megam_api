@@ -16,11 +16,11 @@
 
 module Megam
   class Domains < Megam::ServerAPI
-   def initialize(email=nil, api_key=nil, host=nil)
+   def initialize(o)
      @id = nil
      @name = nil
      @created_at = nil
-     super(email, api_key, host)
+     super(o)
    end
 
 
@@ -83,7 +83,7 @@ end
 
 # Create a Megam::Domains from JSON (used by the backgroud job workers)
 def self.json_create(o)
-  dmn = new
+  dmn = new({})
   dmn.id(o["id"]) if o.has_key?("id")
   dmn.name(o["name"]) if o.has_key?("name")
   dmn.created_at(o["created_at"]) if o.has_key?("created_at")
@@ -91,7 +91,7 @@ def self.json_create(o)
 end
 
 def self.from_hash(o)
-  dmn = self.new(o[:email], o[:api_key], o[:host])
+  dmn = self.new(o)
   dmn.from_hash(o)
   dmn
 end
@@ -103,17 +103,20 @@ def from_hash(o)
   self
 end
 
-def self.create(o)
-  dmn = from_hash(o)
+def self.create(params)
+  dmn = from_hash(params)
   dmn.create
 end
 
 # Load a Domain by email_p
-def self.show(email,api_key,host=nil)
-  dmn = self.new(email, api_key, host)
-  dmn.megam_rest.get_domains(email)
+def self.show(params)
+  dmn = self.new(params)
+  dmn.megam_rest.get_one_domains(params['name'])
 end
-
+def self.list(params)
+  dmn = self.new(params)
+  dmn.megam_rest.get_domains
+end
 
 def create
       megam_rest.post_domains(to_hash)

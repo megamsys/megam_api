@@ -8,14 +8,14 @@ class TestOrganizations < MiniTest::Unit::TestCase
   $bob_email = "bob@gomegam.com"
 
 
-=begin
+#=begin
   def test_post_organizations_good
     tmp_hash = {
      "name" => "org.megam1"}
     response =megams.post_organization(tmp_hash)
     assert_equal(201, response.status)
   end
-=end
+#=end
 #=begin
 def test_get_organizations_good1
     response =megams.get_organizations
@@ -38,7 +38,7 @@ def test_update_organizations
 =end
 =begin
 def test_get_organization
-  response = megams.get_organization("ORG1257711897088753664")
+  response = megams.get_organization("ORG8032139491299205131")
   assert_equal(200, response.status)
 end
 =end

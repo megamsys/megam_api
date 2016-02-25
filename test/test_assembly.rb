@@ -4,7 +4,7 @@ class TestApps < MiniTest::Unit::TestCase
 
 #=begin
   def test_get_assembly
-    response = megams.get_one_assembly("ASM9070050271024385313")
+    response = megams.get_one_assembly("ASM8853942227766728513")
     assert_equal(200, response.status)
   end
 #=end
@@ -12,7 +12,7 @@ class TestApps < MiniTest::Unit::TestCase
   def test_update_assembly
     tmp_hash =  {
 
-      "id" => "ASM9070050271024385313",
+      "id" => "ASM8853942227766728513",
       "org_id" => "ORG123",
       "json_claz" => "Megam::Assembly",
       "name" => "calcines",
