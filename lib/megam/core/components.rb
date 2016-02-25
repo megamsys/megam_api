@@ -16,7 +16,7 @@
 
 module Megam
   class Components < Megam::ServerAPI
-    def initialize(email = nil, api_key = nil, host = nil)
+    def initialize(o)
       @id = nil
       @name = nil
       @tosca_type = nil
@@ -37,7 +37,7 @@ module Megam
       @url = nil
       @created_at = nil
 
-      super(email, api_key, host)
+      super(o)
     end
 
     def components
@@ -244,7 +244,7 @@ module Megam
     end
 
     def self.json_create(o)
-      asm = new
+      asm = new({})
       asm.id(o['id']) if o.key?('id')
       asm.name(o['name']) if o.key?('name')
       asm.tosca_type(o['tosca_type']) if o.key?('tosca_type')
@@ -269,8 +269,8 @@ module Megam
       asm
     end
 
-    def self.from_hash(o, tmp_email = nil, tmp_api_key = nil, tmp_host = nil)
-      asm = new(tmp_email, tmp_api_key, tmp_host)
+    def self.from_hash(o)
+      asm = new(o)
       asm.from_hash(o)
       asm
     end
@@ -292,18 +292,18 @@ module Megam
     end
 
     def self.create(params)
-      asm = from_hash(params, params['email'], params['api_key'], params['host'])
+      asm = from_hash(params)
       asm.create
     end
 
     # Load a account by email_p
     def self.show(params)
-      asm = new(params['email'], params['api_key'], params['host'])
+      asm = new(params)
       asm.megam_rest.get_components(params['id'])
     end
 
     def self.update(params)
-      asm = from_hash(params, params['email'] || params[:email], params['api_key'] || params[:api_key], params['host'] || params[:host])
+      asm = from_hash(params)
       asm.update
     end
 
