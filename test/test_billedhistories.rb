@@ -15,12 +15,12 @@ class TestApps < MiniTest::Unit::TestCase
   end
 =end
 
-#=begin
+=begin
   def test_get_billedhistories
     response = megams.get_billedhistories
     assert_equal(200, response.status)
   end
-#=end
+=end
 =begin
   def test_get_billedhistories
     response = megams.get_billedhistory("iaas_default")

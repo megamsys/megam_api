@@ -7,14 +7,14 @@ class TestDomains < MiniTest::Unit::TestCase
   $tom_email = "tom@gomegam.com"
   $bob_email = "bob@gomegam.com"
 
-=begin
+#=begin
   def test_get_domains_good
     response =megams.get_domains(domain_name)
     response.body.to_s
     assert_equal(200, response.status)
   end
 
-=end
+#=end
 
   def test_post_domains_good
   tmp_hash = {
