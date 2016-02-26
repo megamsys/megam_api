@@ -3,14 +3,14 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 class TestApps < MiniTest::Unit::TestCase
 #=begin
   def test_get_component
-    response = megams.get_components("COM6782254747239955545")
+    response = megams.get_components("COM6497449919563135256")
     assert_equal(200, response.status)
   end
 #=end
 #=begin
   def test_update_component
     tmp_hash = {
-      "id" => "COM6782254747239955545",
+      "id" => "COM6497449919563135256",
       "name" => "NettieMoore",
       "tosca_type" => "tosca.web.redis",
       "inputs" => [],
