@@ -16,30 +16,28 @@
 module Megam
   class API
 
-def get_domains(name)
+    
+    def get_domains
+      @options = {:path => "/domains", :body => ''}.merge(@options)
 
-  @options = {:path => "/domains/#{name}",
-    :body => ''}.merge(@options)
-
-  request(
-    :expects  => 200,
-    :method   => :get,
-    :body     => @options[:body]
-  )
-end
+      request(
+        :expects  => 200,
+        :method   => :get,
+        :body     => @options[:body]
+      )
+    end
 
 
-def post_domains(new_domain)
-
+    def post_domains(new_domain)
       @options = {:path => '/domains/content',
-        :body =>  Megam::JSONCompat.to_json(new_domain)}.merge(@options)
+      :body =>  Megam::JSONCompat.to_json(new_domain)}.merge(@options)
 
 
-              request(
-                :expects  => 201,
-                :method   => :post,
-                :body     => @options[:body]
-                )
-            end
-      end
+      request(
+        :expects  => 201,
+        :method   => :post,
+        :body     => @options[:body]
+      )
+    end
+  end
 end

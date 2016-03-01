@@ -100,9 +100,9 @@ module Megam
       dom.create
     end
 
-    def self.show(o)
+    def self.list(o)
       dom = from_hash(o)
-      dom.show
+      dom.megam_rest.get_domains
     end
 
     def create
