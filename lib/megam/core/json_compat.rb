@@ -44,6 +44,7 @@ module Megam
     MEGAM_CSAR                        = 'Megam::CSAR'.freeze
     MEGAM_CSARCOLLECTION              = 'Megam::CSARCollection'.freeze
     MEGAM_DOMAIN                      = 'Megam::Domains'.freeze
+    MEGAM_DOMAINCOLLECTION              = 'Megam::DomainsCollection'.freeze
     MEGAM_DISCOUNTS                   = 'Megam::Discounts'.freeze
     MEGAM_DISCOUNTSCOLLECTION         = 'Megam::DiscountsCollection'.freeze
     MEGAM_ERROR                       = 'Megam::Error'.freeze
@@ -178,6 +179,8 @@ module Megam
           Megam::CSARCollection
         when MEGAM_DOMAIN
           Megam::Domains
+        when MEGAM_DOMAINCOLLECTION
+          Megam::DomainsCollection
         when MEGAM_SENSORS
           Megam::Sensors
         when MEGAM_SENSORSCOLLECTION

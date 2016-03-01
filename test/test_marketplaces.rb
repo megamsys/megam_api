@@ -29,10 +29,10 @@ class TestMarketplaces < MiniTest::Unit::TestCase
     assert_equal(200, response.status)
   end
 #=end
-=begin
+#=begin
  def test_show_marketplace_item
-   response = megams.get_marketplaceapp("Apache")
+   response = megams.get_marketplaceapp("Ubuntu")
    assert_equal(200, response.status)
- end  
-=end
+ end
+#=end
 end

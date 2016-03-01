@@ -1,11 +1,14 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
+  #=begin
   def test_get_assemblies
     response = megams.get_assemblies
     assert_equal(200, response.status)
   end
+  #=end
 
+  #=begin
   def test_post_assembly
     tmp_hash =  {
       "name"=>"",
@@ -75,6 +78,7 @@ class TestApps < MiniTest::Unit::TestCase
     }
 
     response = megams.post_assemblies(tmp_hash)
-    assert_equal(201, response.status)
+    assert_equal(200, response.status)
   end
+#=end
 end

@@ -29,13 +29,12 @@ class TestAccounts < MiniTest::Unit::TestCase
       "id" => "w3423",
       "first_name" => "Darth",
       "last_name" => "Vader",
-      "email" => "test@megam.io",
+      "email" => "super@test.com",
       "phone" => "19090909090011111111",
       "api_key" => "IamAtlas{74}NobdyCanSedfefdeME#07",
       "password" => "tset",
       "authority" => "admin",
       "password_reset_key" => "",
-      "password_reset_sent_at" => "",
       "created_at" => "2014-10-29 13:24:06 +0000"
     }
     response = megams.update_accounts(tmp_hash)
@@ -49,4 +48,5 @@ class TestAccounts < MiniTest::Unit::TestCase
       response.body.to_s
     end
   end
+
 end

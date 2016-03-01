@@ -1,11 +1,11 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
- 
-=begin 
+
+#=begin
   def test_post_sshkey2
-    tmp_hash = { 
-      :name => "test_sample1",  
+    tmp_hash = {
+      :name => "test_sample",
       :org_id => "ORG123",
       :privatekey => "-----BEGIN RSA PRIVATE KEY-----
 MIIEpQIBAAKCAQEAz9g/LhHB7fDo85vm2O9F1oDzJhTs6PI3N6WDayZEzG4xmrZd
@@ -39,30 +39,12 @@ txyXl+iiF1+Nco4t/Jj3VvgzoIa25oQp2aeQhY7oot04UyyOYkPkkRQ=
     response = megams.post_sshkey(tmp_hash)
     assert_equal(201, response.status)
   end
-=end
-=begin
+#=end
+
+#=begin
   def test_get_sshkeys
     response = megams.get_sshkeys
     assert_equal(200, response.status)
   end
-=end
-#=begin
-  def test_get_sshkey2
-    response = megams.get_sshkey("test_sample1")
-    assert_equal(200, response.status)
-  end
-#=end  
-=begin
-  def test_get_sshkey1
-    response = megams.get_sshkey("iaas_default")
-    assert_equal(200, response.status)
-  end
-
-def test_get_sshkey_not_found
-assert_raises(Megam::API::Errors::NotFound) do
-megams.get_sshkey("stupid.megam.co")
+#=end
 end
-end
-=end
-end
-

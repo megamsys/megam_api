@@ -22,10 +22,10 @@ class TestApps < MiniTest::Unit::TestCase
     assert_equal(200, response.status)
   end
 =end
-#=begin
+=begin
   def test_get_invoice
     response = megams.get_invoice("INV1264211919892512768")
     assert_equal(200, response.status)
   end
-#=end
+=end
 end
