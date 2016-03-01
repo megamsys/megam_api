@@ -1,11 +1,24 @@
+# Copyright:: Copyright (c) 2013-2016 Megam Systems
+# License:: Apache License, Version 2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 require 'base64'
 require 'time'
 require 'excon'
 require 'uri'
 require 'zlib'
 require 'openssl'
-# open it up when needed. This will be needed when a new customer onboarded via pug.
-require 'securerandom'
 
 __LIB_DIR__ = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 $LOAD_PATH.unshift(__LIB_DIR__) unless $LOAD_PATH.include?(__LIB_DIR__)
@@ -187,7 +200,7 @@ module Megam
         Megam::Log.debug("#{response.body}")
 
         begin
-          unless response.headers[X_Megam_OTTAI]           
+          unless response.headers[X_Megam_OTTAI]
             response.body = Megam::JSONCompat.from_json(response.body.chomp)
             Megam::Log.debug('RESPONSE: Ruby Object')
           else
@@ -251,7 +264,7 @@ module Megam
       data = "#{current_date}" + "\n" + "#{cmd_parms[:path]}" + "\n" + "#{body_base64}"
 
       digest  = OpenSSL::Digest.new('sha1')
-      movingFactor = data.rstrip!     
+      movingFactor = data.rstrip!
       if !(@password.nil?)
         hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
       else

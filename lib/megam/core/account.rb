@@ -1,4 +1,4 @@
-# Copyright:: Copyright (c) 2012-2015 Megam Systems, Inc.
+# Copyright:: 2013-2016 Megam Systems, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
