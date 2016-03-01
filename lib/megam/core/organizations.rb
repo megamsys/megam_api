@@ -1,4 +1,4 @@
-# Copyright:: Copyright (c) 2012-2013 Megam Systems, Inc.
+# Copyright:: Copyright (c) 2013-2016 Megam Systems, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -127,7 +127,6 @@ module Megam
       org.create
     end
 
-    # Load a organization by email_p
     def self.show(o)
       org = from_hash(o)
       org.megam_rest.get_organizations(email)
@@ -138,7 +137,6 @@ module Megam
       org.update
     end
 
-    # Create the node via the REST API
     def update
       megam_rest.update_organization(to_hash)
     end
