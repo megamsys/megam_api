@@ -48,7 +48,7 @@ txyXl+iiF1+Nco4t/Jj3VvgzoIa25oQp2aeQhY7oot04UyyOYkPkkRQ=
 =end
 #=begin
   def test_get_sshkey2
-    response = megams.get_sshkey("test_sample")
+    response = megams.get_sshkey("test_sample1")
     assert_equal(200, response.status)
   end
 #=end  

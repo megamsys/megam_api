@@ -66,7 +66,7 @@ module Megam
       if arg != nil
         @publickey = arg
       else
-      @publikey
+      @publickey
       end
     end
 
