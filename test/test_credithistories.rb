@@ -1,9 +1,9 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-#=begin
+=begin
   def test_post_credithistories
-    tmp_hash = { :accounts_id => "ACT93476985797", 
+    tmp_hash = { :accounts_id => "ACT93476985797",
                  :bill_type => "paypal",
                  :credit_amount => "50",
                  :currency_type => ""
@@ -12,7 +12,7 @@ class TestApps < MiniTest::Unit::TestCase
     response = megams.post_credithistories(tmp_hash)
     assert_equal(201, response.status)
   end
-#=end
+=end
 
 =begin
   def test_get_credithistories
@@ -27,4 +27,3 @@ class TestApps < MiniTest::Unit::TestCase
   end
 =end
 end
-

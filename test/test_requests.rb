@@ -77,7 +77,7 @@ class TestApps < MiniTest::Unit::TestCase
 "category" => "normal" #normal(create, delete), state, control, policy
 }
 
-
+=begin
   def test_request_node_delete
 
     response = megams.post_request(@@tmp_hash)
