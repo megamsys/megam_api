@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+require 'rubygems'
 require 'hashie'
 
 module Megam
@@ -74,7 +75,7 @@ module Megam
         @flavor
       end
     end
-    
+
     def catorder(arg = nil)
       if !arg.nil?
         @catorder = arg
