@@ -10,11 +10,11 @@ class TestApps < MiniTest::Unit::TestCase
     "category" => "control"
   }
 
-
+=begin
   def test_request_app_start
     response = megams.post_catrequest(@@tmp_hash)
     assert_equal(201, response.status)
   end
-#=end
+=end
 
 end

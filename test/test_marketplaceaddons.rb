@@ -1,7 +1,7 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-#=begin
+=begin
 def test_post_addon
 @com = {
 "disaster"=>{
@@ -41,5 +41,6 @@ end
  # def test_get_nodes
  #   response = megams.get_addons("appsample1.megam.co")
   #  assert_equal(200, response.status)
- # end
+  #=end
+=end
 end

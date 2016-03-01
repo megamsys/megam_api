@@ -22,6 +22,7 @@ class TestApps < MiniTest::Unit::TestCase
      "org_id"=>"ORG123",
      "assemblies"=>[{
        "name"=>"covey",
+       "json_claz"=>"Megam::assembly",
        "tosca_type"=>"tosca.app.java",
        "inputs"=>[
          {"key"=>"domain","value"=>"megambox.com"},
@@ -85,7 +86,7 @@ class TestApps < MiniTest::Unit::TestCase
                 }
 
    response = megams.post_assemblies(tmp_hash)
-   assert_equal(200, response.status)
+   assert_equal(201, response.status)
 end
 #=end
 end
