@@ -22,7 +22,6 @@ class TestApps < MiniTest::Unit::TestCase
      "org_id"=>"ORG123",
      "assemblies"=>[{
        "name"=>"covey",
-       "json_claz"=>"Megam::assembly",
        "tosca_type"=>"tosca.app.java",
        "inputs"=>[
          {"key"=>"domain","value"=>"megambox.com"},
