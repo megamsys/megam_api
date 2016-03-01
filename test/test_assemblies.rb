@@ -2,23 +2,23 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
 
-=begin
+#=begin
   def test_get_assemblies
    response = megams.get_assemblies
    assert_equal(200, response.status)
  end
-=end
+#=end
 #=begin
  def test_get_assembly
-   response = megams.get_one_assemblies("AMS4910703635659237712")
+   response = megams.get_one_assemblies("AMS8231283327211460972")
    assert_equal(200, response.status)
  end
 #=end
 
-=begin
+#=begin
  def test_post_assembly
    tmp_hash =  {
-     "name"=>"", 
+     "name"=>"",
      "org_id"=>"ORG123",
      "assemblies"=>[{
        "name"=>"covey",
@@ -83,9 +83,9 @@ class TestApps < MiniTest::Unit::TestCase
                 {"key"=>"lastsuccessstatusupdate","value"=>"02 Feb 16 13:20 IST"},
                 {"key"=>"status","value"=>"error"}]
                 }
-                
+
    response = megams.post_assemblies(tmp_hash)
    assert_equal(200, response.status)
 end
-=end
+#=end
 end

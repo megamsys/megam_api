@@ -2,17 +2,17 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
 
-=begin
+#=begin
   def test_get_assembly
-    response = megams.get_one_assembly("ASM9070050271024385313")
+    response = megams.get_one_assembly("ASM6175632897198829431")
     assert_equal(200, response.status)
   end
-=end
+#=end
 #=begin
   def test_update_assembly
     tmp_hash =  {
 
-      "id" => "ASM9070050271024385313",
+      "id" => "ASM6175632897198829431",
       "org_id" => "ORG123",
       "json_claz" => "Megam::Assembly",
       "name" => "calcines",

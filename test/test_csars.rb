@@ -1,7 +1,7 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-
+=begin
   def test_get_csars
     response = megams.get_csars
     assert_equal(200, response.status)
@@ -18,4 +18,5 @@ class TestApps < MiniTest::Unit::TestCase
       megams.get_csar("stupid.megam.co")
     end
   end
+=end
 end
