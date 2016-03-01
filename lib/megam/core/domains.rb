@@ -74,7 +74,7 @@ module Megam
 
     # Create a Megam::Domains from JSON (used by the backgroud job workers)
     def self.json_create(o)
-      dmn = new
+      dmn = new({})
       dmn.id(o["id"]) if o.has_key?("id")
       dmn.name(o["name"]) if o.has_key?("name")
       dmn.created_at(o["created_at"]) if o.has_key?("created_at")
