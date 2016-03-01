@@ -21,7 +21,7 @@ end
   end
 
 
-#=begin
+=begin
 
   def test_post_accounts_good
     tmp_hash = {
@@ -41,7 +41,7 @@ end
     response.body.to_s
     assert_equal(201, response.status)
   end
-#=end
+=end
 
 =begin
   def test_update_accounts_good
