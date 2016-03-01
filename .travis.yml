@@ -3,9 +3,9 @@ language: ruby
 notifications:
     email:
     recipients:
-      - info@megam.io
+      - ranjithar@megam.io
 
 rvm:
-  - 2.2.4
+  - 2.3.0
 
 script: bundle exec rake
