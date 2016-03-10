@@ -77,8 +77,10 @@ class TestApps < MiniTest::Unit::TestCase
         {"key"=>"status","value"=>"error"}]
     }
 
-    response = megams.post_assemblies(tmp_hash)
-    assert_equal(200, response.status)
-  end
+
+   response = megams.post_assemblies(tmp_hash)
+   assert_equal(201, response.status)
+end
+
 #=end
 end

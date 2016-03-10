@@ -11,7 +11,7 @@ class TestApps < MiniTest::Unit::TestCase
     assert_equal(201, response.status)
   end
 #=end
-#=begin
+=begin
 def test_update_balances
   tmp_hash = {:id=>"BAL5611523197067225006",
               :accounts_id=>"ACT119501563472393011",
@@ -22,7 +22,7 @@ def test_update_balances
    response = megams.update_balance(tmp_hash)
     assert_equal(201, response.status)
 end
-#=end
+=end
 =begin
   def test_get_balances
     response = megams.get_balances

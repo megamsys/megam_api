@@ -35,7 +35,7 @@ class TestApps < MiniTest::Unit::TestCase
       "created_at" => "2014-10-29 14:06:39 +0000"
     }
     response = megams.update_component(tmp_hash)
-    assert_equal(201, response.status)
+    assert_equal(200, response.status)
   end
 #=end
 end
