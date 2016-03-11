@@ -45,14 +45,34 @@ module Megam
       @options = {:path => '/accounts/update',
      :body => Megam::JSONCompat.to_json(update_account)}.merge(@options)
 
-     request(
+      request(
       :expects => 201,
       :method => :post,
       :body => @options[:body]
       )
     end
 
+    def reset_accounts(account)
+      @options = {:path => "/accounts/reset/#{account["email"]}",
+     :body => ''}.merge(@options)
 
+      request(
+      :expects => 201,
+      :method => :get,
+      :body => @options[:body]
+      )
+    end
+
+    def repassword_accounts(account)
+      @options = {:path => "/accounts/repassword",
+     :body => Megam::JSONCompat.to_json(account)}.merge(@options)
+
+      request(
+      :expects => 201,
+      :method => :post,
+      :body => @options[:body]
+      )
+    end
 
   end
 end

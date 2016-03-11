@@ -231,14 +231,6 @@ module Megam
       megam_rest.post_accounts(to_hash)
     end
 
-=begin
-    # Load a account by email_p
-    def self.show(email,api_key,host=nil,password=nil)
-      acct = self.new(email, api_key, host, password)
-      acct.megam_rest.get_accounts(email)
-    end
-=end
-
     # Load a account by email_p
     def self.show(o)
       acct = self.new({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => o[:password], :org_id => o[:org_id]})
@@ -249,10 +241,28 @@ module Megam
      acct = from_hash(o)
      acct.update
    end
+   
+   def self.reset(o)
+     acct = from_hash(o)
+     acct.reset
+   end
+   
+   def self.repassword(o)
+     acct = from_hash(o)
+     acct.repassword
+   end
 
    # Create the node via the REST API
    def update
      megam_rest.update_accounts(to_hash)
+   end
+   
+    def reset
+     megam_rest.reset_accounts(to_hash)
+   end
+   
+   def repassword
+     megam_rest.repassword_accounts(to_hash)
    end
 
     def to_s
