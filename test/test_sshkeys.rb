@@ -5,7 +5,7 @@ class TestApps < MiniTest::Unit::TestCase
 #=begin
   def test_post_sshkey2
     tmp_hash = {
-      :name => "test_sample",
+      :name => "a@b.com_rtr",
       :org_id => "ORG123",
       :privatekey => "-----BEGIN RSA PRIVATE KEY-----
 MIIEpQIBAAKCAQEAz9g/LhHB7fDo85vm2O9F1oDzJhTs6PI3N6WDayZEzG4xmrZd

@@ -148,7 +148,9 @@ module Megam
       @email = @options.delete(:email)
       @password = @options.delete(:password)
       @org_id = @options.delete(:org_id)
-      fail Megam::API::Errors::AuthKeysMissing if (@email.nil? && @api_key.nil?) || (@email.nil? && @password.nil?)
+      unless !@options.delete(:reset_flag)
+         fail Megam::API::Errors::AuthKeysMissing if (@email.nil? && @api_key.nil?) || (@email.nil? && @password.nil?)
+      end
     end
 
     def request(params, &block)
@@ -232,7 +234,10 @@ module Megam
       encoded_api_header = encode_header(@options)
       @options[:headers] = HEADERS.merge(X_Megam_HMAC => encoded_api_header[:hmac],
       X_Megam_DATE => encoded_api_header[:date], X_Megam_ORG => "#{@org_id}").merge(@options[:headers])
-      @options[:headers] = @options[:headers].merge('X-Megam-PUTTUSAVI' => "true") unless (@password == "" || @password.nil?)
+      if (@api_key == "" || @api_key.nil?)
+         @options[:headers] = @options[:headers].merge('X-Megam-PUTTUSAVI' => "true") unless (@password == "" || @password.nil?)
+      end
+
       Megam::Log.debug('HTTP Request Data:')
       Megam::Log.debug("> HTTP #{@options[:scheme]}://#{@options[:host]}")
       @options.each do |key, value|
@@ -266,10 +271,12 @@ module Megam
 
       digest  = OpenSSL::Digest.new('sha1')
       movingFactor = data.rstrip!
-      if !(@password.nil?)
+      if !(@password.nil?) && @api_key.nil?
         hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
-      else
+      elsif !(@api_key.nil?)
         hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
+      else 
+        hash = OpenSSL::HMAC.hexdigest(digest, "", movingFactor)
       end
       final_hmac = @email + ':' + hash
       header_params = { hmac: final_hmac, date: current_date }
