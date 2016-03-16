@@ -15,7 +15,7 @@ class TestApps < MiniTest::Unit::TestCase
  end
 =end
 
-#=begin
+=begin
  def test_post_sensors
    tmp_hash =  {
 
@@ -46,5 +46,5 @@ class TestApps < MiniTest::Unit::TestCase
    response = megams.post_sensors(tmp_hash)
    assert_equal(200, response.status)
 end
-#=end
+=end
 end

@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright 2013-2016 Megam Systems
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 ##
 module Megam
   class Balances < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil, host=nil)
+    def initialize(o)
       @id = nil
       @accounts_id = nil
       @name = nil
@@ -23,7 +23,7 @@ module Megam
       @created_at = nil
       @updated_at = nil
       @some_msg = {}
-      super(email, api_key, host)
+      super(o)
     end
 
     def balances
@@ -122,7 +122,7 @@ module Megam
     end
 
     def self.json_create(o)
-      balances = new
+      balances = new({})
       balances.id(o["id"]) if o.has_key?("id")
       balances.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
       balances.name(o["name"]) if o.has_key?("name")
@@ -199,4 +199,3 @@ module Megam
 
   end
 end
-

@@ -1,4 +1,4 @@
-# Copyright:: Copyright (c) 2012-2015 Megam Systems, Inc.
+# Copyright:: 2013-2016 Megam Systems, Inc.
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -181,7 +181,7 @@ module Megam
 
     # Create a Megam::Account from JSON (used by the backgroud job workers)
     def self.json_create(o)
-      acct = new
+      acct = new({})
       acct.id(o["id"]) if o.has_key?("id")
       acct.email(o["email"]) if o.has_key?("email")
       acct.api_key(o["api_key"]) if o.has_key?("api_key")
@@ -231,14 +231,6 @@ module Megam
       megam_rest.post_accounts(to_hash)
     end
 
-=begin
-    # Load a account by email_p
-    def self.show(email,api_key,host=nil,password=nil)
-      acct = self.new(email, api_key, host, password)
-      acct.megam_rest.get_accounts(email)
-    end
-=end
-
     # Load a account by email_p
     def self.show(o)
       acct = self.new({:email => o[:email], :api_key => o[:api_key], :host => o[:host], :password => o[:password], :org_id => o[:org_id]})
@@ -249,10 +241,28 @@ module Megam
      acct = from_hash(o)
      acct.update
    end
+   
+   def self.reset(o)
+     acct = from_hash(o)
+     acct.reset
+   end
+   
+   def self.repassword(o)
+     acct = from_hash(o)
+     acct.repassword
+   end
 
    # Create the node via the REST API
    def update
      megam_rest.update_accounts(to_hash)
+   end
+   
+    def reset
+     megam_rest.reset_accounts(to_hash)
+   end
+   
+   def repassword
+     megam_rest.repassword_accounts(to_hash)
    end
 
     def to_s

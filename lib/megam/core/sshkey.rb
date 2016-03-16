@@ -1,4 +1,4 @@
-# Copyright:: Copyright (c) 2012, 2014 Megam Systems
+# Copyright:: Copyright (c) 2013-2016 Megam Systems
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
 #
 module Megam
   class SshKey < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil, host=nil)
+    def initialize(o)
       @id = nil
       @name = nil
       @org_id = nil
@@ -23,7 +23,7 @@ module Megam
       @publickey=nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key, host)
+      super(o)
     end
 
     def sshkey
@@ -66,7 +66,7 @@ module Megam
       if arg != nil
         @publickey = arg
       else
-      @publikey
+      @publickey
       end
     end
 
@@ -124,7 +124,7 @@ module Megam
 
     #
     def self.json_create(o)
-      sshKey = new
+      sshKey = new({})
       sshKey.id(o["id"]) if o.has_key?("id")
       sshKey.name(o["name"]) if o.has_key?("name")
       sshKey.privatekey(o["privatekey"]) if o.has_key?("privatekey")
@@ -138,8 +138,8 @@ module Megam
       sshKey
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-      sshKey = self.new(tmp_email, tmp_api_key, tmp_host)
+    def self.from_hash(o)
+      sshKey = self.new(o)
       sshKey.from_hash(o)
       sshKey
     end
@@ -155,7 +155,7 @@ module Megam
     end
 
     def self.create(params)
-      acct = from_hash(params, params["email"], params["api_key"], params["host"])
+      acct = from_hash(params)
       acct.create
     end
 
@@ -168,14 +168,14 @@ module Megam
     # returns a sshkeysCollection
     # don't return self. check if the Megam::SshKeyCollection is returned.
     def self.list(params)
-      sshKey = self.new(params["email"], params["api_key"], params["host"])
+      sshKey = self.new(params)
       sshKey.megam_rest.get_sshkeys
     end
 
     # Show a particular sshKey by name,
     # Megam::SshKey
     def self.show(params)
-      pre = self.new(params["email"], params["api_key"], params["host"])
+      pre = self.new(params)
       pre.megam_rest.get_sshkey(params["name"])
     end
 

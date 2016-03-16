@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright 2013-2016 Megam Systems
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 ##
 module Megam
   class Billings < Megam::ServerAPI
-    
+
     def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @accounts_id = nil
@@ -35,7 +35,7 @@ module Megam
       self
     end
 
-    
+
     def id(arg=nil)
       if arg != nil
         @id = arg
@@ -99,7 +99,7 @@ module Megam
       @phone
       end
     end
-    
+
     def bill_type(arg=nil)
       if arg != nil
         @bill_type = arg

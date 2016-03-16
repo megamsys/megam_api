@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright 2013-2016 Megam Systems
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 ##
 module Megam
   class Billedhistories < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil, host=nil)
+    def initialize(o)
       @id = nil
       @accounts_id = nil
       @assembly_id = nil
@@ -24,7 +24,7 @@ module Megam
       @currency_type = nil
       @created_at = nil
       @some_msg = {}
-      super(email, api_key, host)
+      super(o)
     end
 
     def billedhistories
@@ -134,7 +134,7 @@ module Megam
 
     #
     def self.json_create(o)
-      bal = new
+      bal = new({})
       bal.id(o["id"]) if o.has_key?("id")
       bal.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
       bal.assembly_id(o["assembly_id"]) if o.has_key?("assembly_id")
@@ -203,4 +203,3 @@ module Megam
 
   end
 end
-

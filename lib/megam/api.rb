@@ -1,11 +1,24 @@
+# Copyright:: Copyright (c) 2013-2016 Megam Systems
+# License:: Apache License, Version 2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 require 'base64'
 require 'time'
 require 'excon'
 require 'uri'
 require 'zlib'
 require 'openssl'
-# open it up when needed. This will be needed when a new customer onboarded via pug.
-require 'securerandom'
 
 __LIB_DIR__ = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 $LOAD_PATH.unshift(__LIB_DIR__) unless $LOAD_PATH.include?(__LIB_DIR__)
@@ -59,6 +72,7 @@ require 'megam/core/marketplace_collection'
 require 'megam/core/organizations'
 require 'megam/core/organizations_collection'
 require 'megam/core/domains'
+require 'megam/core/domain_collection'
 require 'megam/core/assemblies'
 require 'megam/core/assemblies_collection'
 require 'megam/core/csar'
@@ -134,7 +148,9 @@ module Megam
       @email = @options.delete(:email)
       @password = @options.delete(:password)
       @org_id = @options.delete(:org_id)
-      fail Megam::API::Errors::AuthKeysMissing if (@email.nil? && @api_key.nil?) || (@email.nil? && @password.nil?)
+      unless !@options.delete(:reset_flag)
+         fail Megam::API::Errors::AuthKeysMissing if (@email.nil? && @api_key.nil?) || (@email.nil? && @password.nil?)
+      end
     end
 
     def request(params, &block)
@@ -218,7 +234,10 @@ module Megam
       encoded_api_header = encode_header(@options)
       @options[:headers] = HEADERS.merge(X_Megam_HMAC => encoded_api_header[:hmac],
       X_Megam_DATE => encoded_api_header[:date], X_Megam_ORG => "#{@org_id}").merge(@options[:headers])
-      @options[:headers] = @options[:headers].merge('X-Megam-PUTTUSAVI' => "true") unless (@password == "" || @password.nil?)
+      if (@api_key == "" || @api_key.nil?)
+         @options[:headers] = @options[:headers].merge('X-Megam-PUTTUSAVI' => "true") unless (@password == "" || @password.nil?)
+      end
+
       Megam::Log.debug('HTTP Request Data:')
       Megam::Log.debug("> HTTP #{@options[:scheme]}://#{@options[:host]}")
       @options.each do |key, value|
@@ -252,10 +271,12 @@ module Megam
 
       digest  = OpenSSL::Digest.new('sha1')
       movingFactor = data.rstrip!
-      if @password == "" || !(@api_key.nil?)
-      hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
-      else
-      hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
+      if !(@password.nil?) && @api_key.nil?
+        hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
+      elsif !(@api_key.nil?)
+        hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
+      else 
+        hash = OpenSSL::HMAC.hexdigest(digest, "", movingFactor)
       end
       final_hmac = @email + ':' + hash
       header_params = { hmac: final_hmac, date: current_date }

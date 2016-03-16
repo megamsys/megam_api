@@ -12,30 +12,36 @@ def test_signin_auth
     response.body.to_s
     assert_equal(200, response.status)
 end
+
 =end
 =begin
+
+
+
   def test_get_accounts_good
     response =megams.get_accounts(sandbox_email)
     response.body.to_s
     assert_equal(200, response.status)
   end
-=end
-#=begin
+
+=begin
+
+
   def test_post_accounts_good
     tmp_hash = {
       "id" => "000099090909000",
       "first_name" => "Darth",
       "last_name" => "Vader",
-      "email" => "test@megam.io.com",
+      "email" => "coolvader@iamswag.com",
       "phone" => "19090909090",
       "api_key" => "faketest",
       "authority" => "admin",
-      "password" => Base64.strict_encode64('megam'),
+      "password" => "",
       "password_reset_key" => "",
       "password_reset_sent_at" => "",
       "created_at" => "2014-10-29 13:24:06 +0000"
       }
-    response =megams_new.post_accounts(tmp_hash)
+    response =megams.post_accounts(tmp_hash)
     response.body.to_s
     assert_equal(201, response.status)
   end
@@ -50,9 +56,10 @@ end
       "email" => "super@test.com",
       "phone" => "19090909090011111111",
       "api_key" => "IamAtlas{74}NobdyCanSedfefdeME#07",
-      "password" => "tset",
       "authority" => "admin",
+      "password" => "tset",
       "password_reset_key" => "",
+      "password_reset_sent_at" => "",
       "created_at" => "2014-10-29 13:24:06 +0000"
       }
    response = megams.update_accounts(tmp_hash)
@@ -67,7 +74,6 @@ end
     response.body.to_s
     end
   end
-
   def test_post_accounts_admin
     response =megams.post_accounts(
     {:id => random_id, :email => $tom_email, :api_key => sandbox_apikey, :authority => $admin})

@@ -1,4 +1,4 @@
-# Copyright:: Copyright (c) 2013-2016 Megam Systems
+# Copyright:: Copyright (c) 2012, 2014 Megam Systems
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,35 +14,35 @@
 # limitations under the License.
 #
 module Megam
-  class SshKeyCollection
+  class DomainsCollection
     include Enumerable
 
     attr_reader :iterator
     def initialize
-      @sshkeys = Array.new
-      @sshkeys_by_name = Hash.new
+      @domains = Array.new
+      @domains_by_name = Hash.new
       @insert_after_idx = nil
     end
 
-    def all_sshkeys
-      @sshkeys
+    def all_domains
+      @domains
     end
 
     def [](index)
-      @sshkeys[index]
+      @domains[index]
     end
 
     def []=(index, arg)
-      is_megam_sshkeys(arg)
-      @sshkeys[index] = arg
-      @sshkeys_by_name[arg.name] = index
+      is_megam_domains(arg)
+      @domains[index] = arg
+      @domains_by_name[arg.name] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
-        is_megam_sshkeys(a)
-        @sshkeys << a
-        @sshkeys_by_name[a.name] =@sshkeys.length - 1
+        is_megam_domains(a)
+        @domains << a
+        @domains_by_name[a.name] =@domains.length - 1
       end
       self
     end
@@ -50,62 +50,62 @@ module Megam
     # 'push' is an alias method to <<
     alias_method :push, :<<
 
-    def insert(sshkeys)
-      is_megam_sshkeys(sshkeys)
+    def insert(domains)
+      is_megam_domains(domains)
       if @insert_after_idx
-        # in the middle of executing a run, so any sshkeys inserted now should
+        # in the middle of executing a run, so any domain inserted now should
         # be placed after the most recent addition done by the currently executing
-        # sshkey
-        @sshkeys.insert(@insert_after_idx + 1, sshkeys)
+        # domain
+        @domains.insert(@insert_after_idx + 1, domains)
         # update name -> location mappings and register new sshkeys
-        @sshkeys_by_name.each_key do |key|
-        @sshkeys_by_name[key] += 1 if@sshkeys_by_name[key] > @insert_after_idx
+        @domains_by_name.each_key do |key|
+        @domains_by_name[key] += 1 if@domains_by_name[key] > @insert_after_idx
         end
-        @sshkeys_by_name[sshkeys.name] = @insert_after_idx + 1
+        @domains_by_name[domains.name] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
-      @sshkeys << sshkeys
-      @sshkeys_by_name[sshkeys.name] =@sshkeys.length - 1
+      @domains << domains
+      @domains_by_name[domains.name] =@domains.length - 1
       end
     end
 
     def each
-      @sshkeys.each do |sshkeys|
-        yield sshkeys
+      @domains.each do |domains|
+        yield domains
       end
     end
 
     def each_index
-      @sshkeys.each_index do |i|
+      @domains.each_index do |i|
         yield i
       end
     end
 
     def empty?
-      @sshkeys.empty?
+      @domains.empty?
     end
 
-    def lookup(sshkeys)
+    def lookup(domains)
       lookup_by = nil
-      if sshkeys.kind_of?(Megam::SshKey)
-      lookup_by = sshkeys.name
-      elsif sshkeys.kind_of?(String)
-      lookup_by = sshkeys
+      if domains.kind_of?(Megam::Domains)
+      lookup_by = domains.name
+    elsif domains.kind_of?(String)
+      lookup_by = domains
       else
-        raise ArgumentError, "Must pass a Megam::sshkeys or String to lookup"
+        raise ArgumentError, "Must pass a Megam::Domains or String to lookup"
       end
-      res =@sshkeys_by_name[lookup_by]
+      res =@domains_by_name[lookup_by]
       unless res
-        raise ArgumentError, "Cannot find a sshkeys matching #{lookup_by} (did you define it first?)"
+        raise ArgumentError, "Cannot find a domain matching #{lookup_by} (did you define it first?)"
       end
-      @sshkeys[res]
+      @domains[res]
     end
 
     # Transform the ruby obj ->  to a Hash
     def to_hash
       index_hash = Hash.new
-      self.each do |sshkeys|
-        index_hash[sshkeys.name] = sshkeys.to_s
+      self.each do |domains|
+        index_hash[domains.name] = domains.to_s
       end
       index_hash
     end
@@ -118,10 +118,10 @@ module Megam
 
     def self.json_create(o)
       collection = self.new()
-      o["results"].each do |sshkeys_list|
-        sshkeys_array = sshkeys_list.kind_of?(Array) ? sshkeys_list : [ sshkeys_list ]
-        sshkeys_array.each do |sshkeys|
-          collection.insert(sshkeys)
+      o["results"].each do |domains_list|
+        domains_array = domains_list.kind_of?(Array) ? domains_list : [ domains_list ]
+        domains_array.each do |domains|
+          collection.insert(domains)
         end
       end
       collection
@@ -129,9 +129,9 @@ module Megam
 
     private
 
-    def is_megam_sshkeys(arg)
-      unless arg.kind_of?(Megam::SshKey)
-        raise ArgumentError, "Members must be Megam::SshKeys's"
+    def is_megam_domains(arg)
+      unless arg.kind_of?(Megam::Domains)
+        raise ArgumentError, "Members must be Megam::Domains's"
       end
       true
     end

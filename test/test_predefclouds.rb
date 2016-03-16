@@ -53,13 +53,13 @@ class TestApps < MiniTest::Unit::TestCase
     assert_equal(201, response.status)
   end
 =end
-#=begin
+=begin
 
   def test_get_predefclouds
     response = megams.get_predefclouds
     assert_equal(200, response.status)
   end
-#=end
+=end
 =begin
   def test_get_predefcloud2
     response = megams.get_predefcloud("rkspce_sundown_play")
@@ -78,4 +78,3 @@ end
 end
 =end
 end
-

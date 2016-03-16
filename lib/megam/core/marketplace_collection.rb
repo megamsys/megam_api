@@ -1,4 +1,4 @@
-# Copyright:: Copyright (c) 2012, 2014 Megam Systems
+# Copyright:: Copyright (c) 2013-2016 Megam Systems
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,14 +35,14 @@ module Megam
     def []=(index, arg)
       is_megam_app(arg)
       @apps[index] = arg
-      @apps_by_name[arg.name] = index
+      @apps_by_name[arg.flavor] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
         is_megam_app(a)
         @apps << a
-        @apps_by_name[a.name] = @apps.length - 1
+        @apps_by_name[a.flavor] = @apps.length - 1
       end
       self
     end
@@ -61,11 +61,11 @@ module Megam
         @apps_by_name.each_key do |key|
         @apps_by_name[key] += 1 if @apps_by_name[key] > @insert_after_idx
         end
-        @apps_by_name[app.name] = @insert_after_idx + 1
+        @apps_by_name[app.flavor] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
       @apps << app
-      @apps_by_name[app.name] = @apps.length - 1
+      @apps_by_name[app.flavor] = @apps.length - 1
       end
     end
 
@@ -88,7 +88,7 @@ module Megam
     def lookup(app)
       lookup_by = nil
       if app.kind_of?(Megam::MarketPlace)
-      lookup_by = app.name
+      lookup_by = app.flavor
       elsif app.kind_of?(String)
       lookup_by = app
       else
@@ -105,7 +105,7 @@ module Megam
     def to_hash
       index_hash = Hash.new
       self.each do |app|
-        index_hash[app.name] = app.to_s
+        index_hash[app.flavor] = app.to_s
       end
       index_hash
     end

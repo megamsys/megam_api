@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright 2013-2016 Megam Systems
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -113,7 +113,7 @@ module Megam
 
     #
     def self.json_create(o)
-      aunit = new
+      aunit = new({})
       aunit.id(o["id"]) if o.has_key?("id")
       aunit.name(o["name"]) if o.has_key?("name")     
       aunit.duration(o["duration"]) if o.has_key?("duration")
