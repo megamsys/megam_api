@@ -15,7 +15,7 @@
 #
 module Megam
   class Request < Megam::ServerAPI
-    def initialize(email=nil, api_key=nil, host=nil)
+    def initialize(params)
       @id = nil
       @cat_id = nil
       @name = nil
@@ -24,7 +24,7 @@ module Megam
       @category = nil
       @some_msg = {}
       @created_at = nil
-      super(email, api_key, host)
+      super(params)
     end
 
     def request
@@ -152,8 +152,8 @@ module Megam
       node
     end
 
-    def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-      node = self.new(tmp_email, tmp_api_key, tmp_host)
+    def self.from_hash(o)
+      node = self.new(o)
       node.from_hash(o)
       node
     end
@@ -171,7 +171,7 @@ module Megam
 
 
     def self.create(params)
-      acct = from_hash(params, params["email"] || params[:email], params["api_key"] || params[:api_key], params["host"] || params[:host])
+      acct = from_hash(params)
       acct.create
     end
 
@@ -182,12 +182,12 @@ module Megam
 
 
      def self.show(params)
-      prede = self.new(params["email"] || params[:email], params["api_key"] || params[:api_key], params["host"] || params[:host])
+      prede = self.new(params)
       prede.megam_rest.get_requests
     end
 
-     def self.list(n_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-      prede = self.new(tmp_email,tmp_api_key, tmp_host)
+     def self.list(params)
+      prede = self.new(params)
       prede.megam_rest.get_request(n_name)
     end
 
