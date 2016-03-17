@@ -136,7 +136,7 @@ module Megam
 
     #
     def self.json_create(o)
-      node = new
+      node = new(o)
       node.id(o["id"]) if o.has_key?("id")
       node.cat_id(o["cat_id"]) if o.has_key?("cat_id")
       node.name(o["name"]) if o.has_key?("name")
@@ -185,7 +185,7 @@ module Megam
       prede = self.new(params)
       prede.megam_rest.get_requests
     end
-
+#have to check list
      def self.list(params)
       prede = self.new(params)
       prede.megam_rest.get_request(n_name)
