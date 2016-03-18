@@ -26,6 +26,7 @@ module Megam
       @catorder = nil
       @url = nil
       @envs = []
+      @options = []
       @plans = nil
       @created_at = nil
       super(o)
@@ -107,6 +108,13 @@ module Megam
       end
     end
 
+   def options(arg = [])
+      if arg != []
+        @options = arg
+      else
+        @options
+      end
+    end
 
     def created_at(arg = nil)
       if !arg.nil?
@@ -140,6 +148,7 @@ module Megam
       index_hash['catorder'] = catorder
       index_hash['url'] = url
       index_hash['envs'] = envs
+      index_hash['options'] = options
       index_hash['plans'] = plans
       index_hash['created_at'] = created_at
       index_hash
@@ -161,6 +170,7 @@ module Megam
         'catorder' => catorder,
         'url' => url,
         'envs' => envs,
+        'options' => options,
         'plans' => plans,
         'created_at' => created_at
       }
@@ -177,6 +187,7 @@ module Megam
       app.catorder(o['catorder']) if o.key?('catorder')
       app.url(o['url']) if o.key?('url')
       app.envs(o['envs']) if o.key?('envs')
+      app.options(o['options']) if o.key?('options')
       app.plans(o['plans']) if o.key?('plans')
       app.created_at(o['created_at']) if o.key?('created_at')
 
@@ -198,6 +209,7 @@ module Megam
       @catorder            = o['catorder'] if o.key?('catorder')
       @url            = o['url'] if o.key?('url')
       @envs           = o['envs'] if o.key?('envs')
+      @options        = o['options'] if o.key?('options')
       @plans          = o['plans'] if o.key?('plans')
       @created_at     = o['created_at'] if o.key?('created_at')
       self
