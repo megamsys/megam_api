@@ -16,7 +16,7 @@
 
 
 module Megam
-  class MarketPlace < Megam::ServerAPI
+  class MarketPlace < Megam::RestAdapter
     def initialize(o)
       @id = nil
       @settings_name = nil

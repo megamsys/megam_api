@@ -15,7 +15,7 @@
 #
 
 module Megam
-  class Organizations < Megam::ServerAPI
+  class Organizations < Megam::RestAdapter
     def initialize(o)
       @id = nil
       @name = nil

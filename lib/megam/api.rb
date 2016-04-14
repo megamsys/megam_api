@@ -23,28 +23,21 @@ require 'openssl'
 __LIB_DIR__ = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 $LOAD_PATH.unshift(__LIB_DIR__) unless $LOAD_PATH.include?(__LIB_DIR__)
 
-require 'megam/api/errors'
-require 'megam/api/version'
 require 'megam/api/accounts'
-require 'megam/api/requests'
-require 'megam/api/sshkeys'
-require 'megam/api/marketplaces'
-require 'megam/api/organizations'
-require 'megam/api/domains'
-require 'megam/api/csars'
 require 'megam/api/assemblies'
 require 'megam/api/assembly'
-require 'megam/api/components'
-require 'megam/api/sensors'
-require 'megam/api/availableunits'
 require 'megam/api/balances'
 require 'megam/api/billedhistories'
-require 'megam/api/billings'
-require 'megam/api/credithistories'
-require 'megam/api/discounts'
-require 'megam/api/subscriptions'
+require 'megam/api/components'
+require 'megam/api/domains'
+require 'megam/api/errors'
+require 'megam/api/marketplaces'
+require 'megam/api/organizations'
 require 'megam/api/promos'
-require 'megam/api/invoices'
+require 'megam/api/requests'
+require 'megam/api/sensors'
+require 'megam/api/sshkeys'
+require 'megam/api/version'
 
 require 'megam/mixins/assemblies'
 require 'megam/mixins/assembly'
@@ -60,7 +53,6 @@ require 'megam/core/stuff'
 require 'megam/core/text'
 require 'megam/core/log'
 require 'megam/core/json_compat'
-require 'megam/core/auth'
 require 'megam/core/error'
 require 'megam/core/account'
 require 'megam/core/request'
@@ -84,26 +76,15 @@ require 'megam/core/components'
 require 'megam/core/components_collection'
 require 'megam/core/sensors'
 require 'megam/core/sensors_collection'
-require 'megam/core/availableunits_collection'
-require 'megam/core/availableunits'
 require 'megam/core/balances_collection'
 require 'megam/core/balances'
 require 'megam/core/billedhistories_collection'
 require 'megam/core/billedhistories'
-require 'megam/core/billings_collection'
-require 'megam/core/billings'
-require 'megam/core/credithistories_collection'
-require 'megam/core/credithistories'
-require 'megam/core/discounts_collection'
-require 'megam/core/discounts'
-require 'megam/core/subscriptions_collection'
-require 'megam/core/subscriptions'
 require 'megam/core/promos'
-require 'megam/core/invoices_collection'
-require 'megam/core/invoices'
 
 module Megam
   class API
+
     # text is used to print stuff in the terminal (message, log, info, warn etc.)
     attr_accessor :text
 
@@ -113,6 +94,8 @@ module Megam
     X_Megam_HMAC = 'X-Megam-HMAC'.freeze
     X_Megam_OTTAI = 'X-Megam-OTTAI'.freeze
     X_Megam_ORG  = 'X-Megam-ORG'.freeze
+    X_Megam_PUTTUSAVI = 'X-Megam-PUTTUSAVI'
+    X_Megam_OTTAI = 'X-Megam-OTTAI'
 
     HEADERS = {
       'Accept' => 'application/json',
@@ -235,7 +218,7 @@ module Megam
       @options[:headers] = HEADERS.merge(X_Megam_HMAC => encoded_api_header[:hmac],
       X_Megam_DATE => encoded_api_header[:date], X_Megam_ORG => "#{@org_id}").merge(@options[:headers])
       if (@api_key == "" || @api_key.nil?)
-         @options[:headers] = @options[:headers].merge('X-Megam-PUTTUSAVI' => "true") unless (@password == "" || @password.nil?)
+         @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true") unless (@password == "" || @password.nil?)
       end
 
       Megam::Log.debug('HTTP Request Data:')
@@ -259,7 +242,6 @@ module Megam
     # The output will have
     # :hmac
     # :date
-    # (Refer https://github.com/indykish/megamplay.git/test/AuthenticateSpec.scala)
     def encode_header(cmd_parms)
       header_params = {}
       body_digest = OpenSSL::Digest::MD5.digest(cmd_parms[:body])
@@ -275,7 +257,7 @@ module Megam
         hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
       elsif !(@api_key.nil?)
         hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
-      else 
+      else
         hash = OpenSSL::HMAC.hexdigest(digest, "", movingFactor)
       end
       final_hmac = @email + ':' + hash

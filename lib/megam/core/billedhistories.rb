@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Megam
-  class Billedhistories < Megam::ServerAPI
+  class Billedhistories < Megam::RestAdapter
     def initialize(o)
       @id = nil
       @accounts_id = nil

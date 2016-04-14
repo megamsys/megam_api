@@ -3,6 +3,7 @@ module Megam
 
     attr_reader :data
     attr_reader :ui
+    
     def initialize(data, ui)
       @ui = ui
       @data = if data.respond_to?(:display_hash)
@@ -58,6 +59,6 @@ module Megam
     def is_singleton(value)
       !(value.kind_of?(Array) || value.respond_to?(:keys))
     end
-    
+
   end
 end

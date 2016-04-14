@@ -21,6 +21,7 @@ module Megam
     attr_reader :stderr
     attr_reader :stdin
     attr_reader :config
+    
     def initialize(stdout, stderr, stdin, config)
       @stdout, @stderr, @stdin, @config = stdout, stderr, stdin, config
     end

@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Megam
-  class Promos < Megam::ServerAPI
+  class Promos < Megam::RestAdapter
     def initialize(email=nil, api_key=nil, host=nil)
       @id = nil
       @code = nil

@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 module Megam
-  class Request < Megam::ServerAPI
+  class Request < Megam::RestAdapter
     def initialize(params)
       @id = nil
       @cat_id = nil

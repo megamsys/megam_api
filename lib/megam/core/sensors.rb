@@ -15,7 +15,7 @@
 #
 
 module Megam
-  class Sensors < Megam::ServerAPI
+  class Sensors < Megam::RestAdapter
     def initialize(email = nil, api_key = nil, host = nil)
       @id = nil
       @sensor_type = nil

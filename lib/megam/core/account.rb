@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 module Megam
-  class Account < Megam::ServerAPI
+  class Account < Megam::RestAdapter
     def initialize(o)
       @id = nil
       @email = nil

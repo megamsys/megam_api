@@ -15,19 +15,11 @@
 #
 module Megam
   class Error
-    
+
     def initialize
       @some_msg = {}
     end
 
-    #used by resque workers and any other background job
-    def auth
-      self
-    end
-
-    def megam_rest
-      Megam::Scm.new(Megam::Config[:name], Megam::Config[:displayName], Megam::Config[:mail], Megam::Config[:password])
-    end
 
     def some_msg(arg=nil)
       if arg != nil
@@ -81,12 +73,6 @@ module Megam
       @some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
       @some_msg[:msg]= o["msg"] if o.has_key?("msg")
       @some_msg[:links] = o["links"] if o.has_key?("links")
-      self
-    end
-
-    # just an auth
-    def self.auth
-      megam_rest.post_auth
       self
     end
 
