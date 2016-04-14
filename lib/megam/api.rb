@@ -47,8 +47,7 @@ require 'megam/mixins/megam_attributes'
 require 'megam/mixins/outputs'
 require 'megam/mixins/policies'
 
-require 'megam/core/server_api'
-require 'megam/core/config'
+require 'megam/core/rest_adapter'
 require 'megam/core/stuff'
 require 'megam/core/text'
 require 'megam/core/log'
@@ -67,8 +66,6 @@ require 'megam/core/domains'
 require 'megam/core/domain_collection'
 require 'megam/core/assemblies'
 require 'megam/core/assemblies_collection'
-require 'megam/core/csar'
-require 'megam/core/csar_collection'
 require 'megam/core/konipai'
 require 'megam/core/assembly'
 require 'megam/core/assembly_collection'
@@ -94,8 +91,7 @@ module Megam
     X_Megam_HMAC = 'X-Megam-HMAC'.freeze
     X_Megam_OTTAI = 'X-Megam-OTTAI'.freeze
     X_Megam_ORG  = 'X-Megam-ORG'.freeze
-    X_Megam_PUTTUSAVI = 'X-Megam-PUTTUSAVI'
-    X_Megam_OTTAI = 'X-Megam-OTTAI'
+    X_Megam_PUTTUSAVI = 'X-Megam-PUTTUSAVI'.freeze
 
     HEADERS = {
       'Accept' => 'application/json',

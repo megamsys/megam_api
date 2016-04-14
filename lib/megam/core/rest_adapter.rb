@@ -20,7 +20,7 @@ module Megam
         attr_reader :host
         attr_reader :password
         attr_reader :org_id
-        attr_reader :header
+        attr_reader :headers
 
 
         ## clean up this module later.
@@ -30,7 +30,7 @@ module Megam
             @host = o[:host]
             @password = o[:password] || nil
             @org_id = o[:org_id]
-            @header = o[:header]
+            @headers = o[:headers]
         end
 
         # Build a megam api client
@@ -43,9 +43,11 @@ module Megam
               :api_key => api_key,
               :org_id => org_id,
               :password => password,
-              :host => host,
-              :header => header
+              :host => host
             }
+            if headers
+              options[:headers] = headers
+            end
             Megam::API.new(options)
         end
     end
