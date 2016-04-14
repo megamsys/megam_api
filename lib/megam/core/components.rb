@@ -15,7 +15,7 @@
 #
 
 module Megam
-  class Components < Megam::ServerAPI
+  class Components < Megam::RestAdapter
     def initialize(o)
       @id = nil
       @name = nil

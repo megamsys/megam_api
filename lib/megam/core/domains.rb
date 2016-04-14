@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 module Megam
-  class Domains < Megam::ServerAPI
+  class Domains < Megam::RestAdapter
     def initialize(o)
       @id = nil
       @org_id = nil

@@ -15,7 +15,7 @@
 #
 
 module Megam
-  class Assemblies < Megam::ServerAPI
+  class Assemblies < Megam::RestAdapter
     def initialize(o)
       @id = nil
       @accounts_id = nil

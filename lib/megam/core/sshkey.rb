@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 module Megam
-  class SshKey < Megam::ServerAPI
+  class SshKey < Megam::RestAdapter
     def initialize(o)
       @id = nil
       @name = nil

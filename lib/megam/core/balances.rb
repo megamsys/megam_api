@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Megam
-  class Balances < Megam::ServerAPI
+  class Balances < Megam::RestAdapter
     def initialize(o)
       @id = nil
       @accounts_id = nil
