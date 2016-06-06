@@ -101,45 +101,18 @@ module Megam
       @organizations[res]
     end
 
-    # Transform the ruby obj ->  to a Hash
-    def to_hash
-      index_hash = Hash.new
-      self.each do |organizations|
-        index_hash[organizations.name] = organizations.to_s
-      end
-      index_hash
+    def to_s
+        @organizations.join(", ")
     end
 
-    # Serialize this object as a hash: called from JsonCompat.
-    # Verify if this called from JsonCompat during testing.
+    def for_json
+      to_a.map { |item| item.to_s }
+    end
+
     def to_json(*a)
-      for_json.to_json(*a)
+      Megam::JSONCompat.to_json(for_json, *a)
     end
 
-=begin
-{
-"json_claz":"Megam::PredefCloudCollection",
-"results":[{
-"id":"NOD362554470640386048",
-"name":"ec2_rails",
-"account_id":"ACT362544229488001024",
-"json_claz":"Megam::PredefCloud",
-"spec":{
-"type_name":"sensor-type",
-"groups":"sens-group",
-"image":"sens-image",
-"flavor":"sens-flvr"
-},
-"access":{
-"ssh_key":"sens-ssh",
-"identity_file":"sens-identity-file",
-"ssh_user":"sens-sshuser"
-},
-"ideal":"",
-"performance":""
-}]
-}
-=end
     def self.json_create(o)
       collection = self.new()
       o["results"].each do |organizations_list|
@@ -159,10 +132,5 @@ module Megam
       end
       true
     end
-
-    def to_s
-      Megam::Stuff.styled_hash(to_hash)
-    end
-
   end
 end

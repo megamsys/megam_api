@@ -60,9 +60,13 @@ module Megam
 
     class InputGroupData
       include Nilavu::MegamAttributes
-      attr_reader :domain, :sshkey, :provider, :cpu, :ram, :hdd, :version, :display_name, :password
+
+      attr_reader :domain, :keypairoption, :sshkey, :provider, :cpu, :ram, :hdd,
+      :version, :display_name, :password, :region, :resource, :storagetype, :ipv6, :privnetwork
+
       ATTRIBUTES = [
         :domain,
+        :keypairoption,
         :sshkey,
         :provider,
         :cpu,
@@ -70,7 +74,12 @@ module Megam
         :hdd,
         :version,
         :display_name,
-        :password]
+        :password,
+        :region,
+        :resource,
+        :storagetype,
+        :ipv6,
+        :privnetwork]
 
       def attributes
         ATTRIBUTES

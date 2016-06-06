@@ -101,21 +101,17 @@ module Megam
       @requests[res]
     end
 
-    # Transform the ruby obj ->  to a Hash
-    def to_hash
-      index_hash = Hash.new
-      self.each do |request|
-        index_hash[request.node_name] = request.to_s
-      end
-      index_hash
+    def to_s
+        @requests.join(", ")
     end
 
-    # Serialize this object as a hash: called from JsonCompat.
-    # Verify if this called from JsonCompat during testing.
+    def for_json
+      to_a.map { |item| item.to_s }
+    end
+
     def to_json(*a)
-      for_json.to_json(*a)
+      Megam::JSONCompat.to_json(for_json, *a)
     end
-
 
     def self.json_create(o)
       collection = self.new()
@@ -136,10 +132,5 @@ module Megam
       end
       true
     end
-
-    def to_s
-      Megam::Stuff.styled_hash(to_hash)
-    end
-
   end
 end
