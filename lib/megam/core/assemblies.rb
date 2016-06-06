@@ -47,7 +47,7 @@ module Megam
       @accounts_id
       end
     end
-    
+
     def org_id(arg=nil)
       if arg != nil
         @org_id = arg
@@ -152,13 +152,13 @@ module Megam
     end
 
     def from_hash(o)
-      @id                = o["id"] if o.has_key?("id")
-      @name              = o["name"] if o.has_key?("name")
-      @accounts_id       = o["accounts_id"] if o.has_key?("accounts_id")
-      @org_id            = o["org_id"] if o.has_key?("org_id")
-      @assemblies        = o["assemblies"] if o.has_key?("assemblies")
-      @inputs            = o["inputs"] if o.has_key?("inputs")
-      @created_at        = o["created_at"] if o.has_key?("created_at")
+      @id                = o[:id] if o.has_key?(:id)
+      @name              = o[:name] if o.has_key?(:name)
+      @accounts_id       = o[:accounts_id] if o.has_key?(:accounts_id)
+      @org_id            = o[:org_id] if o.has_key?(:org_id)
+      @assemblies        = o[:assemblies] if o.has_key?(:assemblies)
+      @inputs            = o[:inputs] if o.has_key?(:inputs)
+      @created_at        = o[:created_at] if o.has_key?(:created_at)
       self
     end
 
