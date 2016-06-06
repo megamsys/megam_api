@@ -120,15 +120,16 @@ module Megam
       def attributes
         ATTRIBUTES
       end
+
       CI = 'CI'.freeze
       CI_DESCRIPTON = 'always up to date code. sweet.'
       NOTBOUND = "notbound".freeze
       BIND = 'bind'.freeze
       BIND_DESCRIPTON = 'bind. sweet.'
+
       def initialize(params, type, desc)
         @type = type
         @desc = desc
-        # set_attributes(params)
         @prop = prop(params)
       end
 

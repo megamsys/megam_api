@@ -15,6 +15,6 @@
 #
 module Megam
   class API
-    VERSION = "1.5.beta2"
+    VERSION = "1.5.beta3"
   end
 end

@@ -18,7 +18,9 @@ module Nilavu
     ATTRIBUTES = []
     KEY = 'key'.freeze
     VALUE = 'value'.freeze
+
     attr_accessor *ATTRIBUTES
+
     def attributes
       NotImplementedError
     end
