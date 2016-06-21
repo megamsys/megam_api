@@ -46,6 +46,8 @@ module Megam
         MEGAM_REQUESTCOLLECTION           = 'Megam::RequestCollection'.freeze
         MEGAM_SENSORS                     = 'Megam::Sensors'.freeze
         MEGAM_SENSORSCOLLECTION           = 'Megam::SensorsCollection'.freeze
+        MEGAM_SNAPSHOTS                     = 'Megam::Snapshots'.freeze
+        MEGAM_SNAPSHOTSCOLLECTION           = 'Megam::SnapshotsCollection'.freeze
         MEGAM_SSHKEY                      = 'Megam::SshKey'.freeze
         MEGAM_SSHKEYCOLLECTION            = 'Megam::SshKeyCollection'.freeze
         MEGAM_EVENTS                      = 'Megam::Events'.freeze
@@ -177,6 +179,10 @@ module Megam
                     Megam::Sensors
                 when MEGAM_SENSORSCOLLECTION
                     Megam::SensorsCollection
+                  when MEGAM_SNAPSHOTS
+                      Megam::Snapshots
+                  when MEGAM_SNAPSHOTSCOLLECTION
+                      Megam::SnapshotsCollection
                 when MEGAM_BALANCES
                     Megam::Balances
                 when MEGAM_BALANCESCOLLECTION
