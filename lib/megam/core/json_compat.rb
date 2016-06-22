@@ -50,8 +50,8 @@ module Megam
         MEGAM_SNAPSHOTSCOLLECTION           = 'Megam::SnapshotsCollection'.freeze
         MEGAM_SSHKEY                      = 'Megam::SshKey'.freeze
         MEGAM_SSHKEYCOLLECTION            = 'Megam::SshKeyCollection'.freeze
-        MEGAM_EVENTS                      = 'Megam::Events'.freeze
-        MEGAM_EVENTSCOLLECTION            = 'Megam::EventsCollection'.freeze
+        MEGAM_EVENTSVM                   = 'Megam::EventsVm'.freeze
+        MEGAM_EVENTSVMCOLLECTION         = 'Megam::EventsVmCollection'.freeze
         MEGAM_PROMOS                      = 'Megam::Promos'.freeze
 
         class <<self
@@ -159,10 +159,10 @@ module Megam
                     Megam::SshKey
                 when MEGAM_SSHKEYCOLLECTION
                     Megam::SshKeyCollection
-                  when MEGAM_EVENTS
-                      Megam::Events
-                when MEGAM_EVENTSCOLLECTION
-                      Megam::EventsCollection
+                  when MEGAM_EVENTSVM
+                      Megam::EventsVm
+                when MEGAM_EVENTSVMCOLLECTION
+                      Megam::EventsVmCollection
                 when MEGAM_MARKETPLACE
                     Megam::MarketPlace
                 when MEGAM_MARKETPLACECOLLECTION
