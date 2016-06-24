@@ -33,6 +33,8 @@ module Megam
         MEGAM_BALANCESCOLLECTION          = 'Megam::BalancesCollection'.freeze
         MEGAM_BILLEDHISTORIES             = 'Megam::Billedhistories'.freeze
         MEGAM_BILLEDHISTORIESCOLLECTION   = 'Megam::BilledhistoriesCollection'.freeze
+        MEGAM_BILLINGTRANSCATIONS             = 'Megam::Billingtranscations'.freeze
+        MEGAM_BILLINGTRANSCATIONSCOLLECTION   = 'Megam::BillingtranscationsCollection'.freeze
         MEGAM_COMPONENTS                  = 'Megam::Components'.freeze
         MEGAM_COMPONENTSCOLLECTION        = 'Megam::ComponentsCollection'.freeze
         MEGAM_DOMAIN                      = 'Megam::Domains'.freeze
@@ -209,6 +211,10 @@ module Megam
                     Megam::Billedhistories
                 when MEGAM_BILLEDHISTORIESCOLLECTION
                     Megam::BilledhistoriesCollection
+                  when MEGAM_BILLINGTRANSCATIONS
+                      Megam::Billingtranscations
+                  when MEGAM_BILLINGTRANSCATIONSCOLLECTION
+                      Megam::BillingtranscationsCollection
                 when MEGAM_PROMOS
                     Megam::Promos
                 else
