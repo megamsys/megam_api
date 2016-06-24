@@ -15,20 +15,19 @@
 #
 
 module Megam
-    class Events < Megam::RestAdapter
+    class EventsVm < Megam::RestAdapter
         def initialize(o)
             @account_id = nil
             @assembly_id = nil
             @event_type = nil
             @data = []
-            @read_status= nil
             @created_at = nil
             @limit = nil
             @some_msg = {}
             super(o)
         end
 
-        def events
+        def eventsvm
             self
         end
 
@@ -45,14 +44,6 @@ module Megam
                 @assembly_id = arg
             else
                 @assembly_id
-            end
-        end
-
-        def read_status(arg=nil)
-            if arg != nil
-                @read_status = arg
-            else
-                @read_status
             end
         end
 
@@ -110,7 +101,6 @@ module Megam
             index_hash["assembly_id"] = assembly_id
             index_hash["event_type"] = event_type
             index_hash["data"] = data
-            index_hash["read_status"] = read_status
             index_hash["limit"] = limit
             index_hash["created_at"] = created_at
             index_hash["some_msg"] = some_msg
@@ -129,7 +119,6 @@ module Megam
                 "assembly_id" => assembly_id,
                 "event_type" => event_type,
                 "data" => data,
-                "read_status" => read_status,
                 "limit"  => limit,
                 "created_at" => created_at
             }
@@ -142,8 +131,7 @@ module Megam
             evt.assembly_id(o["assembly_id"]) if o.has_key?("assembly_id")
             evt.event_type(o["event_type"]) if o.has_key?("event_type") #this will be an array? can hash store array?
             evt.data(o["data"]) if o.has_key?("data")
-            evt.read_status(o["read_status"]) if o.has_key?("read_status")
-            evt.read_status(o["limit"]) if o.has_key?("limit")
+            evt.limit(o["limit"]) if o.has_key?("limit")
             evt.created_at(o["created_at"]) if o.has_key?("created_at")
             evt.some_msg[:code] = o["code"] if o.has_key?("code")
             evt.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -163,7 +151,6 @@ module Megam
             @assembly_id      = o[:assembly_id] if o.has_key?(:assembly_id)
             @event_type        = o[:event_type] if o.has_key?(:event_type)
             @data            = o[:data] if o.has_key?(:data)
-            @read_status     = o[:read_status] if o.has_key?(:read_status)
             @limit           = o[:limit] if o.has_key?(:limit)
             @created_at        = o[:created_at] if o.has_key?(:created_at)
             self
@@ -182,12 +169,17 @@ module Megam
         # Load a account by email_p
         def self.show(o)
             evt = self.new(o)
-            evt.megam_rest.get_events(o[:assembly_id])
+            evt.megam_rest.get_eventsvm(o[:limit], to_hash)
         end
 
         def self.list(params)
             asm = self.new(params)
-            asm.megam_rest.list_events(params[:limit])
+            asm.megam_rest.list_eventsvm(params[:limit])
+        end
+
+        def self.index(params)
+            asm = self.new(params)
+            asm.megam_rest.index_eventsvm
         end
 
         def to_s
