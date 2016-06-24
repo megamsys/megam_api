@@ -50,8 +50,14 @@ module Megam
         MEGAM_SNAPSHOTSCOLLECTION           = 'Megam::SnapshotsCollection'.freeze
         MEGAM_SSHKEY                      = 'Megam::SshKey'.freeze
         MEGAM_SSHKEYCOLLECTION            = 'Megam::SshKeyCollection'.freeze
-        MEGAM_EVENTSVM                   = 'Megam::EventsVm'.freeze
-        MEGAM_EVENTSVMCOLLECTION         = 'Megam::EventsVmCollection'.freeze
+        MEGAM_EVENTSVM                    = 'Megam::EventsVm'.freeze
+        MEGAM_EVENTSVMCOLLECTION            = 'Megam::EventsVmCollection'.freeze
+        MEGAM_EVENTSCONTAINER             = 'Megam::EventsContainer'.freeze
+        MEGAM_EVENTSCONTAINERCOLLECTION   = 'Megam::EventsContainerCollection'.freeze
+        MEGAM_EVENTSBILLING               = 'Megam::EventsBilling'.freeze
+        MEGAM_EVENTSBILLINGCOLLECTION     = 'Megam::EventsBillingCollection'.freeze
+        MEGAM_EVENTSSTORAGE               = 'Megam::EventsStorage'.freeze
+        MEGAM_EVENTSSTORAGECOLLECTION     = 'Megam::EventsStorageCollection'.freeze
         MEGAM_PROMOS                      = 'Megam::Promos'.freeze
 
         class <<self
@@ -163,6 +169,18 @@ module Megam
                       Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
                       Megam::EventsVmCollection
+                  when MEGAM_EVENTSCONTAINER
+                      Megam::EventsContainer
+                when MEGAM_EVENTSCONTAINERCOLLECTION
+                      Megam::EventsContainerCollection
+                    when MEGAM_EVENTSBILLING
+                        Megam::EventsBilling
+                  when MEGAM_EVENTSBILLINGCOLLECTION
+                        Megam::EventsBillingCollection
+                      when MEGAM_EVENTSSTORAGE
+                          Megam::EventsStorage
+                    when MEGAM_EVENTSSTORAGECOLLECTION
+                          Megam::EventsStorageCollection
                 when MEGAM_MARKETPLACE
                     Megam::MarketPlace
                 when MEGAM_MARKETPLACECOLLECTION
