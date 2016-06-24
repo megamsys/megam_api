@@ -1,10 +1,6 @@
 require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 
 class TestApps < MiniTest::Unit::TestCase
-
-
-
-
 #=begin
 def test_list_eventsstorage
   response = megams.list_eventsstorage("0")
