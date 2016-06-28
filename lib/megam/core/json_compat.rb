@@ -24,43 +24,43 @@ module Megam
 
         JSON_CLAZ = 'json_claz'.freeze
 
-        MEGAM_ACCOUNT                     = 'Megam::Account'.freeze
-        MEGAM_ASSEMBLIES                  = 'Megam::Assemblies'.freeze
-        MEGAM_ASSEMBLIESCOLLECTION        = 'Megam::AssembliesCollection'.freeze
-        MEGAM_ASSEMBLY                    = 'Megam::Assembly'.freeze
-        MEGAM_ASSEMBLYCOLLECTION          = 'Megam::AssemblyCollection'.freeze
-        MEGAM_BALANCES                    = 'Megam::Balances'.freeze
-        MEGAM_BALANCESCOLLECTION          = 'Megam::BalancesCollection'.freeze
-        MEGAM_BILLEDHISTORIES             = 'Megam::Billedhistories'.freeze
-        MEGAM_BILLEDHISTORIESCOLLECTION   = 'Megam::BilledhistoriesCollection'.freeze
-        MEGAM_BILLINGTRANSCATIONS             = 'Megam::Billingtranscations'.freeze
-        MEGAM_BILLINGTRANSCATIONSCOLLECTION   = 'Megam::BillingtranscationsCollection'.freeze
-        MEGAM_COMPONENTS                  = 'Megam::Components'.freeze
-        MEGAM_COMPONENTSCOLLECTION        = 'Megam::ComponentsCollection'.freeze
-        MEGAM_DOMAIN                      = 'Megam::Domains'.freeze
-        MEGAM_DOMAINCOLLECTION            = 'Megam::DomainsCollection'.freeze
-        MEGAM_ERROR                       = 'Megam::Error'.freeze
-        MEGAM_MARKETPLACE                 = 'Megam::MarketPlace'.freeze
-        MEGAM_MARKETPLACECOLLECTION       = 'Megam::MarketPlaceCollection'.freeze
-        MEGAM_ORGANIZATION                = 'Megam::Organizations'.freeze
-        MEGAM_ORGANIZATIONSCOLLECTION     = 'Megam::OrganizationsCollection'.freeze
-        MEGAM_REQUEST                     = 'Megam::Request'.freeze
-        MEGAM_REQUESTCOLLECTION           = 'Megam::RequestCollection'.freeze
-        MEGAM_SENSORS                     = 'Megam::Sensors'.freeze
-        MEGAM_SENSORSCOLLECTION           = 'Megam::SensorsCollection'.freeze
-        MEGAM_SNAPSHOTS                     = 'Megam::Snapshots'.freeze
-        MEGAM_SNAPSHOTSCOLLECTION           = 'Megam::SnapshotsCollection'.freeze
-        MEGAM_SSHKEY                      = 'Megam::SshKey'.freeze
-        MEGAM_SSHKEYCOLLECTION            = 'Megam::SshKeyCollection'.freeze
-        MEGAM_EVENTSVM                    = 'Megam::EventsVm'.freeze
-        MEGAM_EVENTSVMCOLLECTION            = 'Megam::EventsVmCollection'.freeze
-        MEGAM_EVENTSCONTAINER             = 'Megam::EventsContainer'.freeze
-        MEGAM_EVENTSCONTAINERCOLLECTION   = 'Megam::EventsContainerCollection'.freeze
-        MEGAM_EVENTSBILLING               = 'Megam::EventsBilling'.freeze
-        MEGAM_EVENTSBILLINGCOLLECTION     = 'Megam::EventsBillingCollection'.freeze
-        MEGAM_EVENTSSTORAGE               = 'Megam::EventsStorage'.freeze
-        MEGAM_EVENTSSTORAGECOLLECTION     = 'Megam::EventsStorageCollection'.freeze
-        MEGAM_PROMOS                      = 'Megam::Promos'.freeze
+        MEGAM_ACCOUNT                         = 'Megam::Account'.freeze
+        MEGAM_ASSEMBLIES                      = 'Megam::Assemblies'.freeze
+        MEGAM_ASSEMBLIESCOLLECTION            = 'Megam::AssembliesCollection'.freeze
+        MEGAM_ASSEMBLY                        = 'Megam::Assembly'.freeze
+        MEGAM_ASSEMBLYCOLLECTION              = 'Megam::AssemblyCollection'.freeze
+        MEGAM_BALANCES                        = 'Megam::Balances'.freeze
+        MEGAM_BALANCESCOLLECTION              = 'Megam::BalancesCollection'.freeze
+        MEGAM_BILLEDHISTORIES                 = 'Megam::Billedhistories'.freeze
+        MEGAM_BILLEDHISTORIESCOLLECTION       = 'Megam::BilledhistoriesCollection'.freeze
+        MEGAM_BILLINGTRANSACTIONS             = 'Megam::Billingtransactions'.freeze
+        MEGAM_BILLINGTRANSACTIONSCOLLECTION   = 'Megam::BillingtransactionsCollection'.freeze
+        MEGAM_COMPONENTS                      = 'Megam::Components'.freeze
+        MEGAM_COMPONENTSCOLLECTION            = 'Megam::ComponentsCollection'.freeze
+        MEGAM_DOMAIN                          = 'Megam::Domains'.freeze
+        MEGAM_DOMAINCOLLECTION                = 'Megam::DomainsCollection'.freeze
+        MEGAM_ERROR                           = 'Megam::Error'.freeze
+        MEGAM_MARKETPLACE                     = 'Megam::MarketPlace'.freeze
+        MEGAM_MARKETPLACECOLLECTION           = 'Megam::MarketPlaceCollection'.freeze
+        MEGAM_ORGANIZATION                    = 'Megam::Organizations'.freeze
+        MEGAM_ORGANIZATIONSCOLLECTION         = 'Megam::OrganizationsCollection'.freeze
+        MEGAM_REQUEST                         = 'Megam::Request'.freeze
+        MEGAM_REQUESTCOLLECTION               = 'Megam::RequestCollection'.freeze
+        MEGAM_SENSORS                         = 'Megam::Sensors'.freeze
+        MEGAM_SENSORSCOLLECTION               = 'Megam::SensorsCollection'.freeze
+        MEGAM_SNAPSHOTS                       = 'Megam::Snapshots'.freeze
+        MEGAM_SNAPSHOTSCOLLECTION             = 'Megam::SnapshotsCollection'.freeze
+        MEGAM_SSHKEY                          = 'Megam::SshKey'.freeze
+        MEGAM_SSHKEYCOLLECTION                = 'Megam::SshKeyCollection'.freeze
+        MEGAM_EVENTSVM                        = 'Megam::EventsVm'.freeze
+        MEGAM_EVENTSVMCOLLECTION              = 'Megam::EventsVmCollection'.freeze
+        MEGAM_EVENTSCONTAINER                 = 'Megam::EventsContainer'.freeze
+        MEGAM_EVENTSCONTAINERCOLLECTION       = 'Megam::EventsContainerCollection'.freeze
+        MEGAM_EVENTSBILLING                   = 'Megam::EventsBilling'.freeze
+        MEGAM_EVENTSBILLINGCOLLECTION         = 'Megam::EventsBillingCollection'.freeze
+        MEGAM_EVENTSSTORAGE                   = 'Megam::EventsStorage'.freeze
+        MEGAM_EVENTSSTORAGECOLLECTION         = 'Megam::EventsStorageCollection'.freeze
+        MEGAM_PROMOS                          = 'Megam::Promos'.freeze
 
         class <<self
             # API to use to avoid create_addtions
@@ -167,22 +167,22 @@ module Megam
                     Megam::SshKey
                 when MEGAM_SSHKEYCOLLECTION
                     Megam::SshKeyCollection
-                  when MEGAM_EVENTSVM
-                      Megam::EventsVm
+                when MEGAM_EVENTSVM
+                    Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
-                      Megam::EventsVmCollection
-                  when MEGAM_EVENTSCONTAINER
-                      Megam::EventsContainer
+                    Megam::EventsVmCollection
+                when MEGAM_EVENTSCONTAINER
+                    Megam::EventsContainer
                 when MEGAM_EVENTSCONTAINERCOLLECTION
-                      Megam::EventsContainerCollection
-                    when MEGAM_EVENTSBILLING
-                        Megam::EventsBilling
-                  when MEGAM_EVENTSBILLINGCOLLECTION
-                        Megam::EventsBillingCollection
-                      when MEGAM_EVENTSSTORAGE
-                          Megam::EventsStorage
-                    when MEGAM_EVENTSSTORAGECOLLECTION
-                          Megam::EventsStorageCollection
+                    Megam::EventsContainerCollection
+                when MEGAM_EVENTSBILLING
+                    Megam::EventsBilling
+                when MEGAM_EVENTSBILLINGCOLLECTION
+                    Megam::EventsBillingCollection
+                when MEGAM_EVENTSSTORAGE
+                    Megam::EventsStorage
+                when MEGAM_EVENTSSTORAGECOLLECTION
+                    Megam::EventsStorageCollection
                 when MEGAM_MARKETPLACE
                     Megam::MarketPlace
                 when MEGAM_MARKETPLACECOLLECTION
@@ -199,10 +199,10 @@ module Megam
                     Megam::Sensors
                 when MEGAM_SENSORSCOLLECTION
                     Megam::SensorsCollection
-                  when MEGAM_SNAPSHOTS
-                      Megam::Snapshots
-                  when MEGAM_SNAPSHOTSCOLLECTION
-                      Megam::SnapshotsCollection
+                when MEGAM_SNAPSHOTS
+                    Megam::Snapshots
+                when MEGAM_SNAPSHOTSCOLLECTION
+                    Megam::SnapshotsCollection
                 when MEGAM_BALANCES
                     Megam::Balances
                 when MEGAM_BALANCESCOLLECTION
@@ -211,10 +211,10 @@ module Megam
                     Megam::Billedhistories
                 when MEGAM_BILLEDHISTORIESCOLLECTION
                     Megam::BilledhistoriesCollection
-                  when MEGAM_BILLINGTRANSCATIONS
-                      Megam::Billingtranscations
-                  when MEGAM_BILLINGTRANSCATIONSCOLLECTION
-                      Megam::BillingtranscationsCollection
+                when MEGAM_BILLINGTRANSACTIONS
+                    Megam::Billingtransactions
+                when MEGAM_BILLINGTRANSACTIONSCOLLECTION
+                    Megam::BillingtransactionsCollection
                 when MEGAM_PROMOS
                     Megam::Promos
                 else
