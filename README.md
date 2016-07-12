@@ -1,11 +1,9 @@
-Vertice api for ruby
+Ruby API for Vertice
 =====================
 
 [![Gem Version](https://badge.fury.io/rb/megam_api.svg)](http://badge.fury.io/rb/megam_api)
 
-Vertice api is used to talk to the vertice gateway server.
-
-For more about the REST API <http://docs.megam.io>
+This is a Ruby SDK API for Vertice that talks REST to our Vertice gateway.
 
 [![Build Status](https://travis-ci.org/megamsys/megam_api.png)](https://travis-ci.org/megamsys/megam_api)
 
@@ -31,12 +29,8 @@ We are glad to help if you have questions, or request for new features..
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | Kishorekumar Neelamegam (<nkishore@megam.io>)
-|                      | Raj Thilak (<rajthilak@megam.io>)
-|                      | Yeshwanth Kumar (<getyesh@megam.io>)
-|                      | Subash Sethurajan (<subash.avc@gmail.com>)
-|                      | Thomas Alrin (<thomasalrin@megam.io>)
-| **Copyright:**       | Copyright (c) 2013-2015 Megam Systems.
+| **Author:**          | Refer [https://rubygems.org/gems/megam_api](https://rubygems.org/gems/megam_api)
+| **Copyright:**       | Copyright (c) 2013-2016 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
