@@ -62,7 +62,8 @@ module Megam
       include Nilavu::MegamAttributes
 
       attr_reader :domain, :keypairoption, :sshkey, :provider, :cpu, :ram, :hdd,
-      :version, :display_name, :password, :region, :resource, :storagetype, :ipv6, :privnetwork
+      :version, :display_name, :password, :region, :resource, :storage_hddtype,
+      :publicipv4, :privateipv4, :publicipv6, :privateipv6
 
       ATTRIBUTES = [
         :domain,
@@ -77,9 +78,11 @@ module Megam
         :password,
         :region,
         :resource,
-        :storagetype,
-        :ipv6,
-        :privnetwork]
+        :storage_hddtype,
+        :privateipv4,
+        :publicipv4,
+        :privateipv6,
+        :publicipv6]
 
       def attributes
         ATTRIBUTES
