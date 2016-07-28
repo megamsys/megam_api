@@ -6,73 +6,73 @@ require 'minitest/autorun'
 require 'time'
 
 SANDBOX_HOST_OPTIONS = {
-      :scheme => 'http',
-  :host => 'localhost',
-      :nonblock => false,
-  :port => 9000
+    :scheme => 'http',
+    :host => 'localhost',
+    :nonblock => false,
+    :port => 9000
 }
 
 
 def megam(options)
-  options = SANDBOX_HOST_OPTIONS.merge(options)
-  mg=Megam::API.new(options)
+    options = SANDBOX_HOST_OPTIONS.merge(options)
+    mg=Megam::API.new(options)
 end
 
 def megams_new(options={})
-s_options = SANDBOX_HOST_OPTIONS.merge({
-  :email => "test@megam.io",
-  :api_key => "faketest"
-})
-  options = s_options.merge(options)
-  mg=Megam::API.new(options)
+    s_options = SANDBOX_HOST_OPTIONS.merge({
+        :email => "test@megam.io",
+        :api_key => "faketest"
+    })
+    options = s_options.merge(options)
+    mg=Megam::API.new(options)
 end
 
 def megams(options={})
-s_options = SANDBOX_HOST_OPTIONS.merge({
-  :email => "test@megam.io",
-  :api_key => "IamAtlas{74}NobdyCanSedfefdeME#07",
-  :org_id => "ORG123",
-  #:password => "bWVnYW0="
-})
+    s_options = SANDBOX_HOST_OPTIONS.merge({
+        :email => "test@megam.io",
+        :api_key => "IamAtlas{74}NobdyCanSedfefdeME#07",
+        :org_id => "ORG123",
+        #:password => "bWVnYW0="
+    })
 
 
-Megam::Log.level(:debug)
-  options = s_options.merge(options)
-  mg=Megam::API.new(options)
+    Megam::Log.level(:debug)
+    options = s_options.merge(options)
+    mg=Megam::API.new(options)
 end
 
 def random_domain
-  "megam.co"
+    "megam.co"
 end
 
 def random_id
-  SecureRandom.random_number(1000)
+    SecureRandom.random_number(1000)
 end
 
 def random_name
-  SecureRandom.hex(15)
+    SecureRandom.hex(15)
 end
 
 def random_apikey
-  SecureRandom.hex(10)
+    SecureRandom.hex(10)
 end
 
 def random_email
-  "email@#{random_apikey}.com"
+    "email@#{random_apikey}.com"
 end
 
 def domain_name
-   "megambox.com"
+    "megambox.com"
 end
 
 def sandbox_name
-  "org.megam"
+    "org.megam"
 end
 
 def sandbox_apikey
- "IamAtlas{74}NobdyCanSedfefdeME#07"
+    "IamAtlas{74}NobdyCanSedfefdeME#07"
 end
 
 def sandbox_email
-"tour@megam.io"
+    "tour@megam.io"
 end
