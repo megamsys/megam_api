@@ -7,7 +7,6 @@ require File.expand_path("#{File.dirname(__FILE__)}/../../lib/megam/mixins/assem
 require File.expand_path("#{File.dirname(__FILE__)}/../../lib/megam/mixins/components")
 class TestMixinsAssemblies < MiniTest::Unit::TestCase
 
-#=begin
   def test_torpedo
     ## input the torpedo hash
     tmp_hash = {"utf8"=>"✓", "mkp_name" => "ubuntu", "cattype":"TORPEDO", "version":"14.04", "assemblyname"=>"biblical", "domain"=>"megambox.com", "ram"=>"896", "cpu"=>"0.5", "SSH_USEOLD_name"=>"tom", "SSH_NEW_name"=>"", "sshoption"=>"SSH_USEOLD", "provider"=>"one", "componentname"=>"ovid", "commit"=>" Create ", "controller"=>"marketplaces", "action"=>"create", "email"=>"8@8.com", "api_key"=>"-NQi-aSKHcmKntCsXb03jw==", "host"=>"192.168.1.105", "org_id"=>"ORG1270367691894554624", "ssh_keypair_name"=>"tom", "name"=>"tom", "path"=>"8@8.com_tom"}
@@ -25,7 +24,7 @@ puts assembly_array.inspect
     #response = megams.post_billings(tmp_hash)
     #assert_equal(201, response.status)
   end
-#=end
+
 =begin
   def test_app_starterpack
     ## input the torpedo hash
