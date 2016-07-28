@@ -14,54 +14,109 @@ def test_signin_auth
 end
 
 =end
-=begin
-
-
-
+#=begin
   def test_get_accounts_good
-    response =megams.get_accounts(sandbox_email)
+    response =megams.get_accounts("coolvader@iamswag.com")
     response.body.to_s
     assert_equal(200, response.status)
   end
-
+#=end
 =begin
-
-
   def test_post_accounts_good
     tmp_hash = {
       "id" => "000099090909000",
-      "first_name" => "Darth",
-      "last_name" => "Vader",
       "email" => "coolvader@iamswag.com",
-      "phone" => "19090909090",
       "api_key" => "faketest",
-      "authority" => "admin",
-      "password" => "",
-      "password_reset_key" => "",
-      "password_reset_sent_at" => "",
-      "created_at" => "2014-10-29 13:24:06 +0000"
+      "name" => {
+        "first_name" => "Darth",
+        "last_name" => "Vader"
+      },
+      "phone" => {
+        "phone" => "1908877643",
+        "phone_verified" => "verified"
+      },
+      "password" => {
+        "password" => "user",
+        "password_reset_key" => "",
+        "password_reset_sent_at" => ""
+      },
+      "states" => {
+        "authority" => "admin",
+        "active" => "active",
+        "blocked" => "blocked",
+        "staged" => ""
+       },
+       "approval" => {
+         "approved" => "approved",
+         "approved_by_id" => "",
+         "approved_at" => ""
+       },
+       "suspend" => {
+         "suspended" => "suspended",
+         "suspended_at" => "",
+         "suspended_till" => ""
+       },
+       "registration_ip_address" => "",
+       "dates" => {
+         "last_posted_at" => "",
+         "last_emailed_at" => "",
+         "previous_visit_at" => "",
+         "first_seen_at" => "",
+         "created_at" => "2014-10-29 13:24:06 +0000"
+       }
+
       }
     response =megams.post_accounts(tmp_hash)
     response.body.to_s
     assert_equal(201, response.status)
   end
-#=end
+=end
 
 =begin
   def test_update_accounts_good
-    tmp_hash = {
-      "id" => "w3423",
+  tmp_hash = {
+    "id" => "000099090909000",
+    "email" => "coolvader@iamswag.com",
+    "api_key" => "faketest",
+    "name" => {
       "first_name" => "Darth",
-      "last_name" => "Vader",
-      "email" => "super@test.com",
-      "phone" => "19090909090011111111",
-      "api_key" => "IamAtlas{74}NobdyCanSedfefdeME#07",
-      "authority" => "admin",
-      "password" => "tset",
+      "last_name" => "Vader"
+    },
+    "phone" => {
+      "phone" => "345566",
+      "phone_verified" => "verified"
+    },
+    "password" => {
+      "password" => "admin",
       "password_reset_key" => "",
-      "password_reset_sent_at" => "",
-      "created_at" => "2014-10-29 13:24:06 +0000"
-      }
+      "password_reset_sent_at" => ""
+    },
+    "states" => {
+      "authority" => "admin",
+      "active" => "not",
+      "blocked" => "blocked",
+      "staged" => ""
+     },
+     "approval" => {
+       "approved" => "approved",
+       "approved_by_id" => "",
+       "approved_at" => ""
+     },
+     "suspend" => {
+       "suspended" => "suspended",
+       "suspended_at" => "",
+       "suspended_till" => ""
+     },
+     "registration_ip_address" => "",
+     "dates" => {
+       "last_posted_at" => "",
+       "last_emailed_at" => "",
+       "previous_visit_at" => "",
+       "first_seen_at" => "",
+       "created_at" => "2014-10-29 13:24:06 +0000"
+     }
+
+    }
    response = megams.update_accounts(tmp_hash)
    response.body.to_s
    assert_equal(201, response.status)
