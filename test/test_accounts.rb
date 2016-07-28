@@ -16,16 +16,16 @@ end
 =end
 #=begin
   def test_get_accounts_good
-    response =megams.get_accounts("coolvader@iamswag.com")
+    response =megams.get_accounts("coolvader123@iamswag.com")
     response.body.to_s
     assert_equal(200, response.status)
   end
 #=end
-=begin
+#=begin
   def test_post_accounts_good
     tmp_hash = {
       "id" => "000099090909000",
-      "email" => "coolvader@iamswag.com",
+      "email" => "coolvader123@iamswag.com",
       "api_key" => "faketest",
       "name" => {
         "first_name" => "Darth",
@@ -70,7 +70,7 @@ end
     response.body.to_s
     assert_equal(201, response.status)
   end
-=end
+#=end
 
 =begin
   def test_update_accounts_good
