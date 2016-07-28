@@ -99,6 +99,14 @@ module Megam
       end
     end
 
+    def phone(arg=nil)
+      if arg != nil
+        @phone = arg
+      else
+      @phone
+      end
+    end
+
     def password(arg=nil)
       if arg != nil
         @password = arg
@@ -107,6 +115,14 @@ module Megam
       end
     end
 
+
+    def password(arg=nil)
+      if arg != nil
+        @password = arg
+      else
+      @password
+      end
+    end
 
     def password_reset_key(arg=nil)
       if arg != nil
