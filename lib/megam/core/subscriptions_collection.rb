@@ -20,14 +20,14 @@ module Megam
         def []=(index, arg)
             is_megam_subscriptions(arg)
             @subscriptions[index] = arg
-            @subscriptions_by_name[arg.accounts_id] = index
+            @subscriptions_by_name[arg.account_id] = index
         end
 
         def <<(*args)
             args.flatten.each do |a|
                 is_megam_subscriptions(a)
                 @subscriptions << a
-                @subscriptions_by_name[a.accounts_id] =@subscriptions.length - 1
+                @subscriptions_by_name[a.account_id] =@subscriptions.length - 1
             end
             self
         end
@@ -46,11 +46,11 @@ module Megam
                 @subscriptions_by_name.each_key do |key|
                     @subscriptions_by_name[key] += 1 if@subscriptions_by_name[key] > @insert_after_idx
                 end
-                @subscriptions_by_name[subscriptions.accounts_id] = @insert_after_idx + 1
+                @subscriptions_by_name[subscriptions.account_id] = @insert_after_idx + 1
                 @insert_after_idx += 1
             else
                 @subscriptions << subscriptions
-                @subscriptions_by_name[subscriptions.accounts_id] =@subscriptions.length - 1
+                @subscriptions_by_name[subscriptions.account_id] =@subscriptions.length - 1
             end
         end
 
@@ -73,7 +73,7 @@ module Megam
         def lookup(subscriptions)
             lookup_by = nil
             if Subscriptions.kind_of?(Megam::Subscriptions)
-                lookup_by = subscriptions.accounts_id
+                lookup_by = subscriptions.account_id
             elsif subscriptions.kind_of?(String)
                 lookup_by = subscriptions
             else

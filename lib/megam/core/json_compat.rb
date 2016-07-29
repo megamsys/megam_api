@@ -50,6 +50,8 @@ module Megam
         MEGAM_EVENTSSTORAGECOLLECTION         = 'Megam::EventsStorageCollection'.freeze
         MEGAM_SUBSCRIPTIONS                 = 'Megam::Subscriptions'.freeze
         MEGAM_SUBSCRIPTIONSCOLLECTION       = 'Megam::SubscriptionsCollection'.freeze
+        MEGAM_ADDONS                       = 'Megam::Addons'.freeze
+        MEGAM_ADDONSCOLLECTION            = 'Megam::AddonsCollection'.freeze
         MEGAM_PROMOS                          = 'Megam::Promos'.freeze
 
         class <<self
@@ -205,11 +207,15 @@ module Megam
                     Megam::Billingtransactions
                 when MEGAM_BILLINGTRANSACTIONSCOLLECTION
                     Megam::BillingtransactionsCollection
-                  when MEGAM_SUBSCRIPTIONS
-                      Megam::Subscriptions
-                  when MEGAM_SUBSCRIPTIONSCOLLECTION
-                      Megam::SubscriptionsCollection
-                when MEGAM_PROMOS
+                when MEGAM_SUBSCRIPTIONS
+                    Megam::Subscriptions
+                when MEGAM_SUBSCRIPTIONSCOLLECTION
+                    Megam::SubscriptionsCollection
+                when MEGAM_ADDONS
+                    Megam::Addons
+                when MEGAM_ADDONSCOLLECTION
+                    Megam::AddonsCollection
+               when MEGAM_PROMOS
                     Megam::Promos
                 else
                     fail JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"

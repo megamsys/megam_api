@@ -3,7 +3,7 @@ require File.expand_path("#{File.dirname(__FILE__)}/test_helper")
 class TestApps < MiniTest::Unit::TestCase
 #=begin
   def test_post_subscriptions
-    tmp_hash = { :accounts_id => "",
+    tmp_hash = { :account_id => "",
                  :model => "ondemand",
                  :license => "trial",
                  :trial_ends => "21/11/2016 20:30:00"

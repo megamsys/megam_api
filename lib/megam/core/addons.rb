@@ -1,17 +1,17 @@
 module Megam
-    class Subscriptions < Megam::RestAdapter
+    class Addons < Megam::RestAdapter
         def initialize(o)
             @id = nil
+            @provider_id = nil
             @account_id = nil
-            @model = nil
-            @license = nil
-            @trial_ends = nil
+            @provider_name = nil
+            @options = []
             @created_at = nil
             @some_msg = {}
             super(o)
         end
 
-        def subscriptions
+        def addons
             self
         end
 
@@ -23,6 +23,14 @@ module Megam
             end
         end
 
+        def provider_id(arg=nil)
+            if arg != nil
+                @provider_id= arg
+            else
+                @provider_id
+            end
+        end
+
         def account_id(arg=nil)
             if arg != nil
                 @account_id= arg
@@ -31,27 +39,19 @@ module Megam
             end
         end
 
-        def model(arg=nil)
+        def provider_name(arg=nil)
             if arg != nil
-                @model = arg
+                @provider_name = arg
             else
-                @model
+                @provider_name
             end
         end
 
-        def license(arg=nil)
-            if arg != nil
-                @license= arg
+        def options(arg=[])
+            if arg != []
+                @options = arg
             else
-                @license
-            end
-        end
-
-        def trial_ends(arg=nil)
-            if arg != nil
-                @trial_ends = arg
-            else
-                @trial_ends
+                @options
             end
         end
 
@@ -80,10 +80,10 @@ module Megam
             index_hash = Hash.new
             index_hash["json_claz"] = self.class.name
             index_hash["id"] = id
+            index_hash["provider_id"] = provider_id
             index_hash["account_id"] = account_id
-            index_hash["model"] = model
-            index_hash["license"] = license
-            index_hash["trial_ends"] = trial_ends
+            index_hash["provider_name"] = provider_name
+            index_hash["options"] = options
             index_hash["created_at"] = created_at
             index_hash
         end
@@ -97,10 +97,10 @@ module Megam
         def for_json
             result = {
                 "id" => id,
+                "provider_id" => provider_id,
                 "account_id" => account_id,
-                "model" => model,
-                "license" => license,
-                "trial_ends" => trial_ends,
+                "provider_name" => provider_name ,
+                "options" => options,
                 "created_at" => created_at
             }
             result
@@ -108,33 +108,33 @@ module Megam
 
         #
         def self.json_create(o)
-            sbs = new({})
-            sbs.id(o["id"]) if o.has_key?("id")
-            sbs.account_id(o["account_id"]) if o.has_key?("account_id")
-            sbs.model(o["model"]) if o.has_key?("model")
-            sbs.license(o["license"]) if o.has_key?("license")
-            sbs.trial_ends(o["trial_ends"]) if o.has_key?("trial_ends")
-            sbs.created_at(o["created_at"]) if o.has_key?("created_at")
+            adn = new({})
+            adn.id(o["id"]) if o.has_key?("id")
+            adn.provider_id(o["provider_id"]) if o.has_key?("provider_id")
+            adn.account_id(o["account_id"]) if o.has_key?("account_id")
+            adn.provider_name(o["provider_name"]) if o.has_key?("provider_name")
+            adn.options(o["options"]) if o.has_key?("options")
+            adn.created_at(o["created_at"]) if o.has_key?("created_at")
             #success or error
-            sbs.some_msg[:code] = o["code"] if o.has_key?("code")
-            sbs.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
-            sbs.some_msg[:msg]= o["msg"] if o.has_key?("msg")
-            sbs.some_msg[:links] = o["links"] if o.has_key?("links")
-            sbs
+            adn.some_msg[:code] = o["code"] if o.has_key?("code")
+            adn.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+            adn.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+            adn.some_msg[:links] = o["links"] if o.has_key?("links")
+            adn
         end
 
         def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-            sbs = self.new(tmp_email, tmp_api_key, tmp_host)
-            sbs.from_hash(o)
-            sbs
+            adn = self.new(tmp_email, tmp_api_key, tmp_host)
+            adn.from_hash(o)
+            adn
         end
 
         def from_hash(o)
             @id        = o[:id] if o.has_key?(:id)
+            @provider_id = o[:provider_id] if o.has_key?(:provider_id)
             @account_id = o[:account_id] if o.has_key?(:account_id)
-            @model     = o[:model] if o.has_key?(:model)
-            @license   = o[:license] if o.has_key?(:license)
-            @trial_ends   = o[:trial_ends] if o.has_key?(:trial_ends)
+            @provider_name   = o[:provider_name] if o.has_key?(:provider_name)
+            @options     = o[:options] if o.has_key?(:options)
             @created_at   = o[:created_at] if o.has_key?(:created_at)
             self
         end
@@ -144,18 +144,20 @@ module Megam
             acct.create
         end
 
-        # Create the subscriptions via the REST API
+        # Create the addons via the REST API
         def create
-            megam_rest.post_subscriptions(to_hash)
+            megam_rest.post_addons(to_hash)
         end
 
-        # Load all subscriptions -
-        # returns a SubscriptionsCollection
-        # don't return self. check if the Megam::SubscriptionsCollection is returned.
+        # Load all addons -
+        # returns a AddonsCollection
+        # don't return self. check if the Megam::AddonsCollection is returned.
 
+        # Show a particular addon by  provider_name,
+        # Megam::Addon
         def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
             pre = self.new(tmp_email,tmp_api_key, tmp_host)
-            pre.megam_rest.get_subscription
+            pre.megam_rest.get_addon(p_name)
         end
 
 
