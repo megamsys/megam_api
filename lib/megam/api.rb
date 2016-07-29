@@ -29,6 +29,7 @@ require 'megam/api/eventsbilling'
 require 'megam/api/eventsstorage'
 require 'megam/api/snapshots'
 require 'megam/api/subscriptions'
+require 'megam/api/addons'
 require 'megam/api/version'
 
 require 'megam/mixins/assemblies'
@@ -83,6 +84,8 @@ require 'megam/core/billingtransactions_collection'
 require 'megam/core/billingtransactions'
 require 'megam/core/subscriptions_collection'
 require 'megam/core/subscriptions'
+require 'megam/core/addons_collection'
+require 'megam/core/addons'
 require 'megam/core/promos'
 
 module Megam
