@@ -48,6 +48,8 @@ module Megam
         MEGAM_EVENTSBILLINGCOLLECTION         = 'Megam::EventsBillingCollection'.freeze
         MEGAM_EVENTSSTORAGE                   = 'Megam::EventsStorage'.freeze
         MEGAM_EVENTSSTORAGECOLLECTION         = 'Megam::EventsStorageCollection'.freeze
+        MEGAM_SUBSCRIPTIONS                 = 'Megam::Subscriptions'.freeze
+        MEGAM_SUBSCRIPTIONSCOLLECTION       = 'Megam::SubscriptionsCollection'.freeze
         MEGAM_PROMOS                          = 'Megam::Promos'.freeze
 
         class <<self
@@ -203,6 +205,10 @@ module Megam
                     Megam::Billingtransactions
                 when MEGAM_BILLINGTRANSACTIONSCOLLECTION
                     Megam::BillingtransactionsCollection
+                  when MEGAM_SUBSCRIPTIONS
+                      Megam::Subscriptions
+                  when MEGAM_SUBSCRIPTIONSCOLLECTION
+                      Megam::SubscriptionsCollection
                 when MEGAM_PROMOS
                     Megam::Promos
                 else
