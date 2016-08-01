@@ -197,17 +197,17 @@ module Megam
         def to_hash
             h = Hash.new
             h['json_claz'] = self.class.name
-            h['id'] = id
-            h['email'] = email
-            h['api_key'] = api_key
-            h['name'] = name
-            h['phone'] = phone
-            h['password'] = password
-            h['states'] = state
-            h['approval'] = approval
-            h['suspend'] = suspend
-            h['registration_ip_address'] = registration_ip_address
-            h['dates'] = dates
+            h['id'] = @id
+            h['email'] = @email
+            h['api_key'] = @api_key
+            h['name'] = @name
+            h['phone'] = @phone
+            h['password'] = @password
+            h['states'] = @states
+            h['approval'] = @approval
+            h['suspend'] = @suspend
+            h['registration_ip_address'] = @registration_ip_address
+            h['dates'] = @dates
             h['some_msg'] = some_msg
             Megam::Log.debug('---> before_save:')
             Megam::Log.debug(h)
