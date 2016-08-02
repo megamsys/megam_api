@@ -74,7 +74,7 @@ module Megam
             o.symbolize_keys!
             o.each { |k, v| acct.send("#{k}=", v) }
             acct.some_msg[:code] = code  if code
-            acct.some_msg[:msg_type] = msg_type ] if msg_type
+            acct.some_msg[:msg_type] = msg_type if msg_type
             acct.some_msg[:msg] = msg if msg
             acct.some_msg[:links] = links if links
 
