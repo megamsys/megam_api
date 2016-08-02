@@ -12,7 +12,7 @@ module Megam
         attr_accessor :suspend
         attr_accessor :registration_ip_address
         attr_accessor :dates
-        attr_accessor :code, :msg_type, :msg, :links, :more
+        attr_accessor :json_claz, :code, :msg_type, :msg, :links, :more
         attr_accessor :some_msg
 
 
