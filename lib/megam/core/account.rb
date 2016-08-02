@@ -12,7 +12,7 @@ module Megam
         attr_accessor :suspend
         attr_accessor :registration_ip_address
         attr_accessor :dates
-        attr_accessor :code, :msg_type, :msg, :links
+        attr_accessor :code, :msg_type, :msg, :links, :more
         attr_accessor :some_msg
 
 
@@ -76,6 +76,7 @@ module Megam
             acct.some_msg[:code] = code  if code
             acct.some_msg[:msg_type] = msg_type if msg_type
             acct.some_msg[:msg] = msg if msg
+            acct.some_msg[:more] = more if more
             acct.some_msg[:links] = links if links
 
             puts "--- act: json_create"
