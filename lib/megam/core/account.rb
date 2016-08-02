@@ -12,7 +12,9 @@ module Megam
         attr_accessor :suspend
         attr_accessor :registration_ip_address
         attr_accessor :dates
+        attr_accessor :code, :msg_type, :msg, :links
         attr_accessor :some_msg
+
 
         def initialize(o={})
             @id = nil
@@ -71,10 +73,10 @@ module Megam
             acct = new()
             o.symbolize_keys!
             o.each { |k, v| acct.send("#{k}=", v) }
-            acct.some_msg[:code] = o['code'] if o.key?('code')
-            acct.some_msg[:msg_type] = o['msg_type'] if o.key?('msg_type')
-            acct.some_msg[:msg] = o['msg'] if o.key?('msg')
-            acct.some_msg[:links] = o['links'] if o.key?('links')
+            acct.some_msg[:code] = code  if code
+            acct.some_msg[:msg_type] = msg_type ] if msg_type
+            acct.some_msg[:msg] = msg if msg
+            acct.some_msg[:links] = links if links
 
             puts "--- act: json_create"
             puts acct.inspect
