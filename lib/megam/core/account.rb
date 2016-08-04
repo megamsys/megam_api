@@ -72,18 +72,19 @@ module Megam
         def self.json_create(o)
             acct = new()
             o.symbolize_keys!
+            o = o[:results] if o.has_key?(:results)
+
             o.each { |k, v| acct.send("#{k}=", v) }
+
             acct.some_msg[:code] = @code  if @code
             acct.some_msg[:msg_type] = @msg_type if @msg_type
             acct.some_msg[:msg] = @msg if @msg
             acct.some_msg[:more] = @more if @more
             acct.some_msg[:links] = @links if @links
-
-            puts "--- act: json_create"
-            puts acct.inspect
-            puts "--- act: json_created"
+            
             acct
         end
+
 
         #Can be used by the  calling classes to get the full hash
         # (eg: Nilavu: User model)
