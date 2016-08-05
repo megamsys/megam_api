@@ -3,7 +3,9 @@ module Megam
         attr_reader :email
         attr_reader :api_key
         attr_reader :host
-        attr_reader :password
+        # the name :password is used as attr_accessor in accounts,
+        # hence we use gpassword
+        attr_reader :gpassword
         attr_reader :org_id
         attr_reader :headers
 
@@ -13,7 +15,7 @@ module Megam
             @email = o[:email]
             @api_key = o[:api_key] || nil
             @host = o[:host]
-            @password = o[:password] || nil
+            @gpassword = o[:password] || nil
             @org_id = o[:org_id]
             @headers = o[:headers]
         end
@@ -27,7 +29,7 @@ module Megam
               :email => email,
               :api_key => api_key,
               :org_id => org_id,
-              :password => password,
+              :password => gpassword,
               :host => host
             }
             if headers
