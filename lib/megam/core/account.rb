@@ -98,6 +98,9 @@ module Megam
                     h[setting] = self.send("#{setting}")
                 end
             end
+            puts "====== expanded"
+            puts h.inspect
+            puts "======= +++++++++++++"
             h
         end
 
