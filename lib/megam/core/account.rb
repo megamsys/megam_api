@@ -94,9 +94,9 @@ module Megam
             :registration_ip_address, :dates, :some_msg].each do |setting|
                 if grouped = self.send("#{setting}").is_a?(Hash)
                     Megam::Log.debug("---> after_save: #{setting}")
-                    Megam::Log.debug(grouped)
+                    Megam::Log.debug(self.send("#{setting}"))
                     Megam::Log.debug("c[_] after_save: #{setting}")
-                    grouped.each {|k,v|   h[k.to_sym] = v}
+                    self.send("#{setting}").each {|k,v|   h[k.to_sym] = v}
                 else
                     h[setting] = self.send("#{setting}")
                 end
