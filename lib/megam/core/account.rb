@@ -93,17 +93,11 @@ module Megam
             [:id, :email, :api_key, :name, :phone, :password,:states, :approval, :suspend,
             :registration_ip_address, :dates, :some_msg].each do |setting|
                 if grouped = self.send("#{setting}").is_a?(Hash)
-                    Megam::Log.debug("---> after_save: #{setting}")
-                    Megam::Log.debug(self.send("#{setting}"))
-                    Megam::Log.debug("c[_] after_save: #{setting}")
                     self.send("#{setting}").each {|k,v|   h[k.to_sym] = v}
                 else
                     h[setting] = self.send("#{setting}")
                 end
             end
-            Megam::Log.debug('---> after_save:')
-            Megam::Log.debug(h)
-            Megam::Log.debug('c[_] after_save')
             h
         end
 
@@ -213,10 +207,6 @@ module Megam
             h['registration_ip_address'] = @registration_ip_address
             h['dates'] = @dates
             h['some_msg'] = some_msg
-            Megam::Log.debug('---> before_save:')
-            Megam::Log.debug(h)
-            Megam::Log.debug('c[_] expanded')
-            Megam::Log.debug(h)
             h
         end
     end
