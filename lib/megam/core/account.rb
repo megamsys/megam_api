@@ -81,7 +81,7 @@ module Megam
             acct.some_msg[:msg] = @msg if @msg
             acct.some_msg[:more] = @more if @more
             acct.some_msg[:links] = @links if @links
-            
+
             acct
         end
 
@@ -90,7 +90,7 @@ module Megam
         # (eg: Nilavu: User model)
         def expanded
             h = Hash.new
-            [:id, :email, :api_key, :first_name, :name, :phone, :password,:states, :approval, :suspend,
+            [:id, :email, :api_key, :name, :phone, :password,:states, :approval, :suspend,
             :registration_ip_address, :dates, :some_msg].each do |setting|
                 if grouped = self.send("#{setting}").is_a?(Hash)
                     Megam::Log.debug("---> after_save: #{setting}")
