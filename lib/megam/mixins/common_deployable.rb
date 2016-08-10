@@ -6,9 +6,9 @@ module Megam
             include Nilavu::MegamAttributes
             attr_reader :status, :inputs, :tosca_type
 
-            DEFAULT_TOSCA_PREFIX = 'tosca'.freeze
-            # this is a mutable string, if nothing exists then we use ubuntu
-            DEFAULT_TOSCA_SUFFIX = 'ubuntu'.freeze
+              DEFAULT_VERTICE_PREFIX  = 'vertice'.freeze
+              DEFAULT_BITNAMI_PREFIX  = 'bitnami'.freeze
+              DEFAULT_DOCKER_PREFIX   = 'docker'.freeze
 
             ATTRIBUTES = [
                 :tosca_type,
@@ -37,9 +37,15 @@ module Megam
             end
 
             def bld_toscatype(params)
-                tosca_suffix = DEFAULT_TOSCA_SUFFIX
-                tosca_suffix = "#{params[:mkp_name]}" unless params[:cattype] != 'TORPEDO'.freeze
-                @tosca_type = DEFAULT_TOSCA_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
+                case params[:scm_name]
+              when DEFAULT_BITNAMI_PREFIX
+                @tosca_type = DEFAULT_BITNAMI_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
+              when DEFAULT_DOCKER_PREFIX
+                @tosca_type = DEFAULT_DOCKER_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
+              else
+                @tosca_type = DEFAULT_VERTICE_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
+              end
+
             end
         end
 
