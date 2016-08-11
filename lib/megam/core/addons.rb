@@ -139,8 +139,8 @@ module Megam
             self
         end
 
-        def self.create(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-            acct = from_hash(o,tmp_email, tmp_api_key, tmp_host)
+        def self.create(params)
+            acct = from_hash(params)
             acct.create
         end
 
@@ -155,9 +155,9 @@ module Megam
 
         # Show a particular addon by  provider_name,
         # Megam::Addon
-        def self.show(p_name,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-            pre = self.new(tmp_email,tmp_api_key, tmp_host)
-            pre.megam_rest.get_addon(p_name)
+        def self.show(params)
+            pre = self.new(params)
+            pre.megam_rest.get_addon(params["provider"])
         end
 
 
