@@ -153,7 +153,7 @@ module Megam
         # Load a account by email_p
         def self.show(o)
             evt = self.new(o)
-            evt.megam_rest.get_eventsvm(o[:limit], to_hash)
+            evt.megam_rest.get_eventsvm(o[:limit], evt.to_hash)
         end
 
         def self.list(params)
