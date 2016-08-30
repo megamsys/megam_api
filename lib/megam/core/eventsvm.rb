@@ -7,6 +7,7 @@ module Megam
             @data = []
             @created_at = nil
             @limit = nil
+            @id =nil
             @some_msg = {}
             super(o)
         end
@@ -20,6 +21,14 @@ module Megam
                 @account_id = arg
             else
                 @account_id
+            end
+        end
+
+        def id(arg=nil)
+            if arg != nil
+                @id = arg
+            else
+                @id
             end
         end
 
@@ -104,7 +113,8 @@ module Megam
                 "event_type" => event_type,
                 "data" => data,
                 "limit"  => limit,
-                "created_at" => created_at
+                "created_at" => created_at,
+                "id" => id
             }
             result
         end
@@ -131,12 +141,13 @@ module Megam
         end
 
         def from_hash(o)
-            @account_id       = o[:account_id] if o.has_key?(:account_id)
-            @assembly_id      = o[:assembly_id] if o.has_key?(:assembly_id)
+            @account_id        = o[:account_id] if o.has_key?(:account_id)
+            @assembly_id       = o[:assembly_id] if o.has_key?(:assembly_id)
             @event_type        = o[:event_type] if o.has_key?(:event_type)
-            @data            = o[:data] if o.has_key?(:data)
-            @limit           = o[:limit] if o.has_key?(:limit)
+            @data              = o[:data] if o.has_key?(:data)
+            @limit             = o[:limit] if o.has_key?(:limit)
             @created_at        = o[:created_at] if o.has_key?(:created_at)
+            @id                = o[:id] if o.has_key?(:id)
             self
         end
 
