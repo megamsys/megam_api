@@ -6,8 +6,8 @@ module Megam
             @event_type = nil
             @data = []
             @created_at = nil
+	          @id = nil
             @limit = nil
-            @id =nil
             @some_msg = {}
             super(o)
         end
@@ -24,7 +24,7 @@ module Megam
             end
         end
 
-        def id(arg=nil)
+	def id(arg=nil)
             if arg != nil
                 @id = arg
             else
@@ -96,6 +96,7 @@ module Megam
             index_hash["data"] = data
             index_hash["limit"] = limit
             index_hash["created_at"] = created_at
+	          index_hash["id"] = id
             index_hash["some_msg"] = some_msg
             index_hash
         end
@@ -114,7 +115,7 @@ module Megam
                 "data" => data,
                 "limit"  => limit,
                 "created_at" => created_at,
-                "id" => id
+		            "id" => id
             }
             result
         end
@@ -122,6 +123,7 @@ module Megam
         def self.json_create(o)
             evt = new({})
             evt.account_id(o["account_id"]) if o.has_key?("account_id")
+    	      evt.id(o["id"]) if o.has_key?("id")
             evt.assembly_id(o["assembly_id"]) if o.has_key?("assembly_id")
             evt.event_type(o["event_type"]) if o.has_key?("event_type") #this will be an array? can hash store array?
             evt.data(o["data"]) if o.has_key?("data")
@@ -141,13 +143,13 @@ module Megam
         end
 
         def from_hash(o)
-            @account_id        = o[:account_id] if o.has_key?(:account_id)
-            @assembly_id       = o[:assembly_id] if o.has_key?(:assembly_id)
-            @event_type        = o[:event_type] if o.has_key?(:event_type)
-            @data              = o[:data] if o.has_key?(:data)
-            @limit             = o[:limit] if o.has_key?(:limit)
-            @created_at        = o[:created_at] if o.has_key?(:created_at)
-            @id                = o[:id] if o.has_key?(:id)
+            @account_id       = o[:account_id] if o.has_key?(:account_id)
+            @assembly_id      = o[:assembly_id] if o.has_key?(:assembly_id)
+            @event_type       = o[:event_type] if o.has_key?(:event_type)
+            @data             = o[:data] if o.has_key?(:data)
+            @limit            = o[:limit] if o.has_key?(:limit)
+            @created_at       = o[:created_at] if o.has_key?(:created_at)
+	          @id               = o[:id] if o.has_key?(:id)
             self
         end
 
@@ -163,7 +165,7 @@ module Megam
 
         # Load a account by email_p
         def self.show(o)
- 	        evt = from_hash(o)
+ 	          evt = from_hash(o)
             evt.megam_rest.get_eventsvm(o[:limit], evt.from_hash(o).for_json)
         end
 
