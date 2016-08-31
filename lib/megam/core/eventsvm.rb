@@ -165,7 +165,7 @@ module Megam
 
         # Load a account by email_p
         def self.show(o)
- 	evt = from_hash(o)
+ 	          evt = from_hash(o)
             evt.megam_rest.get_eventsvm(o[:limit], evt.from_hash(o).for_json)
         end
 
