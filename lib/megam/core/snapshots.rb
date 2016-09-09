@@ -152,7 +152,7 @@ module Megam
         # Load a account by email_p
         def self.show(o)
             sps = self.new(o)
-            sps.megam_rest.get_snapshots(o[:asm_id])
+            sps.megam_rest.get_snapshots(o[:id])
         end
 
         def self.list(params)
