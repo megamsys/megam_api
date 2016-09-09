@@ -7,7 +7,8 @@ require 'time'
 
 SANDBOX_HOST_OPTIONS = {
     :scheme => 'http',
-    :host => 'localhost',
+    #:host => 'localhost',
+    :host => 'cloud.det.io',
     :nonblock => false,
     :port => 9000
 }

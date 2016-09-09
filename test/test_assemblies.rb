@@ -29,6 +29,7 @@ class TestApps < MiniTest::Unit::TestCase
           "outputs"=>[],
           "policies"=>[],
           "status"=>"error",
+          "state"=>"error",
           "created_at"=>"2016-02-02 07:50:49 +0000",
           "components"=>[
             {
@@ -65,7 +66,8 @@ class TestApps < MiniTest::Unit::TestCase
                     {"key"=>"token","value"=>"066b697558f048459412410483ca8965415bf7de"},
                     {"key"=>"username","value"=>"rajthilakmca"}],
                   "status"=>"notbound"}],
-              "status"=>"error"}]}],
+              "status"=>"error",
+              "state"=>"error"}]}],
       "inputs"=>[
         {"key"=>"domain","value"=>"megambox.com"},
         {"key"=>"sshkey","value"=>"a@b.com_rtr"},

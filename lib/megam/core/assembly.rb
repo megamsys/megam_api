@@ -10,6 +10,7 @@ module Megam
             @inputs = []
             @outputs = []
             @status = nil
+            @state = nil
             @created_at = nil
 
             super(o)
@@ -91,6 +92,14 @@ module Megam
             end
         end
 
+        def state(arg = nil)
+            if !arg.nil?
+                @state = arg
+            else
+                @state
+            end
+        end
+
         def created_at(arg = nil)
             if !arg.nil?
                 @created_at = arg
@@ -116,6 +125,7 @@ module Megam
             index_hash['inputs'] = inputs
             index_hash['outputs'] = outputs
             index_hash['status'] = status
+            index_hash['state'] = state
             index_hash['created_at'] = created_at
             index_hash
         end
@@ -136,6 +146,7 @@ module Megam
                 'inputs' => inputs,
                 'outputs' => outputs,
                 'status' => status,
+                'state' => state,
                 'created_at' => created_at
             }
 
@@ -153,6 +164,7 @@ module Megam
             asm.inputs(o['inputs']) if o.key?('inputs')
             asm.outputs(o['outputs']) if o.key?('outputs')
             asm.status(o['status']) if o.key?('status')
+            asm.state(o['state']) if o.key?('state')
             asm.created_at(o['created_at']) if o.key?('created_at')
             asm
         end
@@ -173,6 +185,7 @@ module Megam
             @inputs            = o['inputs'] if o.key?('inputs')
             @outputs           = o['outputs'] if o.key?('outputs')
             @status            = o['status'] if o.key?('status')
+            @state            = o['state'] if o.key?('state')
             @created_at        = o['created_at'] if o.key?('created_at')
             self
         end

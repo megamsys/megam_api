@@ -26,6 +26,7 @@ class TestApps < MiniTest::Unit::TestCase
       "inputs" => [],
      "output" => [],
       "status" => "Launching",
+      "state" => "Launching",
       "created_at" => "2015-10-12 13:24:06 +0000"
     }
     response = megams.update_assembly(tmp_hash)

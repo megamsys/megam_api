@@ -14,6 +14,7 @@ module Megam
             @related_components = []
             @operations = []
             @status = nil
+            @state = nil
             @repo = {}
             @rtype = nil
             @source = nil
@@ -132,6 +133,14 @@ module Megam
             end
         end
 
+        def state(arg = nil)
+            if !arg.nil?
+                @state = arg
+            else
+                @state
+            end
+        end
+
         def repo(arg = nil)
             if !arg.nil?
                 @repo = arg
@@ -198,6 +207,7 @@ module Megam
             index_hash['related_components'] = related_components
             index_hash['operations'] = operations
             index_hash['status'] = status
+            index_hash['state'] = state
             index_hash['repo'] = repo
             index_hash['created_at'] = created_at
             index_hash
@@ -221,6 +231,7 @@ module Megam
                 'related_components' => related_components,
                 'operations' => operations,
                 'status' => status,
+                'state' => state,
                 'repo' => repo,
                 'created_at' => created_at
             }
@@ -243,6 +254,7 @@ module Megam
             asm.related_components(o['related_components']) if o.key?('related_components')
             asm.operations(o['operations']) if o.key?('operations')
             asm.status(o['status']) if o.key?('status')
+            asm.state(o['state']) if o.key?('state')
 
             ro = o['repo']
             asm.repo[:rtype] = ro['rtype'] if ro && ro.key?('rtype')
@@ -270,6 +282,7 @@ module Megam
             @related_components              = o['related_components'] if o.key?('related_components')
             @operations                      = o['operations'] if o.key?('operations')
             @status                          = o['status'] if o.key?('status')
+            @state                          = o['state'] if o.key?('state')
             @repo                            = o['repo'] if o.key?('repo')
             @created_at                      = o['created_at'] if o.key?('created_at')
             self
