@@ -119,7 +119,7 @@ module Megam
             @phone[:phone] = o[:phone] if o.key?(:phone)
             @phone[:phone_verified] = o[:phone_verified] if o.key?(:phone_verified)
 
-            @password[:password] = o[:password] if o.key?(:password)
+            @password[:password_hash] = o[:password_hash] if o.key?(:password_hash)
             @password[:password_reset_key] = o[:password_reset_key] if o.key?(:password_reset_key)
             @password[:password_reset_sent_at] = o[:password_reset_sent_at] if o.key?(:password_reset_sent_at)
 
@@ -164,26 +164,26 @@ module Megam
             acct.update
         end
 
-        def self.reset(o)
+        def self.forgot(o)
             acct = from_hash(o)
-            acct.reset
+            acct.forgot
         end
 
-        def self.repassword(o)
+        def self.password_token(o)
             acct = from_hash(o)
-            acct.repassword
+            acct.password_token
         end
 
         def update
             megam_rest.update_accounts(to_hash)
         end
 
-        def reset
-            megam_rest.reset_accounts(to_hash)
+        def forgot
+            megam_rest.forgot(to_hash)
         end
 
-        def repassword
-            megam_rest.repassword_accounts(to_hash)
+        def password_token
+            megam_rest.password_token(to_hash)
         end
 
         def to_s
