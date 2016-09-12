@@ -223,6 +223,9 @@ module Megam
             @options[:headers] = HEADERS.merge(X_Megam_HMAC => encoded_api_header[:hmac],
             X_Megam_DATE => encoded_api_header[:date], X_Megam_ORG => "#{@org_id}").merge(@options[:headers])
             if (@api_key == "" || @api_key.nil?)
+                puts "--------- password_hash -------"
+                puts @password_hash.inspect
+                puts "-------------------------------"
                 @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true") unless (@password_hash == "" || @password_hash.nil?)
             end
 
