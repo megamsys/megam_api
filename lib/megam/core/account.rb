@@ -145,6 +145,15 @@ module Megam
             self
         end
 
+        def self.login(o)
+            acct = from_hash(o)
+            acct.create
+        end
+
+        def login
+            megam_rest.login(to_hash)
+        end
+        
         def self.create(o)
             acct = from_hash(o)
             acct.create
@@ -169,9 +178,9 @@ module Megam
             acct.forgot
         end
 
-        def self.password_token(o)
+        def self.password_reset(o)
             acct = from_hash(o)
-            acct.password_token
+            acct.password_reset
         end
 
         def update
@@ -182,8 +191,8 @@ module Megam
             megam_rest.forgot(to_hash)
         end
 
-        def password_token
-            megam_rest.password_token(to_hash)
+        def password_reset
+            megam_rest.password_reset(to_hash)
         end
 
         def to_s

@@ -59,8 +59,8 @@ module Megam
       )
     end
 
-    def password_token(account)
-      @options = {:path => "/accounts/password_token",
+    def password_reset(account)
+      @options = {:path => "/accounts/password_reset",
      :body => Megam::JSONCompat.to_json(account)}.merge(@options)
 
       request(
