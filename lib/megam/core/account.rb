@@ -147,7 +147,7 @@ module Megam
 
         def self.login(o)
             acct = from_hash(o)
-            acct.create
+            acct.login
         end
 
         def login
