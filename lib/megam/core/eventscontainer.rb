@@ -114,7 +114,7 @@ module Megam
                 "event_type" => event_type,
                 "data" => data,
                 "limit"  => limit,
-                "created_at" => created_at
+                "created_at" => created_at,
                 "id" => id
             }
             result
