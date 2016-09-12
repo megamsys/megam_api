@@ -29,7 +29,7 @@ module Megam
               :email => email,
               :api_key => api_key,
               :org_id => org_id,
-              :password_hash => gpassword,
+              :password_hash => password_hash,
               :host => host
             }
             if headers

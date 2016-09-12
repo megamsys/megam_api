@@ -13,6 +13,7 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+.c9/*
 
 # YARD artifacts
 .yardoc
