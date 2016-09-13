@@ -256,18 +256,38 @@ module Megam
             current_date = Time.now.strftime('%Y-%m-%d %H:%M')
 
             data = "#{current_date}" + "\n" + "#{cmd_parms[:path]}" + "\n" + "#{body_base64}"
-
+            puts "--------------- START:body data."
+            puts data.inspect
+            puts "--------------- ENDS: body data."
             digest  = OpenSSL::Digest.new('sha1')
+            
+            puts "--------------- START:body digest."
+            puts digest.inspect
+            puts "--------------- ENDS: body digest."
+            
             movingFactor = data.rstrip!
+            
             if !(@password_hash.nil?) && @api_key.nil?
+                puts "--------------- moving factor for pw."
                 hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
             elsif !(@api_key.nil?)
+                puts "--------------- START: moving factor."
+                puts @api_key.inspect
+                puts movingFactor.inspect
+                puts "--------------- ENDS:  moving factor."
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
             else
                 hash = OpenSSL::HMAC.hexdigest(digest, "", movingFactor)
             end
+            puts "--------------- START: hamac."
+            puts @email.inspect
+            puts hmac.inspect
+            puts current_date.inspect
             final_hmac = @email + ':' + hash
+            puts final_hmac.inspect
+            puts "--------------- ENDS:  hamac."
             header_params = { hmac: final_hmac, date: current_date }
         end
     end
 end
+
