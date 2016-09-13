@@ -251,14 +251,16 @@ module Megam
         def encode_header(cmd_parms)
             header_params = {}
             body_digest = OpenSSL::Digest::MD5.digest(cmd_parms[:body])
-            body_base64 = Base64.encode64(body_digest)
+            body_base64 = Base64.urlsafe_encode64(body_digest)
 
             current_date = Time.now.strftime('%Y-%m-%d %H:%M')
 
             data = "#{current_date}" + "\n" + "#{cmd_parms[:path]}" + "\n" + "#{body_base64}"
-
+           
             digest  = OpenSSL::Digest.new('sha1')
-            movingFactor = data.rstrip!
+           
+            movingFactor = data
+            
             if !(@password_hash.nil?) && @api_key.nil?
                 hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
             elsif !(@api_key.nil?)
@@ -271,3 +273,4 @@ module Megam
         end
     end
 end
+
