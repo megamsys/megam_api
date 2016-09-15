@@ -1,25 +1,26 @@
 module Megam
-    class Snapshots < Megam::RestAdapter
+    class Disks < Megam::RestAdapter
         def initialize(o)
-            @snap_id = nil
+            @id = nil
             @account_id = nil
             @asm_id = nil
             @org_id = nil
-            @name= nil
-            @status=nil
+            @disk_id= nil
+            @size= nil
+            @status= nil
             @created_at = nil
             @some_msg = {}
             super(o)
         end
 
-        def snapshots
+        def disks
             self
         end
-        def snap_id(arg=nil)
+        def id(arg=nil)
             if arg != nil
-                @snap_id = arg
+                @id = arg
             else
-                @snap_id
+                @id
             end
         end
 
@@ -47,11 +48,11 @@ module Megam
             end
         end
 
-        def name(arg=nil)
+        def disk_id(arg=nil)
             if arg != nil
-                @name = arg
+                @disk_id = arg
             else
-                @name
+                @disk_id
             end
         end
 
@@ -60,6 +61,14 @@ module Megam
                 @status = arg
             else
                 @status
+            end
+        end
+
+        def size(arg=nil)
+            if arg != nil
+                @size = arg
+            else
+                @size
             end
         end
 
@@ -89,11 +98,12 @@ module Megam
         def to_hash
             index_hash = Hash.new
             index_hash["json_claz"] = self.class.name
-            index_hash["snap_id"] = snap_id
+            index_hash["id"] = id
             index_hash["account_id"] = account_id
             index_hash["asm_id"] = asm_id
             index_hash["org_id"] = org_id
-            index_hash["name"] = name
+            index_hash["disk_id"] = disk_id
+            index_hash["size"] = size
             index_hash["status"] = status
             index_hash["created_at"] = created_at
             index_hash["some_msg"] = some_msg
@@ -108,11 +118,12 @@ module Megam
 
         def for_json
             result = {
-              "snap_id" => snap_id,
+              "id" => id,
                 "account_id" => account_id,
                 "asm_id" => asm_id,
                 "org_id" => org_id,
-                "name" => name,
+                "disk_id" => disk_id,
+                "size" => size,
                 "status" => status,
                 "created_at" => created_at
             }
@@ -121,12 +132,13 @@ module Megam
 
         def self.json_create(o)
             sps = new({})
-            sps.snap_id(o["snap_id"]) if o.has_key?("snap_id")
+            sps.id(o["id"]) if o.has_key?("id")
             sps.account_id(o["account_id"]) if o.has_key?("account_id")
             sps.asm_id(o["asm_id"]) if o.has_key?("asm_id")
             sps.org_id(o["org_id"]) if o.has_key?("org_id") #this will be an array? can hash store array?
-            sps.name(o["name"]) if o.has_key?("name")
-            sps.name(o["status"]) if o.has_key?("status")
+            sps.disk_id(o["disk_id"]) if o.has_key?("disk_id")
+            sps.size(o["size"]) if o.has_key?("size")
+            sps.status(o["status"]) if o.has_key?("status")
             sps.created_at(o["created_at"]) if o.has_key?("created_at")
             sps.some_msg[:code] = o["code"] if o.has_key?("code")
             sps.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -136,41 +148,42 @@ module Megam
         end
 
         def self.from_hash(o)
-            sps = self.new(o)
-            sps.from_hash(o)
-            sps
+            dks = self.new(o)
+            dks.from_hash(o)
+            dks
         end
 
         def from_hash(o)
-            @snap_id       = o[:snap_id] if o.has_key?(:snap_id)
+            @id       = o[:id] if o.has_key?(:id)
             @account_id       = o[:account_id] if o.has_key?(:account_id)
             @asm_id        = o[:asm_id] if o.has_key?(:asm_id)
             @org_id        = o[:org_id] if o.has_key?(:org_id)
-            @name            = o[:name] if o.has_key?(:name)
-            @status            = o[:status] if o.has_key?(:status)
-            @created_at        = o[:created_at] if o.has_key?(:created_at)
+            @disk_id       = o[:disk_id] if o.has_key?(:disk_id)
+            @size            = o[:size] if o.has_key?(:size)
+            @status          = o[:status] if o.has_key?(:status)
+            @created_at      = o[:created_at] if o.has_key?(:created_at)
             self
         end
 
         def self.create(params)
-            sps = from_hash(params)
-            sps.create
+            dks = from_hash(params)
+            dks.create
         end
 
         # Create the node via the REST API
         def create
-            megam_rest.post_snapshots(to_hash)
+            megam_rest.post_disks(to_hash)
         end
 
         # Load a account by email_p
         def self.show(o)
-            sps = self.new(o)
-            sps.megam_rest.get_snapshots(o[:id])
+            dks = self.new(o)
+            dks.megam_rest.get_disks(o[:id])
         end
 
         def self.list(params)
-            sps = self.new(params)
-            sps.megam_rest.list_snapshots
+            dks = self.new(params)
+            dks.megam_rest.list_disks
         end
 
         def to_s

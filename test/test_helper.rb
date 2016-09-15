@@ -7,8 +7,8 @@ require 'time'
 
 SANDBOX_HOST_OPTIONS = {
     :scheme => 'http',
-    #:host => 'localhost',
-    :host => 'cloud.det.io',
+    :host => 'localhost',
+    #:host => 'cloud.det.io',
     :nonblock => false,
     :port => 9000
 }
@@ -30,8 +30,8 @@ end
 
 def megams(options={})
     s_options = SANDBOX_HOST_OPTIONS.merge({
-        :email => "test@megam.io",
-        :api_key => "IamAtlas{74}NobdyCanSedfefdeME#07",
+        :email => "rajeshr@megam.io",
+        :api_key => "a0cf83e360845f2639db63e515c94ad35a94cd50",
         :org_id => "ORG123",
         #:password => "bWVnYW0="
     })

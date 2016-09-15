@@ -38,6 +38,8 @@ module Megam
         MEGAM_SENSORSCOLLECTION               = 'Megam::SensorsCollection'.freeze
         MEGAM_SNAPSHOTS                       = 'Megam::Snapshots'.freeze
         MEGAM_SNAPSHOTSCOLLECTION             = 'Megam::SnapshotsCollection'.freeze
+        MEGAM_DISKS                           = 'Megam::Disks'.freeze
+        MEGAM_DISKSCOLLECTION                 = 'Megam::DisksCollection'.freeze
         MEGAM_SSHKEY                          = 'Megam::SshKey'.freeze
         MEGAM_SSHKEYCOLLECTION                = 'Megam::SshKeyCollection'.freeze
         MEGAM_EVENTSVM                        = 'Megam::EventsVm'.freeze
@@ -211,6 +213,10 @@ module Megam
                     Megam::Subscriptions
                 when MEGAM_SUBSCRIPTIONSCOLLECTION
                     Megam::SubscriptionsCollection
+                when MEGAM_DISKS
+                    Megam::Disks
+                when MEGAM_DISKSCOLLECTION
+                    Megam::DisksCollection
                 when MEGAM_ADDONS
                     Megam::Addons
                 when MEGAM_ADDONSCOLLECTION
