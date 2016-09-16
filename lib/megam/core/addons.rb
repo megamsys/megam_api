@@ -123,8 +123,8 @@ module Megam
             adn
         end
 
-        def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-            adn = self.new(tmp_email, tmp_api_key, tmp_host)
+        def self.from_hash(o)
+            adn = self.new(o)
             adn.from_hash(o)
             adn
         end
