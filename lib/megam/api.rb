@@ -28,6 +28,7 @@ require 'megam/api/eventscontainer'
 require 'megam/api/eventsbilling'
 require 'megam/api/eventsstorage'
 require 'megam/api/snapshots'
+require 'megam/api/disks'
 require 'megam/api/subscriptions'
 require 'megam/api/addons'
 require 'megam/api/version'
@@ -76,6 +77,8 @@ require 'megam/core/sensors'
 require 'megam/core/sensors_collection'
 require 'megam/core/snapshots'
 require 'megam/core/snapshots_collection'
+require 'megam/core/disks'
+require 'megam/core/disks_collection'
 require 'megam/core/balances_collection'
 require 'megam/core/balances'
 require 'megam/core/billedhistories_collection'
@@ -256,11 +259,11 @@ module Megam
             current_date = Time.now.strftime('%Y-%m-%d %H:%M')
 
             data = "#{current_date}" + "\n" + "#{cmd_parms[:path]}" + "\n" + "#{body_base64}"
-           
+
             digest  = OpenSSL::Digest.new('sha1')
-           
+
             movingFactor = data
-            
+
             if !(@password_hash.nil?) && @api_key.nil?
                 hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
             elsif !(@api_key.nil?)
@@ -273,4 +276,3 @@ module Megam
         end
     end
 end
-
