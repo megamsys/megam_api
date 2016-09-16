@@ -28,6 +28,7 @@ require 'megam/api/eventscontainer'
 require 'megam/api/eventsbilling'
 require 'megam/api/eventsstorage'
 require 'megam/api/snapshots'
+require 'megam/api/disks'
 require 'megam/api/subscriptions'
 require 'megam/api/addons'
 require 'megam/api/version'
@@ -76,6 +77,8 @@ require 'megam/core/sensors'
 require 'megam/core/sensors_collection'
 require 'megam/core/snapshots'
 require 'megam/core/snapshots_collection'
+require 'megam/core/disks'
+require 'megam/core/disks_collection'
 require 'megam/core/balances_collection'
 require 'megam/core/balances'
 require 'megam/core/billedhistories_collection'
@@ -134,10 +137,10 @@ module Megam
             @options = OPTIONS.merge(options)
             @api_key = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
             @email = @options.delete(:email)
-            @password = @options.delete(:password)
+            @password_hash = @options.delete(:password_hash)
             @org_id = @options.delete(:org_id)
             unless !@options.delete(:reset_flag)
-                fail Megam::API::Errors::AuthKeysMissing if (@email.nil? && @api_key.nil?) || (@email.nil? && @password.nil?)
+                fail Megam::API::Errors::AuthKeysMissing if (@email.nil? && @api_key.nil?) || (@email.nil? && @password_hash.nil?)
             end
         end
 
@@ -223,7 +226,8 @@ module Megam
             @options[:headers] = HEADERS.merge(X_Megam_HMAC => encoded_api_header[:hmac],
             X_Megam_DATE => encoded_api_header[:date], X_Megam_ORG => "#{@org_id}").merge(@options[:headers])
             if (@api_key == "" || @api_key.nil?)
-                @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true") unless (@password == "" || @password.nil?)
+                Megam::Log.debug("> PWH #{@password_hash}")
+                @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true") unless (@password_hash == "" || @password_hash.nil?)
             end
 
             Megam::Log.debug('HTTP Request Data:')
@@ -250,16 +254,18 @@ module Megam
         def encode_header(cmd_parms)
             header_params = {}
             body_digest = OpenSSL::Digest::MD5.digest(cmd_parms[:body])
-            body_base64 = Base64.encode64(body_digest)
+            body_base64 = Base64.urlsafe_encode64(body_digest)
 
             current_date = Time.now.strftime('%Y-%m-%d %H:%M')
 
             data = "#{current_date}" + "\n" + "#{cmd_parms[:path]}" + "\n" + "#{body_base64}"
 
             digest  = OpenSSL::Digest.new('sha1')
-            movingFactor = data.rstrip!
-            if !(@password.nil?) && @api_key.nil?
-                hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password), movingFactor)
+
+            movingFactor = data
+
+            if !(@password_hash.nil?) && @api_key.nil?
+                hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
             elsif !(@api_key.nil?)
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
             else

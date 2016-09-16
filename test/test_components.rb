@@ -32,6 +32,7 @@ class TestApps < MiniTest::Unit::TestCase
         "rtype" => "image", "source" => "github", "oneclick" => "yes", "url" => "imagename"},
 
       "status" => "",
+      "state" => "",
       "created_at" => "2014-10-29 14:06:39 +0000"
     }
     response = megams.update_component(tmp_hash)

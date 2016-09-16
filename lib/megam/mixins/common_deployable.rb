@@ -4,7 +4,7 @@ module Megam
     class Mixins
         class CommonDeployable
             include Nilavu::MegamAttributes
-            attr_reader :status, :inputs, :tosca_type
+            attr_reader :status, :state, :inputs, :tosca_type
 
               DEFAULT_VERTICE_PREFIX  = 'vertice'.freeze
               DEFAULT_BITNAMI_PREFIX  = 'bitnami'.freeze
@@ -13,6 +13,7 @@ module Megam
             ATTRIBUTES = [
                 :tosca_type,
                 :status,
+                :state,
             :inputs]
 
             def attributes
@@ -22,6 +23,7 @@ module Megam
             def initialize(params)
                 @tosca_type = ''
                 @status = 'launching'
+                @state = 'launched'
                 bld_toscatype(params)
                 set_attributes(params)
                 @inputs = InputGroupData.new(params)
@@ -31,6 +33,7 @@ module Megam
             def to_hash
                 h = {
                     status: status,
+                    state: state,
                     tosca_type: tosca_type,
                     inputs: inputs.to_hash
                 }
