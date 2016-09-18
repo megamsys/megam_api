@@ -94,7 +94,7 @@ require 'megam/core/promos'
 module Megam
     class API
         attr_accessor :text
-        attr_accessor :email, :api_key, :org_id
+        attr_accessor :email, :api_key, :password_hash, :org_id
         attr_accessor :api_url, :api_version
         attr_reader   :last_response
  
@@ -201,7 +201,7 @@ module Megam
     
             host         = (uri && uri.host)   ? uri.host : '127.0.0.1'
             
-            port         = (uri && uri.port)   ? uri.port : '9000'
+            port         = (uri && uri.port)   ? uri.port.to_s : '9000'
             
             @api_version = (uri && uri.path)   ? uri.path :  API_VERSION2
             
@@ -209,23 +209,23 @@ module Megam
         end
         
         def is_passthru?
-            @option[:passthru]
+            @options[:passthru]
         end    
         
         def ensure_authkeys
-            unless api_combo_missing? || pw_combo_missing?
+            if api_combo_missing? || pw_combo_missing?
                 fail Megam::API::Errors::AuthKeysMissing 
             end
         end
         
         def api_combo_missing?
-            (@email.nil? && @api_key.nil?)
+            (!@email.nil? && !@api_key.nil?)
         end
         
         
         
         def pw_combo_missing?
-            (@email.nil? && @password_hash.nil?)
+            (!@email.nil? && !@password_hash.nil?)
         end
         
         def turn_off_ssl_verify
@@ -266,9 +266,9 @@ module Megam
 
             digest  = OpenSSL::Digest.new('sha256')
 
-            if !pw_combo_missing?
+            if pw_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
-            elsif !api_combo_missing?
+            elsif api_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
             else
                 hash = OpenSSL::HMAC.hexdigest(digest, "", movingFactor)
@@ -278,7 +278,7 @@ module Megam
         end
         
         def build_header_puttusavi
-          unless pw_combo_missing?
+          if pw_combo_missing?
                @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true") 
           end
         end
