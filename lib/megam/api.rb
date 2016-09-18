@@ -213,7 +213,7 @@ module Megam
         end    
         
         def ensure_authkeys
-            if api_combo_missing? || pw_combo_missing?
+            if api_combo_missing? && pw_combo_missing?
                 fail Megam::API::Errors::AuthKeysMissing 
             end
         end
