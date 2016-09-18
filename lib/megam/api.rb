@@ -94,7 +94,7 @@ require 'megam/core/promos'
 module Megam
     class API
         attr_accessor :text
-        attr_accessor :email, :api_key, :org_id, 
+        attr_accessor :email, :api_key, :org_id
         attr_accessor :api_url, :api_version
         attr_reader   :last_response
  
