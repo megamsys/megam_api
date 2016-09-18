@@ -1,14 +1,13 @@
 
 # Wrapper class for interacting with JSON.
-
 require "ffi_yajl"
 # We're requiring this to prevent breaking consumers using Hash.to_json
 require "json"
 
 module Megam
     class JSONCompat
+        
         JSON_MAX_NESTING = 1000
-
 
         JSON_CLAZ = 'json_claz'.freeze
 
@@ -50,13 +49,13 @@ module Megam
         MEGAM_EVENTSBILLINGCOLLECTION         = 'Megam::EventsBillingCollection'.freeze
         MEGAM_EVENTSSTORAGE                   = 'Megam::EventsStorage'.freeze
         MEGAM_EVENTSSTORAGECOLLECTION         = 'Megam::EventsStorageCollection'.freeze
-        MEGAM_SUBSCRIPTIONS                 = 'Megam::Subscriptions'.freeze
-        MEGAM_SUBSCRIPTIONSCOLLECTION       = 'Megam::SubscriptionsCollection'.freeze
-        MEGAM_ADDONS                       = 'Megam::Addons'.freeze
-        MEGAM_ADDONSCOLLECTION            = 'Megam::AddonsCollection'.freeze
+        MEGAM_SUBSCRIPTIONS                   = 'Megam::Subscriptions'.freeze
+        MEGAM_SUBSCRIPTIONSCOLLECTION         = 'Megam::SubscriptionsCollection'.freeze
+        MEGAM_ADDONS                          = 'Megam::Addons'.freeze
+        MEGAM_ADDONSCOLLECTION                = 'Megam::AddonsCollection'.freeze
         MEGAM_PROMOS                          = 'Megam::Promos'.freeze
 
-        class <<self
+        class << self
             # API to use to avoid create_addtions
             def parse(source, opts = {})
                 begin

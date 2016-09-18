@@ -20,7 +20,7 @@ For more implementation details [see nilavu](http://github.com/megamsys/nilavu.g
 
 # License
 
-Apache V2
+MIT
 
 # Author
 
