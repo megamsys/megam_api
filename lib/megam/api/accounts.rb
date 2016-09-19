@@ -49,8 +49,8 @@ module Megam
     end
 
     def forgot(account)
-      @options = {:path => "/accounts/forgot/#{account["email"]}",
-     :body => ''}.merge(@options)
+      @options = { path:  "/accounts/forgot/#{account["email"]}", passthru: true
+                   body: ''}.merge(@options)
 
       request(
       :expects => 201,
