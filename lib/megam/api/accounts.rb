@@ -60,8 +60,8 @@ module Megam
     end
 
     def password_reset(account)
-      @options = {:path => "/accounts/password_reset",
-     :body => Megam::JSONCompat.to_json(account)}.merge(@options)
+      @options = {:path => "/accounts/password_reset", passthru: true,
+                  body: Megam::JSONCompat.to_json(account)}.merge(@options)
 
       request(
       :expects => 201,

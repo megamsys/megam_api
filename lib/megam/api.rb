@@ -125,9 +125,7 @@ module Megam
             assign_credentials
             
             ensure_host_is_flattened
-
-            ensure_authkeys unless is_passthru?
-            
+        
             turn_off_ssl_verify
         end
         
@@ -141,6 +139,8 @@ module Megam
             start = Time.now
             Megam::Log.debug('START')
         
+            ensure_authkeys unless is_passthru?
+
             begin
                 response = connection.request(params, &block)
             rescue Excon::Errors::HTTPStatusError => error
