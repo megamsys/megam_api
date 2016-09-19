@@ -38,7 +38,7 @@ module Megam
     end
 
     def update_accounts(update_account)
-      @options = {path: '/accounts/update', passthru: true
+      @options = {path: '/accounts/update', passthru: true,
                   body: Megam::JSONCompat.to_json(update_account)}.merge(@options)
 
       request(
@@ -49,7 +49,7 @@ module Megam
     end
 
     def forgot(account)
-      @options = { path:  "/accounts/forgot/#{account["email"]}",
+      @options = { path:  "/accounts/forgot/#{account["email"]}", passthru: true,
                    body: ''}.merge(@options)
 
       request(

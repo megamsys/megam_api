@@ -266,7 +266,7 @@ module Megam
 
             digest  = OpenSSL::Digest.new('sha256')
 
-            if pw_combo_missing?
+            if pw_combo_missing? && !is_passthru?
                 hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
             elsif api_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
