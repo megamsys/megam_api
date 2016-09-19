@@ -278,7 +278,7 @@ module Megam
         end
         
         def build_header_puttusavi
-          if pw_combo_missing?
+          if pw_combo_missing? && !is_passthru?
                @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true") 
           end
         end
