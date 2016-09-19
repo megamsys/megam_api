@@ -125,9 +125,7 @@ module Megam
             assign_credentials
             
             ensure_host_is_flattened
-
-            ensure_authkeys unless is_passthru?
-            
+        
             turn_off_ssl_verify
         end
         
@@ -141,6 +139,8 @@ module Megam
             start = Time.now
             Megam::Log.debug('START')
         
+            ensure_authkeys unless is_passthru?
+
             begin
                 response = connection.request(params, &block)
             rescue Excon::Errors::HTTPStatusError => error
@@ -266,7 +266,7 @@ module Megam
 
             digest  = OpenSSL::Digest.new('sha256')
 
-            if pw_combo_missing?
+            if pw_combo_missing? && !is_passthru?
                 hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
             elsif api_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
@@ -278,7 +278,7 @@ module Megam
         end
         
         def build_header_puttusavi
-          if pw_combo_missing?
+          if pw_combo_missing? && !is_passthru?
                @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true") 
           end
         end

@@ -27,8 +27,8 @@ module Megam
     
     # The body content needs to be a json.
     def post_accounts(new_account)
-      @options = {:path => '/accounts/content',
-      :body => Megam::JSONCompat.to_json(new_account)}.merge(@options)
+      @options = {path: '/accounts/content',
+                  body:  Megam::JSONCompat.to_json(new_account)}.merge(@options)
 
       request(
         :expects  => 201,
@@ -38,8 +38,8 @@ module Megam
     end
 
     def update_accounts(update_account)
-      @options = {:path => '/accounts/update',
-     :body => Megam::JSONCompat.to_json(update_account)}.merge(@options)
+      @options = {path: '/accounts/update', passthru: true,
+                  body: Megam::JSONCompat.to_json(update_account)}.merge(@options)
 
       request(
       :expects => 201,
@@ -49,8 +49,8 @@ module Megam
     end
 
     def forgot(account)
-      @options = {:path => "/accounts/forgot/#{account["email"]}",
-     :body => ''}.merge(@options)
+      @options = { path:  "/accounts/forgot/#{account["email"]}", passthru: true,
+                   body: ''}.merge(@options)
 
       request(
       :expects => 201,
@@ -60,8 +60,8 @@ module Megam
     end
 
     def password_reset(account)
-      @options = {:path => "/accounts/password_reset",
-     :body => Megam::JSONCompat.to_json(account)}.merge(@options)
+      @options = {:path => "/accounts/password_reset", passthru: true,
+                  body: Megam::JSONCompat.to_json(account)}.merge(@options)
 
       request(
       :expects => 201,
