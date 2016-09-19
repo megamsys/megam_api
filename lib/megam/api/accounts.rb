@@ -49,7 +49,7 @@ module Megam
     end
 
     def forgot(account)
-      @options = { path:  "/accounts/forgot/#{account["email"]}", passthru: true
+      @options = { path:  "/accounts/forgot/#{account["email"]}", passthru: true,
                    body: ''}.merge(@options)
 
       request(
