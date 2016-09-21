@@ -97,7 +97,7 @@ module Megam
         attr_accessor :email, :api_key, :password_hash, :org_id
         attr_accessor :api_url, :api_version
         attr_reader   :last_response
- 
+
         API_VERSION2      = '/v2'.freeze
 
         X_Megam_DATE      = 'X-Megam-DATE'.freeze
@@ -121,15 +121,15 @@ module Megam
 
         def initialize(options = {})
             @options = OPTIONS.merge(options)
-            
+
             assign_credentials
-            
+
             ensure_host_is_flattened
-        
+
             turn_off_ssl_verify
         end
-        
-        
+
+
         def text
             @text ||= Megam::Text.new(STDOUT, STDERR, STDIN, {})
         end
@@ -138,7 +138,7 @@ module Megam
             just_color_debug("#{@options[:path]}")
             start = Time.now
             Megam::Log.debug('START')
-        
+
             ensure_authkeys unless is_passthru?
 
             begin
@@ -162,7 +162,7 @@ module Megam
             end
 
             @last_response = response
-            
+
             if response.body && !response.body.empty?
                 if response.headers['Content-Encoding'] == 'gzip'
                     response.body = Zlib::GzipReader.new(StringIO.new(response.body)).read
@@ -178,84 +178,84 @@ module Megam
                     raise(jsonerr)
                 end
             end
-            
+
             Megam::Log.debug("END(#{(Time.now - start)}s)")
-            
+
             @connection.reset
             response
         end
 
         private
-        
+
         def assign_credentials
             @api_key       = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
             @email         = @options.delete(:email)
             @password_hash = @options.delete(:password_hash)
             @org_id        = @options.delete(:org_id)
         end
-        
+
         def ensure_host_is_flattened
             uri          = URI(@options.delete(:host)) if @options.has_key?(:host)
-            
+
             scheme       = (uri && uri.scheme) ? uri.scheme : 'http'
-    
+
             host         = (uri && uri.host)   ? uri.host : '127.0.0.1'
-            
+
             port         = (uri && uri.port)   ? uri.port.to_s : '9000'
-            
+
             @api_version = (uri && uri.path)   ? uri.path :  API_VERSION2
-            
+
             @api_url     =  scheme +  "://" + host  + ":" + port + @api_version
         end
-        
+
         def is_passthru?
             @options[:passthru]
-        end    
-        
+        end
+
         def ensure_authkeys
             if !api_combo_missing? && !pw_combo_missing?
-                fail Megam::API::Errors::AuthKeysMissing 
+                fail Megam::API::Errors::AuthKeysMissing
             end
         end
-        
+
         def api_combo_missing?
             (!@email.nil? && !@api_key.nil?)
         end
-        
-        
-        
+
+
+
         def pw_combo_missing?
             (!@email.nil? && !@password_hash.nil?)
         end
-        
+
         def turn_off_ssl_verify
            Excon.defaults[:ssl_verify_peer] = false   unless @api_url.include?("https")
 
         end
 
         def just_color_debug(path)
-            text.msg "--> #{text.color("(#{path})", :cyan, :bold)}"                  
+            text.msg "--> #{text.color("(#{path})", :cyan, :bold)}"
         end
 
         def connection
             @options[:path] = @api_version + @options[:path]
-            
+
             build_headers
 
             @connection = Excon.new(@api_url, @options)
         end
-        
-        
+
+
         def build_headers
             encoded = encode_header
-            
+
             @options[:headers] = HEADERS.merge(X_Megam_HMAC => encoded[:hmac],
-                                        X_Megam_DATE => encoded[:date], 
+                                        X_Megam_DATE => encoded[:date],
                                         X_Megam_ORG => @org_id).merge(@options[:headers])
-            
-            
+
+
             build_header_puttusavi
-        end   
+        end
 
         def encode_header
             body_base64 = Base64.urlsafe_encode64(OpenSSL::Digest::MD5.digest(@options[:body]))
@@ -273,15 +273,15 @@ module Megam
             else
                 hash = OpenSSL::HMAC.hexdigest(digest, "", movingFactor)
             end
-            
+
             { hmac: (@email + ':' + hash), date: current_date }
         end
-        
+
         def build_header_puttusavi
           if pw_combo_missing? && !is_passthru?
-               @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true") 
+               @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true")
           end
         end
-        
+
     end
 end

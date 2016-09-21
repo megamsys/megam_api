@@ -7,6 +7,7 @@ module Megam
             @org_id = nil
             @name= nil
             @status=nil
+            @image_id=nil
             @created_at = nil
             @some_msg = {}
             super(o)
@@ -63,6 +64,14 @@ module Megam
             end
         end
 
+        def image_id(arg=nil)
+            if arg != nil
+                @image_id = arg
+            else
+                @image_id
+            end
+        end
+
         def created_at(arg=nil)
             if arg != nil
                 @created_at = arg
@@ -95,6 +104,7 @@ module Megam
             index_hash["org_id"] = org_id
             index_hash["name"] = name
             index_hash["status"] = status
+            index_hash["image_id"] = image_id
             index_hash["created_at"] = created_at
             index_hash["some_msg"] = some_msg
             index_hash
@@ -114,6 +124,7 @@ module Megam
                 "org_id" => org_id,
                 "name" => name,
                 "status" => status,
+                "image_id" => image_id,
                 "created_at" => created_at
             }
             result
@@ -126,7 +137,8 @@ module Megam
             sps.asm_id(o["asm_id"]) if o.has_key?("asm_id")
             sps.org_id(o["org_id"]) if o.has_key?("org_id") #this will be an array? can hash store array?
             sps.name(o["name"]) if o.has_key?("name")
-            sps.name(o["status"]) if o.has_key?("status")
+            sps.status(o["status"]) if o.has_key?("status")
+            sps.image_id(o["status"]) if o.has_key?("image_id")
             sps.created_at(o["created_at"]) if o.has_key?("created_at")
             sps.some_msg[:code] = o["code"] if o.has_key?("code")
             sps.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -148,6 +160,7 @@ module Megam
             @org_id        = o[:org_id] if o.has_key?(:org_id)
             @name            = o[:name] if o.has_key?(:name)
             @status            = o[:status] if o.has_key?(:status)
+            @image_id          = o[:image_id] if o.has_key?(:image_id)
             @created_at        = o[:created_at] if o.has_key?(:created_at)
             self
         end
