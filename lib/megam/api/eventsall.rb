@@ -2,7 +2,7 @@ module Megam
   class API
     # GET /nodes
     def list_eventsall(limit)
-      @options = {:path => "/eventsall/#{limit}",:body => ""}.merge(@options)
+      @options = {:path => "/eventsvm/#{limit}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
