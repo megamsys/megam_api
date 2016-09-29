@@ -32,7 +32,7 @@ module Megam
               :api_key => api_key,
               :org_id => org_id,
               :password_hash => password_hash,
-              :master_key => master_key
+              :master_key => master_key,
               :host => host
             }
             if headers
