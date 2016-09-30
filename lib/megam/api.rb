@@ -96,6 +96,7 @@ module Megam
         attr_accessor :text
         attr_accessor :email, :api_key, :password_hash, :org_id
         attr_accessor :api_url, :api_version
+        attr_accessor :master_key
         attr_reader   :last_response
 
         API_VERSION2      = '/v2'.freeze
@@ -105,6 +106,7 @@ module Megam
         X_Megam_OTTAI     = 'X-Megam-OTTAI'.freeze
         X_Megam_ORG       = 'X-Megam-ORG'.freeze
         X_Megam_PUTTUSAVI = 'X-Megam-PUTTUSAVI'.freeze
+        X_Megam_MASTERKEY = 'X-Megam-MASTERKEY'.freeze
 
         HEADERS = {
             'Accept'          => 'application/json',
@@ -188,10 +190,11 @@ module Megam
         private
 
         def assign_credentials
-            @api_key       = @options.delete(:api_key) || ENV['MEGAM_API_KEY']
-            @email         = @options.delete(:email)
+            @api_key       = @options.delete(:api_key) || ENV['VERTICE_API_KEY']
+            @email         = @options.delete(:email)   || ENV['VERTICE_EMAIL']
             @password_hash = @options.delete(:password_hash)
             @org_id        = @options.delete(:org_id)
+            @master_key    = @options.delete(:master_key) || ENV['VERTICE_MASTER_KEY']
         end
 
         def ensure_host_is_flattened
@@ -213,7 +216,7 @@ module Megam
         end
 
         def ensure_authkeys
-            if !api_combo_missing? && !pw_combo_missing?
+            if !api_combo_missing? && !pw_combo_missing? && !masterkey_combo_missing?
                 fail Megam::API::Errors::AuthKeysMissing
             end
         end
@@ -222,15 +225,16 @@ module Megam
             (!@email.nil? && !@api_key.nil?)
         end
 
-
-
         def pw_combo_missing?
             (!@email.nil? && !@password_hash.nil?)
         end
 
+        def masterkey_combo_missing?
+            (!@email.nil? && !@master_key.nil?)
+        end
+
         def turn_off_ssl_verify
            Excon.defaults[:ssl_verify_peer] = false   unless @api_url.include?("https")
-
         end
 
         def just_color_debug(path)
@@ -255,6 +259,8 @@ module Megam
 
 
             build_header_puttusavi
+
+            build_header_masterkey
         end
 
         def encode_header
@@ -270,8 +276,8 @@ module Megam
                 hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
             elsif api_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
-            else
-                hash = OpenSSL::HMAC.hexdigest(digest, "", movingFactor)
+            elsif master_key_combo_missing?
+                hash = OpenSSL::HMAC.hexdigest(digest, @master_key, movingFactor)
             end
 
             { hmac: (@email + ':' + hash), date: current_date }
@@ -280,6 +286,12 @@ module Megam
         def build_header_puttusavi
           if pw_combo_missing? && !is_passthru?
                @options[:headers] = @options[:headers].merge(X_Megam_PUTTUSAVI => "true")
+          end
+        end
+
+        def build_header_masterkey
+          if masterkey_combo_missing? && !is_passthru?
+               @options[:headers] = @options[:headers].merge(X_Megam_MASTERKEY => "true")
           end
         end
 
