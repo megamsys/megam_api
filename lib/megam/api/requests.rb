@@ -25,7 +25,6 @@ module Megam
     def post_request(new_req)
       @options = {:path => '/requests/content',
         :body => Megam::JSONCompat.to_json(new_req)}.merge(@options)
-
       request(
         :expects  => 201,
         :method   => :post,

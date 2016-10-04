@@ -6,7 +6,7 @@ require "json"
 
 module Megam
     class JSONCompat
-        
+
         JSON_MAX_NESTING = 1000
 
         JSON_CLAZ = 'json_claz'.freeze
@@ -41,6 +41,8 @@ module Megam
         MEGAM_DISKSCOLLECTION                 = 'Megam::DisksCollection'.freeze
         MEGAM_SSHKEY                          = 'Megam::SshKey'.freeze
         MEGAM_SSHKEYCOLLECTION                = 'Megam::SshKeyCollection'.freeze
+        MEGAM_EVENTSALL                       = 'Megam::EventsAll'.freeze
+        MEGAM_EVENTSALLCOLLECTION             = 'Megam::EventsAllCollection'.freeze
         MEGAM_EVENTSVM                        = 'Megam::EventsVm'.freeze
         MEGAM_EVENTSVMCOLLECTION              = 'Megam::EventsVmCollection'.freeze
         MEGAM_EVENTSCONTAINER                 = 'Megam::EventsContainer'.freeze
@@ -164,6 +166,10 @@ module Megam
                     Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
                     Megam::EventsVmCollection
+                when MEGAM_EVENTSALL
+                    Megam::EventsAll
+                when MEGAM_EVENTSALLCOLLECTION
+                    Megam::EventsAllCollection
                 when MEGAM_EVENTSCONTAINER
                     Megam::EventsContainer
                 when MEGAM_EVENTSCONTAINERCOLLECTION
