@@ -279,7 +279,7 @@ module Megam
                 hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
             elsif api_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
-            elsif master_key_combo_missing?
+            elsif masterkey_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @master_key, movingFactor)
             end
 
