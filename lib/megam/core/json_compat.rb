@@ -2,7 +2,7 @@
 # Wrapper class for interacting with JSON.
 require "ffi_yajl"
 # We're requiring this to prevent breaking consumers using Hash.to_json
-# require "json"
+require "json"
 
 module Megam
     class JSONCompat
@@ -64,10 +64,7 @@ module Megam
                 begin
                     FFI_Yajl::Parser.parse(source, opts)
                 rescue FFI_Yajl::ParseError => e
-                  puts "============== "
-                  puts e.inspect
-                  puts "-------------"
-                    raise JSON::ParseError, e.message
+                    raise StandardError, e.message
                 end
             end
 
