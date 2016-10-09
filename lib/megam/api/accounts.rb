@@ -70,7 +70,7 @@ module Megam
     end
 
     # ADMIN: LIST /accounts
-    def get_accounts(email)
+    def list_accounts
       @options = {:path => "/accounts",
         :body => ''}.merge(@options)
 

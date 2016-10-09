@@ -28,7 +28,7 @@ module Megam
             @suspend = {}
             @dates = {}
             @some_msg = {}
-            
+
             super({ email: o[:email], api_key: o[:api_key],
                     host: o[:host], password_hash: o[:password_hash], org_id: o[:org_id] })
         end
@@ -154,7 +154,8 @@ module Megam
         def login
             megam_rest.login(to_hash)
         end
-        
+
+
         def self.create(o)
             acct = from_hash(o)
             acct.create
@@ -167,6 +168,15 @@ module Megam
         def self.show(o)
             acct = from_hash(o)
             acct.megam_rest.get_accounts(o[:email])
+        end
+
+        def self.list(o)
+            acct = from_hash(o)
+            acct.list
+        end
+
+        def list
+            megam_rest.list_accounts
         end
 
         def self.update(o)
