@@ -12,6 +12,7 @@ module Megam
         JSON_CLAZ = 'json_claz'.freeze
 
         MEGAM_ACCOUNT                         = 'Megam::Account'.freeze
+        MEGAM_ACCOUNTCOLLECTION               = 'Megam::AccountCollection'.freeze
         MEGAM_ASSEMBLIES                      = 'Megam::Assemblies'.freeze
         MEGAM_ASSEMBLIESCOLLECTION            = 'Megam::AssembliesCollection'.freeze
         MEGAM_ASSEMBLY                        = 'Megam::Assembly'.freeze
@@ -142,6 +143,8 @@ module Megam
                     Megam::Error
                 when MEGAM_ACCOUNT
                     Megam::Account
+                when MEGAM_ACCOUNTCOLLECTION
+                    Megam::AccountCollection
                 when MEGAM_ASSEMBLIES
                     Megam::Assemblies
                 when MEGAM_ASSEMBLIESCOLLECTION

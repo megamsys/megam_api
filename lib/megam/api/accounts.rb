@@ -1,7 +1,6 @@
 module Megam
   class API
     # GET /accounts
-    #Yet to be tested
     def get_accounts(email)
       @options = {:path => "/accounts/#{email}",
         :body => ''}.merge(@options)
@@ -24,7 +23,7 @@ module Megam
         :body     => @options[:body]
         )
     end
-    
+
     # The body content needs to be a json.
     def post_accounts(new_account)
       @options = {path: '/accounts/content',
@@ -67,6 +66,18 @@ module Megam
       :expects => 201,
       :method => :post,
       :body => @options[:body]
+      )
+    end
+
+    # ADMIN: LIST /accounts
+    def get_accounts(email)
+      @options = {:path => "/accounts",
+        :body => ''}.merge(@options)
+
+      request(
+        :expects  => 200,
+        :method   => :get,
+        :body     => @options[:body]
       )
     end
 
