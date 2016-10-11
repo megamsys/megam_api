@@ -1,34 +1,14 @@
 module Megam
     class License < Megam::RestAdapter
         def initialize(o)
-            @id = nil
-            @name = nil
             @org_id = nil
-            @privatekey=nil
-            @publickey=nil
-            @created_at = nil
+            @data = nil
             @some_msg = {}
             super(o)
         end
 
         def license
             self
-        end
-
-        def id(arg=nil)
-            if arg != nil
-                @id = arg
-            else
-                @id
-            end
-        end
-
-        def name(arg=nil)
-            if arg != nil
-                @name = arg
-            else
-                @name
-            end
         end
 
         def org_id(arg=nil)
@@ -39,28 +19,14 @@ module Megam
             end
         end
 
-        def privatekey(arg=nil)
-            if arg != nil
-                @privatekey = arg
-            else
-                @privatekey
-            end
-        end
-
-        def publickey(arg=nil)
-            if arg != nil
-                @publickey = arg
-            else
-                @publickey
-            end
-        end
 
 
-        def created_at(arg=nil)
+
+        def data(arg=nil)
             if arg != nil
-                @created_at = arg
+                @data = arg
             else
-                @created_at
+                @data
             end
         end
 
@@ -80,12 +46,8 @@ module Megam
         def to_hash
             index_hash = Hash.new
             index_hash["json_claz"] = self.class.name
-            index_hash["id"] = id
-            index_hash["name"] = name
             index_hash["org_id"] = org_id
-            index_hash["privatekey"] = privatekey
-            index_hash["publickey"] = publickey
-            index_hash["created_at"] = created_at
+            index_hash["data"] = data
             index_hash
         end
 
@@ -97,12 +59,8 @@ module Megam
 
         def for_json
             result = {
-                "id" => id,
-                "name" => name,
                 "org_id" => org_id,
-                "privatekey" => privatekey,
-                "publickey" => publickey,
-                "created_at" => created_at
+                "data" => data
             }
             result
         end
@@ -110,11 +68,7 @@ module Megam
         #
         def self.json_create(o)
             license = new({})
-            license.id(o["id"]) if o.has_key?("id")
-            license.name(o["name"]) if o.has_key?("name")
-            license.privatekey(o["privatekey"]) if o.has_key?("privatekey")
-            license.publickey(o["publickey"]) if o.has_key?("publickey")
-            license.created_at(o["created_at"]) if o.has_key?("created_at")
+            license.created_at(o["data"]) if o.has_key?("data")
             #success or error
             license.some_msg[:code] = o["code"] if o.has_key?("code")
             license.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -130,12 +84,8 @@ module Megam
         end
 
         def from_hash(o)
-            @id        = o[:id] if o.has_key?(:id)
-            @name = o[:name] if o.has_key?(:name)
             @org_id = o[:org_id] if o.has_key?(:org_id)
-            @privatekey = o[:privatekey] if o.has_key?(:privatekey)
-            @publickey = o[:publickey] if o.has_key?(:publickey)
-            @created_at   = o[:created_at] if o.has_key?(:created_at)
+            @data   = o[:data] if o.has_key?(:data)
             self
         end
 

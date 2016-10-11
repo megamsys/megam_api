@@ -21,7 +21,7 @@ module Megam
     end
 
     def post_license(new_license)
-      @options = {:path => '/license/content',
+      @options = {:path => '/licenses/content',
         :body => Megam::JSONCompat.to_json(new_license)}.merge(@options)
 
       request(

@@ -171,6 +171,8 @@ module Megam
                     Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
                     Megam::EventsVmCollection
+                when MEGAM_LICENSE
+                    Megam::License
                 when MEGAM_LICENSECOLLECTION
                     Megam::LicenseCollection
                 when MEGAM_EVENTSALL
