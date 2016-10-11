@@ -12,6 +12,7 @@ module Megam
         JSON_CLAZ = 'json_claz'.freeze
 
         MEGAM_ACCOUNT                         = 'Megam::Account'.freeze
+        MEGAM_ACCOUNTCOLLECTION               = 'Megam::AccountCollection'.freeze
         MEGAM_ASSEMBLIES                      = 'Megam::Assemblies'.freeze
         MEGAM_ASSEMBLIESCOLLECTION            = 'Megam::AssembliesCollection'.freeze
         MEGAM_ASSEMBLY                        = 'Megam::Assembly'.freeze
@@ -63,7 +64,7 @@ module Megam
                 begin
                     FFI_Yajl::Parser.parse(source, opts)
                 rescue FFI_Yajl::ParseError => e
-                    raise JSON::ParseError, e.message
+                    raise StandardError, e.message
                 end
             end
 
@@ -142,6 +143,8 @@ module Megam
                     Megam::Error
                 when MEGAM_ACCOUNT
                     Megam::Account
+                when MEGAM_ACCOUNTCOLLECTION
+                    Megam::AccountCollection
                 when MEGAM_ASSEMBLIES
                     Megam::Assemblies
                 when MEGAM_ASSEMBLIESCOLLECTION
