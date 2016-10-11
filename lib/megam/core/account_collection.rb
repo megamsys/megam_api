@@ -36,7 +36,7 @@ module Megam
         alias_method :push, :<<
 
         def insert(accounts)
-            is_hash(accounts)
+            is_account_hash(accounts)
             if @insert_after_idx
                 # in the middle of executing a run, so any nodes inserted now should
                 # be placed after the most recent addition done by the currently executing
