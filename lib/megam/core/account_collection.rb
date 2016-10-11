@@ -1,5 +1,5 @@
 module Megam
-    class AssembliesCollection
+    class AccountCollection
         include Enumerable
 
         attr_reader :iterator
