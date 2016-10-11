@@ -18,16 +18,16 @@ module Megam
         end
 
         def []=(index, arg)
-            is_megam_accounts(arg)
+            is_account_hash(arg)
             @accounts[index] = arg
-            @accounts_by_name[arg.assembies_name] = index
+            @accounts_by_name[arg[:email]] = index
         end
 
         def <<(*args)
             args.flatten.each do |a|
-                is_megam_accounts(a)
+                is_account_hash(a)
                 @accounts << a
-                @accounts_by_name[a.name] = @accounts.length - 1
+                @accounts_by_name[a[:email]] = @accounts.length - 1
             end
             self
         end
@@ -36,7 +36,7 @@ module Megam
         alias_method :push, :<<
 
         def insert(accounts)
-            is_megam_accounts(accounts)
+            is_hash(accounts)
             if @insert_after_idx
                 # in the middle of executing a run, so any nodes inserted now should
                 # be placed after the most recent addition done by the currently executing
@@ -46,11 +46,11 @@ module Megam
                 @accounts_by_name.each_key do |key|
                     @accounts_by_name[key] += 1 if @accounts_by_name[key] > @insert_after_idx
                 end
-                @accounts_by_name[accounts.name] = @insert_after_idx + 1
+                @accounts_by_name[accounts[:email]] = @insert_after_idx + 1
                 @insert_after_idx += 1
             else
                 @accounts << accounts
-                @accounts_by_name[accounts.name] = @accounts.length - 1
+                @accounts_by_name[accounts[:email]] = @accounts.length - 1
             end
         end
 
@@ -72,8 +72,8 @@ module Megam
 
         def lookup(accounts)
             lookup_by = nil
-            if accounts.kind_of?(Megam::Account)
-                lookup_by = accounts.name
+            if accounts.kind_of?(Hash)
+                lookup_by = accounts[:email]
             elsif accounts.kind_of?(String)
                 lookup_by = accounts
             else
@@ -112,9 +112,9 @@ module Megam
 
         private
 
-        def is_megam_accounts(arg)
-            unless arg.kind_of?(Megam::Account)
-                raise ArgumentError, "Members must be Megam::Account's"
+        def is_account_hash(arg)
+            unless arg.kind_of?(Hash)
+                raise ArgumentError, "Members must be a Hash"
             end
             true
         end
