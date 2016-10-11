@@ -40,6 +40,8 @@ module Megam
         MEGAM_SNAPSHOTSCOLLECTION             = 'Megam::SnapshotsCollection'.freeze
         MEGAM_DISKS                           = 'Megam::Disks'.freeze
         MEGAM_DISKSCOLLECTION                 = 'Megam::DisksCollection'.freeze
+        MEGAM_LICENSE                         = 'Megam::License'.freeze
+        MEGAM_LICENSECOLLECTION               = 'Megam::LicenseCollection'.freeze
         MEGAM_SSHKEY                          = 'Megam::SshKey'.freeze
         MEGAM_SSHKEYCOLLECTION                = 'Megam::SshKeyCollection'.freeze
         MEGAM_EVENTSALL                       = 'Megam::EventsAll'.freeze
@@ -169,6 +171,10 @@ module Megam
                     Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
                     Megam::EventsVmCollection
+                when MEGAM_LICENSE
+                    Megam::License
+                when MEGAM_LICENSECOLLECTION
+                    Megam::LicenseCollection
                 when MEGAM_EVENTSALL
                     Megam::EventsAll
                 when MEGAM_EVENTSALLCOLLECTION
