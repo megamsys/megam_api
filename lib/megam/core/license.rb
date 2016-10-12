@@ -1,7 +1,6 @@
 module Megam
     class License < Megam::RestAdapter
         def initialize(o)
-            @org_id = nil
             @data = nil
             @some_msg = {}
             super(o)
@@ -10,16 +9,6 @@ module Megam
         def license
             self
         end
-
-        def org_id(arg=nil)
-            if arg != nil
-                @org_id= arg
-            else
-                @org_id
-            end
-        end
-
-
 
 
         def data(arg=nil)
@@ -46,7 +35,6 @@ module Megam
         def to_hash
             index_hash = Hash.new
             index_hash["json_claz"] = self.class.name
-            index_hash["org_id"] = org_id
             index_hash["data"] = data
             index_hash
         end
@@ -59,7 +47,6 @@ module Megam
 
         def for_json
             result = {
-                "org_id" => org_id,
                 "data" => data
             }
             result
@@ -68,7 +55,7 @@ module Megam
         #
         def self.json_create(o)
             license = new({})
-            license.created_at(o["data"]) if o.has_key?("data")
+             license.data(o["results"]["data"]) if o["results"]
             #success or error
             license.some_msg[:code] = o["code"] if o.has_key?("code")
             license.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -84,7 +71,6 @@ module Megam
         end
 
         def from_hash(o)
-            @org_id = o[:org_id] if o.has_key?(:org_id)
             @data   = o[:data] if o.has_key?(:data)
             self
         end
@@ -99,19 +85,11 @@ module Megam
             megam_rest.post_license(to_hash)
         end
 
-        # Load all license -
-        # returns a LicensesCollection
-        # don't return self. check if the Megam::LicenseCollection is returned.
-        def self.list(params)
-            license = self.new(params)
-            license.megam_rest.get_license
-        end
-
-        # Show a particular License by name,
+        # Show a particular License by id,
         # Megam::License
         def self.show(params)
             pre = self.new(params)
-            pre.megam_rest.get_license(params["name"])
+            pre.megam_rest.get_license(params["id"])
         end
 
         def to_s

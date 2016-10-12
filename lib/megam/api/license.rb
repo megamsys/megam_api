@@ -1,17 +1,8 @@
 module Megam
   class API
-    def get_licenses
-      @options = {:path => '/license',:body => ""}.merge(@options)
 
-      request(
-        :expects  => 200,
-        :method   => :get,
-        :body     => @options[:body]
-      )
-    end
-
-    def get_license(license_name)
-      @options = {:path => "/license/#{license_name}",:body => ""}.merge(@options)
+    def get_license(license_id)
+      @options = {:path => "/licenses/#{license_id}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
