@@ -23,7 +23,9 @@ require 'megam/api/promos'
 require 'megam/api/requests'
 require 'megam/api/sensors'
 require 'megam/api/sshkeys'
+require 'megam/api/eventsall'
 require 'megam/api/eventsvm'
+require 'megam/api/license'
 require 'megam/api/eventscontainer'
 require 'megam/api/eventsbilling'
 require 'megam/api/eventsstorage'
@@ -32,6 +34,7 @@ require 'megam/api/disks'
 require 'megam/api/subscriptions'
 require 'megam/api/addons'
 require 'megam/api/version'
+
 
 require 'megam/mixins/assemblies'
 require 'megam/mixins/assembly'
@@ -48,11 +51,16 @@ require 'megam/core/log'
 require 'megam/core/json_compat'
 require 'megam/core/error'
 require 'megam/core/account'
+require 'megam/core/account_collection'
 require 'megam/core/request'
 require 'megam/core/request_collection'
+require 'megam/core/license'
+require 'megam/core/license_collection'
 require 'megam/core/sshkey'
 require 'megam/core/sshkey_collection'
+require 'megam/core/eventsall'
 require 'megam/core/eventsvm'
+require 'megam/core/eventsall_collection'
 require 'megam/core/eventsvm_collection'
 require 'megam/core/eventscontainer'
 require 'megam/core/eventscontainer_collection'
@@ -276,7 +284,7 @@ module Megam
                 hash = OpenSSL::HMAC.hexdigest(digest, Base64.strict_decode64(@password_hash), movingFactor)
             elsif api_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
-            elsif master_key_combo_missing?
+            elsif masterkey_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @master_key, movingFactor)
             end
 

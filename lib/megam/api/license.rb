@@ -1,9 +1,7 @@
 module Megam
   class API
-
-    # GET /requests
-    def get_requests
-      @options = {:path => '/requests',:body => ""}.merge(@options)
+    def get_licenses
+      @options = {:path => '/license',:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -12,8 +10,8 @@ module Megam
       )
     end
 
-    def get_request(node_name)
-      @options = {:path => "/requests/#{node_name}",:body => ""}.merge(@options)
+    def get_license(license_name)
+      @options = {:path => "/license/#{license_name}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -22,9 +20,10 @@ module Megam
       )
     end
 
-    def post_request(new_req)
-      @options = {:path => '/requests/content',
-        :body => Megam::JSONCompat.to_json(new_req)}.merge(@options)
+    def post_license(new_license)
+      @options = {:path => '/licenses/content',
+        :body => Megam::JSONCompat.to_json(new_license)}.merge(@options)
+
       request(
         :expects  => 201,
         :method   => :post,

@@ -12,7 +12,6 @@ module Megam
             @status = nil
             @state = nil
             @created_at = nil
-
             super(o)
         end
 

@@ -6,12 +6,13 @@ require "json"
 
 module Megam
     class JSONCompat
-        
+
         JSON_MAX_NESTING = 1000
 
         JSON_CLAZ = 'json_claz'.freeze
 
         MEGAM_ACCOUNT                         = 'Megam::Account'.freeze
+        MEGAM_ACCOUNTCOLLECTION               = 'Megam::AccountCollection'.freeze
         MEGAM_ASSEMBLIES                      = 'Megam::Assemblies'.freeze
         MEGAM_ASSEMBLIESCOLLECTION            = 'Megam::AssembliesCollection'.freeze
         MEGAM_ASSEMBLY                        = 'Megam::Assembly'.freeze
@@ -39,8 +40,12 @@ module Megam
         MEGAM_SNAPSHOTSCOLLECTION             = 'Megam::SnapshotsCollection'.freeze
         MEGAM_DISKS                           = 'Megam::Disks'.freeze
         MEGAM_DISKSCOLLECTION                 = 'Megam::DisksCollection'.freeze
+        MEGAM_LICENSE                         = 'Megam::License'.freeze
+        MEGAM_LICENSECOLLECTION               = 'Megam::LicenseCollection'.freeze
         MEGAM_SSHKEY                          = 'Megam::SshKey'.freeze
         MEGAM_SSHKEYCOLLECTION                = 'Megam::SshKeyCollection'.freeze
+        MEGAM_EVENTSALL                       = 'Megam::EventsAll'.freeze
+        MEGAM_EVENTSALLCOLLECTION             = 'Megam::EventsAllCollection'.freeze
         MEGAM_EVENTSVM                        = 'Megam::EventsVm'.freeze
         MEGAM_EVENTSVMCOLLECTION              = 'Megam::EventsVmCollection'.freeze
         MEGAM_EVENTSCONTAINER                 = 'Megam::EventsContainer'.freeze
@@ -61,7 +66,7 @@ module Megam
                 begin
                     FFI_Yajl::Parser.parse(source, opts)
                 rescue FFI_Yajl::ParseError => e
-                    raise JSON::ParseError, e.message
+                    raise StandardError, e.message
                 end
             end
 
@@ -140,6 +145,8 @@ module Megam
                     Megam::Error
                 when MEGAM_ACCOUNT
                     Megam::Account
+                when MEGAM_ACCOUNTCOLLECTION
+                    Megam::AccountCollection
                 when MEGAM_ASSEMBLIES
                     Megam::Assemblies
                 when MEGAM_ASSEMBLIESCOLLECTION
@@ -164,6 +171,14 @@ module Megam
                     Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
                     Megam::EventsVmCollection
+                when MEGAM_LICENSE
+                    Megam::License
+                when MEGAM_LICENSECOLLECTION
+                    Megam::LicenseCollection
+                when MEGAM_EVENTSALL
+                    Megam::EventsAll
+                when MEGAM_EVENTSALLCOLLECTION
+                    Megam::EventsAllCollection
                 when MEGAM_EVENTSCONTAINER
                     Megam::EventsContainer
                 when MEGAM_EVENTSCONTAINERCOLLECTION
