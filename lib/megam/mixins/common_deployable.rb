@@ -57,7 +57,7 @@ module Megam
 
             attr_reader :domain, :keypairoption, :root_password, :sshkey, :provider, :cpu, :ram, :hdd,
             :version, :display_name, :password, :region, :resource, :storage_hddtype,
-            :ipv4public, :ipv4private, :ipv6public, :ipv6private
+            :ipv4public, :ipv4private, :ipv6public, :ipv6private, :bitnami_username, :bitnami_password
 
             ATTRIBUTES = [
                 :domain,
@@ -77,7 +77,9 @@ module Megam
                 :ipv4private,
                 :ipv4public,
                 :ipv6private,
-            :ipv6public]
+                :ipv6public,
+                :bitnami_password,
+                :bitnami_username]
 
             def attributes
                 ATTRIBUTES
