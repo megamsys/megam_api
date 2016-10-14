@@ -22,8 +22,8 @@ module Megam
 
             def initialize(params)
                 @tosca_type = ''
-                @status = 'launching'
-                @state = 'launched'
+                @status = 'initialized'
+                @state = 'initialized'
                 bld_toscatype(params)
                 set_attributes(params)
                 @inputs = InputGroupData.new(params)
