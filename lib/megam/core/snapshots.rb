@@ -5,6 +5,9 @@ module Megam
             @account_id = nil
             @asm_id = nil
             @org_id = nil
+            @tosca_type = nil
+            @inputs = []
+            @outputs = []
             @name= nil
             @status=nil
             @image_id=nil
@@ -45,6 +48,30 @@ module Megam
                 @org_id = arg
             else
                 @org_id
+            end
+        end
+
+        def tosca_type(arg = nil)
+            if !arg.nil?
+                @tosca_type = arg
+            else
+                @tosca_type
+            end
+        end
+
+        def inputs(arg = [])
+            if arg != []
+                @inputs = arg
+            else
+                @inputs
+            end
+        end
+
+        def outputs(arg = [])
+            if arg != []
+                @outputs = arg
+            else
+                @outputs
             end
         end
 
@@ -102,6 +129,9 @@ module Megam
             index_hash["account_id"] = account_id
             index_hash["asm_id"] = asm_id
             index_hash["org_id"] = org_id
+            index_hash["tosca_type"] = tosca_type
+            index_hash["inputs"] = inputs
+            index_hash["outputs"] = outputs
             index_hash["name"] = name
             index_hash["status"] = status
             index_hash["image_id"] = image_id
@@ -122,6 +152,9 @@ module Megam
                 "account_id" => account_id,
                 "asm_id" => asm_id,
                 "org_id" => org_id,
+                "tosca_type" => tosca_type,
+                "inputs" => inputs,
+                "outputs" => outputs,
                 "name" => name,
                 "status" => status,
                 "image_id" => image_id,
@@ -136,6 +169,9 @@ module Megam
             sps.account_id(o["account_id"]) if o.has_key?("account_id")
             sps.asm_id(o["asm_id"]) if o.has_key?("asm_id")
             sps.org_id(o["org_id"]) if o.has_key?("org_id") #this will be an array? can hash store array?
+            sps.tosca_type(o['tosca_type']) if o.key?('tosca_type')
+            sps.inputs(o['inputs']) if o.key?('inputs')
+            sps.outputs(o['outputs']) if o.key?('outputs')
             sps.name(o["name"]) if o.has_key?("name")
             sps.status(o["status"]) if o.has_key?("status")
             sps.image_id(o["status"]) if o.has_key?("image_id")
@@ -158,6 +194,9 @@ module Megam
             @account_id       = o[:account_id] if o.has_key?(:account_id)
             @asm_id        = o[:asm_id] if o.has_key?(:asm_id)
             @org_id        = o[:org_id] if o.has_key?(:org_id)
+            @tosca_type        = o[:tosca_type] if o.key?(:tosca_type)
+            @inputs            = o[:inputs] if o.key?(:inputs)
+            @outputs           = o[:outputs] if o.key?(:outputs)
             @name            = o[:name] if o.has_key?(:name)
             @status            = o[:status] if o.has_key?(:status)
             @image_id          = o[:image_id] if o.has_key?(:image_id)
