@@ -3,7 +3,6 @@ module Megam
         def initialize(o)
             @id = nil
             @accounts_id = nil
-            @name = nil
             @credit = nil
             @created_at = nil
             @updated_at = nil
@@ -31,13 +30,6 @@ module Megam
             end
         end
 
-        def name(arg=nil)
-            if arg != nil
-                @name = arg
-            else
-                @name
-            end
-        end
 
         def credit(arg=nil)
             if arg != nil
@@ -81,7 +73,6 @@ module Megam
             index_hash["json_claz"] = self.class.name
             index_hash["id"] = id
             index_hash["accounts_id"] = accounts_id
-            index_hash["name"] = name
             index_hash["credit"] = credit
             index_hash["created_at"] = created_at
             index_hash["updated_at"] = updated_at
@@ -98,7 +89,6 @@ module Megam
             result = {
                 "id" => id,
                 "accounts_id" => accounts_id,
-                "name" => name,
                 "credit" => credit,
                 "created_at" => created_at,
                 "updated_at" => updated_at
@@ -110,7 +100,6 @@ module Megam
             balances = new({})
             balances.id(o["id"]) if o.has_key?("id")
             balances.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
-            balances.name(o["name"]) if o.has_key?("name")
             balances.credit(o["credit"]) if o.has_key?("credit")
             balances.created_at(o["created_at"]) if o.has_key?("created_at")
             balances.updated_at(o["updated_at"]) if o.has_key?("updated_at")
@@ -131,7 +120,6 @@ module Megam
         def from_hash(o)
             @id        = o[:id] if o.has_key?(:id)
             @accounts_id = o[:accounts_id] if o.has_key?(:accounts_id)
-            @name = o[:name] if o.has_key?(:name)
             @credit   = o[:credit] if o.has_key?(:credit)
             @created_at   = o[:created_at] if o.has_key?(:created_at)
             @updated_at   = o[:updated_at] if o.has_key?(:updated_at)
