@@ -21,8 +21,8 @@ module Megam
         MEGAM_BALANCESCOLLECTION              = 'Megam::BalancesCollection'.freeze
         MEGAM_BILLEDHISTORIES                 = 'Megam::Billedhistories'.freeze
         MEGAM_BILLEDHISTORIESCOLLECTION       = 'Megam::BilledhistoriesCollection'.freeze
-        MEGAM_BILLINGTRANSACTIONS             = 'Megam::Billingtransactions'.freeze
-        MEGAM_BILLINGTRANSACTIONSCOLLECTION   = 'Megam::BillingtransactionsCollection'.freeze
+        MEGAM_BILLINGTRANSACTIONS             = 'Megam::BillingTransactions'.freeze
+        MEGAM_BILLINGTRANSACTIONSCOLLECTION   = 'Megam::BillingTransactionsCollection'.freeze
         MEGAM_COMPONENTS                      = 'Megam::Components'.freeze
         MEGAM_COMPONENTSCOLLECTION            = 'Megam::ComponentsCollection'.freeze
         MEGAM_DOMAIN                          = 'Megam::Domains'.freeze
