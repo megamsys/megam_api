@@ -152,14 +152,14 @@ module Megam
         # returns a BalanceCollection
         # don't return self. check if the Megam::BalanceCollection is returned.
         def self.list(params)
-            balance = self.new(params["email"], params["api_key"], params["host"])
+            balance = self.new(params)
             balance.megam_rest.get_balances
         end
 
         # Show a particular balance by name,
         # Megam::Balance
         def self.show(params)
-            pre = self.new(params["email"], params["api_key"], params["host"])
+            pre = self.new(params)
             pre.megam_rest.get_balance(params["email"])
         end
 

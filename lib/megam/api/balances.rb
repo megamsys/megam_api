@@ -11,8 +11,7 @@ module Megam
     end
 
     def get_balance(id)
-      @options = {:path => "/balances/#{id}",:body => ""}.merge(@options)
-
+      @options = {:path => "/balances/#{id}",:body => Megam::JSONCompat.to_json(id)}.merge(@options)
       request(
         :expects  => 200,
         :method   => :get,
