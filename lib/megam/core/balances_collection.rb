@@ -20,14 +20,14 @@ module Megam
         def []=(index, arg)
             is_megam_balance(arg)
             @balance[index] = arg
-            @balance_by_name[arg.name] = index
+            @balance_by_name[arg.id] = index
         end
 
         def <<(*args)
             args.flatten.each do |a|
                 is_megam_balance(a)
                 @balance << a
-                @balance_by_name[a.name] =@balance.length - 1
+                @balance_by_name[a.id] =@balance.length - 1
             end
             self
         end
@@ -42,15 +42,15 @@ module Megam
                 # be placed after the most recent addition done by the currently executing
                 # balance
                 @balance.insert(@insert_after_idx + 1, balance)
-                # update name -> location mappings and register new balance
+                # update id -> location mappings and register new balance
                 @balance_by_name.each_key do |key|
                     @balance_by_name[key] += 1 if@balance_by_name[key] > @insert_after_idx
                 end
-                @balance_by_name[balance.name] = @insert_after_idx + 1
+                @balance_by_name[balance.id] = @insert_after_idx + 1
                 @insert_after_idx += 1
             else
                 @balance << balance
-                @balance_by_name[balance.name] =@balance.length - 1
+                @balance_by_name[balance.id] =@balance.length - 1
             end
         end
 
@@ -73,7 +73,7 @@ module Megam
         def lookup(balance)
             lookup_by = nil
             if balance.kind_of?(Megam::Balances)
-                lookup_by = balance.name
+                lookup_by = balance.id
             elsif balance.kind_of?(String)
                 lookup_by = balance
             else
