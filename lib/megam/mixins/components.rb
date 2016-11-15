@@ -64,12 +64,13 @@ module Megam
 
         class Repo
             include Nilavu::MegamAttributes
-            attr_reader :type, :source, :url, :oneclick
+            attr_reader :type, :source, :url, :oneclick, :branch
             ATTRIBUTES = [
                 :type,
                 :source,
                 :oneclick,
-            :url]
+                :url,
+                :branch]
 
             def attributes
                 ATTRIBUTES
@@ -81,13 +82,15 @@ module Megam
                 @source = params[:scm_name] || ""
                 @url = params[:source] || ""
                 @oneclick = params[:oneclick] || ""
+                @branch = params[:scmbranch] || ""
             end
 
             def tohash
                 {  rtype: @type,
                     source: @source,
                     oneclick: @oneclick,
-                    url: @url
+                    url: @url,
+                    branch: @branch
                 }
             end
         end
