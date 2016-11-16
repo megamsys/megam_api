@@ -19,6 +19,7 @@ module Megam
             @rtype = nil
             @source = nil
             @oneclick = nil
+            @branch = nil
             @url = nil
             @created_at = nil
 
@@ -173,6 +174,14 @@ module Megam
             end
         end
 
+        def branch(arg = nil)
+            if !arg.nil?
+                @branch = arg
+            else
+                @branch
+            end
+        end
+
         def url(arg = nil)
             if !arg.nil?
                 @url = arg
@@ -260,6 +269,7 @@ module Megam
             asm.repo[:rtype] = ro['rtype'] if ro && ro.key?('rtype')
             asm.repo[:source] = ro['source'] if ro && ro.key?('source')
             asm.repo[:oneclick] = ro['oneclick'] if ro && ro.key?('oneclick')
+            asm.repo[:branch] = ro['branch'] if ro && ro.key?('branch')
             asm.repo[:url] = ro['url'] if ro && ro.key?('url')
             asm.created_at(o['created_at']) if o.key?('created_at')
             asm
