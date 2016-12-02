@@ -72,12 +72,12 @@ module Megam
 
     def lookup(reports)
       lookup_by = nil
-      if events.kind_of?(Megam::reports)
+      if events.kind_of?(Megam::Reports)
       lookup_by = reports.account_id
     elsif reports.kind_of?(String)
       lookup_by = reports
       else
-        raise ArgumentError, "Must pass a Megam::reports or String to lookup"
+        raise ArgumentError, "Must pass a Megam::Reports or String to lookup"
       end
       res = @reports_by_name[lookup_by]
       unless res
@@ -113,8 +113,8 @@ module Megam
     private
 
     def is_megam_reports(arg)
-      unless arg.kind_of?(Megam::reports)
-        raise ArgumentError, "Members must be Megam::reports's"
+      unless arg.kind_of?(Megam::Reports)
+        raise ArgumentError, "Members must be Megam::Reports's"
       end
       true
     end
