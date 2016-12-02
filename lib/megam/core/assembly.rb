@@ -204,6 +204,11 @@ module Megam
             asm.megam_rest.upgrade_assembly(params['id'])
         end
 
+        def self.list(params)
+            asm = self.new(params)
+            asm.megam_rest.list_assembly
+        end
+
         # Create the node via the REST API
         def update
             megam_rest.update_assembly(to_hash)

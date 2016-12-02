@@ -31,5 +31,15 @@ module Megam
       )
    end
 
+   def list_assembly
+     @options = {:path => "/assembly",:body => ""}.merge(@options)
+
+     request(
+       :expects  => 200,
+       :method   => :get,
+       :body     => @options[:body]
+     )
+   end
+
   end
 end

@@ -210,7 +210,7 @@ module Megam
 
             scheme       = (uri && uri.scheme) ? uri.scheme : 'http'
 
-            host         = (uri && uri.host)   ? uri.host : '127.0.0.1'
+            host         = (uri && uri.host)   ? uri.host : '192.168.0.118'
 
             port         = (uri && uri.port)   ? uri.port.to_s : '9000'
 
