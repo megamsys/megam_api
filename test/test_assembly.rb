@@ -4,11 +4,12 @@ class TestApps < MiniTest::Unit::TestCase
 
 #=begin
   def test_get_assembly
-    response = megams.get_one_assembly("ASM6175632897198829431")
+    response = megams.get_one_assembly("ASM5405446528593826612")
+    puts response.inspect
     assert_equal(200, response.status)
   end
 #=end
-#=begin
+=begin
   def test_update_assembly
     tmp_hash =  {
 
@@ -32,5 +33,5 @@ class TestApps < MiniTest::Unit::TestCase
     response = megams.update_assembly(tmp_hash)
     assert_equal(201, response.status)
     end
-#=end
+=end
 end

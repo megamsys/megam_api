@@ -1,7 +1,8 @@
 module Megam
   class API
     # GET /nodes
-    def list_snapshots
+    def list_s
+     puts "jhhdsudsaguysgduyasgduyasguydgasgduysgauysgdas"
       @options = {:path => "/snapshots",:body => ""}.merge(@options)
 
       request(
