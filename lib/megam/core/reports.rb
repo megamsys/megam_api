@@ -3,15 +3,15 @@ module Megam
         def initialize(o)
          @start_date = nil
          @end_date = nil
-         @type = nil
+         @type_of = nil
          @title = nil
          @xaxis = nil
          @yaxis = nil
          @ytitles = {}
          @data = []
          @total = nil
-         @category_id = nil
-         @group_id = nil
+         @category = nil
+         @group = nil
          @prev30Days = nil
          @some_msg = {}
          super(o)
@@ -36,11 +36,11 @@ module Megam
             end
         end
 
-        def type(arg=nil)
+        def type_of(arg=nil)
             if arg != nil
-                @type = arg
+                @type_of = arg
             else
-                @type
+                @type_of
             end
         end
 
@@ -92,19 +92,19 @@ module Megam
             end
         end
 
-        def category_id(arg=nil)
+        def category(arg=nil)
             if arg !=nil
-                @category_id = arg
+                @category = arg
             else
-                @category_id
+                @category
             end
         end
 
-        def group_id(arg=nil)
+        def group(arg=nil)
             if arg !=nil
-                @group_id = arg
+                @group = arg
             else
-                @group_id
+                @group
             end
         end
 
@@ -134,7 +134,9 @@ module Megam
             index_hash["json_claz"] = self.class.name
             index_hash["start_date"] = start_date
             index_hash["end_date"] = end_date
-            index_hash["type"] = type
+            index_hash["type_of"] = type_of
+            index_hash["category"] = category
+            index_hash["group"] = group
             index_hash
         end
 
@@ -149,15 +151,15 @@ module Megam
             result = {
               "start_date" => start_date,
                 "end_date" => end_date,
-                "type" => type,
+                "type_of" => type_of,
                 "title" => title,
                 "yaxis" => yaxis,
                 "xaxis" => xaxis,
                 "ytitles" => ytitles,
                 "data" => data,
                 "total" => total,
-                "category_id" => category_id,
-                "group_id" => group_id,
+                "category" => category,
+                "group" => group,
                 "prev30Days" => prev30Days
             }
             result
@@ -167,16 +169,16 @@ module Megam
             sps = new({})
             sps.start_date(o["start_date"]) if o.has_key?("start_date")
             sps.end_date(o["end_date"]) if o.has_key?("end_date")
-            sps.type(o["type"]) if o.has_key?("type")
-            sps.type(o["title"]) if o.has_key?("title")
-            sps.type(o["yaxis"]) if o.has_key?("yaxis")
-            sps.type(o["xaxis"]) if o.has_key?("xaxis")
-            sps.type(o["ytitles"]) if o.has_key?("ytitles")
-            sps.type(o["data"]) if o.has_key?("data")
-            sps.type(o["total"]) if o.has_key?("total")
-            sps.type(o["category_id"]) if o.has_key?("category_id")
-            sps.type(o["group_id"]) if o.has_key?("group_id")
-            sps.type(o["prev30Days"]) if o.has_key?("prev30Days")
+            sps.type_of(o["type_of"]) if o.has_key?("type_of")
+            sps.title(o["title"]) if o.has_key?("title")
+            sps.yaxis(o["yaxis"]) if o.has_key?("yaxis")
+            sps.xaxis(o["xaxis"]) if o.has_key?("xaxis")
+            sps.ytitles(o["ytitles"]) if o.has_key?("ytitles")
+            sps.data(o["data"]) if o.has_key?("data")
+            sps.total(o["total"]) if o.has_key?("total")
+            sps.category(o["category"]) if o.has_key?("category")
+            sps.group(o["group"]) if o.has_key?("group")
+            sps.prev30Days(o["prev30Days"]) if o.has_key?("prev30Days")
             sps
         end
 
@@ -189,7 +191,9 @@ module Megam
         def from_hash(o)
             @start_date       = o[:start_date] if o.has_key?(:start_date)
             @end_date         = o[:end_date] if o.has_key?(:end_date)
-            @type             = o[:type] if o.has_key?(:type)
+            @type_of          = o[:type_of] if o.has_key?(:type_of)
+            @category         = o[:category] if o.has_key?(:category)
+            @group            = o[:group] if o.has_key?(:group)
             self
         end
 
