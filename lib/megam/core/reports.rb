@@ -191,7 +191,7 @@ module Megam
             sps.create
         end
 
-        def create
+        def create            
             megam_rest.post_reports(to_hash)
         end
 
