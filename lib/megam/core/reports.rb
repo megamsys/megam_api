@@ -12,7 +12,6 @@ module Megam
          @total = nil
          @category = nil
          @group = nil
-         @prev30Days = nil
          @some_msg = {}
          super(o)
         end
@@ -20,6 +19,7 @@ module Megam
         def reports
             self
         end
+
         def start_date(arg=nil)
             if arg != nil
                 @start_date = arg
@@ -108,14 +108,6 @@ module Megam
             end
         end
 
-        def prev30Days(arg=nil)
-            if arg !=nil
-                @prev30Days = arg
-            else
-                @prev30Days
-            end
-        end
-
         def some_msg(arg=nil)
             if arg != nil
                 @some_msg = arg
@@ -131,7 +123,6 @@ module Megam
         # Transform the ruby obj ->  to a Hash
         def to_hash
             index_hash = Hash.new
-            index_hash["json_claz"] = self.class.name
             index_hash["start_date"] = start_date
             index_hash["end_date"] = end_date
             index_hash["type_of"] = type_of
@@ -159,8 +150,7 @@ module Megam
                 "data" => data,
                 "total" => total,
                 "category" => category,
-                "group" => group,
-                "prev30Days" => prev30Days
+                "group" => group
             }
             result
         end
@@ -178,7 +168,6 @@ module Megam
             sps.total(o["total"]) if o.has_key?("total")
             sps.category(o["category"]) if o.has_key?("category")
             sps.group(o["group"]) if o.has_key?("group")
-            sps.prev30Days(o["prev30Days"]) if o.has_key?("prev30Days")
             sps
         end
 
@@ -202,7 +191,6 @@ module Megam
             sps.create
         end
 
-        # Create the node via the REST API
         def create
             megam_rest.post_reports(to_hash)
         end
