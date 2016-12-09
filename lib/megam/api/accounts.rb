@@ -71,7 +71,7 @@ module Megam
 
     # ADMIN: LIST /accounts
     def list_accounts
-      @options = {:path => "/accounts",
+      @options = {:path => "/admin/accounts",
         :body => ''}.merge(@options)
 
       request(

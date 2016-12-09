@@ -20,14 +20,14 @@ module Megam
     def []=(index, arg)
       is_megam_reports(arg)
       @reports[index] = arg
-      @reports_by_name[arg.account_id] = index
+      @reports_by_name[arg.id] = index
     end
 
     def <<(*args)
       args.flatten.each do |a|
         is_megam_events(a)
         @reports << a
-        @reports_by_name[a.account_id] = @reports.length - 1
+        @reports_by_name[a.id] = @reports.length - 1
       end
       self
     end
@@ -46,11 +46,11 @@ module Megam
         @reports_by_name.each_key do |key|
         @reports_by_name[key] += 1 if @reports_by_name[key] > @insert_after_idx
         end
-        @reports_by_name[reports.account_id] = @insert_after_idx + 1
+        @reports_by_name[reports.id] = @insert_after_idx + 1
         @insert_after_idx += 1
       else
       @reports << reports
-      @reports_by_name[reports.account_id] = @reports.length - 1
+      @reports_by_name[reports.id] = @reports.length - 1
       end
     end
 
@@ -73,7 +73,7 @@ module Megam
     def lookup(reports)
       lookup_by = nil
       if events.kind_of?(Megam::Reports)
-      lookup_by = reports.account_id
+      lookup_by = reports.id
     elsif reports.kind_of?(String)
       lookup_by = reports
       else
@@ -104,7 +104,6 @@ module Megam
         reports_array = reports_list.kind_of?(Array) ? reports_list : [ reports_list ]
         reports_array.each do |reports|
           collection.insert(reports)
-
         end
       end
       collection

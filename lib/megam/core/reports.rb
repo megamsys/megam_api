@@ -1,23 +1,29 @@
 module Megam
     class Reports < Megam::RestAdapter
+
         def initialize(o)
-         @start_date = nil
-         @end_date = nil
-         @type_of = nil
-         @title = nil
-         @xaxis = nil
-         @yaxis = nil
-         @ytitles = {}
-         @data = []
-         @total = nil
-         @category = nil
-         @group = nil
-         @some_msg = {}
-         super(o)
+            @id = nil
+            @start_date = nil
+            @end_date = nil
+            @type_of = nil
+            @data = []
+            @category = nil
+            @group = nil
+            @created_at = nil
+            @some_msg = {}
+            super(o)
         end
 
         def reports
             self
+        end
+
+        def id(arg=nil)
+          if arg != nil
+              @id = arg
+          else
+              @id
+          end
         end
 
         def start_date(arg=nil)
@@ -44,51 +50,11 @@ module Megam
             end
         end
 
-        def title(arg=nil)
-            if arg !=nil
-                @title = arg
-            else
-                @title
-            end
-        end
-
-        def xaxis(arg=nil)
-            if arg !=nil
-                @xaxis = arg
-            else
-                @xaxis
-            end
-        end
-
-        def yaxis(arg=nil)
-            if arg !=nil
-                @yaxis = arg
-            else
-                @yaxis
-            end
-        end
-
-        def ytitles(arg=nil)
-            if arg !=nil
-                @ytitles = arg
-            else
-                @ytitles
-            end
-        end
-
         def data(arg = [])
             if arg != []
                 @data = arg
             else
                 @data
-            end
-        end
-
-        def total(arg=nil)
-            if arg !=nil
-                @total = arg
-            else
-                @total
             end
         end
 
@@ -108,6 +74,14 @@ module Megam
             end
         end
 
+        def created_at(arg=nil)
+            if arg != nil
+                @created_date = arg
+            else
+                @created_date
+            end
+        end
+
         def some_msg(arg=nil)
             if arg != nil
                 @some_msg = arg
@@ -120,7 +94,6 @@ module Megam
             crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
         end
 
-        # Transform the ruby obj ->  to a Hash
         def to_hash
             index_hash = Hash.new
             index_hash["start_date"] = start_date
@@ -131,43 +104,34 @@ module Megam
             index_hash
         end
 
-        # Serialize this object as a hash: called from JsonCompat.
-        # Verify if this called from JsonCompat during testing.
         def to_json(*a)
             for_json.to_json(*a)
         end
 
-
         def for_json
             result = {
-              "start_date" => start_date,
+                "id" => id,
+                "start_date" => start_date,
                 "end_date" => end_date,
                 "type_of" => type_of,
-                "title" => title,
-                "yaxis" => yaxis,
-                "xaxis" => xaxis,
-                "ytitles" => ytitles,
                 "data" => data,
-                "total" => total,
                 "category" => category,
-                "group" => group
+                "group" => group,
+                "created_at" =>  created_at
             }
             result
         end
 
         def self.json_create(o)
             sps = new({})
+            sps.id(o["id"]) if o.has_key?("id")
             sps.start_date(o["start_date"]) if o.has_key?("start_date")
             sps.end_date(o["end_date"]) if o.has_key?("end_date")
             sps.type_of(o["type_of"]) if o.has_key?("type_of")
-            sps.title(o["title"]) if o.has_key?("title")
-            sps.yaxis(o["yaxis"]) if o.has_key?("yaxis")
-            sps.xaxis(o["xaxis"]) if o.has_key?("xaxis")
-            sps.ytitles(o["ytitles"]) if o.has_key?("ytitles")
             sps.data(o["data"]) if o.has_key?("data")
-            sps.total(o["total"]) if o.has_key?("total")
             sps.category(o["category"]) if o.has_key?("category")
             sps.group(o["group"]) if o.has_key?("group")
+            sps.created_at(o["created_at"]) if o.has_key?("created_at")
             sps
         end
 

@@ -58,8 +58,10 @@ module Megam
         MEGAM_SUBSCRIPTIONSCOLLECTION         = 'Megam::SubscriptionsCollection'.freeze
         MEGAM_ADDONS                          = 'Megam::Addons'.freeze
         MEGAM_ADDONSCOLLECTION                = 'Megam::AddonsCollection'.freeze
-        MEGAM_PROMOS                          = 'Megam::Promos'.freeze
         MEGAM_REPORTS                         = 'Megam::Reports'.freeze
+        MEGAM_REPORTSCOLLECTION               = 'Megam::ReportsCollection'.freeze
+        MEGAM_PROMOS                          = 'Megam::Promos'.freeze
+
 
         class << self
             # API to use to avoid create_addtions
@@ -236,10 +238,12 @@ module Megam
                     Megam::Addons
                 when MEGAM_ADDONSCOLLECTION
                     Megam::AddonsCollection
-               when MEGAM_PROMOS
-                    Megam::Promos
-               when MEGAM_REPORTS
+                when MEGAM_REPORTS
                     Megam::Reports
+                when MEGAM_REPORTSCOLLECTION
+                    Megam::ReportsCollection
+                when MEGAM_PROMOS
+                    Megam::Promos
                 else
                     fail JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
                 end

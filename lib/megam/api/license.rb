@@ -2,7 +2,7 @@ module Megam
   class API
 
     def get_license(license_id)
-      @options = {:path => "/licenses/#{license_id}",:body => ""}.merge(@options)
+      @options = {:path => "/admin/licenses/#{license_id}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -12,7 +12,7 @@ module Megam
     end
 
     def post_license(new_license)
-      @options = {:path => '/licenses/content',
+      @options = {:path => '/admin/licenses/content',
         :body => Megam::JSONCompat.to_json(new_license)}.merge(@options)
 
       request(
