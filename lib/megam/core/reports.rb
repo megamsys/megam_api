@@ -156,6 +156,9 @@ module Megam
         end
 
         def self.json_create(o)
+          puts "--- json create"
+          puts o.inspect
+          puts "=============="
             sps = new({})
             sps.start_date(o["start_date"]) if o.has_key?("start_date")
             sps.end_date(o["end_date"]) if o.has_key?("end_date")
@@ -191,7 +194,7 @@ module Megam
             sps.create
         end
 
-        def create            
+        def create
             megam_rest.post_reports(to_hash)
         end
 
