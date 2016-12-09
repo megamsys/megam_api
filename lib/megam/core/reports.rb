@@ -124,14 +124,14 @@ module Megam
 
         def self.json_create(o)
             sps = new({})
-            sps.title(o["id"]) if o.has_key?("id")
+            sps.id(o["id"]) if o.has_key?("id")
             sps.start_date(o["start_date"]) if o.has_key?("start_date")
             sps.end_date(o["end_date"]) if o.has_key?("end_date")
             sps.type_of(o["type_of"]) if o.has_key?("type_of")
             sps.data(o["data"]) if o.has_key?("data")
             sps.category(o["category"]) if o.has_key?("category")
             sps.group(o["group"]) if o.has_key?("group")
-            sps.yaxis(o["created_at"]) if o.has_key?("created_at")
+            sps.created_at(o["created_at"]) if o.has_key?("created_at")
             sps
         end
 
