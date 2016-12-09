@@ -240,7 +240,7 @@ module Megam
                     Megam::Promos
                when MEGAM_REPORTS
                     Megam::Reports
-                else
+               else
                     fail JSON::ParserError, "Unsupported `json_class` type '#{json_class}'"
                 end
             end
