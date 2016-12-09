@@ -102,9 +102,12 @@ module Megam
       collection = self.new()
       o["results"].each do |reports_list|
         reports_array = reports_list.kind_of?(Array) ? reports_list : [ reports_list ]
+        puts "---------------  "
+        puts reports_array.inspect
+        puts "================ "
         reports_array.each do |reports|
+            puts "================ "
           collection.insert(reports)
-
         end
       end
       collection
