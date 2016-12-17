@@ -60,6 +60,8 @@ module Megam
         MEGAM_ADDONSCOLLECTION                = 'Megam::AddonsCollection'.freeze
         MEGAM_REPORTS                         = 'Megam::Reports'.freeze
         MEGAM_REPORTSCOLLECTION               = 'Megam::ReportsCollection'.freeze
+        MEGAM_QUOTAS                          = 'Megam::Quotas'.freeze
+        MEGAM_QUOTASCOLLECTION                = 'Megam::QuotasCollection'.freeze
         MEGAM_PROMOS                          = 'Megam::Promos'.freeze
 
 
@@ -242,6 +244,10 @@ module Megam
                     Megam::Reports
                 when MEGAM_REPORTSCOLLECTION
                     Megam::ReportsCollection
+                when MEGAM_QUOTAS
+                    Megam::Quotas
+                when MEGAM_QUOTASCOLLECTION
+                    Megam::QuotasCollection
                 when MEGAM_PROMOS
                     Megam::Promos
                 else
