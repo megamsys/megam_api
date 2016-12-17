@@ -2,6 +2,7 @@ module Megam
   class Request < Megam::RestAdapter
     def initialize(params)
       @id = nil
+      @account_id = nil
       @cat_id = nil
       @name = nil
       @cattype = nil
@@ -22,6 +23,14 @@ module Megam
         @id = arg
       else
       @id
+      end
+    end
+
+    def account_id(arg=nil)
+      if arg != nil
+        @account_id = arg
+      else
+      @account_id
       end
     end
 
@@ -91,6 +100,7 @@ module Megam
       index_hash = Hash.new
       index_hash["json_claz"] = self.class.name
       index_hash["id"] = id
+      index_hash["account_id"] = account_id
       index_hash["cat_id"] = cat_id
       index_hash["name"] = name
       index_hash["cattype"] = cattype
@@ -109,6 +119,7 @@ module Megam
     def for_json
       result = {
         "id" => id,
+        "account_id" => account_id,
         "cat_id" => cat_id,
         "name" => name,
         "cattype" => cattype,
@@ -123,6 +134,7 @@ module Megam
     def self.json_create(o)
       node = new(o)
       node.id(o["id"]) if o.has_key?("id")
+      node.account_id(o["account_id"]) if o.has_key?("account_id")
       node.cat_id(o["cat_id"]) if o.has_key?("cat_id")
       node.name(o["name"]) if o.has_key?("name")
       node.cattype(o["cattype"]) if o.has_key?("cattype")
@@ -145,6 +157,7 @@ module Megam
 
     def from_hash(o)
       @id = o[:id] if o.has_key?(:id)
+      @account_id = o[:account_id] if o.has_key?(:account_id)
       @cat_id  = o[:cat_id] if o.has_key?(:cat_id)
       @name = o[:name] if o.has_key?(:name)
       @cattype = o[:cattype] if o.has_key?(:cattype)
