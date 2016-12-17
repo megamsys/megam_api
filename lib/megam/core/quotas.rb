@@ -6,10 +6,6 @@ module Megam
             @name = nil
             @cost = nil
             @allowed = nil
-            @ram = nil
-            @cpu = nil
-            @disk = nil
-            @disk_type = nil
             @allocated_to = nil
             @inputs = []
             @created_at = nil
@@ -61,38 +57,6 @@ module Megam
             end
         end
 
-        def ram(arg = nil)
-            if !arg.nil?
-                @ram = arg
-            else
-                @ram
-            end
-        end
-
-        def cpu(arg=nil)
-            if arg != nil
-                @cpu = arg
-            else
-                @cpu
-            end
-        end
-
-        def disk(arg = nil)
-            if !arg.nil?
-                @disk = arg
-            else
-                @disk
-            end
-        end
-
-        def disk_type(arg = nil)
-            if !arg.nil?
-                @disk_type = arg
-            else
-                @disk_type
-            end
-        end
-
         def allocated_to(arg = nil)
             if !arg.nil?
                 @allocated_to = arg
@@ -138,10 +102,6 @@ module Megam
             index_hash['name'] = name
             index_hash['cost'] = cost
             index_hash['allowed'] = allowed
-            index_hash['ram'] = ram
-            index_hash["cpu"] = cpu
-            index_hash['disk'] = disk
-            index_hash['disk_type'] = disk_type
             index_hash['allocated_to'] = allocated_to
             index_hash['inputs'] = inputs
             index_hash['created_at'] = created_at
@@ -162,10 +122,6 @@ module Megam
                 'name' => name,
                 'cost' => cost,
                 'allowed' => allowed,
-                'ram' => ram,
-                'cpu' => cpu,
-                'disk' => disk,
-                'disk_type' => disk_type,
                 'allocated_to' => allocated_to,
                 'inputs' => inputs,
                 'created_at' => created_at,
@@ -182,10 +138,6 @@ module Megam
             quo.name(o['name']) if o.key?('name')
             quo.cost(o['cost']) if o.key?('cost')
             quo.allowed(o['allowed']) if o.key?('allowed')
-            quo.ram(o['ram']) if o.key?('ram')
-            quo.cpu(o["cpu"]) if o.has_key?("cpu")
-            quo.disk(o['disk']) if o.key?('disk')
-            quo.disk_type(o['disk_type']) if o.key?('disk_type')
             quo.allocated_to(o['allocated_to']) if o.key?('allocated_to') # this will be an array? can hash store array?
             quo.inputs(o['inputs']) if o.key?('inputs')
             quo.created_at(o['created_at']) if o.key?('created_at')
@@ -205,10 +157,6 @@ module Megam
             @name              = o['name'] if o.key?('name')
             @cost              = o['cost'] if o.key?('cost')
             @allowed           = o['allowed'] if o.key?('allowed')
-            @ram               = o['ram'] if o.key?('ram')
-            @cpu               = o["cpu"] if o.has_key?("cpu")
-            @disk              = o['disk'] if o.key?('disk')
-            @disk_type         = o['disk_type'] if o.key?('disk_type')
             @allocated_to      = o['allocated_to'] if o.key?('allocated_to')
             @inputs            = o['inputs'] if o.key?('inputs')
             @created_at        = o['created_at'] if o.key?('created_at')

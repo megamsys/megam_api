@@ -25,7 +25,7 @@ module Megam
 
     def <<(*args)
       args.flatten.each do |a|
-        is_megam_events(a)
+        is_megam_quotas(a)
         @quotas << a
         @quotas_by_name[a.id] = @quotas.length - 1
       end
@@ -72,7 +72,7 @@ module Megam
 
     def lookup(quotas)
       lookup_by = nil
-      if events.kind_of?(Megam::Quotas)
+      if quotas.kind_of?(Megam::Quotas)
       lookup_by = quotas.id
     elsif quotas.kind_of?(String)
       lookup_by = quotas
