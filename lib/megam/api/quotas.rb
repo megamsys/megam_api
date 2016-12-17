@@ -32,7 +32,7 @@ module Megam
      )
    end
 
-   def post_reports(new_sps)
+   def post_quotas(new_sps)
      @options = {:path => '/quotas/content',
          :body => Megam::JSONCompat.to_json(new_sps)}.merge(@options)
 
