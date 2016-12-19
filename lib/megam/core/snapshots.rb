@@ -1,7 +1,7 @@
 module Megam
     class Snapshots < Megam::RestAdapter
         def initialize(o)
-            @snap_id = nil
+            @id = nil
             @account_id = nil
             @asm_id = nil
             @org_id = nil
@@ -19,11 +19,11 @@ module Megam
         def snapshots
             self
         end
-        def snap_id(arg=nil)
+        def id(arg=nil)
             if arg != nil
-                @snap_id = arg
+                @id = arg
             else
-                @snap_id
+                @id
             end
         end
 
@@ -125,7 +125,7 @@ module Megam
         def to_hash
             index_hash = Hash.new
             index_hash["json_claz"] = self.class.name
-            index_hash["snap_id"] = snap_id
+            index_hash["id"] = id
             index_hash["account_id"] = account_id
             index_hash["asm_id"] = asm_id
             index_hash["org_id"] = org_id
@@ -148,7 +148,7 @@ module Megam
 
         def for_json
             result = {
-              "snap_id" => snap_id,
+              "id" => id,
                 "account_id" => account_id,
                 "asm_id" => asm_id,
                 "org_id" => org_id,
@@ -165,7 +165,7 @@ module Megam
 
         def self.json_create(o)
             sps = new({})
-            sps.snap_id(o["snap_id"]) if o.has_key?("snap_id")
+            sps.id(o["id"]) if o.has_key?("id")
             sps.account_id(o["account_id"]) if o.has_key?("account_id")
             sps.asm_id(o["asm_id"]) if o.has_key?("asm_id")
             sps.org_id(o["org_id"]) if o.has_key?("org_id") #this will be an array? can hash store array?
@@ -190,7 +190,7 @@ module Megam
         end
 
         def from_hash(o)
-            @snap_id       = o[:snap_id] if o.has_key?(:snap_id)
+            @id       = o[:id] if o.has_key?(:id)
             @account_id       = o[:account_id] if o.has_key?(:account_id)
             @asm_id        = o[:asm_id] if o.has_key?(:asm_id)
             @org_id        = o[:org_id] if o.has_key?(:org_id)

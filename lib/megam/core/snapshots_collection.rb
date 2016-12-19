@@ -25,7 +25,7 @@ module Megam
 
     def <<(*args)
       args.flatten.each do |a|
-        is_megam_events(a)
+        is_megam_snapshots(a)
         @snapshots << a
         @snapshots_by_name[a.account_id] = @snapshots.length - 1
       end
