@@ -186,6 +186,11 @@ module Megam
             dks.megam_rest.list_disks
         end
 
+        def self.remove(o)
+            dks = self.new(o)
+            dks.megam_rest.remove_disks(o[:id], o[:disk_id])
+        end
+
         def to_s
             Megam::Stuff.styled_hash(to_hash)
         end
