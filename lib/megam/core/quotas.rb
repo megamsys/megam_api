@@ -41,14 +41,6 @@ module Megam
             end
         end
 
-        def cost(arg = nil)
-            if !arg.nil?
-                @cost = arg
-            else
-                @cost
-            end
-        end
-
         def allowed(arg = nil)
             if !arg.nil?
                 @allowed = arg
@@ -100,7 +92,6 @@ module Megam
             index_hash['id'] = id
             index_hash["account_id"] = account_id
             index_hash['name'] = name
-            index_hash['cost'] = cost
             index_hash['allowed'] = allowed
             index_hash['allocated_to'] = allocated_to
             index_hash['inputs'] = inputs
@@ -120,7 +111,6 @@ module Megam
                 'id' => id,
                 'account_id' => account_id,
                 'name' => name,
-                'cost' => cost,
                 'allowed' => allowed,
                 'allocated_to' => allocated_to,
                 'inputs' => inputs,
@@ -136,7 +126,6 @@ module Megam
             quo.id(o['id']) if o.key?('id')
             quo.account_id(o["account_id"]) if o.has_key?("account_id")
             quo.name(o['name']) if o.key?('name')
-            quo.cost(o['cost']) if o.key?('cost')
             quo.allowed(o['allowed']) if o.key?('allowed')
             quo.allocated_to(o['allocated_to']) if o.key?('allocated_to') # this will be an array? can hash store array?
             quo.inputs(o['inputs']) if o.key?('inputs')
@@ -155,7 +144,6 @@ module Megam
             @id                = o['id'] if o.key?('id')
             @account_id        = o["account_id"] if o.has_key?("account_id")
             @name              = o['name'] if o.key?('name')
-            @cost              = o['cost'] if o.key?('cost')
             @allowed           = o['allowed'] if o.key?('allowed')
             @allocated_to      = o['allocated_to'] if o.key?('allocated_to')
             @inputs            = o['inputs'] if o.key?('inputs')

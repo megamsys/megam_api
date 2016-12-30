@@ -29,6 +29,16 @@ module Megam
         :body     => @options[:body]
       )
     end
+    def remove_disks(asm_id, disk_id)
+
+      @options = {:path => "/disks/delete/#{asm_id}/#{disk_id}",
+        :body => ""}.merge(@options)
+      request(
+        :expects  => 201,
+        :method   => :get,
+        :body     => @options[:body]
+      )
+    end
 
   end
 end
