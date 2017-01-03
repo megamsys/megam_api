@@ -19,6 +19,8 @@ module Megam
         MEGAM_ASSEMBLYCOLLECTION              = 'Megam::AssemblyCollection'.freeze
         MEGAM_BALANCES                        = 'Megam::Balances'.freeze
         MEGAM_BALANCESCOLLECTION              = 'Megam::BalancesCollection'.freeze
+        MEGAM_CREDIT                          = 'Megam::Credit'.freeze
+        MEGAM_CREDITCOLLECTION                = 'Megam::CreditCollection'.freeze
         MEGAM_BILLEDHISTORIES                 = 'Megam::Billedhistories'.freeze
         MEGAM_BILLEDHISTORIESCOLLECTION       = 'Megam::BilledhistoriesCollection'.freeze
         MEGAM_BILLINGTRANSACTIONS             = 'Megam::BillingTransactions'.freeze
@@ -220,6 +222,10 @@ module Megam
                     Megam::Balances
                 when MEGAM_BALANCESCOLLECTION
                     Megam::BalancesCollection
+                  when MEGAM_CREDIT
+                      Megam::Credit
+                  when MEGAM_CREDITCOLLECTION
+                      Megam::CreditCollection
                 when MEGAM_BILLEDHISTORIES
                     Megam::Billedhistories
                 when MEGAM_BILLEDHISTORIESCOLLECTION

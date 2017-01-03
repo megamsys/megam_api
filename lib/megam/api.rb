@@ -12,6 +12,7 @@ require 'megam/api/accounts'
 require 'megam/api/assemblies'
 require 'megam/api/assembly'
 require 'megam/api/balances'
+require 'megam/api/credit'
 require 'megam/api/billedhistories'
 require 'megam/api/billingtransactions'
 require 'megam/api/components'
@@ -95,6 +96,8 @@ require 'megam/core/disks'
 require 'megam/core/disks_collection'
 require 'megam/core/balances_collection'
 require 'megam/core/balances'
+require 'megam/core/credit_collection'
+require 'megam/core/credit'
 require 'megam/core/billedhistories_collection'
 require 'megam/core/billedhistories'
 require 'megam/core/billingtransactions_collection'
@@ -216,7 +219,7 @@ module Megam
 
             scheme       = (uri && uri.scheme) ? uri.scheme : 'http'
 
-            host         = (uri && uri.host)   ? uri.host : '192.168.0.118'
+            host         = (uri && uri.host)   ? uri.host : 'localhost'
 
             port         = (uri && uri.port)   ? uri.port.to_s : '9000'
 
