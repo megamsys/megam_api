@@ -1,7 +1,7 @@
 module Megam
   class API
-    def list_credit
-      @options = {:path => '/credit',:body => ""}.merge(@options)
+    def list_credits
+      @options = {:path => '/credits',:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -10,8 +10,8 @@ module Megam
       )
     end
 
-    def get_credit(account_id)
-      @options = {:path => "/credit/#{account_id}",:body => Megam::JSONCompat.to_json(account_id)}.merge(@options)
+    def get_credits(account_id)
+      @options = {:path => "/credits/#{account_id}",:body => Megam::JSONCompat.to_json(account_id)}.merge(@options)
       request(
         :expects  => 200,
         :method   => :get,
@@ -19,9 +19,9 @@ module Megam
       )
     end
 
-    def post_credit(new_credit)
-      @options = {:path => '/credit/content',
-        :body => Megam::JSONCompat.to_json(new_credit)}.merge(@options)
+    def post_credits(new_credits)
+      @options = {:path => '/credits/content',
+        :body => Megam::JSONCompat.to_json(new_credits)}.merge(@options)
 
       request(
         :expects  => 201,

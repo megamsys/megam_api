@@ -1,5 +1,5 @@
 module Megam
-    class Credit < Megam::RestAdapter
+    class Credits < Megam::RestAdapter
         def initialize(o)
             @id = nil
             @account_id = nil
@@ -120,7 +120,7 @@ module Megam
 
         # Create the predef via the REST API
         def create
-            megam_rest.post_credit(to_hash)
+            megam_rest.post_credits(to_hash)
         end
 
         # Load all credit -
@@ -128,14 +128,14 @@ module Megam
         # don't return self. check if the Megam::CreditCollection is returned.
         def self.list(params)
             cr = self.new(params)
-            cr.megam_rest.list_credit
+            cr.megam_rest.list_credits
         end
 
         # Show a particular balance by name,
         # Megam::Balance
         def self.show(params)
             pre = self.new(params)
-            pre.megam_rest.get_credit(params["account_id"])
+            pre.megam_rest.get_credits(params["account_id"])
         end
 
         def to_s
