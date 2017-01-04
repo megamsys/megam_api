@@ -99,8 +99,8 @@ module Megam
             cr
         end
 
-        def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-            cr = self.new(tmp_email, tmp_api_key, tmp_host)
+        def self.from_hash(o)
+            cr = self.new(o)
             cr.from_hash(o)
             cr
         end
@@ -114,7 +114,7 @@ module Megam
         end
 
         def self.create(params)
-            acct = from_hash(params,params["email"], params["api_key"], params["host"])
+            acct = from_hash(params)
             acct.create
         end
 
