@@ -30,9 +30,9 @@ end
 
 def megams(options={})
     s_options = SANDBOX_HOST_OPTIONS.merge({
-        :email => "rajeshr@megam.io",
-        :api_key => "e6c0a7f564c498b2621393957c85394dc01eb779",
-        :org_id => "ORG123",
+        :email => "rajeshr@virtengine.com",
+        :api_key => "5e08ad5a1a3c89910a2e51fb522812fee4560baa",
+        :org_id => "ORG6974933279242510669",
         #:password => "bWVnYW0="
     })
 
