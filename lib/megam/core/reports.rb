@@ -19,11 +19,11 @@ module Megam
         end
 
         def id(arg=nil)
-          if arg != nil
-              @id = arg
-          else
-              @id
-          end
+            if arg != nil
+                @id = arg
+            else
+                @id
+            end
         end
 
         def start_date(arg=nil)
@@ -155,8 +155,17 @@ module Megam
             sps.create
         end
 
+        def self.show(params)
+            sps = from_hash(params)
+            sps.show
+        end
+
         def create
             megam_rest.post_reports(to_hash)
+        end
+
+        def show
+            megam_rest.get_reports(to_hash)
         end
 
         def to_s
