@@ -209,6 +209,11 @@ module Megam
             sps.create
         end
 
+        def self.update(params)
+            sps = from_hash(params)
+            sps.update
+        end
+
         # Create the node via the REST API
         def create
             megam_rest.post_snapshots(to_hash)
@@ -223,6 +228,10 @@ module Megam
         def self.list(params)
             sps = self.new(params)
             sps.megam_rest.list_snapshots
+        end
+
+        def update
+            megam_rest.update_snapshots(to_hash)
         end
 
         def to_s

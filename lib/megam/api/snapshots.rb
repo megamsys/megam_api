@@ -31,5 +31,16 @@ module Megam
       )
     end
 
+    def update_snapshots(update_sps)
+      @options = {:path => '/snapshots/update',
+        :body => Megam::JSONCompat.to_json(update_sps)}.merge(@options)
+
+      request(
+        :expects  => 201,
+        :method   => :post,
+        :body     => @options[:body]
+      )
+    end
+
   end
 end
