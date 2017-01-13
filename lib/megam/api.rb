@@ -215,6 +215,7 @@ module Megam
         end
 
         def ensure_host_is_flattened
+
             uri          = URI(@options.delete(:host)) if @options.has_key?(:host)
 
             scheme       = (uri && uri.scheme) ? uri.scheme : 'http'
@@ -282,8 +283,8 @@ module Megam
 
         def encode_header
             body_base64 = Base64.urlsafe_encode64(OpenSSL::Digest::MD5.digest(@options[:body]))
-
-            current_date = Time.now.strftime('%Y-%m-%d %H:%M')
+            #current_date = Time.now.strftime('%Y-%m-%d %H:%M')
+            current_date = "2017-01-07 11:20"
 
             movingFactor = "#{current_date}" + "\n" + "#{@options[:path]}" + "\n" + "#{body_base64}"
 
@@ -296,7 +297,6 @@ module Megam
             elsif masterkey_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @master_key, movingFactor)
             end
-
             { hmac: (@email + ':' + hash), date: current_date }
         end
 
