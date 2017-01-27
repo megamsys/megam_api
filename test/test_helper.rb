@@ -7,8 +7,7 @@ require 'time'
 
 SANDBOX_HOST_OPTIONS = {
     :scheme => 'http',
-    #:host => 'localhost',
-    :host => 'http://188.240.231.85:9000/v2',
+    :host => 'http://localhost:9000/v2',
     :nonblock => false,
     :port => 9000
 }
@@ -30,14 +29,11 @@ end
 
 def megams(options={})
     s_options = SANDBOX_HOST_OPTIONS.merge({
-        #:email => "raj@sona.com",
-        #:api_key => "e7268ce66208e7bae9c6d746866b00d7",
         :email => "raj@world.com",
         :api_key => "b2ae2ea08c465556cb7abd5aff00470f",
         :org_id => "ORG6974933279242510669",
         #:password => "bWVnYW0="
     })
-
 
     Megam::Log.level(:debug)
     options = s_options.merge(options)
