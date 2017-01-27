@@ -296,6 +296,8 @@ module Megam
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
             elsif masterkey_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @master_key, movingFactor)
+            else
+                hash = ""
             end
             { hmac: (@email + ':' + hash), date: current_date }
         end
