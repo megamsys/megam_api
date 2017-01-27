@@ -189,6 +189,15 @@ module Megam
             acct.forgot
         end
 
+        def self.remove(o)
+            acct = from_hash(o)
+            acct.remove
+        end
+
+        def remove
+            megam_rest.delete_accounts(to_hash)
+        end
+
         def self.password_reset(o)
             acct = from_hash(o)
             acct.password_reset
