@@ -59,7 +59,7 @@ module Megam
     end
 
     def delete_accounts(delete_account)
-      @options = {path: "/admin/accounts/#{delete_account["delete_user"]}",
+      @options = {path: "/admin/accounts/#{delete_account["user_email"]}",
                   :body => ''}.merge(@options)
 
        request(
