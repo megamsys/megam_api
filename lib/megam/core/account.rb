@@ -12,13 +12,14 @@ module Megam
         attr_accessor :suspend
         attr_accessor :registration_ip_address
         attr_accessor :dates
-        attr_accessor :json_claz, :code, :msg_type, :msg, :links, :more
+        attr_accessor :json_claz, :code, :msg_type, :msg, :links, :more, :user_email
         attr_accessor :some_msg
 
 
         def initialize(o={})
             @id = nil
             @email = nil
+            @user_email = nil
             @api_key = nil
             @name = {}
             @phone = {}
@@ -112,6 +113,7 @@ module Megam
         def from_hash(o)
             @id         = o[:id] if o.key?(:id)
             @email      = o[:email] if o.key?(:email)
+            @user_email      = o[:user_email] if o.key?(:user_email)
             @api_key    = o[:api_key] if o.key?(:api_key)
 
             @name[:first_name] = o[:first_name] if o.key?(:first_name)
@@ -226,6 +228,7 @@ module Megam
             h['json_claz'] = self.class.name
             h['id'] = @id
             h['email'] = @email
+            h['user_email'] = @user_email
             h['api_key'] = @api_key
             h['name'] = @name
             h['phone'] = @phone
