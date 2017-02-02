@@ -20,8 +20,8 @@ end
 
 def megams_new(options={})
     s_options = SANDBOX_HOST_OPTIONS.merge({
-        :email => "test@megam.io",
-        :api_key => "faketest"
+      :email => "cd@ss.co",
+      :api_key => "1189a21d8965ee670536cbb61fd9f5afed8489c0",
     })
     options = s_options.merge(options)
     mg=Megam::API.new(options)
@@ -29,9 +29,9 @@ end
 
 def megams(options={})
     s_options = SANDBOX_HOST_OPTIONS.merge({
-        :email => "raj@world.com",
-        :api_key => "b2ae2ea08c465556cb7abd5aff00470f",
-        :org_id => "ORG6974933279242510669",
+        :email => "cd@ss.co",
+        :api_key => "1189a21d8965ee670536cbb61fd9f5afed8489c0",
+        :org_id => "ORG8385278424580953898",
         #:password => "bWVnYW0="
     })
 

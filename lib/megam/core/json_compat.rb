@@ -40,6 +40,8 @@ module Megam
         MEGAM_SENSORSCOLLECTION               = 'Megam::SensorsCollection'.freeze
         MEGAM_SNAPSHOTS                       = 'Megam::Snapshots'.freeze
         MEGAM_SNAPSHOTSCOLLECTION             = 'Megam::SnapshotsCollection'.freeze
+        MEGAM_BACKUPS                         = 'Megam::Backups'.freeze
+        MEGAM_BACKUPSCOLLECTION               = 'Megam::BackupsCollection'.freeze
         MEGAM_DISKS                           = 'Megam::Disks'.freeze
         MEGAM_DISKSCOLLECTION                 = 'Megam::DisksCollection'.freeze
         MEGAM_LICENSE                         = 'Megam::License'.freeze
@@ -218,6 +220,10 @@ module Megam
                     Megam::Snapshots
                 when MEGAM_SNAPSHOTSCOLLECTION
                     Megam::SnapshotsCollection
+                  when MEGAM_BACKUPS
+                      Megam::Backups
+                  when MEGAM_BACKUPSCOLLECTION
+                      Megam::BackupsCollection
                 when MEGAM_BALANCES
                     Megam::Balances
                 when MEGAM_BALANCESCOLLECTION

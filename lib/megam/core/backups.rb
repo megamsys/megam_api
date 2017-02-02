@@ -1,5 +1,5 @@
 module Megam
-    class Snapshots < Megam::RestAdapter
+    class Backups < Megam::RestAdapter
         def initialize(o)
             @id = nil
             @account_id = nil
@@ -10,14 +10,13 @@ module Megam
             @outputs = []
             @name= nil
             @status=nil
-            @disk_id=nil
-            @snap_id=nil
+            @image_id=nil
             @created_at = nil
             @some_msg = {}
             super(o)
         end
 
-        def snapshots
+        def backups
             self
         end
         def id(arg=nil)
@@ -92,19 +91,11 @@ module Megam
             end
         end
 
-        def disk_id(arg=nil)
+        def image_id(arg=nil)
             if arg != nil
-                @disk_id = arg
+                @image_id = arg
             else
-                @disk_id
-            end
-        end
-
-        def snap_id(arg=nil)
-            if arg != nil
-                @snap_id = arg
-            else
-                @snap_id
+                @image_id
             end
         end
 
@@ -143,8 +134,7 @@ module Megam
             index_hash["outputs"] = outputs
             index_hash["name"] = name
             index_hash["status"] = status
-            index_hash["disk_id"] = disk_id
-            index_hash["snap_id"] = snap_id
+            index_hash["image_id"] = image_id
             index_hash["created_at"] = created_at
             index_hash["some_msg"] = some_msg
             index_hash
@@ -167,8 +157,7 @@ module Megam
                 "outputs" => outputs,
                 "name" => name,
                 "status" => status,
-                "disk_id" => disk_id,
-                "snap_id" => snap_id,
+                "image_id" => image_id,
                 "created_at" => created_at
             }
             result
@@ -185,8 +174,7 @@ module Megam
             sps.outputs(o['outputs']) if o.key?('outputs')
             sps.name(o["name"]) if o.has_key?("name")
             sps.status(o["status"]) if o.has_key?("status")
-            sps.disk_id(o["disk_id"]) if o.has_key?("disk_id")
-            sps.snap_id(o["snap_id"]) if o.has_key?("snap_id")
+            sps.image_id(o["image_id"]) if o.has_key?("image_id")
             sps.created_at(o["created_at"]) if o.has_key?("created_at")
             sps.some_msg[:code] = o["code"] if o.has_key?("code")
             sps.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
@@ -211,8 +199,7 @@ module Megam
             @outputs           = o[:outputs] if o.key?(:outputs)
             @name            = o[:name] if o.has_key?(:name)
             @status            = o[:status] if o.has_key?(:status)
-            @disk_id          = o[:disk_id] if o.has_key?(:disk_id)
-            @snap_id          = o[:snap_id] if o.has_key?(:snap_id)
+            @image_id          = o[:image_id] if o.has_key?(:image_id)
             @created_at        = o[:created_at] if o.has_key?(:created_at)
             self
         end
@@ -229,22 +216,22 @@ module Megam
 
         # Create the node via the REST API
         def create
-            megam_rest.post_snapshots(to_hash)
+            megam_rest.post_backups(to_hash)
         end
 
         # Load a account by email_p
         def self.show(o)
             sps = self.new(o)
-            sps.megam_rest.get_snapshots(o[:id])
+            sps.megam_rest.get_backups(o[:id])
         end
 
         def self.list(params)
             sps = self.new(params)
-            sps.megam_rest.list_snapshots
+            sps.megam_rest.list_backups
         end
 
         def update
-            megam_rest.update_snapshots(to_hash)
+            megam_rest.update_backups(to_hash)
         end
 
         def to_s
