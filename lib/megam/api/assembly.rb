@@ -42,7 +42,7 @@ module Megam
    end
 
    def delete_assembly(delete_assembly)
-     @options = {path: "/admin/assembly/#{delete_account}",
+     @options = {path: "/admin/assembly/#{delete_assembly}",
               :body => ''}.merge(@options)
 
      request(
