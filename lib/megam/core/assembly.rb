@@ -209,6 +209,11 @@ module Megam
             asm.megam_rest.list_assembly
         end
 
+        def self.remove(params)
+            asm = self.new(params)
+            asm.megam_rest.delete_assembly(params['id'])
+        end
+
         # Create the node via the REST API
         def update
             megam_rest.update_assembly(to_hash)
