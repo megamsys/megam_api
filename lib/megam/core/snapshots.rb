@@ -13,6 +13,7 @@ module Megam
             @disk_id=nil
             @snap_id=nil
             @created_at = nil
+            @updated_at = nil
             @some_msg = {}
             super(o)
         end
@@ -116,6 +117,14 @@ module Megam
             end
         end
 
+         def updated_at(arg=nil)
+            if arg != nil
+                @updated_at = arg
+            else
+                @updated_at
+            end
+        end
+
         def error?
             crocked  = true if (some_msg.has_key?(:msg_type) && some_msg[:msg_type] == "error")
         end
@@ -146,6 +155,7 @@ module Megam
             index_hash["disk_id"] = disk_id
             index_hash["snap_id"] = snap_id
             index_hash["created_at"] = created_at
+            index_hash["updated_at"] = updated_at
             index_hash["some_msg"] = some_msg
             index_hash
         end
@@ -169,7 +179,8 @@ module Megam
                 "status" => status,
                 "disk_id" => disk_id,
                 "snap_id" => snap_id,
-                "created_at" => created_at
+                "created_at" => created_at,
+                "updated_at" => updated_at
             }
             result
         end
@@ -188,6 +199,7 @@ module Megam
             sps.disk_id(o["disk_id"]) if o.has_key?("disk_id")
             sps.snap_id(o["snap_id"]) if o.has_key?("snap_id")
             sps.created_at(o["created_at"]) if o.has_key?("created_at")
+            sps.created_at(o["updated_at"]) if o.has_key?("updated_at")
             sps.some_msg[:code] = o["code"] if o.has_key?("code")
             sps.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
             sps.some_msg[:msg]= o["msg"] if o.has_key?("msg")
@@ -214,6 +226,7 @@ module Megam
             @disk_id          = o[:disk_id] if o.has_key?(:disk_id)
             @snap_id          = o[:snap_id] if o.has_key?(:snap_id)
             @created_at        = o[:created_at] if o.has_key?(:created_at)
+            @updated_at        = o[:updated_at] if o.has_key?(:updated_at)
             self
         end
 
