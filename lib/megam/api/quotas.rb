@@ -37,7 +37,7 @@ module Megam
          :body => Megam::JSONCompat.to_json(new_sps)}.merge(@options)
 
      request(
-       :expects  => [200,201],
+       :expects  => 201,
        :method   => :post,
        :body     => @options[:body]
      )
