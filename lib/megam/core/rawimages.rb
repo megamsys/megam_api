@@ -8,6 +8,7 @@ module Megam
             @status = nil
             @inputs = []
             @created_at = nil
+            @updated_at = nil
             @org_id = nil
             super(o)
         end
@@ -72,6 +73,14 @@ module Megam
          end
         end
 
+        def updated_at(arg = nil)
+         if !arg.nil?
+          @updated_at = arg
+         else
+          @updated_at
+         end
+        end
+
         def org_id(arg = nil)
          if !arg.nil?
           @org_id = arg
@@ -96,6 +105,7 @@ module Megam
             index_hash['status'] = status
             index_hash['inputs'] = inputs
             index_hash['created_at'] = created_at
+            index_hash['updated_at'] = updated_at
             index_hash
         end
 
@@ -114,7 +124,8 @@ module Megam
                 'repos' => repos,
                 'inputs' => inputs,
                 'status' => status,
-                'created_at' => created_at
+                'created_at' => created_at,
+                'updated_at' => updated_at
             }
 
             result
@@ -130,6 +141,7 @@ module Megam
             quo.inputs(o['inputs']) if o.key?('inputs')
             quo.status(o['status']) if o.key?('status')
             quo.created_at(o['created_at']) if o.key?('created_at')
+            quo.updated_at(o['updated_at']) if o.key?('updated_at')
             quo
         end
 
@@ -149,6 +161,7 @@ module Megam
             @inputs            = o['inputs'] if o.key?('inputs')
             @status            = o['status'] if o.key?('status')
             @created_at        = o['created_at'] if o.key?('created_at')
+            @updated_at        = o['updated_at'] if o.key?('updated_at')
             self
         end
 
