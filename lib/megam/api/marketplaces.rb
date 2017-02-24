@@ -21,6 +21,25 @@ module Megam
       )
     end
 
+    def get_marketplaceprovider(provider)
+      @options = {:path => "/marketplaces/p/#{provider}" ,:body => ""}.merge(@options)
+
+      request(
+        :expects  => 200,
+        :method   => :get,
+        :body     => @options[:body]
+      )
+    end
+
+    def get_marketplaceflavor(flavor)
+      @options = {:path => "/marketplaces/f/#{flavor}",:body => ""}.merge(@options)
+      request(
+        :expects  => 200,
+        :method   => :get,
+        :body     => @options[:body]
+      )
+    end
+
     def post_marketplaceapp(catitem)
       @options = {:path => '/marketplaces/content',
         :body => Megam::JSONCompat.to_json(catitem)}.merge(@options)
