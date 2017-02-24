@@ -66,6 +66,8 @@ module Megam
         MEGAM_REPORTSCOLLECTION               = 'Megam::ReportsCollection'.freeze
         MEGAM_QUOTAS                          = 'Megam::Quotas'.freeze
         MEGAM_QUOTASCOLLECTION                = 'Megam::QuotasCollection'.freeze
+        MEGAM_RAWIMAGES                       = 'Megam::Rawimages'.freeze
+        MEGAM_RAWIMAGESCOLLECTION             = 'Megam::RawimagesCollection'.freeze
         MEGAM_PROMOS                          = 'Megam::Promos'.freeze
 
 
@@ -260,6 +262,10 @@ module Megam
                     Megam::Quotas
                 when MEGAM_QUOTASCOLLECTION
                     Megam::QuotasCollection
+                when MEGAM_RAWIMAGES
+                     Megam::Rawimages
+                when MEGAM_RAWIMAGESCOLLECTION
+                    Megam::RawimagesCollection
                 when MEGAM_PROMOS
                     Megam::Promos
                 else
