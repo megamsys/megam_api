@@ -184,6 +184,10 @@ module Megam
                     Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
                     Megam::EventsVmCollection
+                when MEGAM_EVENTSMARKETPLACES
+                    Megam::EventsMarketplaces
+                when MEGAM_EVENTSMARKETPLACESCOLLECTION
+                    Megam::EventsMarketplacesCollection
                 when MEGAM_LICENSE
                     Megam::License
                 when MEGAM_LICENSECOLLECTION
