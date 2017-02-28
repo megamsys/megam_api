@@ -17,6 +17,7 @@ module Megam
             @plans = []
             @created_at = nil
             @updated_at = nil
+            @some_msg = {}
             super(o)
         end
 
@@ -184,6 +185,7 @@ module Megam
             index_hash['inputs'] = inputs
             index_hash['outputs'] = outputs
             index_hash['acl_policies'] = acl_policies
+            index_hash["some_msg"] = some_msg
             index_hash
         end
 
@@ -233,6 +235,11 @@ module Megam
             app.outputs(o['outputs']) if o.key?('outputs')
             app.status(o['status']) if o.key?('status')
             app.acl_policies(o['acl_policies']) if o.key?('acl_policies')
+            #success or error
+            app.some_msg[:code] = o["code"] if o.has_key?("code")
+            app.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+            app.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+            app.some_msg[:links] = o["links"] if o.has_key?("links")
             app
         end
 
