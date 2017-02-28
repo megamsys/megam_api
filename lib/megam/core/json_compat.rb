@@ -54,6 +54,8 @@ module Megam
         MEGAM_EVENTSVMCOLLECTION              = 'Megam::EventsVmCollection'.freeze
         MEGAM_EVENTSCONTAINER                 = 'Megam::EventsContainer'.freeze
         MEGAM_EVENTSCONTAINERCOLLECTION       = 'Megam::EventsContainerCollection'.freeze
+        MEGAM_EVENTSMARKETPLACES              = 'Megam::EventsMarketplaces'.freeze
+        MEGAM_EVENTSMARKETPLACESCOLLECTION    = 'Megam::EventsMarketplacesCollection'.freeze
         MEGAM_EVENTSBILLING                   = 'Megam::EventsBilling'.freeze
         MEGAM_EVENTSBILLINGCOLLECTION         = 'Megam::EventsBillingCollection'.freeze
         MEGAM_EVENTSSTORAGE                   = 'Megam::EventsStorage'.freeze
