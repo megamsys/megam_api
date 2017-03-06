@@ -57,7 +57,7 @@ module Megam
 
             attr_reader :domain, :keypairoption, :root_password, :sshkey, :provider, :cpu, :ram, :hdd,
             :version, :display_name, :password, :region, :resource, :storage_hddtype,
-            :ipv4public, :ipv4private, :ipv6public, :ipv6private, :bitnami_username, :bitnami_password, :root_username, :backup, :backup_name, :quota_ids,
+            :public_ipv4, :private_ipv4, :public_ipv6, :private_ipv6, :bitnami_username, :bitnami_password, :root_username, :backup, :backup_name, :quota_ids,
             :vm_cpu_cost_per_hour, :vm_ram_cost_per_hour,
             :vm_disk_cost_per_hour, :container_cpu_cost_per_hour, :container_memory_cost_per_hour,:app_username, :app_password
 
@@ -76,10 +76,10 @@ module Megam
                 :region,
                 :resource,
                 :storage_hddtype,
-                :ipv4private,
-                :ipv4public,
-                :ipv6private,
-                :ipv6public,
+                :private_ipv4,
+                :public_ipv4,
+                :private_ipv6,
+                :public_ipv6,
                 :bitnami_password,
                 :bitnami_username,
                 :app_username,
