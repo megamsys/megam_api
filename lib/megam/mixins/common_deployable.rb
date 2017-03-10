@@ -4,14 +4,8 @@ module Megam
     class Mixins
         class CommonDeployable
             include Nilavu::MegamAttributes
-            attr_reader :status, :state, :inputs, :tosca_type
-
-              DEFAULT_VERTICE_PREFIX  = 'vertice'.freeze
-              DEFAULT_BITNAMI_PREFIX  = 'bitnami'.freeze
-              DEFAULT_DOCKER_PREFIX   = 'docker'.freeze
-
+            attr_reader :status, :state, :inputs
             ATTRIBUTES = [
-                :tosca_type,
                 :status,
                 :state,
             :inputs]
@@ -21,10 +15,8 @@ module Megam
             end
 
             def initialize(params)
-                @tosca_type = ''
                 @status = 'initialized'
                 @state = 'initialized'
-                bld_toscatype(params)
                 set_attributes(params)
                 @inputs = InputGroupData.new(params)
 
@@ -34,21 +26,8 @@ module Megam
                 h = {
                     status: status,
                     state: state,
-                    tosca_type: tosca_type,
                     inputs: inputs.to_hash
                 }
-            end
-
-            def bld_toscatype(params)
-                case params[:scm_name]
-              when DEFAULT_BITNAMI_PREFIX
-                @tosca_type = DEFAULT_BITNAMI_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
-              when DEFAULT_DOCKER_PREFIX
-                @tosca_type = DEFAULT_DOCKER_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
-              else
-                @tosca_type = DEFAULT_VERTICE_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
-              end
-
             end
         end
 
@@ -92,7 +71,7 @@ module Megam
                 :vm_ram_cost_per_hour,
                 :vm_disk_cost_per_hour,
                 :container_cpu_cost_per_hour,
-                :container_memory_cost_per_hour]
+            :container_memory_cost_per_hour]
 
             def attributes
                 ATTRIBUTES

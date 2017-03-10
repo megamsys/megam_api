@@ -5,7 +5,8 @@ require File.expand_path("#{File.dirname(__FILE__)}/outputs")
 module Megam
     class Mixins
         class Components
-            attr_reader :mixins, :name, :repo, :related_components, :operations, :artifacts, :envs, :outputs, :id
+            attr_reader :mixins, :name, :repo, :related_components, :operations, :artifacts, :envs, :outputs, :id, :tosca_type
+              DEFAULT_VERTICE_PREFIX  = 'vertice'.freeze
             def initialize(params)
                 @mixins = CommonDeployable.new(params)
                 @id = params[:id] if params[:id]
@@ -16,6 +17,7 @@ module Megam
                 @artifacts = add_artifacts(params)
                 @repo = add_repo(params)
                 @envs = params[:envs]
+                @tosca_type = add_components_tosca_type(params)
             end
 
             def to_hash
@@ -28,6 +30,7 @@ module Megam
                 result[:outputs] = @outputs.to_array if @outputs
                 result[:related_components] = @related_components if @related_components
                 result[:envs] = @envs if @envs
+                result[:tosca_type] = @tosca_type if @tosca_type
                 result.to_hash
             end
 
@@ -60,6 +63,15 @@ module Megam
             def add_artifacts(params)
                 Artifacts.new(params).tohash
             end
+
+            def add_components_tosca_type(params)
+                if params[:scm_name] !=nil
+                    @tosca_type = params[:scm_name] + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
+                else
+                    @tosca_type = DEFAULT_VERTICE_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
+                end
+            end
+
         end
 
         class Repo
@@ -70,7 +82,7 @@ module Megam
                 :source,
                 :oneclick,
                 :url,
-                :branch]
+            :branch]
 
             def attributes
                 ATTRIBUTES
