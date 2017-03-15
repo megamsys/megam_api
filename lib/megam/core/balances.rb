@@ -4,6 +4,7 @@ module Megam
             @id = nil
             @account_id = nil
             @credit = nil
+            @biller_credit = nil
             @created_at = nil
             @updated_at = nil
             @some_msg = {}
@@ -36,6 +37,14 @@ module Megam
                 @credit = arg
             else
                 @credit
+            end
+        end
+
+        def biller_credit(arg=nil)
+            if arg != nil
+                @biller_credit = arg
+            else
+                @biller_credit
             end
         end
 
@@ -74,6 +83,7 @@ module Megam
             index_hash["id"] = id
             index_hash["account_id"] = account_id
             index_hash["credit"] = credit
+            index_hash["biller_credit"] = biller_credit
             index_hash["created_at"] = created_at
             index_hash["updated_at"] = updated_at
             index_hash
@@ -90,6 +100,7 @@ module Megam
                 "id" => id,
                 "account_id" => account_id,
                 "credit" => credit,
+                "biller_credit" => biller_credit,
                 "created_at" => created_at,
                 "updated_at" => updated_at
             }
@@ -101,6 +112,7 @@ module Megam
             balances.id(o["id"]) if o.has_key?("id")
             balances.account_id(o["account_id"]) if o.has_key?("account_id")
             balances.credit(o["credit"]) if o.has_key?("credit")
+            balances.biller_credit(o["biller_credit"]) if o.has_key?("biller_credit")
             balances.created_at(o["created_at"]) if o.has_key?("created_at")
             balances.updated_at(o["updated_at"]) if o.has_key?("updated_at")
             #success or error
@@ -121,6 +133,7 @@ module Megam
             @id        = o[:id] if o.has_key?(:id)
             @account_id = o[:account_id] if o.has_key?(:account_id)
             @credit   = o[:credit] if o.has_key?(:credit)
+            @biller_credit   = o[:biller_credit] if o.has_key?(:biller_credit)
             @created_at   = o[:created_at] if o.has_key?(:created_at)
             @updated_at   = o[:updated_at] if o.has_key?(:updated_at)
             self
