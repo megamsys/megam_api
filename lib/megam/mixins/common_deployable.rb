@@ -38,7 +38,7 @@ module Megam
             :version, :display_name, :password, :region, :resource, :storage_hddtype,
             :public_ipv4, :private_ipv4, :public_ipv6, :private_ipv6, :bitnami_username, :bitnami_password, :root_username, :backup, :backup_name, :quota_ids,
             :vm_cpu_cost_per_hour, :vm_ram_cost_per_hour,
-            :vm_disk_cost_per_hour, :container_cpu_cost_per_hour, :container_memory_cost_per_hour,:app_username, :app_password
+            :vm_disk_cost_per_hour, :container_cpu_cost_per_hour, :container_memory_cost_per_hour,:app_username, :app_password, :user_launch_patternname
 
             ATTRIBUTES = [
                 :domain,
@@ -67,11 +67,12 @@ module Megam
                 :backup,
                 :backup_name,
                 :quota_ids,
+		            :user_launch_patternname,
                 :vm_cpu_cost_per_hour,
                 :vm_ram_cost_per_hour,
                 :vm_disk_cost_per_hour,
                 :container_cpu_cost_per_hour,
-            :container_memory_cost_per_hour]
+                :container_memory_cost_per_hour]
 
             def attributes
                 ATTRIBUTES
