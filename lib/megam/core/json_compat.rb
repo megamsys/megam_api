@@ -54,8 +54,8 @@ module Megam
         MEGAM_EVENTSVMCOLLECTION              = 'Megam::EventsVmCollection'.freeze
         MEGAM_EVENTSCONTAINER                 = 'Megam::EventsContainer'.freeze
         MEGAM_EVENTSCONTAINERCOLLECTION       = 'Megam::EventsContainerCollection'.freeze
-        MEGAM_EVENTSMARKETPLACES              = 'Megam::EventsMarketplaces'.freeze
-        MEGAM_EVENTSMARKETPLACESCOLLECTION    = 'Megam::EventsMarketplacesCollection'.freeze
+        MEGAM_EVENTSMARKETPLACE               = 'Megam::EventsMarketplace'.freeze
+        MEGAM_EventsMarketplaceCollection     = 'Megam::EventsMarketplaceCollection'.freeze
         MEGAM_EVENTSBILLING                   = 'Megam::EventsBilling'.freeze
         MEGAM_EVENTSBILLINGCOLLECTION         = 'Megam::EventsBillingCollection'.freeze
         MEGAM_EVENTSSTORAGE                   = 'Megam::EventsStorage'.freeze
@@ -184,10 +184,10 @@ module Megam
                     Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
                     Megam::EventsVmCollection
-                when MEGAM_EVENTSMARKETPLACES
-                    Megam::EventsMarketplaces
-                when MEGAM_EVENTSMARKETPLACESCOLLECTION
-                    Megam::EventsMarketplacesCollection
+                when MEGAM_EVENTSMARKETPLACE
+                    Megam::EventsMarketplace
+                when MEGAM_EventsMarketplaceCollection
+                    Megam::EventsMarketplaceCollection
                 when MEGAM_LICENSE
                     Megam::License
                 when MEGAM_LICENSECOLLECTION

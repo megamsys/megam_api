@@ -1,8 +1,8 @@
 module Megam
-    class EventsMarketplaces < Megam::RestAdapter
+    class EventsMarketplace < Megam::RestAdapter
         def initialize(o)
             @account_id = nil
-            @assembly_id = nil
+            @marketplace_id = nil
             @event_type = nil
             @data = []
             @created_at = nil
@@ -12,7 +12,7 @@ module Megam
             super(o)
         end
 
-        def eventsMarketplaces
+        def eventsmarketplace
             self
         end
 
@@ -32,11 +32,11 @@ module Megam
             end
         end
 
-        def assembly_id(arg=nil)
+        def marketplace_id(arg=nil)
             if arg != nil
-                @assembly_id = arg
+                @marketplace_id = arg
             else
-                @assembly_id
+                @marketplace_id
             end
         end
 
@@ -91,7 +91,7 @@ module Megam
             index_hash = Hash.new
             index_hash["json_claz"] = self.class.name
             index_hash["account_id"] = account_id
-            index_hash["assembly_id"] = assembly_id
+            index_hash["marketplace_id"] = marketplace_id
             index_hash["event_type"] = event_type
             index_hash["data"] = data
             index_hash["limit"] = limit
@@ -110,7 +110,7 @@ module Megam
         def for_json
             result = {
                 "account_id" => account_id,
-                "assembly_id" => assembly_id,
+                "marketplace_id" => marketplace_id,
                 "event_type" => event_type,
                 "data" => data,
                 "limit"  => limit,
@@ -123,7 +123,7 @@ module Megam
         def self.json_create(o)
             evt = new({})
             evt.account_id(o["account_id"]) if o.has_key?("account_id")
-            evt.assembly_id(o["assembly_id"]) if o.has_key?("assembly_id")
+            evt.marketplace_id(o["marketplace_id"]) if o.has_key?("marketplace_id")
             evt.id(o["id"]) if o.has_key?("id")
             evt.event_type(o["event_type"]) if o.has_key?("event_type") #this will be an array? can hash store array?
             evt.data(o["data"]) if o.has_key?("data")
@@ -144,7 +144,7 @@ module Megam
 
         def from_hash(o)
             @account_id       = o[:account_id] if o.has_key?(:account_id)
-            @assembly_id      = o[:assembly_id] if o.has_key?(:assembly_id)
+            @marketplace_id      = o[:marketplace_id] if o.has_key?(:marketplace_id)
             @event_type        = o[:event_type] if o.has_key?(:event_type)
             @data            = o[:data] if o.has_key?(:data)
             @limit           = o[:limit] if o.has_key?(:limit)
@@ -166,17 +166,17 @@ module Megam
         # Load a account by email_p
         def self.show(o)
             evt = from_hash(o)
-            evt.megam_rest.get_eventsMarketplaces(o[:limit], evt.from_hash(o).for_json)
+            evt.megam_rest.get_eventsMarketplace(o[:limit], evt.from_hash(o).for_json)
         end
 
         def self.list(params)
             asm = self.new(params)
-            asm.megam_rest.list_eventsMarketplaces(params[:limit])
+            asm.megam_rest.list_eventsMarketplace(params[:limit])
         end
 
         def self.index(params)
             asm = self.new(params)
-            asm.megam_rest.index_eventsMarketplaces
+            asm.megam_rest.index_eventsMarketplace
         end
 
         def to_s
