@@ -68,6 +68,8 @@ module Megam
         MEGAM_REPORTSCOLLECTION               = 'Megam::ReportsCollection'.freeze
         MEGAM_QUOTAS                          = 'Megam::Quotas'.freeze
         MEGAM_QUOTASCOLLECTION                = 'Megam::QuotasCollection'.freeze
+        MEGAM_FLAVORS                         = 'Megam::Flavors'.freeze
+        MEGAM_FLAVORSCOLLECTION               = 'Megam::FlavorsCollection'.freeze
         MEGAM_RAWIMAGES                       = 'Megam::Rawimages'.freeze
         MEGAM_RAWIMAGESCOLLECTION             = 'Megam::RawimagesCollection'.freeze
         MEGAM_PROMOS                          = 'Megam::Promos'.freeze
@@ -192,6 +194,10 @@ module Megam
                     Megam::License
                 when MEGAM_LICENSECOLLECTION
                     Megam::LicenseCollection
+                when MEGAM_FLAVORS
+                    Megam::Flavors
+                when MEGAM_FLAVORSCOLLECTION
+                    Megam::FlavorsCollection
                 when MEGAM_EVENTSALL
                     Megam::EventsAll
                 when MEGAM_EVENTSALLCOLLECTION
