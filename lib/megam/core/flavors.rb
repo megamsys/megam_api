@@ -86,10 +86,8 @@ module Megam
             end
         end
 
-        def price(arg = nil)
-            # if arg != []
-            if !arg.nil?
-
+        def price(arg = [])
+            if arg != []
                 @price = arg
             else
                 @price
