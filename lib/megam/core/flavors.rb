@@ -10,10 +10,11 @@ module Megam
             @disk = nil
             @regions = []
             @price = []
-            @properties = nil
+            @properties = []
             @status = nil
             @created_at = nil
             @updated_at = nil
+            @some_msg = {}
             super(o)
         end
 
@@ -22,7 +23,7 @@ module Megam
                 end
 
         def id(arg = nil)
-            if !arg.nil?
+           if arg != nil
                 @id = arg
             else
                 @id
@@ -30,7 +31,7 @@ module Megam
         end
 
         def org_id(arg = nil)
-         if !arg.nil?
+         if arg != nil
           @org_id = arg
          else
           @org_id
@@ -46,7 +47,7 @@ module Megam
         end
 
         def name(arg = nil)
-            if !arg.nil?
+          if arg != nil
                 @name = arg
             else
                 @name
@@ -55,7 +56,7 @@ module Megam
 
 
         def cpu(arg = nil)
-            if !arg.nil?
+           if arg != nil
                 @cpu = arg
             else
                 @cpu
@@ -63,7 +64,7 @@ module Megam
         end
 
         def ram(arg = nil)
-            if !arg.nil?
+            if arg != nil
                 @ram = arg
             else
                 @ram
@@ -71,7 +72,7 @@ module Megam
         end
 
         def disk(arg = nil)
-            if !arg.nil?
+            if arg != nil
                 @disk = arg
             else
                 @disk
@@ -94,46 +95,53 @@ module Megam
             end
         end
 
-        def properties(arg = nil)
-            if !arg.nil?
+        def properties(arg = [])
+           if arg != []
                 @properties = arg
             else
                 @properties
             end
         end
 
-        def status(arg = nil)
-            if !arg.nil?
+        def status(arg=nil)
+            if arg != nil
                 @status = arg
             else
                 @status
             end
         end
 
-        def created_at(arg = nil)
-         if !arg.nil?
-          @created_at = arg
-         else
-          @created_at
-         end
+        def created_at(arg=nil)
+            if arg != nil
+                @created_at = arg
+            else
+                @created_at
+            end
         end
 
-        def updated_at(arg = nil)
-         if !arg.nil?
-          @updated_at = arg
-         else
-          @updated_at
-         end
+         def updated_at(arg=nil)
+            if arg != nil
+                @updated_at = arg
+            else
+                @updated_at
+            end
         end
-
 
         def error?
             crocked = true if some_msg.key?(:msg_type) && some_msg[:msg_type] == 'error'
         end
 
+        def some_msg(arg=nil)
+            if arg != nil
+                @some_msg = arg
+            else
+                @some_msg
+            end
+        end
+
         # Transform the ruby obj ->  to a Hash
         def to_hash
-            index_hash = {}
+            index_hash = Hash.new
             index_hash['json_claz'] = self.class.name
             index_hash['id'] = id
             index_hash['org_id'] = org_id
@@ -148,6 +156,7 @@ module Megam
             index_hash['status'] = status
             index_hash['created_at'] = created_at
             index_hash['updated_at'] = updated_at
+            index_hash["some_msg"] = some_msg
             index_hash
         end
 
@@ -184,44 +193,48 @@ module Megam
             fav.account_id(o["account_id"]) if o.has_key?("account_id")
             fav.name(o['name']) if o.key?('name')
             fav.cpu(o['cpu']) if o.key?('cpu')
-            fav.cpu(o['ram']) if o.key?('ram')
-            fav.cpu(o['disk']) if o.key?('disk')
-            fav.cpu(o['regions']) if o.key?('regions')
-            fav.cpu(o['price']) if o.key?('price')
-            fav.cpu(o['properties']) if o.key?('properties')
+            fav.ram(o['ram']) if o.key?('ram')
+            fav.disk(o['disk']) if o.key?('disk')
+            fav.regions(o['regions']) if o.key?('regions')
+            fav.price(o['price']) if o.key?('price')
+            fav.properties(o['properties']) if o.key?('properties')
             fav.status(o['status']) if o.key?('status')
             fav.created_at(o['created_at']) if o.key?('created_at')
             fav.updated_at(o['updated_at']) if o.key?('updated_at')
+            fav.some_msg[:code] = o["code"] if o.has_key?("code")
+            fav.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+            fav.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+            fav.some_msg[:links] = o["links"] if o.has_key?("links")
             fav
         end
 
         def self.from_hash(o)
-            fav = new(o)
+            fav = self.new(o)
             fav.from_hash(o)
             fav
         end
 
         def from_hash(o)
-            @id                = o['id'] if o.key?('id')
-            @org_id            = o['org_id'] if o.key?('org_id')
-            @account_id        = o["account_id"] if o.has_key?("account_id")
-            @name              = o['name'] if o.key?('name')
-            @cpu               = o['cpu'] if o.key?('cpu')
-            @ram               = o['ram'] if o.key?('ram')
-            @disk              = o['disk'] if o.key?('disk')
-            @regions           = o['regions'] if o.key?('regions')
-            @price             = o['price'] if o.key?('price')
-            @properties        = o['properties'] if o.key?('properties')
-            @status            = o['status'] if o.key?('status')
-            @created_at        = o['created_at'] if o.key?('created_at')
-            @updated_at        = o['updated_at'] if o.key?('updated_at')
+            @id       = o[:id] if o.has_key?(:id)
+            @org_id        = o[:org_id] if o.has_key?(:org_id)
+            @account_id       = o[:account_id] if o.has_key?(:account_id)
+            @name            = o[:name] if o.has_key?(:name)
+            @cpu            = o[:cpu] if o.has_key?(:cpu)
+            @ram            = o[:ram] if o.has_key?(:ram)
+            @disk            = o[:disk] if o.has_key?(:disk)
+            @regions            = o[:regions] if o.has_key?(:regions)
+            @price            = o[:price] if o.has_key?(:price)
+            @properties            = o[:properties] if o.has_key?(:properties)
+            @status            = o[:status] if o.has_key?(:status)
+            @created_at            = o[:created_at] if o.has_key?(:created_at)
+            @updated_at            = o[:updated_at] if o.has_key?(:updated_at)
             self
         end
 
 
         def self.show(params)
-            fav = new(params)
-            fav.megam_rest.get_one_flavor(params['name'])
+            fav = self.new(params)
+            fav.megam_rest.get_one_flavor(params[:name])
         end
 
         def self.list(params)
