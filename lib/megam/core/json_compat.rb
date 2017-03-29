@@ -54,8 +54,8 @@ module Megam
         MEGAM_EVENTSVMCOLLECTION              = 'Megam::EventsVmCollection'.freeze
         MEGAM_EVENTSCONTAINER                 = 'Megam::EventsContainer'.freeze
         MEGAM_EVENTSCONTAINERCOLLECTION       = 'Megam::EventsContainerCollection'.freeze
-        MEGAM_EVENTSMARKETPLACES              = 'Megam::EventsMarketplaces'.freeze
-        MEGAM_EVENTSMARKETPLACESCOLLECTION    = 'Megam::EventsMarketplacesCollection'.freeze
+        MEGAM_EVENTSMARKETPLACE               = 'Megam::EventsMarketplace'.freeze
+        MEGAM_EventsMarketplaceCollection     = 'Megam::EventsMarketplaceCollection'.freeze
         MEGAM_EVENTSBILLING                   = 'Megam::EventsBilling'.freeze
         MEGAM_EVENTSBILLINGCOLLECTION         = 'Megam::EventsBillingCollection'.freeze
         MEGAM_EVENTSSTORAGE                   = 'Megam::EventsStorage'.freeze
@@ -68,6 +68,8 @@ module Megam
         MEGAM_REPORTSCOLLECTION               = 'Megam::ReportsCollection'.freeze
         MEGAM_QUOTAS                          = 'Megam::Quotas'.freeze
         MEGAM_QUOTASCOLLECTION                = 'Megam::QuotasCollection'.freeze
+        MEGAM_FLAVORS                         = 'Megam::Flavors'.freeze
+        MEGAM_FLAVORSCOLLECTION               = 'Megam::FlavorsCollection'.freeze
         MEGAM_RAWIMAGES                       = 'Megam::Rawimages'.freeze
         MEGAM_RAWIMAGESCOLLECTION             = 'Megam::RawimagesCollection'.freeze
         MEGAM_PROMOS                          = 'Megam::Promos'.freeze
@@ -184,14 +186,18 @@ module Megam
                     Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
                     Megam::EventsVmCollection
-                when MEGAM_EVENTSMARKETPLACES
-                    Megam::EventsMarketplaces
-                when MEGAM_EVENTSMARKETPLACESCOLLECTION
-                    Megam::EventsMarketplacesCollection
+                when MEGAM_EVENTSMARKETPLACE
+                    Megam::EventsMarketplace
+                when MEGAM_EventsMarketplaceCollection
+                    Megam::EventsMarketplaceCollection
                 when MEGAM_LICENSE
                     Megam::License
                 when MEGAM_LICENSECOLLECTION
                     Megam::LicenseCollection
+                when MEGAM_FLAVORS
+                    Megam::Flavors
+                when MEGAM_FLAVORSCOLLECTION
+                    Megam::FlavorsCollection
                 when MEGAM_EVENTSALL
                     Megam::EventsAll
                 when MEGAM_EVENTSALLCOLLECTION

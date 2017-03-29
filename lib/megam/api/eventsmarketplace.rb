@@ -1,8 +1,8 @@
 module Megam
   class API
     # GET /nodes
-    def list_eventsMarketplaces(limit)
-      @options = {:path => "/eventsmarketplaces/#{limit}",:body => ""}.merge(@options)
+    def list_eventsMarketplace(limit)
+      @options = {:path => "/eventsmarketplace/#{limit}",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
@@ -12,8 +12,8 @@ module Megam
     end
 
 
-    def get_eventsMarketplaces(limit, new_events)
-      @options = {:path => "/eventsmarketplaces/show/#{limit}",
+    def get_eventsMarketplace(limit, new_events)
+      @options = {:path => "/eventsmarketplace/show/#{limit}",
         :body => Megam::JSONCompat.to_json(new_events)}.merge(@options)
       request(
         :expects  => 200,
@@ -22,8 +22,8 @@ module Megam
       )
     end
 
-    def index_eventsMarketplaces
-      @options = {:path => "/eventsmarketplaces",:body => ""}.merge(@options)
+    def index_eventsMarketplace
+      @options = {:path => "/eventsmarketplace",:body => ""}.merge(@options)
 
       request(
         :expects  => 200,
