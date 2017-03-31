@@ -10,8 +10,8 @@ module Megam
             )
         end
 
-        def get_one_flavor(name)
-          @options = { path: "/flavors/#{name}", body: '' }.merge(@options)
+        def get_one_flavor(id)
+          @options = { path: "/flavors/#{id}", body: '' }.merge(@options)
 
           request(
             expects: 200,

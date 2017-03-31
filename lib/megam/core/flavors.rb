@@ -11,6 +11,7 @@ module Megam
             @regions = []
             @price = []
             @properties = []
+            @category = []
             @status = nil
             @created_at = nil
             @updated_at = nil
@@ -18,12 +19,12 @@ module Megam
             super(o)
         end
 
-                def flavors
-                    self
-                end
+        def flavors
+            self
+        end
 
         def id(arg = nil)
-           if arg != nil
+            if arg != nil
                 @id = arg
             else
                 @id
@@ -31,23 +32,23 @@ module Megam
         end
 
         def org_id(arg = nil)
-         if arg != nil
-          @org_id = arg
-         else
-          @org_id
-         end
+            if arg != nil
+                @org_id = arg
+            else
+                @org_id
+            end
         end
 
         def account_id(arg=nil)
-         if arg != nil
-          @account_id = arg
-         else
-          @account_id
-         end
+            if arg != nil
+                @account_id = arg
+            else
+                @account_id
+            end
         end
 
         def name(arg = nil)
-          if arg != nil
+            if arg != nil
                 @name = arg
             else
                 @name
@@ -56,7 +57,7 @@ module Megam
 
 
         def cpu(arg = nil)
-           if arg != nil
+            if arg != nil
                 @cpu = arg
             else
                 @cpu
@@ -96,10 +97,18 @@ module Megam
         end
 
         def properties(arg = [])
-           if arg != []
+            if arg != []
                 @properties = arg
             else
                 @properties
+            end
+        end
+
+        def category(arg = [])
+            if arg != []
+                @category = arg
+            else
+                @category
             end
         end
 
@@ -119,7 +128,7 @@ module Megam
             end
         end
 
-         def updated_at(arg=nil)
+        def updated_at(arg=nil)
             if arg != nil
                 @updated_at = arg
             else
@@ -131,6 +140,7 @@ module Megam
             crocked = true if some_msg.key?(:msg_type) && some_msg[:msg_type] == 'error'
         end
 
+
         def some_msg(arg=nil)
             if arg != nil
                 @some_msg = arg
@@ -138,6 +148,7 @@ module Megam
                 @some_msg
             end
         end
+
 
         # Transform the ruby obj ->  to a Hash
         def to_hash
@@ -153,6 +164,7 @@ module Megam
             index_hash['regions'] = regions
             index_hash['price'] = price
             index_hash['properties'] = properties
+            index_hash['category'] = category
             index_hash['status'] = status
             index_hash['created_at'] = created_at
             index_hash['updated_at'] = updated_at
@@ -178,6 +190,7 @@ module Megam
                 'regions' => regions,
                 'price' => price,
                 'properties' => properties,
+                'category' => category,
                 'status' => status,
                 'created_at' => created_at,
                 'updated_at' => updated_at
@@ -198,6 +211,7 @@ module Megam
             fav.regions(o['regions']) if o.key?('regions')
             fav.price(o['price']) if o.key?('price')
             fav.properties(o['properties']) if o.key?('properties')
+            fav.category(o['category']) if o.key?('category')
             fav.status(o['status']) if o.key?('status')
             fav.created_at(o['created_at']) if o.key?('created_at')
             fav.updated_at(o['updated_at']) if o.key?('updated_at')
@@ -209,9 +223,9 @@ module Megam
         end
 
         def self.from_hash(o)
-            fav = self.new(o)
-            fav.from_hash(o)
-            fav
+            sps = self.new(o)
+            sps.from_hash(o)
+            sps
         end
 
         def from_hash(o)
@@ -225,23 +239,14 @@ module Megam
             @regions            = o[:regions] if o.has_key?(:regions)
             @price            = o[:price] if o.has_key?(:price)
             @properties            = o[:properties] if o.has_key?(:properties)
+            @category            = o[:category] if o.has_key?(:category)
             @status            = o[:status] if o.has_key?(:status)
             @created_at            = o[:created_at] if o.has_key?(:created_at)
             @updated_at            = o[:updated_at] if o.has_key?(:updated_at)
             self
         end
 
-
-        def self.show(params)
-            fav = self.new(params)
-            fav.megam_rest.get_one_flavor(params[:name])
-        end
-
-        def self.list(params)
-            fav = self.new(params)
-            fav.megam_rest.get_flavors
-        end
-
+        # Create the node via the REST API
         def self.create(params)
             fav = from_hash(params)
             fav.create
@@ -251,13 +256,25 @@ module Megam
             megam_rest.post_flavors(to_hash)
         end
 
-        def update
-            megam_rest.update_flavors(to_hash)
+
+
+        def self.list(params)
+            fav = self.new(params)
+            fav.megam_rest.get_flavors
+        end
+
+        def self.show(params)
+            fav = self.new(params)
+            fav.megam_rest.get_one_flavor(params[:id])
         end
 
         def self.update(params)
             fav = from_hash(params)
             fav.update
+        end
+
+        def update
+         megam_rest.update_flavors(to_hash)
         end
 
         def self.remove(o)
@@ -272,5 +289,6 @@ module Megam
         def to_s
             Megam::Stuff.styled_hash(to_hash)
         end
+
     end
 end
