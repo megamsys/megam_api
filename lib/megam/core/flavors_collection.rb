@@ -3,7 +3,6 @@ module Megam
         include Enumerable
 
         attr_reader :iterator
-
         def initialize
             @flavors = Array.new
             @flavors_by_name = Hash.new
@@ -21,14 +20,14 @@ module Megam
         def []=(index, arg)
             is_megam_flavors(arg)
             @flavors[index] = arg
-            @flavors_by_name[arg.name] = index
+            @flavors_by_name[arg.account_id] = index
         end
 
         def <<(*args)
             args.flatten.each do |a|
                 is_megam_flavors(a)
                 @flavors << a
-                @flavors_by_name[a.name] =@flavors.length - 1
+                @flavors_by_name[a.account_id] = @flavors.length - 1
             end
             self
         end
@@ -39,19 +38,19 @@ module Megam
         def insert(flavors)
             is_megam_flavors(flavors)
             if @insert_after_idx
-                # in the middle of executing a run, so any flavors inserted now should
+                # in the middle of executing a run, so any nodes inserted now should
                 # be placed after the most recent addition done by the currently executing
-                # flavors
+                # node
                 @flavors.insert(@insert_after_idx + 1, flavors)
-                # update name -> location mappings and register new flavors
+                # update name -> location mappings and register new node
                 @flavors_by_name.each_key do |key|
-                    @flavors_by_name[key] += 1 if@flavors_by_name[key] > @insert_after_idx
+                    @flavors_by_name[key] += 1 if @flavors_by_name[key] > @insert_after_idx
                 end
-                @flavors_by_name[flavors.name] = @insert_after_idx + 1
+                @flavors_by_name[flavors.account_id] = @insert_after_idx + 1
                 @insert_after_idx += 1
             else
                 @flavors << flavors
-                @flavors_by_name[flavors.name] =@flavors.length - 1
+                @flavors_by_name[flavors.account_id] = @flavors.length - 1
             end
         end
 
@@ -73,16 +72,16 @@ module Megam
 
         def lookup(flavors)
             lookup_by = nil
-            if flavors.kind_of?(Megam::Flavors)
-                lookup_by = flavors.name
+            if events.kind_of?(Megam::Flavors)
+                lookup_by = flavors.account_id
             elsif flavors.kind_of?(String)
                 lookup_by = flavors
             else
-                raise ArgumentError, "Must pass a Megam::flavors or String to lookup"
+                raise ArgumentError, "Must pass a Megam::Flavors or String to lookup"
             end
-            res =@flavors_by_name[lookup_by]
+            res = @flavors_by_name[lookup_by]
             unless res
-                raise ArgumentError, "Cannot find a flavors matching #{lookup_by} (did you define it first?)"
+                raise ArgumentError, "Cannot find a node matching #{lookup_by} (did you define it first?)"
             end
             @flavors[res]
         end
