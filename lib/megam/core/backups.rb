@@ -148,7 +148,7 @@ module Megam
 
         def for_json
             result = {
-              "id" => id,
+                "id" => id,
                 "account_id" => account_id,
                 "asm_id" => asm_id,
                 "org_id" => org_id,
@@ -217,6 +217,11 @@ module Megam
         # Create the node via the REST API
         def create
             megam_rest.post_backups(to_hash)
+        end
+
+        def self.listall(params)
+            sps = self.new(params)
+            sps.megam_rest.list_backups
         end
 
         # Load a account by email_p

@@ -36,7 +36,7 @@ module Megam
 
             attr_reader :domain, :keypairoption, :root_password, :sshkey, :provider, :cpu, :ram, :hdd,
             :version, :display_name, :password, :region, :flavor_id, :storage_hddtype,
-            :public_ipv4, :private_ipv4, :public_ipv6, :private_ipv6, :bitnami_username, :bitnami_password, :root_username, :backup, :backup_name, :quota_ids,:app_username, :app_password, :user_launch_patternname, :flavor_id
+            :public_ipv4, :private_ipv4, :public_ipv6, :private_ipv6, :bitnami_username, :bitnami_password, :root_username, :backup, :backup_name, :backup_id, :quota_ids,:app_username, :app_password, :user_launch_patternname, :flavor_id
 
             ATTRIBUTES = [
                 :domain,
@@ -61,6 +61,7 @@ module Megam
                 :root_username,
                 :backup,
                 :backup_name,
+                :backup_id,
                 :quota_ids,
 		            :user_launch_patternname,]
 
