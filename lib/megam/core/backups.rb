@@ -148,7 +148,7 @@ module Megam
 
         def for_json
             result = {
-              "id" => id,
+                "id" => id,
                 "account_id" => account_id,
                 "asm_id" => asm_id,
                 "org_id" => org_id,
@@ -219,15 +219,20 @@ module Megam
             megam_rest.post_backups(to_hash)
         end
 
+        def self.listall(params)
+            sps = self.new(params)
+            sps.megam_rest.list_backups
+        end
+
         # Load a account by email_p
-        def self.show(o)
+        def self.list(o)
             sps = self.new(o)
             sps.megam_rest.get_backups(o[:id])
         end
 
-        def self.list(params)
-            sps = self.new(params)
-            sps.megam_rest.list_backups
+        def self.show(o)
+            sps = self.new(o)
+            sps.megam_rest.get_one_backup(o[:id])
         end
 
         def update
