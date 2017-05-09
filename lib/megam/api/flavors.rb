@@ -46,7 +46,7 @@ module Megam
                       :body => ''}.merge(@options)
 
            request(
-           :expects  => 200,
+           :expects  => 201,
            :method   => :delete,
            :body     => @options[:body]
            )
