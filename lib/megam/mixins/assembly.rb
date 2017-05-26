@@ -6,6 +6,9 @@ module Megam
     class Mixins
         class Assembly
             attr_reader :id, :name, :components, :policies, :outputs, :envs, :mixins
+            DEFAULT_VERTICE_PREFIX  = 'vertice'.freeze
+            DEFAULT_DOCKER_PREFIX   = 'docker'.freeze
+            TORPEDO = 'TORPEDO'.freeze
             def initialize(params)
                 params = Hash[params.map { |k, v| [k.to_sym, v] }]
                 @id = params[:id] || params[:assemblyID] || ''
@@ -13,6 +16,7 @@ module Megam
                 @mixins = CommonDeployable.new(params)
                 @outputs = Outputs.new(params)
                 @components = add_components(params)
+                @tosca_type = add_assembly_tosca_type(params)
                 @policies = []
             end
 
@@ -23,6 +27,7 @@ module Megam
                 result[:components] = @components if @components
                 result[:outputs] = @outputs.to_array if @outputs
                 result[:policies] = @policies if @policies
+                result[:tosca_type] = @tosca_type if @tosca_type
                 result
             end
 
@@ -40,6 +45,15 @@ module Megam
                     @components = []
                 end
             end
+
+            def add_assembly_tosca_type(params)
+                if params[:scm_name] == DEFAULT_DOCKER_PREFIX
+                    @tosca_type = params[:scm_name] + ".#{TORPEDO.downcase}.#{params[:os_name].downcase}" if params[:os_name] != nil
+                else
+                    @tosca_type = DEFAULT_VERTICE_PREFIX + ".#{TORPEDO.downcase}.#{params[:os_name].downcase}" if params[:os_name] != nil
+                end
+            end
+
         end
     end
 end

@@ -40,6 +40,8 @@ module Megam
         MEGAM_SENSORSCOLLECTION               = 'Megam::SensorsCollection'.freeze
         MEGAM_SNAPSHOTS                       = 'Megam::Snapshots'.freeze
         MEGAM_SNAPSHOTSCOLLECTION             = 'Megam::SnapshotsCollection'.freeze
+        MEGAM_BACKUPS                         = 'Megam::Backups'.freeze
+        MEGAM_BACKUPSCOLLECTION               = 'Megam::BackupsCollection'.freeze
         MEGAM_DISKS                           = 'Megam::Disks'.freeze
         MEGAM_DISKSCOLLECTION                 = 'Megam::DisksCollection'.freeze
         MEGAM_LICENSE                         = 'Megam::License'.freeze
@@ -52,6 +54,8 @@ module Megam
         MEGAM_EVENTSVMCOLLECTION              = 'Megam::EventsVmCollection'.freeze
         MEGAM_EVENTSCONTAINER                 = 'Megam::EventsContainer'.freeze
         MEGAM_EVENTSCONTAINERCOLLECTION       = 'Megam::EventsContainerCollection'.freeze
+        MEGAM_EVENTSMARKETPLACE               = 'Megam::EventsMarketplace'.freeze
+        MEGAM_EventsMarketplaceCollection     = 'Megam::EventsMarketplaceCollection'.freeze
         MEGAM_EVENTSBILLING                   = 'Megam::EventsBilling'.freeze
         MEGAM_EVENTSBILLINGCOLLECTION         = 'Megam::EventsBillingCollection'.freeze
         MEGAM_EVENTSSTORAGE                   = 'Megam::EventsStorage'.freeze
@@ -64,6 +68,10 @@ module Megam
         MEGAM_REPORTSCOLLECTION               = 'Megam::ReportsCollection'.freeze
         MEGAM_QUOTAS                          = 'Megam::Quotas'.freeze
         MEGAM_QUOTASCOLLECTION                = 'Megam::QuotasCollection'.freeze
+        MEGAM_FLAVORS                         = 'Megam::Flavors'.freeze
+        MEGAM_FLAVORSCOLLECTION               = 'Megam::FlavorsCollection'.freeze
+        MEGAM_RAWIMAGES                       = 'Megam::Rawimages'.freeze
+        MEGAM_RAWIMAGESCOLLECTION             = 'Megam::RawimagesCollection'.freeze
         MEGAM_PROMOS                          = 'Megam::Promos'.freeze
 
 
@@ -178,10 +186,18 @@ module Megam
                     Megam::EventsVm
                 when MEGAM_EVENTSVMCOLLECTION
                     Megam::EventsVmCollection
+                when MEGAM_EVENTSMARKETPLACE
+                    Megam::EventsMarketplace
+                when MEGAM_EventsMarketplaceCollection
+                    Megam::EventsMarketplaceCollection
                 when MEGAM_LICENSE
                     Megam::License
                 when MEGAM_LICENSECOLLECTION
                     Megam::LicenseCollection
+                when MEGAM_FLAVORS
+                    Megam::Flavors
+                when MEGAM_FLAVORSCOLLECTION
+                    Megam::FlavorsCollection
                 when MEGAM_EVENTSALL
                     Megam::EventsAll
                 when MEGAM_EVENTSALLCOLLECTION
@@ -218,6 +234,10 @@ module Megam
                     Megam::Snapshots
                 when MEGAM_SNAPSHOTSCOLLECTION
                     Megam::SnapshotsCollection
+                  when MEGAM_BACKUPS
+                      Megam::Backups
+                  when MEGAM_BACKUPSCOLLECTION
+                      Megam::BackupsCollection
                 when MEGAM_BALANCES
                     Megam::Balances
                 when MEGAM_BALANCESCOLLECTION
@@ -254,6 +274,10 @@ module Megam
                     Megam::Quotas
                 when MEGAM_QUOTASCOLLECTION
                     Megam::QuotasCollection
+                when MEGAM_RAWIMAGES
+                     Megam::Rawimages
+                when MEGAM_RAWIMAGESCOLLECTION
+                    Megam::RawimagesCollection
                 when MEGAM_PROMOS
                     Megam::Promos
                 else

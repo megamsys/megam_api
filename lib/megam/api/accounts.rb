@@ -58,6 +58,17 @@ module Megam
       )
     end
 
+    def delete_accounts(delete_account)
+      @options = {path: "/admin/accounts/#{delete_account["user_email"]}",
+                  :body => ''}.merge(@options)
+
+       request(
+       :expects  => 200,
+       :method   => :delete,
+       :body     => @options[:body]
+       )
+    end
+
     def password_reset(account)
       @options = {:path => "/accounts/password_reset", passthru: true,
                   body: Megam::JSONCompat.to_json(account)}.merge(@options)

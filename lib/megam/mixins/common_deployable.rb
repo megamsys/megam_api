@@ -4,14 +4,8 @@ module Megam
     class Mixins
         class CommonDeployable
             include Nilavu::MegamAttributes
-            attr_reader :status, :state, :inputs, :tosca_type
-
-              DEFAULT_VERTICE_PREFIX  = 'vertice'.freeze
-              DEFAULT_BITNAMI_PREFIX  = 'bitnami'.freeze
-              DEFAULT_DOCKER_PREFIX   = 'docker'.freeze
-
+            attr_reader :status, :state, :inputs
             ATTRIBUTES = [
-                :tosca_type,
                 :status,
                 :state,
             :inputs]
@@ -21,10 +15,8 @@ module Megam
             end
 
             def initialize(params)
-                @tosca_type = ''
                 @status = 'initialized'
                 @state = 'initialized'
-                bld_toscatype(params)
                 set_attributes(params)
                 @inputs = InputGroupData.new(params)
 
@@ -34,21 +26,8 @@ module Megam
                 h = {
                     status: status,
                     state: state,
-                    tosca_type: tosca_type,
                     inputs: inputs.to_hash
                 }
-            end
-
-            def bld_toscatype(params)
-                case params[:scm_name]
-              when DEFAULT_BITNAMI_PREFIX
-                @tosca_type = DEFAULT_BITNAMI_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
-              when DEFAULT_DOCKER_PREFIX
-                @tosca_type = DEFAULT_DOCKER_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
-              else
-                @tosca_type = DEFAULT_VERTICE_PREFIX + ".#{params[:cattype].downcase}.#{params[:mkp_name].downcase}" if params[:cattype] != nil  && params[:mkp_name] != nil
-              end
-
             end
         end
 
@@ -56,10 +35,8 @@ module Megam
             include Nilavu::MegamAttributes
 
             attr_reader :domain, :keypairoption, :root_password, :sshkey, :provider, :cpu, :ram, :hdd,
-            :version, :display_name, :password, :region, :resource, :storage_hddtype,
-            :ipv4public, :ipv4private, :ipv6public, :ipv6private, :bitnami_username, :bitnami_password, :root_username, :snapshot, :snap_name, :quota_id,
-            :vm_cpu_cost_per_hour, :vm_ram_cost_per_hour,
-            :vm_disk_cost_per_hour, :container_cpu_cost_per_hour, :container_memory_cost_per_hour
+            :version, :display_name, :password, :region, :flavor_id, :storage_hddtype,
+            :public_ipv4, :private_ipv4, :public_ipv6, :private_ipv6, :bitnami_username, :bitnami_password, :root_username, :backup, :backup_name, :backup_id, :quota_ids,:app_username, :app_password, :user_launch_patternname, :flavor_id
 
             ATTRIBUTES = [
                 :domain,
@@ -67,30 +44,26 @@ module Megam
                 :root_password,
                 :sshkey,
                 :provider,
-                :cpu,
-                :ram,
-                :hdd,
                 :version,
                 :display_name,
                 :password,
                 :region,
-                :resource,
+                :flavor_id,
                 :storage_hddtype,
-                :ipv4private,
-                :ipv4public,
-                :ipv6private,
-                :ipv6public,
+                :private_ipv4,
+                :public_ipv4,
+                :private_ipv6,
+                :public_ipv6,
                 :bitnami_password,
                 :bitnami_username,
+                :app_username,
+                :app_password,
                 :root_username,
-                :snapshot,
-                :snap_name,
-                :quota_id,
-                :vm_cpu_cost_per_hour,
-                :vm_ram_cost_per_hour,
-                :vm_disk_cost_per_hour,
-                :container_cpu_cost_per_hour,
-                :container_memory_cost_per_hour]
+                :backup,
+                :backup_name,
+                :backup_id,
+                :quota_ids,
+		            :user_launch_patternname,]
 
             def attributes
                 ATTRIBUTES

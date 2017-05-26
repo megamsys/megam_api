@@ -1,21 +1,19 @@
 module Megam
-    class Quotas < Megam::RestAdapter
+    class Rawimages < Megam::RestAdapter
         def initialize(o)
             @id = nil
             @account_id = nil
             @name = nil
-            @cost = nil
-            @allowed = nil
-            @allocated_to = nil
-            @quota_type = nil
+            @repos = nil
             @status = nil
             @inputs = []
             @created_at = nil
             @updated_at = nil
+            @org_id = nil
             super(o)
         end
 
-        def quotas
+        def rawimages
             self
         end
 
@@ -27,14 +25,6 @@ module Megam
             end
         end
 
-        def account_id(arg=nil)
-            if arg != nil
-                @account_id = arg
-            else
-                @account_id
-            end
-        end
-
         def name(arg = nil)
             if !arg.nil?
                 @name = arg
@@ -43,19 +33,19 @@ module Megam
             end
         end
 
-        def allowed(arg = nil)
-            if !arg.nil?
-                @allowed = arg
+        def account_id(arg=nil)
+            if arg != nil
+                @account_id = arg
             else
-                @allowed
+                @account_id
             end
         end
 
-        def allocated_to(arg = nil)
+        def repos(arg = nil)
             if !arg.nil?
-                @allocated_to = arg
+                @repos = arg
             else
-                @allocated_to
+                @repos
             end
         end
 
@@ -64,14 +54,6 @@ module Megam
                 @inputs = arg
             else
                 @inputs
-            end
-        end
-
-        def quota_type(arg = nil)
-            if !arg.nil?
-                @quota_type = arg
-            else
-                @quota_type
             end
         end
 
@@ -99,6 +81,14 @@ module Megam
          end
         end
 
+        def org_id(arg = nil)
+         if !arg.nil?
+          @org_id = arg
+         else
+          @org_id
+         end
+        end
+
         def error?
             crocked = true if some_msg.key?(:msg_type) && some_msg[:msg_type] == 'error'
         end
@@ -108,11 +98,10 @@ module Megam
             index_hash = {}
             index_hash['json_claz'] = self.class.name
             index_hash['id'] = id
+            index_hash['org_id'] = org_id
             index_hash["account_id"] = account_id
             index_hash['name'] = name
-            index_hash['allowed'] = allowed
-            index_hash['allocated_to'] = allocated_to
-            index_hash['quota_type'] = quota_type
+            index_hash['repos'] = repos
             index_hash['status'] = status
             index_hash['inputs'] = inputs
             index_hash['created_at'] = created_at
@@ -131,10 +120,9 @@ module Megam
                 'id' => id,
                 'account_id' => account_id,
                 'name' => name,
-                'allowed' => allowed,
-                'allocated_to' => allocated_to,
+                'org_id' => org_id,
+                'repos' => repos,
                 'inputs' => inputs,
-                'quota_type' => quota_type,
                 'status' => status,
                 'created_at' => created_at,
                 'updated_at' => updated_at
@@ -146,12 +134,11 @@ module Megam
         def self.json_create(o)
             quo = new({})
             quo.id(o['id']) if o.key?('id')
+            quo.org_id(o['org_id']) if o.key?('org_id')
             quo.account_id(o["account_id"]) if o.has_key?("account_id")
             quo.name(o['name']) if o.key?('name')
-            quo.allowed(o['allowed']) if o.key?('allowed')
-            quo.allocated_to(o['allocated_to']) if o.key?('allocated_to') # this will be an array? can hash store array?
+            quo.repos(o['repos']) if o.key?('repos')
             quo.inputs(o['inputs']) if o.key?('inputs')
-            quo.quota_type(o['quota_type']) if o.key?('quota_type')
             quo.status(o['status']) if o.key?('status')
             quo.created_at(o['created_at']) if o.key?('created_at')
             quo.updated_at(o['updated_at']) if o.key?('updated_at')
@@ -166,12 +153,12 @@ module Megam
 
         def from_hash(o)
             @id                = o['id'] if o.key?('id')
+            @org_id            = o['org_id'] if o.key?('org_id')
             @account_id        = o["account_id"] if o.has_key?("account_id")
             @name              = o['name'] if o.key?('name')
-            @allowed           = o['allowed'] if o.key?('allowed')
-            @allocated_to      = o['allocated_to'] if o.key?('allocated_to')
+            @region            = o['region'] if o.key?('region')
+            @repos             = o['repos'] if o.key?('repos')
             @inputs            = o['inputs'] if o.key?('inputs')
-            @quota_type        = o['quota_type'] if o.key?('quota_type')
             @status            = o['status'] if o.key?('status')
             @created_at        = o['created_at'] if o.key?('created_at')
             @updated_at        = o['updated_at'] if o.key?('updated_at')
@@ -181,17 +168,12 @@ module Megam
 
         def self.show(params)
             quo = new(params)
-            quo.megam_rest.get_one_quota(params['id'])
-        end
-
-        def self.update(params)
-            quo = from_hash(params)
-            quo.update
+            quo.megam_rest.get_one_rawimage(params['id'])
         end
 
         def self.list(params)
             quo = self.new(params)
-            quo.megam_rest.list_quotas
+            quo.megam_rest.list_rawimages
         end
 
         def self.create(params)
@@ -200,13 +182,10 @@ module Megam
         end
 
         def create
-            megam_rest.post_quotas(to_hash)
+            megam_rest.post_rawimages(to_hash)
         end
 
         # Create the node via the REST API
-        def update
-            megam_rest.update_quotas(to_hash)
-        end
 
         def to_s
             Megam::Stuff.styled_hash(to_hash)

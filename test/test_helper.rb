@@ -7,8 +7,7 @@ require 'time'
 
 SANDBOX_HOST_OPTIONS = {
     :scheme => 'http',
-    #:host => 'localhost',
-    #:host => 'cloud.det.io',
+    :host => 'http://localhost:9000/v2',
     :nonblock => false,
     :port => 9000
 }
@@ -21,8 +20,8 @@ end
 
 def megams_new(options={})
     s_options = SANDBOX_HOST_OPTIONS.merge({
-        :email => "test@megam.io",
-        :api_key => "faketest"
+      :email => "cd@ss.co",
+      :api_key => "1189a21d8965ee670536cbb61fd9f5afed8489c0",
     })
     options = s_options.merge(options)
     mg=Megam::API.new(options)
@@ -30,12 +29,11 @@ end
 
 def megams(options={})
     s_options = SANDBOX_HOST_OPTIONS.merge({
-        :email => "rajeshr@virtengine.com",
-        :api_key => "5e08ad5a1a3c89910a2e51fb522812fee4560baa",
-        :org_id => "ORG6974933279242510669",
+        :email => "cd@ss.co",
+        :api_key => "1189a21d8965ee670536cbb61fd9f5afed8489c0",
+        :org_id => "ORG8385278424580953898",
         #:password => "bWVnYW0="
     })
-
 
     Megam::Log.level(:debug)
     options = s_options.merge(options)

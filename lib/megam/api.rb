@@ -26,13 +26,17 @@ require 'megam/api/sensors'
 require 'megam/api/sshkeys'
 require 'megam/api/eventsall'
 require 'megam/api/eventsvm'
+require 'megam/api/eventsmarketplace'
 require 'megam/api/license'
+require 'megam/api/flavors'
 require 'megam/api/eventscontainer'
 require 'megam/api/eventsbilling'
 require 'megam/api/eventsstorage'
 require 'megam/api/snapshots'
+require 'megam/api/backups'
 require 'megam/api/reports'
 require 'megam/api/quotas'
+require 'megam/api/rawimages'
 require 'megam/api/disks'
 require 'megam/api/subscriptions'
 require 'megam/api/addons'
@@ -59,12 +63,16 @@ require 'megam/core/request'
 require 'megam/core/request_collection'
 require 'megam/core/license'
 require 'megam/core/license_collection'
+require 'megam/core/flavors'
+require 'megam/core/flavors_collection'
 require 'megam/core/sshkey'
 require 'megam/core/sshkey_collection'
 require 'megam/core/eventsall'
-require 'megam/core/eventsvm'
 require 'megam/core/eventsall_collection'
+require 'megam/core/eventsvm'
 require 'megam/core/eventsvm_collection'
+require 'megam/core/eventsmarketplace'
+require 'megam/core/eventsmarketplace_collection'
 require 'megam/core/eventscontainer'
 require 'megam/core/eventscontainer_collection'
 require 'megam/core/eventsbilling'
@@ -88,10 +96,14 @@ require 'megam/core/sensors'
 require 'megam/core/sensors_collection'
 require 'megam/core/snapshots'
 require 'megam/core/snapshots_collection'
+require 'megam/core/backups'
+require 'megam/core/backups_collection'
 require 'megam/core/reports'
 require 'megam/core/reports_collection'
 require 'megam/core/quotas'
 require 'megam/core/quotas_collection'
+require 'megam/core/rawimages'
+require 'megam/core/rawimages_collection'
 require 'megam/core/disks'
 require 'megam/core/disks_collection'
 require 'megam/core/balances_collection'
@@ -215,6 +227,7 @@ module Megam
         end
 
         def ensure_host_is_flattened
+
             uri          = URI(@options.delete(:host)) if @options.has_key?(:host)
 
             scheme       = (uri && uri.scheme) ? uri.scheme : 'http'
@@ -282,7 +295,6 @@ module Megam
 
         def encode_header
             body_base64 = Base64.urlsafe_encode64(OpenSSL::Digest::MD5.digest(@options[:body]))
-
             current_date = Time.now.strftime('%Y-%m-%d %H:%M')
 
             movingFactor = "#{current_date}" + "\n" + "#{@options[:path]}" + "\n" + "#{body_base64}"
@@ -295,8 +307,9 @@ module Megam
                 hash = OpenSSL::HMAC.hexdigest(digest, @api_key, movingFactor)
             elsif masterkey_combo_missing?
                 hash = OpenSSL::HMAC.hexdigest(digest, @master_key, movingFactor)
+            else
+                hash = ""
             end
-
             { hmac: (@email + ':' + hash), date: current_date }
         end
 

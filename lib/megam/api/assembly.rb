@@ -41,5 +41,16 @@ module Megam
      )
    end
 
+   def delete_assembly(id, asms_id)
+     @options = {path: "/admin/assembly/#{asms_id}/#{id}",
+              :body => ''}.merge(@options)
+
+     request(
+     :expects  => 200,
+     :method   => :delete,
+     :body     => @options[:body]
+    )
+  end
+
   end
 end

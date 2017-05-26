@@ -2,16 +2,22 @@ module Megam
     class MarketPlace < Megam::RestAdapter
         def initialize(o)
             @id = nil
-            @settings_name = nil
+            @provided_by = nil
             @cattype = nil
+            @catorder = nil
+            @status = nil
             @flavor = nil
             @image = nil
-            @catorder = nil
             @url = nil
             @envs = []
             @options = []
-            @plans = nil
+            @inputs = []
+            @outputs = []
+            @acl_policies = []
+            @plans = []
             @created_at = nil
+            @updated_at = nil
+            @some_msg = {}
             super(o)
         end
 
@@ -19,11 +25,11 @@ module Megam
             self
         end
 
-        def settings_name(arg = nil)
+        def provided_by(arg = nil)
             if !arg.nil?
-                @settings_name = arg
+                @provided_by = arg
             else
-                @settings_name
+                @provided_by
             end
         end
 
@@ -35,8 +41,8 @@ module Megam
             end
         end
 
-        def plans(arg = nil)
-            if !arg.nil?
+        def plans(arg = [])
+            if arg != []
                 @plans = arg
             else
                 @plans
@@ -99,11 +105,51 @@ module Megam
             end
         end
 
+        def inputs(arg = [])
+            if arg != []
+                @inputs = arg
+            else
+                @inputs
+            end
+        end
+
+        def outputs(arg = [])
+            if arg != []
+                @outputs = arg
+            else
+                @outputs
+            end
+        end
+
+        def status(arg = [])
+            if arg != []
+                @status = arg
+            else
+                @status
+            end
+        end
+
+        def acl_policies(arg = [])
+            if arg != []
+                @acl_policies = arg
+            else
+                @acl_policies
+            end
+        end
+
         def created_at(arg = nil)
             if !arg.nil?
                 @created_at = arg
             else
                 @created_at
+            end
+        end
+
+        def updated_at(arg = nil)
+            if !arg.nil?
+                @updated_at = arg
+            else
+                @updated_at
             end
         end
 
@@ -124,7 +170,7 @@ module Megam
             index_hash = {}
             index_hash['json_claz'] = self.class.name
             index_hash['id'] = id
-            index_hash['settings_name'] = settings_name
+            index_hash['provided_by'] = provided_by
             index_hash['cattype'] = cattype
             index_hash['flavor'] = flavor
             index_hash['image'] = image
@@ -134,6 +180,12 @@ module Megam
             index_hash['options'] = options
             index_hash['plans'] = plans
             index_hash['created_at'] = created_at
+            index_hash['updated_at'] = updated_at
+            index_hash['status'] = status
+            index_hash['inputs'] = inputs
+            index_hash['outputs'] = outputs
+            index_hash['acl_policies'] = acl_policies
+            index_hash["some_msg"] = some_msg
             index_hash
         end
 
@@ -146,7 +198,7 @@ module Megam
         def for_json
             result = {
                 'id' => id,
-                'settings_name' => settings_name,
+                'provided_by' => provided_by,
                 'cattype' => cattype,
                 'flavor' => flavor,
                 'image' => image,
@@ -155,7 +207,12 @@ module Megam
                 'envs' => envs,
                 'options' => options,
                 'plans' => plans,
-                'created_at' => created_at
+                'created_at' => created_at,
+                'updated_at' => updated_at,
+                'status' => status,
+                'inputs' => inputs,
+                'outputs' => outputs,
+                'acl_policies' => acl_policies
             }
             result
         end
@@ -163,7 +220,7 @@ module Megam
         def self.json_create(o)
             app = new({})
             app.id(o['id']) if o.key?('id')
-            app.settings_name(o['settings_name']) if o.key?('settings_name')
+            app.provided_by(o['provided_by']) if o.key?('provided_by')
             app.cattype(o['cattype']) if o.key?('cattype')
             app.flavor(o['flavor']) if o.key?('flavor')
             app.image(o['image']) if o.key?('image')
@@ -173,7 +230,16 @@ module Megam
             app.options(o['options']) if o.key?('options')
             app.plans(o['plans']) if o.key?('plans')
             app.created_at(o['created_at']) if o.key?('created_at')
-
+            app.updated_at(o['updated_at']) if o.key?('updated_at')
+            app.inputs(o['inputs']) if o.key?('inputs')
+            app.outputs(o['outputs']) if o.key?('outputs')
+            app.status(o['status']) if o.key?('status')
+            app.acl_policies(o['acl_policies']) if o.key?('acl_policies')
+            #success or error
+            app.some_msg[:code] = o["code"] if o.has_key?("code")
+            app.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
+            app.some_msg[:msg]= o["msg"] if o.has_key?("msg")
+            app.some_msg[:links] = o["links"] if o.has_key?("links")
             app
         end
 
@@ -184,17 +250,22 @@ module Megam
         end
 
         def from_hash(o)
-            @settings_name  = o['settings_name'] if o.key?('settings_name')
+            @provided_by    = o['provided_by'] if o.key?('provided_by')
             @id             = o['id'] if o.key?('id')
             @cattype        = o['cattype'] if o.key?('cattype')
             @flavor         = o['flavor'] if o.key?('flavor')
             @image          = o['image'] if o.key?('image')
-            @catorder            = o['catorder'] if o.key?('catorder')
+            @catorder       = o['catorder'] if o.key?('catorder')
             @url            = o['url'] if o.key?('url')
             @envs           = o['envs'] if o.key?('envs')
             @options        = o['options'] if o.key?('options')
             @plans          = o['plans'] if o.key?('plans')
             @created_at     = o['created_at'] if o.key?('created_at')
+            @updated_at     = o['updated_at'] if o.key?('updated_at')
+            @status         = o['status'] if o.key?('status')
+            @inputs         = o['inputs'] if o.key?('inputs')
+            @outputs        = o['outputs'] if o.key?('outputs')
+            @acl_policies   = o['acl_policies'] if o.key?('acl_policies')
             self
         end
 
@@ -217,6 +288,16 @@ module Megam
         def self.list(params)
             app = new(params)
             app.megam_rest.get_marketplaceapps
+        end
+
+        def self.list_provider(params)
+            app = new(params)
+            app.megam_rest.get_marketplaceprovider(params['provider'])
+        end
+
+        def self.list_flavor(params)
+            app = new(params)
+            app.megam_rest.get_marketplaceflavor(params['flavor'])
         end
 
         def to_s

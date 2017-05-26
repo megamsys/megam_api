@@ -2,8 +2,9 @@ module Megam
     class Balances < Megam::RestAdapter
         def initialize(o)
             @id = nil
-            @accounts_id = nil
+            @account_id = nil
             @credit = nil
+            @biller_credit = nil
             @created_at = nil
             @updated_at = nil
             @some_msg = {}
@@ -22,11 +23,11 @@ module Megam
             end
         end
 
-        def accounts_id(arg=nil)
+        def account_id(arg=nil)
             if arg != nil
-                @accounts_id= arg
+                @account_id= arg
             else
-                @accounts_id
+                @account_id
             end
         end
 
@@ -36,6 +37,14 @@ module Megam
                 @credit = arg
             else
                 @credit
+            end
+        end
+
+        def biller_credit(arg=nil)
+            if arg != nil
+                @biller_credit = arg
+            else
+                @biller_credit
             end
         end
 
@@ -72,8 +81,9 @@ module Megam
             index_hash = Hash.new
             index_hash["json_claz"] = self.class.name
             index_hash["id"] = id
-            index_hash["accounts_id"] = accounts_id
+            index_hash["account_id"] = account_id
             index_hash["credit"] = credit
+            index_hash["biller_credit"] = biller_credit
             index_hash["created_at"] = created_at
             index_hash["updated_at"] = updated_at
             index_hash
@@ -88,8 +98,9 @@ module Megam
         def for_json
             result = {
                 "id" => id,
-                "accounts_id" => accounts_id,
+                "account_id" => account_id,
                 "credit" => credit,
+                "biller_credit" => biller_credit,
                 "created_at" => created_at,
                 "updated_at" => updated_at
             }
@@ -99,8 +110,9 @@ module Megam
         def self.json_create(o)
             balances = new({})
             balances.id(o["id"]) if o.has_key?("id")
-            balances.accounts_id(o["accounts_id"]) if o.has_key?("accounts_id")
+            balances.account_id(o["account_id"]) if o.has_key?("account_id")
             balances.credit(o["credit"]) if o.has_key?("credit")
+            balances.biller_credit(o["biller_credit"]) if o.has_key?("biller_credit")
             balances.created_at(o["created_at"]) if o.has_key?("created_at")
             balances.updated_at(o["updated_at"]) if o.has_key?("updated_at")
             #success or error
@@ -111,16 +123,17 @@ module Megam
             balances
         end
 
-        def self.from_hash(o,tmp_email=nil, tmp_api_key=nil, tmp_host=nil)
-            balances = self.new(tmp_email, tmp_api_key, tmp_host)
+        def self.from_hash(o)
+            balances = self.new(o)
             balances.from_hash(o)
             balances
         end
 
         def from_hash(o)
             @id        = o[:id] if o.has_key?(:id)
-            @accounts_id = o[:accounts_id] if o.has_key?(:accounts_id)
+            @account_id = o[:account_id] if o.has_key?(:account_id)
             @credit   = o[:credit] if o.has_key?(:credit)
+            @biller_credit   = o[:biller_credit] if o.has_key?(:biller_credit)
             @created_at   = o[:created_at] if o.has_key?(:created_at)
             @updated_at   = o[:updated_at] if o.has_key?(:updated_at)
             self
@@ -157,7 +170,7 @@ module Megam
         end
 
         def self.update(params)
-            asm = from_hash(params, params["email"], params["api_key"], params["host"])
+            asm = from_hash(params)
             asm.update
         end
 
