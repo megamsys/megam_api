@@ -168,7 +168,7 @@ module Megam
                 "status" => status,
                 "image_id" => image_id,
                 "created_at" => created_at,
-                "labels" =>label,
+                "labels" =>labels,
             }
             result
         end
