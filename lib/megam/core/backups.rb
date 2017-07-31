@@ -8,6 +8,7 @@ module Megam
             @tosca_type = nil
             @inputs = []
             @outputs = []
+            @labels = []
             @name= nil
             @status=nil
             @image_id=nil
@@ -66,6 +67,13 @@ module Megam
                 @inputs
             end
         end
+        def labels(arg=[])
+          if arg != []
+             @labels=arg
+          else
+             @labels
+           end
+       end
 
         def outputs(arg = [])
             if arg != []
@@ -129,6 +137,7 @@ module Megam
             index_hash["account_id"] = account_id
             index_hash["asm_id"] = asm_id
             index_hash["org_id"] = org_id
+            index_hash["labels"] = labels
             index_hash["tosca_type"] = tosca_type
             index_hash["inputs"] = inputs
             index_hash["outputs"] = outputs
@@ -158,7 +167,8 @@ module Megam
                 "name" => name,
                 "status" => status,
                 "image_id" => image_id,
-                "created_at" => created_at
+                "created_at" => created_at,
+                "labels" =>label,
             }
             result
         end
@@ -176,6 +186,7 @@ module Megam
             sps.status(o["status"]) if o.has_key?("status")
             sps.image_id(o["image_id"]) if o.has_key?("image_id")
             sps.created_at(o["created_at"]) if o.has_key?("created_at")
+            sps.labels(o["labels"]) if o.key?("labels")
             sps.some_msg[:code] = o["code"] if o.has_key?("code")
             sps.some_msg[:msg_type] = o["msg_type"] if o.has_key?("msg_type")
             sps.some_msg[:msg]= o["msg"] if o.has_key?("msg")
@@ -201,6 +212,7 @@ module Megam
             @status            = o[:status] if o.has_key?(:status)
             @image_id          = o[:image_id] if o.has_key?(:image_id)
             @created_at        = o[:created_at] if o.has_key?(:created_at)
+            @labels            = o[:labels] if o.key?(:labels)
             self
         end
 
